@@ -1,0 +1,73 @@
+{
+    "editor.formatOnSave": true,
+    "laravel-pint.enable": true,
+    "laravel-pint.enableDebugLogs": true,
+    "laravel-pint.configPath": "../pint.json",
+    "[php]": {
+        "editor.defaultFormatter": "open-southeners.laravel-pint"
+    },
+    "[blade]": {
+        "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    },
+    "bladeFormatter.format.enabled": true,
+    "bladeFormatter.format.indentSize": 2,
+    "bladeFormatter.format.useTabs": false,
+    "bladeFormatter.format.indentInnerHtml": false,
+    "bladeFormatter.format.noMultipleEmptyLines": true,
+    "bladeFormatter.format.noPhpSyntaxCheck": false,
+    "bladeFormatter.format.noSingleQuote": false,
+    "bladeFormatter.format.sortHtmlAttributes": "code-guide",
+    "bladeFormatter.format.sortTailwindcssClasses": true,
+    "bladeFormatter.format.wrapAttributes": "auto",
+    "bladeFormatter.format.wrapLineLength": 120,
+    "cSpell.words": [
+        "datetimes",
+        "enderror",
+        "Laravel",
+        "livewire",
+        "Spatie"
+    ],
+    "gitmoji.onlyUseCustomEmoji": true,
+    "gitmoji.addCustomEmoji": [
+        {
+            "emoji": "feat:",
+            "description": "🆕新しい機能の追加・既存機能の改修"
+        },
+        {
+            "emoji": "fix:",
+            "description": "🔧正常な動作をしない・仕様と違う挙動をする機能の修正（バグ修正）"
+        },
+        {
+            "emoji": "docs:",
+            "description": "📝ドキュメントの追加・修正"
+        },
+        {
+            "emoji": "style:",
+            "description": "🎨UIのレイアウト修正・整形"
+        },
+        {
+            "emoji": "refactor:",
+            "description": "🔄機能に影響を与えない可読性向上のための修正・ソースコードの整形"
+        },
+        {
+            "emoji": "test:",
+            "description": "🧪テストコードの追加・修正（ただし、他の接頭辞をつけるべきコードを含む場合は、その接頭辞を優先する）"
+        },
+        {
+            "emoji": "chore:",
+            "description": "🧹ライブラリの更新・ビルド環境の変更"
+        }
+    ],
+    "cSpell.ignorePaths": [
+        "**/package.json",
+        "**/package-lock.json",
+        "**/node_modules/**",
+        "**/vscode-extension/**",
+        "**/.git/objects/**",
+        ".vscode/*",
+        ".devcontainer/*",
+        "pubspec.lock",
+        "pint.json",
+        ".gitignore"
+    ]
+}
