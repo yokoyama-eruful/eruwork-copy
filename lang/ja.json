@@ -1,4 +1,11 @@
 {
+    "loginId": "ログインID",
+    "Name": "名前",
+    "Email": "メールアドレス",
+    "Password": "パスワード",
+    "Forgot your password?": "パスワードをお忘れですか？",
+    "Log in": "ログイン",
+    "Profile": "プロフィール",
     "(and :count more error)": "(その他、:countエラーあり)",
     "(and :count more errors)": "(その他、:countエラーあり)",
     "A decryption key is required.": "復号キーは必須です。",
