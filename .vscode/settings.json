@@ -21,11 +21,14 @@
     "bladeFormatter.format.wrapAttributes": "auto",
     "bladeFormatter.format.wrapLineLength": 120,
     "cSpell.words": [
+        "autofocus",
         "datetimes",
         "enderror",
+        "endforeach",
         "Laravel",
         "livewire",
-        "Spatie"
+        "Spatie",
+        "vite"
     ],
     "gitmoji.onlyUseCustomEmoji": true,
     "gitmoji.addCustomEmoji": [
