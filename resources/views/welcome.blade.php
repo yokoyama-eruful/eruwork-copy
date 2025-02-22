@@ -9,7 +9,7 @@
 
 <body>
   <h1 class="bg-blue-400 text-3xl font-bold underline">
-    Hello world!
+    <i class="fa-solid fa-house"></i>Hello world!
   </h1>
 </body>
 
