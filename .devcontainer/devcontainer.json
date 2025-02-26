@@ -1,11 +1,11 @@
 // https://aka.ms/devcontainer.json
 {
-	"name": "Irotas Project Container",
+	"name": "Eruwork Project Container",
 	"dockerComposeFile": [
 		"../docker-compose.yml"
 	],
 	"service": "laravel.test",
-	"workspaceFolder": "/var/www/irotas",
+	"workspaceFolder": "/var/www/eruwork",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -30,5 +30,5 @@
 		}
 	},
 	"remoteUser": "sail",
-	"postCreateCommand": "chown -R 1000:1000 /var/www/irotas 2>/dev/null || true"
+	"postCreateCommand": "chown -R 1000:1000 /var/www/eruwork 2>/dev/null || true"
 }
