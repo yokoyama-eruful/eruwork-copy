@@ -20,11 +20,11 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $adminUser = User::factory()->create([
-            'loginId' => 'test',
+            'login_id' => 'test',
         ]);
 
         User::factory()->create([
-            'loginId' => 'test1',
+            'login_id' => 'test1',
         ]);
 
         $adminRole = Role::create(['name' => 'admin']);

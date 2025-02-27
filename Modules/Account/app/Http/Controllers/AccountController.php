@@ -1,8 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Account\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AccountController extends Controller
@@ -12,7 +15,9 @@ class AccountController extends Controller
      */
     public function index()
     {
-        return view('account::index');
+        $users = User::get();
+
+        return view('account::index', ['users' => $users]);
     }
 
     /**
