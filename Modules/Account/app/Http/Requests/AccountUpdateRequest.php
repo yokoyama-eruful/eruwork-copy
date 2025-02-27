@@ -21,7 +21,7 @@ class AccountUpdateRequest extends FormRequest
             'password' => ['nullable', 'confirmed', 'min:4'],
             'contractType' => ['nullable', 'string'],
             'role' => ['required', 'int'],
-            'nameKana' => ['nullable', 'string'],
+            'nameKana' => ['nullable', 'string', 'max:15'],
             'postCode' => ['nullable', 'string'],
             'address' => ['nullable', 'string'],
             'phoneNumber' => ['nullable', 'string'],

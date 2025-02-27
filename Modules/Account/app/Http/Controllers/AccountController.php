@@ -54,7 +54,7 @@ class AccountController extends Controller
     {
         $user = User::where('login_id', $id)->first();
 
-        return view('account::edit');
+        return view('account::edit', ['user' => $user]);
     }
 
     /**
