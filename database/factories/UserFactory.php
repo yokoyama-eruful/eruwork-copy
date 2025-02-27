@@ -26,7 +26,6 @@ class UserFactory extends Factory
     {
         return [
             'loginId' => fake()->unique()->userName(),
-            'name' => fake()->name(),
             'password' => static::$password ??= Hash::make('test'),
         ];
     }

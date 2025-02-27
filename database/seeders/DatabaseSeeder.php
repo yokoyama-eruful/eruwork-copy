@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'loginId' => 'test',
-            'name' => 'テスト太郎',
         ]);
     }
 }
