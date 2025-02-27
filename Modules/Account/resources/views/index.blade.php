@@ -29,10 +29,10 @@
             <td class="py-3 ps-5">{{ $user->profile?->contract_type }}</td>
             <td class="px-4 py-3">{{ $user->created_at->isoFormat('YYYY/MM/DD') }}</td>
             <td class="px-4 py-3">{{ $user->updated_at->isoFormat('YYYY/MM/DD') }}</td>
-            <td class="px-4 py-3">{{ $user->lastLogin?->updated_at->isoFormat('YYYY/MM/DD') }}</td>
+            <td class="px-4 py-3">{{ $user->last_login_at }}</td>
             <td class="flex justify-end px-4 py-3">
               <a class="flex items-center space-x-1 rounded px-2 py-2 font-semibold text-hai-main hover:bg-green-600 hover:text-white"
-                href="#">
+                href="{{ route('account.edit', ['account' => Auth::user()->login_id]) }}">
                 <div>
                   編集
                 </div>
