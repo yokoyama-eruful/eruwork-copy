@@ -89,6 +89,6 @@
       </div>
     </div>
 
-    @include('layouts.sidemenu')
+    @include('home.layouts.sidemenu')
   </div>
 </nav>

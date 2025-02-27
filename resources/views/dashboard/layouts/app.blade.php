@@ -18,12 +18,12 @@
 
 <body class="flex h-screen flex-col bg-gray-100">
 
-  @include('layouts.navigation')
+  @include('dashboard.layouts.navigation')
 
   <div class="flex flex-1">
 
     <aside class="hidden w-60 border py-4 pr-4 sm:block">
-      @include('layouts.sidemenu')
+      @include('dashboard.layouts.sidemenu')
     </aside>
 
     <main class="flex-1 p-4">
@@ -33,15 +33,5 @@
   </div>
 
 </body>
-
-{{-- <body class="font-sans antialiased">
-  <div class="min-h-screen bg-gray-100">
-    @include('layouts.navigation')
-
-    <main>
-      {{ $slot }}
-    </main>
-  </div>
-</body> --}}
 
 </html>

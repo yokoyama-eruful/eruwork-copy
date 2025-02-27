@@ -1,7 +1,7 @@
 <div class="h-full rounded-r bg-white p-4 shadow-sm">
   <div class="mb-3">
     <div class="flex items-center">
-      <div class="mr-2 h-6 w-1 bg-sky-600"></div>
+      <div class="mr-2 h-6 w-1 bg-gray-600"></div>
       <h2 class="text-xl font-semibold">メニュー</h2>
     </div>
   </div>
@@ -30,14 +30,15 @@
 
   <div class="mb-3">
     <div class="flex items-center">
-      <div class="mr-2 h-6 w-1 bg-gray-600"></div>
-      <h2 class="text-xl font-semibold">管理者</h2>
+      <div class="mr-2 h-6 w-1 bg-sky-600"></div>
+      <h2 class="text-xl font-semibold">一般</h2>
     </div>
   </div>
   <nav>
     <ul class="grid grid-cols-4 gap-2 sm:grid-cols-2">
       <li class="mb-2">
-        <a class="mb-2 flex h-20 w-20 flex-col rounded bg-gray-200 fill-gray-500 hover:bg-gray-300" href="#">
+        <a class="mb-2 flex h-20 w-20 flex-col rounded bg-gray-200 fill-gray-500 hover:bg-gray-300"
+          href="{{ route('home') }}">
           <svg viewBox="0 0 512 512">
             <path
               d="M336.2 256.4c-15.1 6.3-26.8 18-33 33.1a60.95 60.95 0 0 0 0 46.7c6.3 15.1 18 26.8 33.1 33 15.1 6.2 31.7 6.2 46.7 0 15.1-6.3 26.8-18 33-33.1a61.2 61.2 0 0 0 0-46.8c-6.3-15.1-18-26.8-33.1-33a61.2 61.2 0 0 0-46.8 0Zm70.3 75.7a50.42 50.42 0 0 1-27.4 27.4 50.2 50.2 0 0 1-38.8 0 50.1 50.1 0 0 1-27.4-27.4 50.2 50.2 0 0 1 0-38.8 50.1 50.1 0 0 1 27.4-27.4 50.2 50.2 0 0 1 38.8 0 50.1 50.1 0 0 1 27.4 27.4 50.2 50.2 0 0 1 0 38.8Z" />
@@ -48,8 +49,8 @@
             <path
               d="M176.8 214.4c.5-13.4-4.1-26.2-13.2-36a49.35 49.35 0 0 0-34.8-16.1c-7.5-.3-14.7 1-21.5 3.8-5.3 2.2-10.2 5.4-14.5 9.4a49.86 49.86 0 0 0-16.2 34.8 49.3 49.3 0 0 0 13.2 36c9.1 9.9 21.5 15.6 34.8 16.1 7.5.3 14.7-1 21.5-3.8 5.3-2.3 10.2-5.4 14.5-9.4 9.8-9.1 15.6-21.4 16.1-34.8Zm-23.2 27.2a37.1 37.1 0 0 1-11.5 7.4c-5.3 2.2-11.1 3.3-17 3-10.6-.4-20.4-5-27.6-12.8A39.48 39.48 0 0 1 87 210.7c.4-10.6 5-20.4 12.8-27.6 3.4-3.2 7.3-5.7 11.5-7.4 5.3-2.2 11.1-3.3 17-3 10.6.4 20.4 5 27.6 12.8 7.2 7.8 10.9 17.9 10.5 28.5-.5 10.6-5 20.4-12.8 27.6Z" />
           </svg>
-          <div class="rounded-b bg-gray-600">
-            <span class="flex items-center justify-center text-xs text-white">設定</span>
+          <div class="rounded-b bg-sky-600">
+            <span class="flex items-center justify-center text-xs text-white">一般</span>
           </div>
         </a>
       </li>

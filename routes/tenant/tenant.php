@@ -19,6 +19,8 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
+require __DIR__ . '/dashboard.php';
+
 Route::middleware([
     'web',
     InitializeTenancyByDomain::class,
