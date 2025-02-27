@@ -26,8 +26,8 @@ Route::middleware([
 ])->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/', function () {
-            return view('dashboard');
-        })->name('dashboard');
+            return view('home.index');
+        })->name('home');
 
         Route::controller(ProfileController::class)->group(function () {
             Route::get('/profile', 'edit')->name('profile.edit');
