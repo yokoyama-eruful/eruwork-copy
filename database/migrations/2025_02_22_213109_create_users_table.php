@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('loginId')->unique();
-            $table->string('name');
             $table->string('password');
-            $table->datetimes();
+            $table->timestamp('last_login_at')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('sessions', function (Blueprint $table) {
