@@ -187,6 +187,7 @@ return [
         '--force' => true, // This needs to be true to run migrations in production.
         '--path' => [
             database_path('migrations/tenant'),
+            database_path('Modules/Account/database/migrations/tenant/2025_02_27_162318_create_profiles_table.php'),
         ],
         '--realpath' => true,
     ],

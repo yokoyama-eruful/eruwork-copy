@@ -9,7 +9,8 @@
     <ul class="grid grid-cols-4 gap-2 sm:grid-cols-2">
       <li class="mb-2">
         {{-- ここにicon --}}
-        <a class="flex h-20 w-20 flex-col items-end rounded-md border hover:bg-gray-100" href="#">
+        <a class="flex h-20 w-20 flex-col items-end rounded-md border hover:bg-gray-100"
+          href="{{ route('account.index') }}">
           <div class="h-2/3 bg-sky-100">
             <x-application-logo />
           </div>
