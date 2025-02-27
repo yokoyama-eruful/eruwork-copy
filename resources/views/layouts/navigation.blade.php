@@ -65,15 +65,16 @@
   </div>
 
   <!-- Responsive Navigation Menu -->
-  <div class="hidden sm:hidden" :class="{ 'block': open, 'hidden': !open }">
+  <div class="overflow-hidden transition-all duration-300 ease-in-out sm:hidden"
+    :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'">
     <!-- Responsive Settings Options -->
     <div class="border-t border-gray-200 pb-1">
-      <div class="px-4">
+      <div class="px-4 py-2">
         <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
         <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
       </div>
 
-      <div class="mt-3 space-y-1">
+      <div class="space-y-1">
         <x-responsive-nav-link :href="route('profile.edit')">
           {{ __('Profile') }}
         </x-responsive-nav-link>
@@ -81,10 +82,7 @@
         <!-- Authentication -->
         <form method="POST" action="{{ route('logout') }}">
           @csrf
-
-          <x-responsive-nav-link :href="route('logout')"
-            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
+          <x-responsive-nav-link :href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
             {{ __('Log Out') }}
           </x-responsive-nav-link>
         </form>
@@ -92,6 +90,5 @@
     </div>
 
     @include('layouts.sidemenu')
-
   </div>
 </nav>
