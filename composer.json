@@ -16,6 +16,7 @@
         "log1x/laravel-webfonts": "^1.0",
         "mhmiton/laravel-modules-livewire": "^4.3",
         "nwidart/laravel-modules": "^11.1",
+        "spatie/laravel-permission": "^6.15",
         "stancl/tenancy": "^3.9"
     },
     "require-dev": {

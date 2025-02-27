@@ -1,11 +1,11 @@
-<nav class="border-b border-gray-100 bg-white shadow" x-data="{ open: false }">
+<nav class="border-b border-ao-dark bg-ao-main shadow" x-data="{ open: false }">
   <!-- Primary Navigation Menu -->
   <div class="mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 justify-between">
       <div class="flex">
         <!-- Logo -->
         <div class="flex w-14 shrink-0 items-center">
-          <a href="{{ route('dashboard') }}">
+          <a href="{{ route('home') }}">
             <x-application-logo />
           </a>
         </div>
@@ -89,6 +89,6 @@
       </div>
     </div>
 
-    @include('layouts.sidemenu')
+    @include('home.layouts.sidemenu')
   </div>
 </nav>
