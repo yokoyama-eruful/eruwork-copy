@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 use Modules\Board\Http\Controllers\BoardController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,14 @@ use Modules\Board\Http\Controllers\BoardController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('board', BoardController::class)->names('board');
+Route::middleware([
+    'web',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    Route::group([], function () {
+        Route::resource('board', BoardController::class)->names('board');
+
+        Route::resource('draft', BoardController::class)->names('draft');
+    });
 });

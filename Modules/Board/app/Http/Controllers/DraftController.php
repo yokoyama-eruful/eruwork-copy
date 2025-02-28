@@ -7,14 +7,14 @@ namespace Modules\Board\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BoardController extends Controller
+class DraftController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('board::post.index');
+        return view('draft::draft.index');
     }
 
     /**
@@ -22,7 +22,7 @@ class BoardController extends Controller
      */
     public function create()
     {
-        return view('board::post.create');
+        return view('draft::draft.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class BoardController extends Controller
      */
     public function show($id)
     {
-        return view('board::post.show');
+        return view('draft::draft.show');
     }
 
     /**
@@ -46,7 +46,7 @@ class BoardController extends Controller
      */
     public function edit($id)
     {
-        return view('board::post.edit');
+        return view('draft::draft.edit');
     }
 
     /**
