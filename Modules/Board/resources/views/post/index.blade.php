@@ -1,4 +1,5 @@
-<x-home-layout>
+<x-app-layout>
   <x-widget>
+    <livewire:board::show />
   </x-widget>
-</x-home-layout>
+</x-app-layout>

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('board_attachments', function (Blueprint $table) {
+        Schema::create('board__attachments', function (Blueprint $table) {
             $table->id();
             $table->string('file_path');
             $table->string('file_name');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('board_attachments');
+        Schema::dropIfExists('board__attachments');
     }
 };

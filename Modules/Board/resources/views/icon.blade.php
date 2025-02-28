@@ -1,4 +1,4 @@
-<a class="mb-2 flex h-20 w-20 flex-col rounded-xl border bg-ao-sub fill-gray-500 shadow hover:bg-sky-200"
+<a class="mb-2 flex h-20 w-20 flex-col rounded border bg-ao-sub fill-gray-500 hover:bg-sky-200"
   href="{{ route('board.index') }}">
   <svg class="" viewBox="0 0 512 512">
     <path class="cls-2" style="fill: none;stroke: #6f8184;stroke-miterlimit: 10;stroke-width: 15px"
@@ -9,7 +9,7 @@
     <path fill="none" stroke="#6f8184" stroke-miterlimit="10" stroke-width="9"
       d="M82.9 198.7h132.2m-132.2 64h132.2m-132.2-32h132.2m97.6-29.2h118.1m-118.1 32h118.1" />
   </svg>
-  <div class="rounded-b-xl bg-ao-main">
+  <div class="rounded-b bg-ao-main">
     <span class="flex items-center justify-center text-xs text-white">掲示板</span>
   </div>
 </a>

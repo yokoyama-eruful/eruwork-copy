@@ -13,7 +13,7 @@ class BoardAttachment extends Model
 {
     use HasFactory;
 
-    protected $table = 'board_attachments';
+    protected $table = 'board__attachments';
 
     /**
      * The attributes that are mass assignable.
