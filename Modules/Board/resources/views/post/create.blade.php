@@ -1,6 +1,6 @@
 <x-app-layout>
   <x-widget>
-    {{-- @vite(['resources/js/tiptap.js', 'resources/css/tiptap.css']) --}}
+    @vite(['Modules/Board/resources/js/tiptap.js', 'resources/css/tiptap.css'])
     {{-- <x-widget.general title="掲示板-投稿画面" url="" actionName="" x-data="{ isEditable: true }"> --}}
     <form action="{{ route('board.store') }}" method="POST" enctype="multipart/form-data" x-data="editor('{{ addslashes(old('contents')) }}')">
       @csrf
@@ -15,7 +15,7 @@
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700" for="contents">本文</label>
-        {{-- <x-tiptap.board></x-tiptap.board> --}}
+        @include('board::layouts.tiptap')
         @error('contents')
           <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
         @enderror

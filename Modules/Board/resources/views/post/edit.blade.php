@@ -1,5 +1,6 @@
 <x-app-layout>
   <x-widget>
+    @vite(['Modules/Board/resources/js/tiptap.js', 'resources/css/tiptap.css'])
     <form action="{{ route('board.update', ['board' => $post->id ?? 0]) }}" method="POST" enctype="multipart/form-data"
       x-data="editor('{{ addslashes(old('contents', $post->contents ?? '')) }}')">
       @csrf
@@ -14,7 +15,7 @@
       </div>
       <div>
         <label class="block text-sm font-medium text-gray-700" for="contents">本文</label>
-        {{-- <x-tiptap.board></x-tiptap.board> --}}
+        @include('board::layouts.tiptap')
         @error('contents')
           <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
         @enderror
