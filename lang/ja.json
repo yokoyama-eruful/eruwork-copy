@@ -1,5 +1,5 @@
 {
-    "loginId": "ログインID",
+    "login_id": "ログインID",
     "Name": "名前",
     "Email": "メールアドレス",
     "Password": "パスワード",

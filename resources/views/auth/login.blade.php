@@ -3,9 +3,9 @@
     @csrf
 
     <div>
-      <x-input-label for="loginId" :value="__('loginId')" />
-      <x-text-input class="mt-1 block w-full" id="loginId" name="loginId" type="text" :value="old('name')" required />
-      <x-input-error class="mt-2" :messages="$errors->get('loginId')" />
+      <x-input-label for="login_id" :value="__('login_id')" />
+      <x-text-input class="mt-1 block w-full" id="login_id" name="login_id" type="text" :value="old('name')" required />
+      <x-input-error class="mt-2" :messages="$errors->get('login_id')" />
     </div>
     <div class="mt-4">
       <x-input-label for="password" :value="__('Password')" />
