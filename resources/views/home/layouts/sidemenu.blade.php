@@ -54,6 +54,9 @@
           </div>
         </a>
       </li>
+      <li class="mb-2">
+        @include('manual::icon')
+      </li>
     </ul>
   </nav>
 </div>
