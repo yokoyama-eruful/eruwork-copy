@@ -6,6 +6,7 @@
 
     <form class="flex flex-col p-6" action="{{ route('account.update', ['account' => $user->login_id]) }}" method="POST">
       @csrf
+      @method('PUT')
       <div class="text-xl font-bold">
         アカウント編集
       </div>
