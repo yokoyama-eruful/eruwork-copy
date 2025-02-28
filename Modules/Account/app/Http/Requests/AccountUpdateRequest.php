@@ -16,47 +16,47 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'loginId' => ['required', 'string', 'unique:users,login_id,' . $this->loginId . ',login_id'],
+            'login_id' => ['required', 'string', 'unique:users,login_id,' . $this->login_id . ',login_id'],
             'name' => ['required', 'string',  'max:15'],
             'password' => ['nullable', 'confirmed', 'min:4'],
-            'contractType' => ['nullable', 'string'],
+            'contract_type' => ['nullable', 'string'],
             'role' => ['required', 'int'],
-            'nameKana' => ['nullable', 'string', 'max:15'],
-            'postCode' => ['nullable', 'string'],
+            'name_kana' => ['nullable', 'string', 'max:15'],
+            'post_code' => ['nullable', 'string'],
             'address' => ['nullable', 'string'],
-            'phoneNumber' => ['nullable', 'string'],
+            'phone_number' => ['nullable', 'string'],
             'birthday' => ['nullable', 'string'],
-            'hireDate' => ['nullable', 'string'],
-            'emergencyName' => ['nullable', 'string'],
-            'emergencyPhoneNumber' => ['nullable', 'string'],
-            'emergencyRelationship' => ['nullable', 'string'],
+            'hire_date' => ['nullable', 'string'],
+            'emergency_name' => ['nullable', 'string'],
+            'emergency_phone_number' => ['nullable', 'string'],
+            'emergency_relationship' => ['nullable', 'string'],
         ];
     }
 
     public function attributes()
     {
         return [
-            'loginId' => 'ログインID',
+            'login_id' => 'ログインID',
             'name' => '名前',
             'password' => 'パスワード',
-            'contractType' => '契約区分',
+            'contract_type' => '契約区分',
             'role' => '管理者権限',
-            'nameKana' => '名前(フリガナ)',
-            'postCode' => '郵便番号',
+            'name_kana' => '名前(フリガナ)',
+            'post_code' => '郵便番号',
             'address' => '住所',
-            'phoneNumber' => '電話番号',
+            'phone_number' => '電話番号',
             'birthday' => '生年月日',
-            'hireDate' => '入社日',
-            'emergencyName' => '緊急連絡先 氏名',
-            'emergencyPhoneNumber' => '緊急連絡先 電話番号',
-            'emergencyRelationship' => '緊急連絡先 続柄',
+            'hire_date' => '入社日',
+            'emergency_name' => '緊急連絡先 氏名',
+            'emergency_phone_number' => '緊急連絡先 電話番号',
+            'emergency_relationship' => '緊急連絡先 続柄',
         ];
     }
 
     public function params()
     {
         $userParams = [
-            'login_id' => $this->loginId,
+            'login_id' => $this->login_id,
         ];
 
         if ($this->password) {
@@ -64,17 +64,17 @@ class AccountUpdateRequest extends FormRequest
         }
 
         $profileParams = [
-            'contract_type' => $this->contractType,
+            'contract_type' => $this->contract_type,
             'name' => $this->name,
-            'name_kana' => $this->nameKana,
-            'post_code' => $this->postCode,
+            'name_kana' => $this->name_kana,
+            'post_code' => $this->post_code,
             'address' => $this->address,
-            'phone_number' => $this->phoneNumber,
+            'phone_number' => $this->phone_number,
             'birthday' => $this->birthday,
-            'hire_date' => $this->hireDate,
-            'emergency_name' => $this->emergencyName,
-            'emergency_phone_number' => $this->emergencyPhoneNumber,
-            'emergency_relationship' => $this->emergencyRelationship,
+            'hire_date' => $this->hire_date,
+            'emergency_name' => $this->emergency_name,
+            'emergency_phone_number' => $this->emergency_phone_number,
+            'emergency_relationship' => $this->emergency_relationship,
         ];
 
         return [
