@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9afd00d2473c59ffd30448fbf69be07e",
+    "content-hash": "c7ac1b29e767a8643a53f1fb26ebad11",
     "packages": [
         {
             "name": "brick/math",
@@ -2196,6 +2196,54 @@
                 }
             ],
             "time": "2024-11-12T19:00:31+00:00"
+        },
+        {
+            "name": "mamdouhkhaled/tenancy-modules",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MamdouhKhaled/tenancy-modules.git",
+                "reference": "97cc2ad9676be14a7e4fbaeb2b0e6f8f8a74b830"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MamdouhKhaled/tenancy-modules/zipball/97cc2ad9676be14a7e4fbaeb2b0e6f8f8a74b830",
+                "reference": "97cc2ad9676be14a7e4fbaeb2b0e6f8f8a74b830",
+                "shasum": ""
+            },
+            "require": {
+                "nwidart/laravel-modules": "*",
+                "stancl/tenancy": "*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mamdouh\\TenancyModules\\TenancyModulesServiceProvide"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mamdouh\\TenancyModules\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mamdouh Khaled",
+                    "email": "Mamdouh.Khaled@live.com"
+                }
+            ],
+            "description": "Connect Laravel Tenancy with Laravel Modules",
+            "support": {
+                "issues": "https://github.com/MamdouhKhaled/tenancy-modules/issues",
+                "source": "https://github.com/MamdouhKhaled/tenancy-modules/tree/v1.0.3"
+            },
+            "time": "2024-07-27T09:45:04+00:00"
         },
         {
             "name": "mhmiton/laravel-modules-livewire",
