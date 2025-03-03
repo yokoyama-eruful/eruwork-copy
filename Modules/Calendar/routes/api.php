@@ -12,5 +12,6 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('schedules', ScheduleController::class);
+    Route::get('schedules', [ScheduleController::class, 'index']);
+    Route::post('drag-schedule/{id}', [ScheduleController::class, 'update']);
 });

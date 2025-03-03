@@ -59,9 +59,32 @@ let calendar = new Calendar(calendarEl, {
     console.log(info.event.title + "のサイズが変更されました");
   },
   eventDrop: function (info) {
-    console.log(info.event._def.publicId);
-    console.log(info.event.start);
-    console.log(info.event.end);
+   const scheduleId = info.event.id;
+   const updatedData = {
+     start_date: info.event.start.toISOString().slice(0, 10), 
+     end_date: info.event.end.toISOString().slice(0, 10),
+   };
+   
+   fetch(`/api/drag-schedule/${scheduleId}`, {
+     method: 'POST',
+     headers: {
+      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      "Content-Type": "application/json",
+     },
+     body: JSON.stringify(updatedData),
+   })
+     .then(response => {
+       if (response.ok) {
+         return response.json(); 
+       }
+       throw new Error('Network response was not ok.');
+     })
+     .then(data => {
+       console.log('スケジュール更新成功:', data);
+     })
+     .catch(error => {
+       console.error('スケジュール更新エラー:', error);
+     });
   },
   eventClick: function(info) {
     const editForm=document.getElementById('edit-schedule-form');
