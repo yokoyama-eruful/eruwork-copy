@@ -28,7 +28,7 @@ let calendar = new Calendar(calendarEl, {
     today: "今日",
     dayGridMonth: "月",
     timeGridWeek: "週",
-    timeGridWeek: "日",
+    timeGridDay: "日",
     listWeek: "リスト",
   },
   noEventsContent: "予定はありません。",
