@@ -13,5 +13,6 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::get('schedules', [ScheduleController::class, 'index']);
-    Route::post('drag-schedule/{id}', [ScheduleController::class, 'update']);
+    Route::post('drag-schedule/{id}', [ScheduleController::class, 'updateDate']);
+    Route::post('resize-schedule/{id}', [ScheduleController::class, 'updateTime']);
 });

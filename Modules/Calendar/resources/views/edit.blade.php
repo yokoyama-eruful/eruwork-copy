@@ -1,4 +1,4 @@
-<x-modal name="open-schedule-edit-modal" focusable>
+<x-modal name="open-schedule-edit-modal">
   <div class="flex items-center justify-between px-4 pt-4">
     <div>
       <h2 class="text-lg font-medium text-gray-900">

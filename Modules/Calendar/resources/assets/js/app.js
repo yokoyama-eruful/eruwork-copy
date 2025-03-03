@@ -56,7 +56,32 @@ let calendar = new Calendar(calendarEl, {
     dispatchEvent(new CustomEvent("open-modal", { detail: "open-schedule-create-modal" }));
   },
   eventResize: function (info) {
-    console.log(info.event.title + "のサイズが変更されました");
+    const scheduleId = info.event.id;
+   const updatedTime = {
+     start_time: info.event.start.toTimeString().slice(0, 5), 
+     end_time: info.event.end.toTimeString().slice(0, 5),
+   };
+   
+   fetch(`/api/resize-schedule/${scheduleId}`, {
+     method: 'POST',
+     headers: {
+      'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      "Content-Type": "application/json",
+     },
+     body: JSON.stringify(updatedTime),
+   })
+     .then(response => {
+       if (response.ok) {
+         return response.json(); 
+       }
+       throw new Error('Network response was not ok.');
+     })
+     .then(data => {
+       console.log('スケジュール更新成功:', data);
+     })
+     .catch(error => {
+       console.error('スケジュール更新エラー:', error);
+     });
   },
   eventDrop: function (info) {
    const scheduleId = info.event.id;

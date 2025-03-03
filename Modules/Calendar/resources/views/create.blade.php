@@ -1,4 +1,4 @@
-<x-modal name="open-schedule-create-modal" focusable>
+<x-modal name="open-schedule-create-modal">
   <form class="p-4" method="post" action="{{ route('calendar.store') }}">
     @csrf
 

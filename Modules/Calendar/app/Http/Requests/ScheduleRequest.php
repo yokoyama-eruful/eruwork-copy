@@ -31,7 +31,7 @@ class ScheduleRequest extends FormRequest
             'end_date' => [
                 'required',
                 'date_format:Y-m-d',
-                'after:start_date',
+                'after_or_equal:start_date',
             ],
             'start_time' => [
                 'required',

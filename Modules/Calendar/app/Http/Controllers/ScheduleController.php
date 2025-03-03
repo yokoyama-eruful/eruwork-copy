@@ -28,7 +28,7 @@ class ScheduleController extends Controller
         return response()->json($schedules);
     }
 
-    public function update(Request $request, $id)
+    public function updateDate(Request $request, $id)
     {
         $schedule = Schedule::find($id);
 
@@ -44,6 +44,29 @@ class ScheduleController extends Controller
         }
         if ($end_date) {
             $schedule->end_date = CarbonImmutable::parse($end_date);
+        }
+
+        $schedule->save();
+
+        return response()->json(['message' => 'Schedule updated successfully']);
+    }
+
+    public function updateTime(Request $request, $id)
+    {
+        $schedule = Schedule::find($id);
+
+        if (! $schedule) {
+            return response()->json(['message' => 'Schedule not found'], 404);
+        }
+
+        $start_time = $request->input('start_time');
+        $end_time = $request->input('end_time');
+
+        if ($start_time) {
+            $schedule->start_time = CarbonImmutable::parse($start_time);
+        }
+        if ($end_time) {
+            $schedule->end_time = CarbonImmutable::parse($end_time);
         }
 
         $schedule->save();
