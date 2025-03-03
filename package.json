@@ -24,6 +24,7 @@
         "@fullcalendar/list": "^6.1.15",
         "@fullcalendar/timegrid": "^6.1.15",
         "@tailwindcss/vite": "^4.0.8",
-        "fullcalendar": "^6.1.15"
+        "fullcalendar": "^6.1.15",
+        "tippy.js": "^6.3.7"
     }
 }

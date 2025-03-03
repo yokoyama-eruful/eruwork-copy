@@ -3,7 +3,8 @@ import interactionPlugin from "@fullcalendar/interaction";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
-import autoprefixer from "autoprefixer";
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css'; 
 
 var calendarEl = document.getElementById("calendar");
 
@@ -35,24 +36,64 @@ let calendar = new Calendar(calendarEl, {
   locale: "ja",
 
   selectable: true,
-  editable: true, 
+  editable: true,
 
   select: function (info) {
-    const eventName = prompt("イベントを入力してください");
-    if (eventName) {
-      calendar.addEvent({
-        title: eventName,
-        start: info.start,
-        end: info.end,
-        allDay: true,
-      });
-    }
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo' };
+    var startDate = new Intl.DateTimeFormat('ja-JP', options).format(info.start);
+    
+    var endDateObj = new Date(info.end);
+    endDateObj.setDate(endDateObj.getDate() - 1);
+    var endDate = new Intl.DateTimeFormat('ja-JP', options).format(endDateObj);
+
+    startDate = startDate.replace(/\//g, '-'); 
+    endDate = endDate.replace(/\//g, '-'); 
+
+    console.log(startDate, endDate);
+    document.getElementById('start_date').value = startDate;
+    document.getElementById('end_date').value = endDate;
+
+    dispatchEvent(new CustomEvent("open-modal", { detail: "open-schedule-create-modal" }));
   },
   eventResize: function (info) {
     console.log(info.event.title + "のサイズが変更されました");
   },
   eventDrop: function (info) {
-    console.log(info.event.title + "が移動されました");
+    console.log(info.event._def.publicId);
+    console.log(info.event.start);
+    console.log(info.event.end);
+  },
+  eventClick: function(info) {
+    const editForm=document.getElementById('edit-schedule-form');
+    const deleteForm=document.getElementById('delete-schedule-form');
+
+    editForm.action = `/calendar/${info.event.id}`;
+    deleteForm.action = `/calendar/${info.event.id}`;
+    editForm.querySelector('#title').value = info.event.title;
+    editForm.querySelector('#description').value = info.event.extendedProps.description;
+    editForm.querySelector('#start_date').value = info.event.start.toISOString().slice(0, 10);  
+    editForm.querySelector('#end_date').value = info.event.end.toISOString().slice(0, 10);  
+    editForm.querySelector('#start_time').value = info.event.start.toTimeString().slice(0, 5); 
+    editForm.querySelector('#end_time').value = info.event.end.toTimeString().slice(0, 5); 
+    dispatchEvent(new CustomEvent("open-modal", { detail: "open-schedule-edit-modal" }));
+  },
+  eventDidMount: (e)=>{
+		tippy(e.el, {
+			content: e.event.extendedProps.description,
+		});
+	},
+
+  events: function (fetchInfo, successCallback, failureCallback) {
+    fetch("/api/schedules") 
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("イベントデータの取得に成功しました:", data);
+        successCallback(data);
+      })
+      .catch((error) => {
+        console.error("イベントデータの取得に失敗しました:", error);
+        failureCallback(error);
+      });
   },
 });
 

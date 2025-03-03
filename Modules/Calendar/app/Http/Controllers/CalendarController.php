@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Calendar\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Calendar\Http\Requests\ScheduleRequest;
+use Modules\Calendar\Models\Schedule;
 
 class CalendarController extends Controller
 {
@@ -16,43 +20,44 @@ class CalendarController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('calendar::create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ScheduleRequest $request)
     {
-        //
-    }
+        Schedule::create(
+            [
+                'user_id' => Auth::id(),
+                'title' => $request->title,
+                'description' => $request->description,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+            ]
+        );
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('calendar::show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('calendar::edit');
+        return to_route('calendar.index');
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(ScheduleRequest $request, $id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+
+        $schedule->update(
+            [
+                'title' => $request->title,
+                'description' => $request->description,
+                'start_date' => $request->start_date,
+                'end_date' => $request->end_date,
+                'start_time' => $request->start_time,
+                'end_time' => $request->end_time,
+            ]
+        );
+
+        return to_route('calendar.index');
     }
 
     /**
@@ -60,6 +65,9 @@ class CalendarController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $schedule = Schedule::findOrFail($id);
+        $schedule->delete();
+
+        return to_route('calendar.index');
     }
 }

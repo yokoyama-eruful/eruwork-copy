@@ -22,15 +22,17 @@ class Schedule extends Model
      */
     protected $fillable = [
         'user_id',
-        'date',
         'title',
         'description',
+        'start_date',
+        'end_date',
         'start_time',
         'end_time',
     ];
 
     protected $casts = [
-        'date' => 'date',
+        'start_date' => 'date',
+        'end_date' => 'date',
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];
