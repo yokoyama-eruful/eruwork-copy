@@ -6,7 +6,7 @@
     </div>
   </div>
   <nav class="mb-4">
-    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-2">
+    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-6 xl:grid-cols-2">
       <li class="mb-2">
         {{-- ここにicon --}}
         <a class="flex h-20 w-20 flex-col items-end rounded-md border hover:bg-gray-100" href="#">
@@ -34,7 +34,7 @@
     </div>
   </div>
   <nav>
-    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-2">
+    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-6 xl:grid-cols-2">
       @can('register')
         <li class="mb-2">
           <a class="mb-2 flex h-20 w-20 flex-col rounded bg-gray-200 fill-gray-500 hover:bg-gray-300"

@@ -6,7 +6,7 @@
     </div>
   </div>
   <nav class="mb-4">
-    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-2">
+    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-6 xl:grid-cols-2">
       <li class="mb-2">
         @include('account::icon')
       </li>
@@ -28,7 +28,7 @@
     </div>
   </div>
   <nav>
-    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-2">
+    <ul class="grid grid-cols-4 gap-2 sm:grid-cols-6 xl:grid-cols-2">
       <li class="mb-2">
         <a class="mb-2 flex h-20 w-20 flex-col rounded bg-gray-200 fill-gray-500 hover:bg-gray-300"
           href="{{ route('home') }}">
