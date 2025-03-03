@@ -84,10 +84,15 @@ let calendar = new Calendar(calendarEl, {
      });
   },
   eventDrop: function (info) {
+
+    var options = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo' };
+    var startDate = new Intl.DateTimeFormat('ja-JP', options).format(info.event.start);
+    var endDate = new Intl.DateTimeFormat('ja-JP', options).format(info.event.end);
+
    const scheduleId = info.event.id;
    const updatedData = {
-     start_date: info.event.start.toISOString().slice(0, 10), 
-     end_date: info.event.end.toISOString().slice(0, 10),
+     start_date: startDate, 
+     end_date: endDate,
    };
    
    fetch(`/api/drag-schedule/${scheduleId}`, {
