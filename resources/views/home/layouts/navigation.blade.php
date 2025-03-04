@@ -48,6 +48,14 @@
         </x-dropdown>
       </div>
 
+      <script type="module">
+        import Alpine from 'alpinejs';
+
+        window.Alpine = Alpine;
+
+        Alpine.start();
+      </script>
+
       <!-- Hamburger -->
       <div class="-me-2 flex items-center xl:hidden">
         <button
