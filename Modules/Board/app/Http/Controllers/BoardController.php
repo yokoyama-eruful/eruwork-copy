@@ -5,11 +5,8 @@ declare(strict_types=1);
 namespace Modules\Board\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Modules\Board\Http\Requests\PostRequest;
 use Modules\Board\Models\BoardAttachment;
 use Modules\Board\Models\BoardPost;
 
@@ -31,36 +28,6 @@ class BoardController extends Controller
     public function create()
     {
         return view('board::post.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(PostRequest $request)
-    {
-        $params = $request->params();
-        $status = true;
-
-        if ($request->input('action') == 'save') {
-            $status = false;
-        }
-
-        $post = BoardPost::create(
-            [
-                'title' => $params['title'],
-                'contents' => $params['contents'],
-                'user_id' => Auth::id(),
-                'status' => $status,
-            ]
-        );
-
-        $users = User::get();
-        $post->viewers()
-            ->sync($users);
-
-        $post->saveFiles($params['files']);
-
-        return redirect()->route('board.index');
     }
 
     /**
@@ -89,36 +56,6 @@ class BoardController extends Controller
         }
 
         return view('board::post.edit', ['post' => $post]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        $params = $request->params();
-
-        $post = BoardPost::find($id);
-
-        $status = true;
-
-        if ($request->input('action') == 'save' && $post->status == false) {
-            $status = false;
-        }
-
-        $post = BoardPost::updateOrCreate(
-            ['id' => $id],
-            [
-                'title' => $params['title'],
-                'contents' => $params['contents'],
-                'user_id' => Auth::id(),
-                'status' => $status,
-            ]
-        );
-
-        $post->saveFiles($params['files']);
-
-        return redirect()->route('board.index');
     }
 
     /**

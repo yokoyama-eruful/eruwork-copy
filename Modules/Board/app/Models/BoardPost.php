@@ -28,6 +28,11 @@ class BoardPost extends Model
         'status',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function attachments()
     {
         return $this->hasMany(BoardAttachment::class, 'post_id');
@@ -45,8 +50,36 @@ class BoardPost extends Model
         return $this->user_id == Auth::id();
     }
 
-    // protected static function newFactory(): BoardPostFactory
-    // {
-    //     // return BoardPostFactory::new();
-    // }
+    public function saveFiles(?array $files): void
+    {
+        if (empty($files)) {
+            return;
+        }
+
+        foreach ($files as $file) {
+            $fileList[] = [
+                'post_id' => $this->id,
+                'file_name' => $file->getClientOriginalName(),
+                'file_path' => $this->fileUpload($file),
+            ];
+        }
+
+        $this->attachments()->createMany($fileList);
+    }
+
+    public function getReadStatusAttribute()
+    {
+        return $this->viewers()->where('user_id', Auth::id())->first()?->pivot->read_at;
+    }
+
+    private function fileUpload($uploadFile): string
+    {
+        if (isset($uploadFile)) {
+            $filePath = $uploadFile->store(path: 'board/files');
+
+            return $filePath;
+        }
+
+        return '';
+    }
 }

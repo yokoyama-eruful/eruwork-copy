@@ -1,15 +1,15 @@
 <div>
   <div class="overflow-hidden rounded-lg bg-white">
-    <div class="flex justify-between py-2">
-      <div class="flex flex-row items-center space-x-5">
-        <a class="inline-block border border-transparent bg-ao-main px-4 py-2 text-lg text-white transition duration-300 ease-in-out hover:bg-sky-600 hover:text-gray-100"
+    <div class="flex flex-col items-center py-2 xl:flex-row xl:justify-between">
+      <div class="flex w-full flex-row items-center space-x-5 pb-2 xl:w-auto xl:pb-0">
+        <a class="inline-block rounded border border-transparent bg-ao-main px-2 py-1 text-white transition duration-300 ease-in-out hover:bg-sky-600 hover:text-gray-100"
           href="{{ route('board.create') }}">
           <div class="flex flex-row items-center justify-center space-x-3">
             <i class="fa-solid fa-plus"></i>
             <p>新規投稿</p>
           </div>
         </a>
-        <a class="inline-block border border-transparent bg-ao-main px-4 py-2 text-lg text-white transition duration-300 ease-in-out hover:bg-sky-600 hover:text-gray-100"
+        <a class="inline-block rounded border border-transparent bg-ao-main px-2 py-1 text-white transition duration-300 ease-in-out hover:bg-sky-600 hover:text-gray-100"
           href="{{ route('draft.index') }}">
           <div class="flex flex-row items-center justify-center space-x-3">
             <i class="fa-solid fa-check"></i>
@@ -17,13 +17,13 @@
           </div>
         </a>
       </div>
-      <div class="w-auto">
+      <div class="w-full xl:w-auto">
         <div class="relative">
           <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
             <i class="fa-solid fa-magnifying-glass h-4 w-4 text-gray-500"></i>
           </div>
           <input
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
+            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
             type="search" wire:model.live="search" placeholder="表題検索..." required />
         </div>
       </div>
