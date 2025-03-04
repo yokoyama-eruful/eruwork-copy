@@ -20,6 +20,6 @@ class DraftController extends Controller
             ->orderBy('updated_at', 'desc')
             ->paginate(10);
 
-        return view('draft::draft.index', ['posts' => $posts]);
+        return view('board::draft.index', ['posts' => $posts]);
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\Board\Http\Controllers\BoardController;
+use Modules\Board\Http\Controllers\DraftController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -26,6 +27,6 @@ Route::middleware([
     Route::group([], function () {
         Route::resource('board', BoardController::class)->names('board');
 
-        Route::resource('draft', BoardController::class)->names('draft');
+        Route::resource('draft', DraftController::class)->names('draft');
     });
 });
