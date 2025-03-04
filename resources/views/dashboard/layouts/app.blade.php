@@ -22,7 +22,7 @@
 
   <div class="flex flex-1">
 
-    <aside class="hidden w-60 border py-4 pr-4 sm:block">
+    <aside class="hidden w-60 border py-4 pr-4 xl:block">
       @include('dashboard.layouts.sidemenu')
     </aside>
 

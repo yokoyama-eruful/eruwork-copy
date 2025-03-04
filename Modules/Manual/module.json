@@ -1,0 +1,11 @@
+{
+    "name": "Manual",
+    "alias": "manual",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Manual\\Providers\\ManualServiceProvider"
+    ],
+    "files": []
+}

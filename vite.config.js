@@ -7,7 +7,7 @@ export default defineConfig({
             input: [
                 'resources/css/app.css', 
                 'resources/js/app.js',
-                'Modules/Board/resources/js/tiptap.js',
+                'Modules/**/resources/js/**.js',
             ],
             refresh: true,
         }),
