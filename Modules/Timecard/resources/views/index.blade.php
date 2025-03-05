@@ -6,5 +6,6 @@
     </div>
     <div id='calendar'></div>
     @include('timecard::create')
+    @include('timecard::edit')
   </x-widget>
 </x-app-layout>

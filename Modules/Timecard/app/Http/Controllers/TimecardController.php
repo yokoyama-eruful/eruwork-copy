@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Modules\Timecard\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Timecard\Http\Requests\AttendanceRequest;
+use Modules\Timecard\Models\Attendance;
 
 class TimecardController extends Controller
 {
@@ -18,43 +20,35 @@ class TimecardController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('timecard::create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AttendanceRequest $request)
     {
-        //
+        Attendance::create([
+            'user_id' => Auth::id(),
+            'date' => $request->date,
+            'in_time' => $request->in_time,
+            'out_time' => $request->out_time,
+        ]);
+
+        return to_route('timecard.index');
     }
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
+    public function update(AttendanceRequest $request, $id)
     {
-        return view('timecard::show');
-    }
+        dd($request);
+        $attendance = Attendance::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('timecard::edit');
-    }
+        $attendance->update(
+            [
+                'user_id' => Auth::id(),
+                'date' => $request->date,
+                'in_time' => $request->in_time,
+                'out_time' => $request->out_time,
+            ]
+        );
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return to_route('timecard.index');
     }
 
     /**
@@ -62,6 +56,9 @@ class TimecardController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $attendance = Attendance::findOrFail($id);
+        $attendance->delete();
+
+        return to_route('attendance.index');
     }
 }

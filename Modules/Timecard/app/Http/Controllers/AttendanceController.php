@@ -16,11 +16,8 @@ class AttendanceController extends Controller
         $attendances = Attendance::all()->map(function ($attendance) {
             return [
                 'id' => $attendance->id,
-                'start' => $attendance->start_date->format('Y-m-dTH:i:s'),
-                'end' => $attendance->end_date->format('Y-m-dTH:i:s'),
-                'extendedProps' => [
-                    'description' => $attendance->description,
-                ],
+                'start' => $attendance->date->format('Y-m-d') . 'T' . $attendance->in_time->format('H:i:s'),
+                'end' => $attendance->date->format('Y-m-d') . 'T' . $attendance->out_time->format('H:i:s'),
             ];
         });
 
@@ -35,14 +32,10 @@ class AttendanceController extends Controller
             return response()->json(['message' => 'attendance not found'], 404);
         }
 
-        $start_date = $request->input('start_date');
-        $end_date = $request->input('end_date');
+        $date = $request->input('date');
 
-        if ($start_date) {
-            $attendance->start_date = CarbonImmutable::parse($start_date);
-        }
-        if ($end_date) {
-            $attendance->end_date = CarbonImmutable::parse($end_date);
+        if ($date) {
+            $attendance->date = CarbonImmutable::parse($date);
         }
 
         $attendance->save();
@@ -58,14 +51,14 @@ class AttendanceController extends Controller
             return response()->json(['message' => 'attendance not found'], 404);
         }
 
-        $start_time = $request->input('start_time');
-        $end_time = $request->input('end_time');
+        $in_time = $request->input('in_time');
+        $out_time = $request->input('out_time');
 
-        if ($start_time) {
-            $attendance->start_time = CarbonImmutable::parse($start_time);
+        if ($in_time) {
+            $attendance->in_time = CarbonImmutable::parse($in_time);
         }
-        if ($end_time) {
-            $attendance->end_time = CarbonImmutable::parse($end_time);
+        if ($out_time) {
+            $attendance->out_time = CarbonImmutable::parse($out_time);
         }
 
         $attendance->save();

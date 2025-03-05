@@ -38,6 +38,7 @@ let calendar = new Calendar(calendarEl, {
     timeGridDay: "日",
     listWeek: "リスト",
   },
+  
   noEventsContent: "予定はありません。",
   locale: "ja",
 
@@ -46,26 +47,19 @@ let calendar = new Calendar(calendarEl, {
 
   select: function (info) {
     var options = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo' };
-    var startDate = new Intl.DateTimeFormat('ja-JP', options).format(info.start);
-    
-    var endDateObj = new Date(info.end);
-    endDateObj.setDate(endDateObj.getDate() - 1);
-    var endDate = new Intl.DateTimeFormat('ja-JP', options).format(endDateObj);
+    var date = new Intl.DateTimeFormat('ja-JP', options).format(info.start);
 
-    startDate = startDate.replace(/\//g, '-'); 
-    endDate = endDate.replace(/\//g, '-'); 
+    date = date.replace(/\//g, '-'); 
 
-    console.log(startDate, endDate);
-    document.getElementById('start_date').value = startDate;
-    document.getElementById('end_date').value = endDate;
+    document.getElementById('date').value = date;
 
     dispatchEvent(new CustomEvent("open-modal", { detail: "open-attendance-create-modal" }));
   },
   eventResize: function (info) {
     const attendanceId = info.event.id;
    const updatedTime = {
-     start_time: info.event.start.toTimeString().slice(0, 5), 
-     end_time: info.event.end.toTimeString().slice(0, 5),
+     in_time: info.event.start.toTimeString().slice(0, 5), 
+     out_time: info.event.end.toTimeString().slice(0, 5),
    };
    
    fetch(`/api/resize-attendance/${attendanceId}`, {
@@ -92,13 +86,11 @@ let calendar = new Calendar(calendarEl, {
   eventDrop: function (info) {
 
     var options = { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo' };
-    var startDate = new Intl.DateTimeFormat('ja-JP', options).format(info.event.start);
-    var endDate = new Intl.DateTimeFormat('ja-JP', options).format(info.event.end);
+    var date = new Intl.DateTimeFormat('ja-JP', options).format(info.event.start);
 
    const attendanceId = info.event.id;
    const updatedData = {
-     start_date: startDate, 
-     end_date: endDate,
+     date: date, 
    };
    
    fetch(`/api/drag-attendance/${attendanceId}`, {
@@ -126,21 +118,13 @@ let calendar = new Calendar(calendarEl, {
     const editForm=document.getElementById('edit-attendance-form');
     const deleteForm=document.getElementById('delete-attendance-form');
 
-    editForm.action = `/calendar/${info.event.id}`;
-    deleteForm.action = `/calendar/${info.event.id}`;
-    editForm.querySelector('#title').value = info.event.title;
-    editForm.querySelector('#description').value = info.event.extendedProps.description;
-    editForm.querySelector('#start_date').value = info.event.start.toISOString().slice(0, 10);  
-    editForm.querySelector('#end_date').value = info.event.end.toISOString().slice(0, 10);  
-    editForm.querySelector('#start_time').value = info.event.start.toTimeString().slice(0, 5); 
-    editForm.querySelector('#end_time').value = info.event.end.toTimeString().slice(0, 5); 
+    editForm.action = `/timecard/${info.event.id}`;
+    deleteForm.action = `/timecard/${info.event.id}`;
+    // editForm.querySelector('#date').value = info.event.start.toISOString().slice(0, 10);    
+    // editForm.querySelector('#in_time').value = info.event.start.toTimeString().slice(0, 5); 
+    // editForm.querySelector('#out_time').value = info.event.end.toTimeString().slice(0, 5); 
     dispatchEvent(new CustomEvent("open-modal", { detail: "open-attendance-edit-modal" }));
   },
-  eventDidMount: (e)=>{
-		tippy(e.el, {
-			content: e.event.extendedProps.description,
-		});
-	},
 
   events: function (fetchInfo, successCallback, failureCallback) {
     fetch("/api/attendances") 
@@ -153,6 +137,14 @@ let calendar = new Calendar(calendarEl, {
         console.error("イベントデータの取得に失敗しました:", error);
         failureCallback(error);
       });
+  },
+  eventContent: function (arg) {
+    return {
+      html: `<div class="ml-1" style="display: flex; align-items: center;">
+               <div class="bg-ao-main" style="width: 8px; height: 8px; border-radius: 50%; margin-right: 5px;"></div>
+               ${arg.event.start.toTimeString().slice(0, 5)}~${arg.event.end.toTimeString().slice(0, 5)}
+             </div>`
+    };
   },
 });
 

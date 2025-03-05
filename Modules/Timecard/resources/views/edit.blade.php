@@ -20,55 +20,27 @@
     @method('PATCH')
 
     <div class="mt-4">
-      <x-input-label for="title" value="タイトル" />
+      <x-input-label for="date" value="日付" />
 
-      <x-text-input class="mt-1 block w-full" id="title" name="title" type="text" value=""
-        placeholder="タイトル" required />
+      <x-text-input class="mt-1 block w-full" id="date" name="date" type="date" value="" required />
 
-      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('title')" />
-    </div>
-
-    <div class="mt-2">
-      <x-input-label for="description" value="説明" />
-
-      <x-text-area class="mt-1 block w-full" id="description" name="description" type="text" value=""
-        placeholder="説明"></x-text-area>
-
-      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('description')" />
+      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('date')" />
     </div>
 
     <div class="mt-4">
-      <x-input-label for="start_date" value="開始日" />
+      <x-input-label for="in_time" value="開始時間" />
 
-      <x-text-input class="mt-1 block w-full" id="start_date" name="start_date" type="date" value=""
-        required />
+      <x-text-input class="mt-1 block w-full" id="in_time" name="in_time" type="time" value="" required />
 
-      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('start_date')" />
+      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('in_time')" />
     </div>
 
     <div class="mt-2">
-      <x-input-label for="end_date" value="終了日" />
+      <x-input-label for="out_time" value="終了時間" />
 
-      <x-text-input class="mt-1 block w-full" id="end_date" name="end_date" type="date" value="" required />
+      <x-text-input class="mt-1 block w-full" id="out_time" name="out_time" type="time" value="" required />
 
-      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('end_date')" />
-    </div>
-
-    <div class="mt-4">
-      <x-input-label for="start_time" value="開始時間" />
-
-      <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time" value=""
-        required />
-
-      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('start_time')" />
-    </div>
-
-    <div class="mt-2">
-      <x-input-label for="end_time" value="終了時間" />
-
-      <x-text-input class="mt-1 block w-full" id="end_time" name="end_time" type="time" value="" required />
-
-      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('end_time')" />
+      <x-input-error class="mt-2" :messages="$errors->userDeletion->get('out_time')" />
     </div>
 
     <div class="mt-6 flex justify-end">
