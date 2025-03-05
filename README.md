@@ -19,10 +19,13 @@
 - [ ] **Web通知** - 自信度: 2, 重要度: 5, 再変更難易度: 5  
 
 # モジュール作成
-$ php artisan module:make-model モデルクラス名 モジュール名
+php artisan module:make Blog
 
-# モジュール作成(マイグレーションファイルあり)
-$ php artisan module:make-model -m モデルクラス名 モジュール名
+# モデル作成
+php artisan module:make-model モデルクラス名 モジュール名
+
+# モデル作成(マイグレーションファイルあり)
+php artisan module:make-model -m モデルクラス名 モジュール名
 
 # モジュールの有効化
 php artisan module:tenant-enable --tenant={{tenant-id}}
