@@ -59,16 +59,16 @@ let calendar = new Calendar(calendarEl, {
     document.getElementById('start_date').value = startDate;
     document.getElementById('end_date').value = endDate;
 
-    dispatchEvent(new CustomEvent("open-modal", { detail: "open-schedule-create-modal" }));
+    dispatchEvent(new CustomEvent("open-modal", { detail: "open-attendance-create-modal" }));
   },
   eventResize: function (info) {
-    const scheduleId = info.event.id;
+    const attendanceId = info.event.id;
    const updatedTime = {
      start_time: info.event.start.toTimeString().slice(0, 5), 
      end_time: info.event.end.toTimeString().slice(0, 5),
    };
    
-   fetch(`/api/resize-schedule/${scheduleId}`, {
+   fetch(`/api/resize-attendance/${attendanceId}`, {
      method: 'POST',
      headers: {
       'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -95,13 +95,13 @@ let calendar = new Calendar(calendarEl, {
     var startDate = new Intl.DateTimeFormat('ja-JP', options).format(info.event.start);
     var endDate = new Intl.DateTimeFormat('ja-JP', options).format(info.event.end);
 
-   const scheduleId = info.event.id;
+   const attendanceId = info.event.id;
    const updatedData = {
      start_date: startDate, 
      end_date: endDate,
    };
    
-   fetch(`/api/drag-schedule/${scheduleId}`, {
+   fetch(`/api/drag-attendance/${attendanceId}`, {
      method: 'POST',
      headers: {
       'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -123,8 +123,8 @@ let calendar = new Calendar(calendarEl, {
      });
   },
   eventClick: function(info) {
-    const editForm=document.getElementById('edit-schedule-form');
-    const deleteForm=document.getElementById('delete-schedule-form');
+    const editForm=document.getElementById('edit-attendance-form');
+    const deleteForm=document.getElementById('delete-attendance-form');
 
     editForm.action = `/calendar/${info.event.id}`;
     deleteForm.action = `/calendar/${info.event.id}`;
@@ -134,7 +134,7 @@ let calendar = new Calendar(calendarEl, {
     editForm.querySelector('#end_date').value = info.event.end.toISOString().slice(0, 10);  
     editForm.querySelector('#start_time').value = info.event.start.toTimeString().slice(0, 5); 
     editForm.querySelector('#end_time').value = info.event.end.toTimeString().slice(0, 5); 
-    dispatchEvent(new CustomEvent("open-modal", { detail: "open-schedule-edit-modal" }));
+    dispatchEvent(new CustomEvent("open-modal", { detail: "open-attendance-edit-modal" }));
   },
   eventDidMount: (e)=>{
 		tippy(e.el, {
@@ -143,7 +143,7 @@ let calendar = new Calendar(calendarEl, {
 	},
 
   events: function (fetchInfo, successCallback, failureCallback) {
-    fetch("/api/schedules") 
+    fetch("/api/attendances") 
       .then((response) => response.json())
       .then((data) => {
         console.log("イベントデータの取得に成功しました:", data);
