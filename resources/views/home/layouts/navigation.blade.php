@@ -48,11 +48,7 @@
         </x-dropdown>
       </div>
 
-      <script type="module">
-        import Alpine from 'alpinejs';
-
-        window.Alpine = Alpine;
-
+      <script>
         Alpine.start();
       </script>
 
