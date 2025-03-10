@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Events\TestEvent;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -28,6 +29,8 @@ Route::middleware([
 ])->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/', function () {
+            TestEvent::dispatch();
+
             return view('home.index');
         })->name('home');
 
