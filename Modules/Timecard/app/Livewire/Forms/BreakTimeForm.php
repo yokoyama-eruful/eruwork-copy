@@ -5,21 +5,22 @@ declare(strict_types=1);
 namespace Modules\Timecard\Livewire\Forms;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Form;
 use Modules\Timecard\Models\BreakTime;
 
-final class BreakTimeForm extends Form
+class BreakTimeData extends Form
 {
-    public ?int $attendanceId = null;
+    public ?int $id = null;
 
-    public ?string $startTime = null;
+    public ?int $userId = null;
 
-    public ?string $endTime = null;
+    public ?CarbonImmutable $date = null;
 
-    public CarbonImmutable $date;
+    public ?string $inTime = null;
 
-    public BreakTime $breakTime;
+    public ?string $outTime = null;
 
     /**
      * Get the validation rules that apply to the request.
@@ -29,14 +30,14 @@ final class BreakTimeForm extends Form
     public function rules(): array
     {
         return [
-            'startTime' => [
+            'inTime' => [
                 'required',
                 'date_format:H:i',
             ],
-            'endTime' => [
+            'outTime' => [
                 'nullable',
                 'date_format:H:i',
-                'after_or_equal:startTime',
+                'after:inTime',
             ],
         ];
     }
@@ -44,51 +45,116 @@ final class BreakTimeForm extends Form
     public function validationAttributes()
     {
         return [
-            'startTime' => '休憩開始時間',
-            'endTime' => '休憩終了時間',
+            'inTime' => '開始時間',
+            'outTime' => '終了時間',
         ];
     }
 
-    public function save($date): void
+    public function setData(
+        BreakTime $breakTime,
+    ) {
+        $this->userId = $breakTime->user_id;
+        $this->date = $breakTime->date;
+        $this->id = $breakTime->id;
+        $this->inTime = $breakTime->in_time?->format('H:i');
+        $this->outTime = $breakTime->out_time?->format('H:i');
+    }
+
+    public function clear()
+    {
+        $this->reset([
+            'id',
+            'userId',
+            'date',
+            'inTime',
+            'outTime',
+        ]);
+    }
+
+    public function save()
     {
         $this->validate();
 
-        BreakTime::create([
-            'attendance_id' => $this->attendanceId,
+        if (! empty($this->inTime) || ! empty($this->outTime)) {
+            BreakTime::updateOrCreate(
+                ['id' => $this->id],
+                [
+                    'user_id' => $this->userId,
+                    'date' => $this->date,
+                    'in_time' => $this->inTime,
+                    'out_time' => $this->outTime,
+                ]
+            );
+
+            return;
+        }
+
+        if (! is_null($this->id)) {
+            BreakTime::destroy($this->id);
+        }
+    }
+
+    public function delete()
+    {
+        BreakTime::destroy($this->id);
+    }
+
+    public function term()
+    {
+        $inTime = $this->inTime ?? ' -- : -- ';
+        $outTime = $this->outTime ?? ' -- : -- ';
+
+        return $inTime . ' ～ ' . $outTime;
+    }
+}
+
+final class BreakTimeForm extends Form
+{
+    public array $breakTimes = [];
+
+    public array $deleteList = [];
+
+    public function sync(): void
+    {
+        collect($this->breakTimes)->each(function ($breakTime) {
+            $breakTime->save();
+        });
+
+        BreakTime::destroy($this->deleteList);
+        $this->deleteList = [];
+    }
+
+    public function setBreakTimes(BreakTimeData $breakData, Collection $breakTimes): void
+    {
+        $this->reset('breakTimes');
+        foreach ($breakTimes as $breakTime) {
+            $wd = clone $breakData;
+            $wd->setData($breakTime);
+            array_push($this->breakTimes, $wd);
+        }
+    }
+
+    public function addBreakTime(BreakTimeData $breakData, CarbonImmutable $date)
+    {
+        $breakTime = new BreakTime([
+            'id' => CarbonImmutable::now()->toString(),
             'user_id' => Auth::id(),
             'date' => $date,
-            'start_time' => $this->startTime,
-            'end_time' => $this->endTime,
         ]);
 
-        $this->reset(['startTime', 'endTime']);
+        $breakData->setData($breakTime);
+        array_push($this->breakTimes, $breakData);
     }
 
-    public function setBreakTime(BreakTime $breakTime): void
+    public function removeBreakTime($key)
     {
-        $this->breakTime = $breakTime;
-        $this->date = $breakTime->date;
-        $this->startTime = $breakTime->start_time->format('H:i');
-        $this->endTime = $breakTime->end_time?->format('H:i');
-    }
+        $breakTime = $this->breakTimes[$key];
 
-    public function update(): void
-    {
-        $this->validate();
+        $id = $breakTime->id;
+        unset($this->breakTimes[$key]);
 
-        $startTime = $this->startTime === '' ? null : $this->startTime;
-        $endTime = $this->endTime === '' ? null : $this->endTime;
-
-        $this->breakTime->update([
-            'start_time' => $startTime,
-            'end_time' => $endTime,
-        ]);
-
-        $this->reset(['attendanceId', 'startTime', 'endTime']);
-    }
-
-    public function delete(): void
-    {
-        $this->breakTime->delete();
+        if ($id) {
+            $this->deleteList[] = $id;
+        }
     }
 }

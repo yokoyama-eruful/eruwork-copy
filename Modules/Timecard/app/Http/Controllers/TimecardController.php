@@ -7,7 +7,7 @@ namespace Modules\Timecard\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\Timecard\Http\Requests\AttendanceRequest;
-use Modules\Timecard\Models\Attendance;
+use Modules\Timecard\Models\WorkTime;
 
 class TimecardController extends Controller
 {
@@ -24,7 +24,7 @@ class TimecardController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
-        Attendance::create([
+        WorkTime::create([
             'user_id' => Auth::id(),
             'date' => $request->date,
             'in_time' => $request->in_time,
@@ -37,7 +37,7 @@ class TimecardController extends Controller
     public function update(AttendanceRequest $request, $id)
     {
         dd($request);
-        $attendance = Attendance::findOrFail($id);
+        $attendance = WorkTime::findOrFail($id);
 
         $attendance->update(
             [
@@ -56,7 +56,7 @@ class TimecardController extends Controller
      */
     public function destroy($id)
     {
-        $attendance = Attendance::findOrFail($id);
+        $attendance = WorkTime::findOrFail($id);
         $attendance->delete();
 
         return to_route('attendance.index');

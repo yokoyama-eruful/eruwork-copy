@@ -16,21 +16,20 @@ class BreakTime extends Model
     protected $table = 'timecard__break_times';
 
     protected $fillable = [
-        'attendance_id',
         'user_id',
         'date',
-        'start_time',
-        'end_time',
+        'in_time',
+        'out_time',
     ];
 
     protected $casts = [
         'date' => 'immutable_datetime',
-        'start_time' => 'immutable_datetime',
-        'end_time' => 'immutable_datetime',
+        'in_time' => 'immutable_datetime',
+        'out_time' => 'immutable_datetime',
     ];
 
     public function attendance()
     {
-        return $this->hasOne(Attendance::class, 'attendance_id');
+        return $this->hasOne(WorkTime::class, 'attendance_id');
     }
 }

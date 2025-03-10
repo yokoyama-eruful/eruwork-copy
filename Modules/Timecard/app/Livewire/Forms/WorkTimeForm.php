@@ -5,19 +5,22 @@ declare(strict_types=1);
 namespace Modules\Timecard\Livewire\Forms;
 
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Form;
-use Modules\Timecard\Models\Attendance;
+use Modules\Timecard\Models\WorkTime;
 
-final class WorkTimeForm extends Form
+class WorkTimeData extends Form
 {
+    public ?int $id = null;
+
+    public ?int $userId = null;
+
+    public ?CarbonImmutable $date = null;
+
     public ?string $inTime = null;
 
     public ?string $outTime = null;
-
-    public CarbonImmutable $date;
-
-    public Attendance $attendance;
 
     /**
      * Get the validation rules that apply to the request.
@@ -47,45 +50,111 @@ final class WorkTimeForm extends Form
         ];
     }
 
-    public function save($date): void
+    public function setData(
+        WorkTime $workTime,
+    ) {
+        $this->userId = $workTime->user_id;
+        $this->date = $workTime->date;
+        $this->id = $workTime->id;
+        $this->inTime = $workTime->in_time?->format('H:i');
+        $this->outTime = $workTime->out_time?->format('H:i');
+    }
+
+    public function clear()
+    {
+        $this->reset([
+            'id',
+            'userId',
+            'date',
+            'inTime',
+            'outTime',
+        ]);
+    }
+
+    public function save()
     {
         $this->validate();
 
-        Attendance::create([
+        if (! empty($this->inTime) || ! empty($this->outTime)) {
+            WorkTime::updateOrCreate(
+                ['id' => $this->id],
+                [
+                    'user_id' => $this->userId,
+                    'date' => $this->date,
+                    'in_time' => $this->inTime,
+                    'out_time' => $this->outTime,
+                ]
+            );
+
+            return;
+        }
+
+        if (! is_null($this->id)) {
+            WorkTime::destroy($this->id);
+        }
+    }
+
+    public function delete()
+    {
+        WorkTime::destroy($this->id);
+    }
+
+    public function term()
+    {
+        $inTime = $this->inTime ?? ' -- : -- ';
+        $outTime = $this->outTime ?? ' -- : -- ';
+
+        return $inTime . ' ～ ' . $outTime;
+    }
+}
+
+final class WorkTimeForm extends Form
+{
+    public array $workTimes = [];
+
+    public array $deleteList = [];
+
+    public function sync(): void
+    {
+        collect($this->workTimes)->each(function ($workTime) {
+            $workTime->save();
+        });
+
+        WorkTime::destroy($this->deleteList);
+        $this->deleteList = [];
+    }
+
+    public function setWorkTimes(WorkTimeData $workData, Collection $workTimes): void
+    {
+        $this->reset('workTimes');
+        foreach ($workTimes as $workTime) {
+            $wd = clone $workData;
+            $wd->setData($workTime);
+            array_push($this->workTimes, $wd);
+        }
+    }
+
+    public function addWorkTime(WorkTimeData $workData, CarbonImmutable $date)
+    {
+        $workTime = new WorkTime([
+            'id' => CarbonImmutable::now()->toString(),
             'user_id' => Auth::id(),
             'date' => $date,
-            'in_time' => $this->inTime,
-            'out_time' => $this->outTime,
         ]);
 
-        $this->reset(['inTime', 'outTime']);
+        $workData->setData($workTime);
+        array_push($this->workTimes, $workData);
     }
 
-    public function setAttendance(Attendance $attendance): void
+    public function removeWorkTime($key)
     {
-        $this->attendance = $attendance;
-        $this->date = $attendance->date;
-        $this->inTime = $attendance->in_time->format('H:i');
-        $this->outTime = $attendance->out_time?->format('H:i');
-    }
+        $workTime = $this->workTimes[$key];
 
-    public function update(): void
-    {
-        $this->validate();
+        $id = $workTime->id;
+        unset($this->workTimes[$key]);
 
-        $inTime = $this->inTime === '' ? null : $this->inTime;
-        $outTime = $this->outTime === '' ? null : $this->outTime;
-
-        $this->attendance->update([
-            'in_time' => $inTime,
-            'out_time' => $outTime,
-        ]);
-
-        $this->reset(['inTime', 'outTime']);
-    }
-
-    public function delete(): void
-    {
-        $this->attendance->delete();
+        if ($id) {
+            $this->deleteList[] = $id;
+        }
     }
 }

@@ -6,7 +6,8 @@
 
     <!-- Panel -->
     <div class="relative flex min-h-full items-end justify-center p-0 sm:items-center sm:p-4">
-      <div class="relative w-full max-w-xl overflow-hidden rounded-t-xl bg-white shadow-lg sm:rounded-b-xl">
+      <div class="relative w-full max-w-xl overflow-hidden rounded-t-xl bg-white shadow-lg sm:rounded-b-xl"
+        x-on:click.outside="dialogTemplate=false">
         <div class="flex h-10 w-full items-center justify-between bg-ao-main px-3 text-white">
           <div>{{ $title }}</div>
 

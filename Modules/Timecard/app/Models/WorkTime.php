@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 
 // use Modules\Timecard\Database\Factories\AttendanceFactory;
 
-class Attendance extends Model
+class WorkTime extends Model
 {
     use HasFactory;
 
-    protected $table = 'timecard__attendances';
+    protected $table = 'timecard__work_times';
 
     const CREATED_AT = null;
 
@@ -29,14 +29,4 @@ class Attendance extends Model
         'in_time' => 'immutable_datetime',
         'out_time' => 'immutable_datetime',
     ];
-
-    public function breakTimes()
-    {
-        return $this->hasMany(BreakTime::class);
-    }
-
-    public function getBreakTimeListAttribute()
-    {
-        return $this->breakTimes()->orderBy('start_time')->get();
-    }
 }

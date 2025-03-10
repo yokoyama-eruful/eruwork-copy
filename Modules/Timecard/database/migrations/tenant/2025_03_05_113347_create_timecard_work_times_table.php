@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timecard__attendances', function (Blueprint $table) {
+        Schema::create('timecard__work_times', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->date('date');
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('timecard__attendances');
+        Schema::dropIfExists('timecard__work_times');
     }
 };
