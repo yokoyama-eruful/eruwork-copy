@@ -1,0 +1,11 @@
+{
+    "name": "Timecard",
+    "alias": "timecard",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Timecard\\Providers\\TimecardServiceProvider"
+    ],
+    "files": []
+}
