@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 use Modules\Chat\Http\Controllers\ChatController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +18,15 @@ use Modules\Chat\Http\Controllers\ChatController;
 |
 */
 
-Route::group([], function () {
-    Route::resource('chat', ChatController::class)->names('chat');
+Route::group([], function () {});
+
+Route::middleware([
+    'web',
+    'auth',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    Route::group([], function () {
+        Route::resource('chat', ChatController::class)->names('chat');
+    });
 });
