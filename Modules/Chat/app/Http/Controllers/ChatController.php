@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Modules\Chat\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Modules\Chat\Models\Group;
 
 class ChatController extends Controller
 {
@@ -12,7 +16,10 @@ class ChatController extends Controller
      */
     public function index()
     {
-        return view('chat::index');
+        $users = User::get();
+        $groups = Group::get();
+
+        return view('chat::index', ['users', 'groups']);
     }
 
     /**
