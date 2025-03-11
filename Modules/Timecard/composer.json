@@ -1,0 +1,30 @@
+{
+    "name": "nwidart/timecard",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nicolas Widart",
+            "email": "n.widart@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\Timecard\\": "app/",
+            "Modules\\Timecard\\Database\\Factories\\": "database/factories/",
+            "Modules\\Timecard\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\Timecard\\Tests\\": "tests/"
+        }
+    }
+}

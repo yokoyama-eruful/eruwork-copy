@@ -1,4 +1,5 @@
 <nav class="border-b border-ao-dark bg-ao-main shadow" x-data="{ open: false }">
+  @livewireScripts
   <!-- Primary Navigation Menu -->
   <div class="mx-auto px-4 lg:px-8 xl:px-6">
     <div class="flex h-16 justify-between">
@@ -48,14 +49,6 @@
         </x-dropdown>
       </div>
 
-      <script type="module">
-        import Alpine from 'alpinejs';
-
-        window.Alpine = Alpine;
-
-        Alpine.start();
-      </script>
-
       <!-- Hamburger -->
       <div class="-me-2 flex items-center xl:hidden">
         <button
@@ -74,7 +67,7 @@
 
   <!-- Responsive Navigation Menu -->
   <div class="overflow-hidden transition-all duration-300 ease-in-out xl:hidden"
-    :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'">
+    :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'" x-cloak>
     <!-- Responsive Settings Options -->
     <div class="border-t border-gray-200 pb-1">
       <div class="px-4 py-2">
