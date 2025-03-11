@@ -27,6 +27,14 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::group([], function () {
-        Route::resource('chat', ChatController::class)->names('chat');
+        // Route::resource('chat', ChatController::class)->names('chat');
+        Route::controller(ChatController::class)
+            ->prefix('chat')
+            ->name('chat.')
+            ->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('{group}', 'show')->name('show');
+            });
+
     });
 });

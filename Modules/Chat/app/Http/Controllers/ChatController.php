@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Modules\Chat\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Chat\Enums\ChatGroupType;
 use Modules\Chat\Models\Group;
 
 class ChatController extends Controller
@@ -16,57 +16,32 @@ class ChatController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        $groups = Group::get();
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
-        return view('chat::index', ['users', 'groups']);
-    }
+        $groups = $user->groups(ChatGroupType::ALL)
+            ->get()
+            ->sortByDesc(function ($group) {
+                return $group->lastMessage ? $group->lastMessage->created_at : null;
+            });
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('chat::create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return to_route('chat.show', ['id' => $groups->first()->id]);
     }
 
     /**
      * Show the specified resource.
      */
-    public function show($id)
+    public function show(Group $group)
     {
-        return view('chat::show');
-    }
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('chat::edit');
-    }
+        $groups = $user->groups(ChatGroupType::ALL)
+            ->get()
+            ->sortByDesc(function ($group) {
+                return $group->lastMessage ? $group->lastMessage->created_at : null;
+            });
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        return view('chat::show', ['groups' => $groups, 'selectGroup' => $group]);
     }
 }

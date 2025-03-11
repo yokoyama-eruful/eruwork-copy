@@ -7,6 +7,7 @@ namespace Modules\Chat\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 // use Modules\Chat\Database\Factories\GroupFactory;
 
@@ -30,5 +31,21 @@ class Group extends Model
     public function messages()
     {
         return $this->hasMany(Message::class, 'group_id');
+    }
+
+    public function getIconImageAttribute(): ?string
+    {
+        if ($this->is_dm) {
+            $partnerUser = $this->users->firstWhere('id', '!=', Auth::id());
+
+            return $partnerUser?->icon;
+        }
+
+        return $this->icon ?? '';
+    }
+
+    public function getLastMessageAttribute()
+    {
+        return $this->messages->sortByDesc('created_at')->first();
     }
 }

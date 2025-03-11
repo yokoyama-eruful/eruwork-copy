@@ -18,8 +18,6 @@ class CreateGroup extends Component
 
     public bool $showCreateDialog = false;
 
-    public array $selectedUsers = [];
-
     #[Computed()]
     public function users()
     {
@@ -28,12 +26,9 @@ class CreateGroup extends Component
 
     public function store()
     {
-        dd($this->selectedUsers);
-        $user = Auth::user();
-        $this->selectedUsers = $this->selectedUsers + [$user->id => $user];
-
-        $this->form->member = $this->selectedUsers;
         $this->form->save();
+
+        return to_route('chat.index');
     }
 
     public function render()

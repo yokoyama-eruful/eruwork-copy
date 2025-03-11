@@ -57,15 +57,11 @@
   </x-dialog.panel>
 </x-dialog> --}}
 
-<x-modal name="view-group-create-dialog" wire:submit="store" enctype="multipart/form-data">
-  <div class="p-4">
-    <h2 class="text-lg font-medium text-gray-900">
+<x-modal name="view-group-create-dialog">
+  <form wire:submit="store" enctype="multipart/form-data">
+    <x-slot:title>
       グループ作成
-    </h2>
-
-    <p class="mt-1 text-sm text-gray-600">
-      グループを作成します。
-    </p>
+    </x-slot:title>
 
     <div class="mt-4">
       <x-input-label for="icon" value="アイコン" />
@@ -80,8 +76,8 @@
     <div class="mt-2">
       <x-input-label for="name" value="グループ名" />
 
-      <x-text-area class="mt-1 block w-full" id="name" name="name" type="text" placeholder="グループ名"
-        wire:model="form.name"></x-text-area>
+      <x-text-input class="mt-1 block w-full" id="name" name="name" type="text" placeholder="グループ名"
+        wire:model="form.name" required />
 
       @error('form.name')
         <div class="text-sm font-normal text-red-500">{{ $message }}</div>
@@ -93,13 +89,14 @@
         <span class="font-semibold">メンバーの選択</span>
         <div class="grid grid-cols-4 gap-3">
           @foreach ($this->users as $user)
-            <div @class([
-                'flex cursor-pointer items-center justify-between rounded-lg border p-2',
-                'bg-blue-500 text-white' => array_key_exists($user->id, $selectedUsers),
-            ])>
-              <input class="form-checkbox" type="checkbox" wire:model="selectedUsers.{{ $user->id }}">
-              <span>{{ $user->name }}</span>
-            </div>
+            <label class="block cursor-pointer rounded border p-2 transition" x-data="{ checked: false }"
+              :class="checked ? 'bg-sky-600 text-white' : 'bg-white'">
+
+              <!-- チェックボックスと連動する -->
+              <input class="hidden" type="checkbox" x-model="checked" wire:model="form.member.{{ $user->id }}">
+
+              {{ $user->name }}
+            </label>
           @endforeach
         </div>
       </div>
@@ -114,5 +111,5 @@
         登録
       </x-primary-button>
     </div>
-  </div>
+  </form>
 </x-modal>
