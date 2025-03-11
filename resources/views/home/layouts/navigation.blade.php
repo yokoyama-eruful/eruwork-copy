@@ -1,4 +1,5 @@
 <nav class="border-b border-ao-dark bg-ao-main shadow" x-data="{ open: false }">
+  @livewireScripts
   <!-- Primary Navigation Menu -->
   <div class="mx-auto px-4 lg:px-8 xl:px-6">
     <div class="flex h-16 justify-between">
@@ -47,14 +48,6 @@
           </x-slot>
         </x-dropdown>
       </div>
-
-      <script type="module">
-        import Alpine from 'alpinejs';
-
-        window.Alpine = Alpine;
-
-        Alpine.start();
-      </script>
 
       <!-- Hamburger -->
       <div class="-me-2 flex items-center xl:hidden">
