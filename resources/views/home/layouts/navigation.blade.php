@@ -67,7 +67,7 @@
 
   <!-- Responsive Navigation Menu -->
   <div class="overflow-hidden transition-all duration-300 ease-in-out xl:hidden"
-    :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'">
+    :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'" x-cloak>
     <!-- Responsive Settings Options -->
     <div class="border-t border-gray-200 pb-1">
       <div class="px-4 py-2">
