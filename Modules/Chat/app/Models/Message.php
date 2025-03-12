@@ -43,4 +43,17 @@ class Message extends Model
     {
         return $this->hasMany(MessageImage::class);
     }
+
+    public function getViewMessageAttribute()
+    {
+        if ($this->message) {
+            return $this->message;
+        }
+
+        if ($this->images) {
+            return '画像が送信されました。';
+        }
+
+        return '　　';
+    }
 }

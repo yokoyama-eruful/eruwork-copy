@@ -1,4 +1,5 @@
-<a class="relative mb-2 flex h-20 w-20 flex-col rounded bg-ao-sub hover:bg-sky-200" href="{{ route('chat.index') }}">
+<a class="relative mb-2 flex h-20 w-20 flex-col rounded border bg-ao-sub shadow hover:bg-sky-200"
+  href="{{ route('chat.index') }}">
   <svg class="p-1" viewBox="0 0 512 512">
     <path style="fill: none;stroke: #6f8184;stroke-miterlimit: 10;stroke-width: 15px"
       d="M432.1 217.4c0-87.5-92.3-158.5-206.3-158.5S19.6 130 19.6 217.5s30.2 94.6 77.3 123.7c-14.2 32-15.2 38.4-29.1 71.3 49.3-12.2 98.5-24.5 147.8-36.7 3.4.1 6.8.2 10.2.2 5 0 9.8-.2 14.7-.4" />

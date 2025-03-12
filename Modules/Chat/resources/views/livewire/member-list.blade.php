@@ -16,7 +16,7 @@
         </div>
         <div class="min-w-0 flex-1">
           <div class="truncate font-semibold">{{ $group->name }}</div>
-          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage->message ?? '　　　') }}</div>
+          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage->ViewMessage) }}</div>
         </div>
         <div class="flex w-1/6 flex-col items-center">
           <div class="text-xs text-gray-500">{{ $group->lastMessage?->created_at->format('m/d') }}</div>
@@ -39,7 +39,7 @@
         </div>
         <div class="min-w-0 flex-1">
           <div class="truncate font-semibold">{{ $group->name }}</div>
-          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage->message ?? '　　　') }}</div>
+          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage->ViewMessage) }}</div>
         </div>
         <div class="flex w-1/6 flex-col items-center">
           <div class="text-xs text-gray-500">{{ $group->lastMessage?->created_at->format('m/d') }}</div>
