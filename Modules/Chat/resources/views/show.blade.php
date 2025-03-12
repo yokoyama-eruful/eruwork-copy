@@ -16,10 +16,10 @@
     </div>
 
     <div class="flex h-full flex-col">
-      @livewire('chat::talk-area', ['groupId' => $selectGroup->id])
+      @livewire('chat::talk-area', ['group' => $selectGroup])
       <div class="flex h-auto items-center border-t bg-white p-3">
         @vite(['Modules/Chat/resources/js/tiptap.js', 'resources/css/tiptap.css'])
-        @livewire('chat::editor', ['groupId' => $selectGroup->id])
+        @livewire('chat::editor', ['group' => $selectGroup])
       </div>
     </div>
 

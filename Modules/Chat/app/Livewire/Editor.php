@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\Chat\Livewire;
 
+use App\Events\ChatEvent;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Modules\Chat\Models\Group;
 use Modules\Chat\Models\Message;
 use Modules\Chat\Models\MessageImage;
 
@@ -15,7 +17,7 @@ class Editor extends Component
 {
     use WithFileUploads;
 
-    public $groupId;
+    public Group $group;
 
     public $message;
 
@@ -34,6 +36,10 @@ class Editor extends Component
         $message = $this->sendMessage();
         $this->fileUpload($message);
 
+        $this->dispatch('clear-editor');
+
+        ChatEvent::dispatch();
+
         $this->reset(['message', 'files']);
     }
 
@@ -46,7 +52,7 @@ class Editor extends Component
     {
         return Message::create([
             'user_id' => Auth::id(),
-            'group_id' => $this->groupId,
+            'group_id' => $this->group->id,
             'message' => $this->message,
         ]);
     }

@@ -4,24 +4,18 @@ declare(strict_types=1);
 
 namespace Modules\Chat\Livewire;
 
+use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Modules\Chat\Models\Group;
 use Modules\Chat\Models\Message;
 
 class TalkArea extends Component
 {
-    use WithPagination;
-
     public Group $group;
 
-    public int $countMessage = 11;
-
-    public function mount($groupId)
-    {
-        $this->group = Group::find($groupId);
-    }
+    public int $countMessage = 15;
 
     #[On('addViewMessage')]
     public function addViewMessage()
@@ -31,16 +25,23 @@ class TalkArea extends Component
 
     public function delete(int $messageId)
     {
-        Message::find($messageId)->delete();
+        Message::destroy($messageId);
     }
 
-    #[On('reloadMessage')]
+    #[On('echo-private:chat-channel,ChatEvent')]
     public function render()
     {
-        $messages = Message::where('group_id', $this->group->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate($this->countMessage);
+        return view('chat::livewire.talk-area');
+    }
 
-        return view('chat::livewire.talk-area', ['messages' => $messages]);
+    #[Computed]
+    public function messages(): Collection
+    {
+        $messages = Message::where('group_id', $this->group->id)
+            ->latest()
+            ->take($this->countMessage)
+            ->get();
+
+        return $messages->reverse()->values();
     }
 }

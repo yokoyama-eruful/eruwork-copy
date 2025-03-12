@@ -33,14 +33,6 @@ class ChatController extends Controller
      */
     public function show(Group $group)
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-
-        $groups = $user->groups()
-            ->with('messages')
-            ->get()
-            ->sortByDesc(fn ($group) => $group->last_message?->created_at);
-
-        return view('chat::show', ['groups' => $groups, 'selectGroup' => $group]);
+        return view('chat::show', ['selectGroup' => $group]);
     }
 }

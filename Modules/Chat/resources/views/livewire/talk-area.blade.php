@@ -3,7 +3,7 @@
          $dispatch('addViewMessage');
          $el.scrollTop += 10;
        }">
-  @foreach ($messages->reverse() as $message)
+  @foreach ($this->messages as $message)
     <div class="group relative flex h-auto flex-row hover:bg-gray-100">
       @if ($message->user->id === Auth::id())
         <button class="absolute right-2 top-2 opacity-0 hover:text-red-600 group-hover:opacity-100" type="button">
@@ -58,13 +58,13 @@
                 <img class="max-h-20 rounded hover:cursor-zoom-in" src="{{ $image->file_path }}"
                   x-on:click="viewImage{{ $image->id }} = true">
 
-                <div class="fixed inset-0 flex items-center justify-center"
+                <div class="fixed inset-0 z-10 flex items-center justify-center"
                   x-show="viewImage{{ $image->id }} == true" x-cloak x-transition>
                   <button
                     class="absolute right-5 top-5 z-10 h-10 w-10 rounded-md bg-gray-400 hover:bg-gray-500 hover:text-red-600"
                     x-on:click="viewImage{{ $image->id }} = false"><i class="fa-solid fa-xmark"></i></button>
                   <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                  <div class="relative z-10 max-h-[100vh] max-w-[100vh] bg-white">
+                  <div class="relative z-10 max-h-[100vh] max-w-[100vh]">
                     <img class="max-h-[90vh] max-w-[90vw] object-contain" src="{{ $image->file_path }}">
                   </div>
                 </div>

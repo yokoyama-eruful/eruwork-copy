@@ -42,6 +42,10 @@ window.setupEditor = function(content) {
                     element.style.outline = 'none';
                 });
             });
+
+            window.addEventListener('clear-editor', () => {
+                editor.commands.setContent('');
+            });
         },
         isActive(type) {
             return editor.isActive(type);

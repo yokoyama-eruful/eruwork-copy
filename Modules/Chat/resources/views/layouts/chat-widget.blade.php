@@ -10,9 +10,9 @@
       </div>
     </div>
     <div class="flex w-full flex-1 flex-row text-gray-900">
-      <div class="h-full w-1/6 border-r border-gray-200">
-        @include('chat::layouts.member')
-      </div>
+
+      @livewire('chat::member-list', ['selectGroup' => $selectGroup])
+
       <div class="h-full w-5/6">
         @yield('content')
       </div>
