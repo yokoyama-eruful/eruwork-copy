@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\Chat\Http\Controllers\ChatController;
+use Modules\Chat\Http\Controllers\ImageController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -18,23 +19,21 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 |
 */
 
-Route::group([], function () {});
-
 Route::middleware([
     'web',
     'auth',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::group([], function () {
-        // Route::resource('chat', ChatController::class)->names('chat');
-        Route::controller(ChatController::class)
-            ->prefix('chat')
-            ->name('chat.')
-            ->group(function () {
-                Route::get('/', 'index')->name('index');
-                Route::get('{group}', 'show')->name('show');
-            });
+    Route::prefix('chat')
+        ->name('chat.')
+        ->group(function () {
+            Route::get('image', [ImageController::class, 'show'])->name('image.show');
 
-    });
+            Route::controller(ChatController::class)
+                ->group(function () {
+                    Route::get('/', 'index')->name('index');
+                    Route::get('{group}', 'show')->name('show');
+                });
+        });
 });

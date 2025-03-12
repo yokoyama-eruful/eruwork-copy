@@ -10,10 +10,10 @@
       </div>
     </div>
     <div class="flex w-full flex-1 flex-row text-gray-900">
-      <div class="w-1/6 border-r border-gray-200">
+      <div class="h-full w-1/6 border-r border-gray-200">
         @include('chat::layouts.member')
       </div>
-      <div class="w-5/6">
+      <div class="h-full w-5/6">
         @yield('content')
       </div>
     </div>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->nullable();
             $table->foreignId('group_id')->constrained('chat__groups')->onDelete('cascade');
-            $table->text('message');
+            $table->text('message')->nullable();
             $table->datetimes();
         });
 

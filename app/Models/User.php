@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Modules\Account\Models\Profile;
-use Modules\Chat\Enums\ChatGroupType;
 use Modules\Chat\Models\Group;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
@@ -82,17 +81,9 @@ class User extends Authenticatable
         return $this->hasMany(BreakTime::class);
     }
 
-    public function groups(ChatGroupType $type): BelongsToMany
+    public function groups(): BelongsToMany
     {
         return $this
             ->belongsToMany(Group::class, 'chat__group_user', 'user_id', 'group_id');
-        if ($type === ChatGroupType::ALL) {
-            return $this
-                ->belongsToMany(Group::class, 'chat__group_user', 'user_id', 'group_id');
-        }
-
-        return $this
-            ->belongsToMany(Group::class, 'chat__group_user', 'user_id', 'group_id')
-            ->where('is_dm', $type === ChatGroupType::DM);
     }
 }

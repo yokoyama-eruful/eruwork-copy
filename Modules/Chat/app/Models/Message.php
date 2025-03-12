@@ -22,7 +22,6 @@ class Message extends Model
         'user_id',
         'group_id',
         'message',
-        'type',
     ];
 
     public function groups(): BelongsTo
@@ -38,5 +37,10 @@ class Message extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function images(): HasMany
+    {
+        return $this->hasMany(MessageImage::class);
     }
 }

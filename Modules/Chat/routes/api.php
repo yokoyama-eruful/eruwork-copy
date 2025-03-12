@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
-use Modules\Chat\Http\Controllers\ChatController;
+use Modules\Chat\Http\Controllers\ImageController;
+use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
+use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
  *--------------------------------------------------------------------------
@@ -14,6 +18,11 @@ use Modules\Chat\Http\Controllers\ChatController;
  *
 */
 
-Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
-    Route::apiResource('chat', ChatController::class)->names('chat');
+Route::middleware([
+    'web',
+    'auth',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])->group(function () {
+    Route::get('image', ImageController::class)->name('image.show');
 });

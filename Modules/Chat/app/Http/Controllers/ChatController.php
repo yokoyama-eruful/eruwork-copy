@@ -25,7 +25,7 @@ class ChatController extends Controller
                 return $group->lastMessage ? $group->lastMessage->created_at : null;
             });
 
-        return to_route('chat.show', ['id' => $groups->first()->id]);
+        return to_route('chat.show', ['group' => $groups->first()]);
     }
 
     /**
@@ -36,11 +36,10 @@ class ChatController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
 
-        $groups = $user->groups(ChatGroupType::ALL)
+        $groups = $user->groups()
+            ->with('messages')
             ->get()
-            ->sortByDesc(function ($group) {
-                return $group->lastMessage ? $group->lastMessage->created_at : null;
-            });
+            ->sortByDesc(fn ($group) => $group->last_message?->created_at);
 
         return view('chat::show', ['groups' => $groups, 'selectGroup' => $group]);
     }

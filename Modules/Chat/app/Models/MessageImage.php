@@ -14,7 +14,7 @@ class MessageImage extends Model
 {
     use HasFactory;
 
-    protected $table = 'chat__message_reads';
+    protected $table = 'chat__message_images';
 
     const CREATED_AT = null;
 
