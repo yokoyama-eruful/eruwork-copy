@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Modules\Account\Models\Profile;
 use Modules\Chat\Models\Group;
 use Modules\Timecard\Models\BreakTime;
@@ -59,6 +60,11 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function scopeMember($query)
+    {
+        return $query->where('user_id', '!=', Auth::id());
     }
 
     public function getNameAttribute()

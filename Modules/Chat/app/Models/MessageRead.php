@@ -14,13 +14,14 @@ class MessageRead extends Model
 {
     use HasFactory;
 
-    protected $table = 'chat__message_images';
+    protected $table = 'chat__message_reads';
 
     const UPDATED_AT = null;
 
     protected $fillable = [
         'message_id',
-        'file_path',
+        'user_id',
+        'read_at',
     ];
 
     public function message(): BelongsTo

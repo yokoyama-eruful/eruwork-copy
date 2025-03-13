@@ -48,4 +48,11 @@ class Group extends Model
     {
         return $this->messages->sortByDesc('created_at')->first();
     }
+
+    public function getNotificationCountAttribute()
+    {
+        dd($this->messages->users()->member());
+
+        return 10;
+    }
 }

@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('chat__message_reads', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('message_id')->foreign('message_id')->references('id')->on('chat__messages')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('message_id')->on('chat__messages')->onDelete('cascade');
+            $table->foreignId('group_id')->constrained('chat__groups')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->datetime('read_at')->nullable();
         });
     }

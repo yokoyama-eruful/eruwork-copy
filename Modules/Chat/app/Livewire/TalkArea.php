@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Chat\Livewire;
 
+use App\Events\ChatEvent;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -26,6 +27,8 @@ class TalkArea extends Component
     public function delete(int $messageId)
     {
         Message::destroy($messageId);
+
+        ChatEvent::dispatch();
     }
 
     #[On('echo-private:chat-channel,ChatEvent')]

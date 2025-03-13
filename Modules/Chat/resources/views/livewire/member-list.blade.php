@@ -16,11 +16,13 @@
         </div>
         <div class="min-w-0 flex-1">
           <div class="truncate font-semibold">{{ $group->name }}</div>
-          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage->ViewMessage) }}</div>
+          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage?->ViewMessage) }}</div>
         </div>
         <div class="flex w-1/6 flex-col items-center">
           <div class="text-xs text-gray-500">{{ $group->lastMessage?->created_at->format('m/d') }}</div>
-          <div class="inline-block h-4 w-4 rounded-full bg-red-500 text-center text-xs text-white">1</div>
+          <div class="inline-block rounded-full bg-red-500 p-[1px] text-center text-xs text-white">
+            {{ $selectGroup->notification_count }}
+          </div>
         </div>
       </a>
     @endforeach
@@ -39,11 +41,13 @@
         </div>
         <div class="min-w-0 flex-1">
           <div class="truncate font-semibold">{{ $group->name }}</div>
-          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage->ViewMessage) }}</div>
+          <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage?->ViewMessage) }}</div>
         </div>
         <div class="flex w-1/6 flex-col items-center">
           <div class="text-xs text-gray-500">{{ $group->lastMessage?->created_at->format('m/d') }}</div>
-          <div class="inline-block h-4 w-4 rounded-full bg-red-500 text-center text-xs text-white">1</div>
+          <div class="inline-block h-4 w-4 rounded-full bg-red-500 text-center text-xs text-white">
+            {{ $selectGroup->notification_count }}
+          </div>
         </div>
       </a>
     @endforeach

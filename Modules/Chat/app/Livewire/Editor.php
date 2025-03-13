@@ -12,6 +12,7 @@ use Livewire\WithFileUploads;
 use Modules\Chat\Models\Group;
 use Modules\Chat\Models\Message;
 use Modules\Chat\Models\MessageImage;
+use Modules\Chat\Models\MessageRead;
 
 class Editor extends Component
 {
@@ -34,6 +35,7 @@ class Editor extends Component
         }
 
         $message = $this->sendMessage();
+        $this->createReadStatus($message);
         $this->fileUpload($message);
 
         $this->dispatch('clear-editor');
@@ -55,6 +57,22 @@ class Editor extends Component
             'group_id' => $this->group->id,
             'message' => $this->message,
         ]);
+    }
+
+    private function createReadStatus($message)
+    {
+        $users = $this->group->users()
+            ->member()
+            ->get();
+
+        $data = $users->map(function ($user) use ($message) {
+            return [
+                'user_id' => $user->id,
+                'message_id' => $message->id,
+            ];
+        })->toArray();
+
+        MessageRead::insert($data);
     }
 
     private function fileUpload(Message $message)

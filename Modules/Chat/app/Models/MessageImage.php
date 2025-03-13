@@ -22,8 +22,7 @@ class MessageImage extends Model
 
     protected $fillable = [
         'message_id',
-        'user_id',
-        'read_at',
+        'file_path',
     ];
 
     public function message(): BelongsTo

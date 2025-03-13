@@ -48,7 +48,9 @@
       <div class="flex h-full flex-1 flex-col py-2 pl-1 pr-2">
         <div class="flex flex-row space-x-1">
           <div class="font-bold">{{ $message->user->name }}</div>
-          <div class="flex items-end text-sm text-gray-500">{{ $message->created_at->format('Y-m-d H:i') }}</div>
+          <div class="flex items-end text-sm text-gray-500">{{ $message->created_at->format('Y-m-d H:i') }}
+            {{ $message->readStatuses }}
+          </div>
         </div>
         <div class="w-full">
           {!! $message->message !!}

@@ -29,7 +29,7 @@ class Message extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function messageReads(): HasMany
+    public function reads(): HasMany
     {
         return $this->hasMany(MessageRead::class);
     }
@@ -55,5 +55,16 @@ class Message extends Model
         }
 
         return '　　';
+    }
+
+    public function getReadStatusesAttribute()
+    {
+        $readCount = $this->reads->whereNotNull('read_at')->count();
+
+        if ($readCount === 0) {
+            return '';
+        }
+
+        return '既読' . ($readCount === 1 ? '' : $readCount);
     }
 }
