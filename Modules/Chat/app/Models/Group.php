@@ -33,6 +33,11 @@ class Group extends Model
         return $this->hasMany(Message::class, 'group_id');
     }
 
+    public function reads()
+    {
+        return $this->hasMany(MessageRead::class, 'group_id');
+    }
+
     public function getIconImageAttribute(): ?string
     {
         if ($this->is_dm) {
@@ -49,10 +54,10 @@ class Group extends Model
         return $this->messages->sortByDesc('created_at')->first();
     }
 
-    public function getNotificationCountAttribute()
+    public function getGroupNotificationCountAttribute()
     {
-        dd($this->messages->users()->member());
-
-        return 10;
+        return $this->reads->filter(function ($read) {
+            return $read->user_id === Auth::id() && is_null($read->read_at);
+        })->count();
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 // use Modules\Chat\Database\Factories\MessageFactory;
 
@@ -59,7 +60,9 @@ class Message extends Model
 
     public function getReadStatusesAttribute()
     {
-        $readCount = $this->reads->whereNotNull('read_at')->count();
+        $readCount = $this->reads->filter(function ($read) {
+            return $read->user_id !== Auth::id() && ! is_null($read->read_at);
+        })->count();
 
         if ($readCount === 0) {
             return '';

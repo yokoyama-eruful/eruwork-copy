@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Chat\Livewire;
 
+use App\Events\ChatEvent;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -28,7 +29,7 @@ class CreateGroup extends Component
     {
         $this->form->save();
 
-        return to_route('chat.index');
+        ChatEvent::dispatch();
     }
 
     public function render()

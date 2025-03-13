@@ -68,6 +68,7 @@ class Editor extends Component
         $data = $users->map(function ($user) use ($message) {
             return [
                 'user_id' => $user->id,
+                'group_id' => $this->group->id,
                 'message_id' => $message->id,
             ];
         })->toArray();

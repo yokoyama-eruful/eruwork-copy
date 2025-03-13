@@ -20,9 +20,11 @@
         </div>
         <div class="flex w-1/6 flex-col items-center">
           <div class="text-xs text-gray-500">{{ $group->lastMessage?->created_at->format('m/d') }}</div>
-          <div class="inline-block rounded-full bg-red-500 p-[1px] text-center text-xs text-white">
-            {{ $selectGroup->notification_count }}
-          </div>
+          @if ($group->group_notification_count)
+            <div class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+              {{ $group->group_notification_count }}
+            </div>
+          @endif
         </div>
       </a>
     @endforeach
@@ -45,9 +47,11 @@
         </div>
         <div class="flex w-1/6 flex-col items-center">
           <div class="text-xs text-gray-500">{{ $group->lastMessage?->created_at->format('m/d') }}</div>
-          <div class="inline-block h-4 w-4 rounded-full bg-red-500 text-center text-xs text-white">
-            {{ $selectGroup->notification_count }}
-          </div>
+          @if ($group->group_notification_count)
+            <div class="flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white">
+              {{ $group->group_notification_count }}
+            </div>
+          @endif
         </div>
       </a>
     @endforeach

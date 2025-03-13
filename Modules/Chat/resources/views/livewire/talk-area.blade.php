@@ -66,7 +66,7 @@
                     class="absolute right-5 top-5 z-10 h-10 w-10 rounded-md bg-gray-400 hover:bg-gray-500 hover:text-red-600"
                     x-on:click="viewImage{{ $image->id }} = false"><i class="fa-solid fa-xmark"></i></button>
                   <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-                  <div class="relative z-10 max-h-[100vh] max-w-[100vh]">
+                  <div class="relative z-10 flex max-h-[100vh] max-w-[100vh] items-center justify-center">
                     <img class="max-h-[90vh] max-w-[90vw] object-contain" src="{{ $image->file_path }}">
                   </div>
                 </div>
