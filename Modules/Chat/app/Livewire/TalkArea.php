@@ -20,6 +20,11 @@ class TalkArea extends Component
 
     public int $countMessage = 15;
 
+    public function mount()
+    {
+        ChatEvent::dispatch();
+    }
+
     #[On('addViewMessage')]
     public function addViewMessage()
     {
@@ -39,8 +44,6 @@ class TalkArea extends Component
             ->where('user_id', Auth::id())
             ->whereNull('read_at')
             ->update(['read_at' => CarbonImmutable::now()]);
-
-        ChatEvent::dispatch();
 
         return view('chat::livewire.talk-area');
     }

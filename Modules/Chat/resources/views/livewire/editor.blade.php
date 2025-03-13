@@ -1,5 +1,5 @@
 <div class="w-full">
-  <div class="rounded border border-gray-300 shadow" x-data="setupEditor(@entangle('message'))" x-init="() => init($refs.editor)" wire:ignore>
+  <div class="rounded border border-gray-300 shadow" x-data="setupEditor(@entangle('message'))" x-init="() => init($refs.editor)">
     <div class="menu flex flex-row items-center border-b border-gray-300 px-2">
       <div class="flex items-center">
         <button class="h-7 w-7 rounded" type="button" @click="toggleBold()" :class="{ 'bg-gray-200': isActive('bold') }">
@@ -32,12 +32,18 @@
       </div>
     </div>
 
-    <div class="h-auto max-h-32 min-h-10 overflow-y-auto p-2" x-ref="editor"></div>
+    <div class="h-auto max-h-40 min-h-10 overflow-y-auto p-2" x-ref="editor" wire:ignore></div>
 
     @if ($files)
-      <div class="flex w-full flex-row space-x-1 overflow-x-auto">
-        @foreach ($files as $file)
-          <img class="h-8 w-8 rounded border" src="{{ $file->temporaryUrl() }}">
+      <div class="flex w-full flex-row space-x-2 overflow-x-auto">
+        @foreach ($files as $key => $file)
+          <div class="relative m-1 h-16 w-16 rounded-md border" wire:click="deleteUploadFile({{ $key }})">
+            <img class="h-full w-full object-cover" src="{{ $file->temporaryUrl() }}">
+            <button
+              class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border bg-white text-gray-500 hover:bg-gray-300 hover:text-gray-700">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
         @endforeach
       </div>
     @endif

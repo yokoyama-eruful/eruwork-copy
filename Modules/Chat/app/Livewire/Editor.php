@@ -91,6 +91,14 @@ class Editor extends Component
         MessageImage::insert($data);
     }
 
+    public function deleteUploadFile($key)
+    {
+        if (isset($this->files[$key])) {
+            unset($this->files[$key]);
+            $this->files = array_values($this->files);
+        }
+    }
+
     public function render()
     {
         return view('chat::livewire.editor');
