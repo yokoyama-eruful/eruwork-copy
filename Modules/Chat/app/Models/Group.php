@@ -38,6 +38,16 @@ class Group extends Model
         return $this->hasMany(MessageRead::class, 'group_id');
     }
 
+    public function getNameLabelAttribute()
+    {
+        $usersLabel =
+        $this->users->where('id', '!=', Auth::id())
+            ->pluck('name')
+            ->implode(',');
+
+        return $this->name ?? $usersLabel;
+    }
+
     public function getIconImageAttribute(): ?string
     {
         if ($this->is_dm) {

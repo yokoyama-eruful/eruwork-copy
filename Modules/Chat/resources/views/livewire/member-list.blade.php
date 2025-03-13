@@ -42,7 +42,7 @@
           <img class="h-8 w-8 rounded-full border" src="{{ $group->IconImage }}" src="icon.png">
         </div>
         <div class="min-w-0 flex-1">
-          <div class="truncate font-semibold">{{ $group->name }}</div>
+          <div class="truncate font-semibold">{{ $group->NameLabel }}</div>
           <div class="truncate text-sm text-gray-500">{{ strip_tags($group->lastMessage?->ViewMessage) }}</div>
         </div>
         <div class="flex w-1/6 flex-col items-center">
