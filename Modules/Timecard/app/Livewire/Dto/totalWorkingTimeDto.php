@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+namespace Modules\Timecard\Livewire\Dto;
+
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Modules\Timecard\Models\BreakTime;

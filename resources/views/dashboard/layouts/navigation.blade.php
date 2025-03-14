@@ -69,10 +69,9 @@
   <div class="overflow-hidden transition-all duration-300 ease-in-out xl:hidden"
     :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'">
     <!-- Responsive Settings Options -->
-    <div class="border-t border-gray-200 pb-1">
+    <div class="border-t border-gray-200 bg-white pb-1">
       <div class="px-4 py-2">
         <div class="text-base font-medium text-gray-800">{{ Auth::user()->name }}</div>
-        <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
       </div>
 
       <div class="space-y-1">
