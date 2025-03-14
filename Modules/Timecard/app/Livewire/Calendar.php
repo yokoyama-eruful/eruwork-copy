@@ -11,13 +11,13 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Modules\Timecard\Livewire\Dto\totalWorkingTimeDto;
 use Modules\Timecard\Livewire\Forms\BreakTimeData;
 use Modules\Timecard\Livewire\Forms\BreakTimeForm;
 use Modules\Timecard\Livewire\Forms\WorkTimeData;
 use Modules\Timecard\Livewire\Forms\WorkTimeForm;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
-use totalWorkingTimeDto;
 
 class Calendar extends Component
 {
