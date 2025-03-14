@@ -9,7 +9,8 @@
           <i class="fa-solid fa-chevron-left block hover:text-ao-main xl:hidden" x-on:click="showMemberList=true"></i>
           <div class="absolute inset-0 z-30 transform bg-white transition-transform duration-300 ease-in-out"
             x-show="showMemberList===true" x-transition:enter="-translate-x-full opacity-0"
-            x-transition:enter-start="-translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100">
+            x-transition:enter-start="-translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100"
+            x-cloak>
             @livewire('chat::member-list', ['selectGroup' => $selectGroup])
           </div>
         </div>

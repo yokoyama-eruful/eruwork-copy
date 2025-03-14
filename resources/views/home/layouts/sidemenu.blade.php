@@ -17,11 +17,8 @@
           </div>
         </a>
       </li>
-      <li class="mb-2"> @include('board::icon')</a>
-      </li>
+      <li class="mb-2">@include('board::icon')</li>
       <li class="mb-2">@include('calendar::icon')</li>
-      <li class="mb-2"><a class="block h-20 w-20 rounded border bg-sky-100 hover:bg-gray-100"
-          href="#">タイムカード</a></li>
       <li class="mb-2">@include('chat::icon')</li>
       <li class="mb-2">@include('timecard::icon')</li>
       <li class="mb-2"><a class="block h-20 w-20 rounded border bg-sky-100 hover:bg-gray-100"
