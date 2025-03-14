@@ -70,4 +70,9 @@ class Group extends Model
             return $read->user_id === Auth::id() && is_null($read->read_at);
         })->count();
     }
+
+    public function getCountUserAttribute()
+    {
+        return $this->users->count();
+    }
 }

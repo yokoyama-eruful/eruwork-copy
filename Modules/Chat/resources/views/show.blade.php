@@ -22,7 +22,30 @@
             <i class="fa-solid fa-image"></i>
           </div>
         @endif
-        <div>{{ $selectGroup->NameLabel }}</div>
+        <div class='flex flex-row space-x-1'>
+          <div>{{ $selectGroup->NameLabel }}</div>
+          @if (!$selectGroup->is_dm)
+            <div class='cursor-pointer hover:text-ao-main' @click="$dispatch('open-modal', 'view-member')">
+              {{ '(' . $selectGroup->CountUser . ')' }}</div>
+            <x-modal-alert name="view-member">
+              <div class="text-center text-lg font-bold">グループメンバー</div>
+              <div class="my-2 max-h-32 min-h-32 overflow-y-auto rounded-md border p-2 shadow">
+                @foreach ($selectGroup->users as $user)
+                  <div class="flex w-full flex-row items-center border-b p-2">
+                    @if ($user->IconImage)
+                      <img class="h-8 w-8 rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
+                    @else
+                      <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white"><i
+                          class="fa-solid fa-image"></i>
+                      </div>
+                    @endif
+                    <div>{{ $user->name }}</div>
+                  </div>
+                @endforeach
+              </div>
+            </x-modal-alert>
+          @endif
+        </div>
       </div>
     </div>
 
