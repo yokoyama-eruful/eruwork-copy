@@ -20,15 +20,21 @@ class DraftSchedule extends Model
      */
     protected $fillable = [
         'user_id',
-        'managers_id',
+        'manager_id',
         'date',
         'start_time',
         'end_time',
         'status',
     ];
 
-    // protected static function newFactory(): DraftScheduleFactory
-    // {
-    //     // return DraftScheduleFactory::new();
-    // }
+    protected $casts = [
+        'date' => 'date',
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
+    ];
+
+    public function getViewSubmissionTimeAttribute()
+    {
+        return (is_null($this->start_time) ? ' -- : -- ' : $this->start_time->format('H:i')) . ' ～ ' . (is_null($this->end_time) ? ' -- : -- ' : $this->end_time->format('H:i'));
+    }
 }

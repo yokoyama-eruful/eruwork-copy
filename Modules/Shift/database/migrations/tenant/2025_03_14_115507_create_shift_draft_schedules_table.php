@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('shift__draft_schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('managers_id')->nullable()->constrained('shift__managers')->onDelete('cascade');
+            $table->foreignId('manager_id')->nullable()->constrained('shift__managers')->onDelete('cascade');
             $table->date('date');
             $table->time('start_time');
             $table->time('end_time');

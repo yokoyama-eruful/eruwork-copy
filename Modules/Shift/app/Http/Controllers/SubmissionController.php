@@ -8,16 +8,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Shift\Models\Manager;
 
-class ShiftController extends Controller
+class SubmissionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $managers = Manager::get();
-
-        return view('shift::index', ['managers' => $managers]);
+        return view('shift::submission.index');
     }
 
     /**
@@ -25,7 +23,7 @@ class ShiftController extends Controller
      */
     public function create()
     {
-        return view('shift::create');
+        return view('shift::submission.create');
     }
 
     /**
@@ -41,7 +39,9 @@ class ShiftController extends Controller
      */
     public function show($id)
     {
-        return view('shift::show');
+        $manager = Manager::find($id);
+
+        return view('shift::submission.show', ['manager' => $manager]);
     }
 
     /**
@@ -49,7 +49,7 @@ class ShiftController extends Controller
      */
     public function edit($id)
     {
-        return view('shift::edit');
+        return view('shift::submission.edit');
     }
 
     /**

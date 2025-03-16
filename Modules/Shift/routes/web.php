@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\Shift\Http\Controllers\ShiftController;
+use Modules\Shift\Http\Controllers\SubmissionController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -25,4 +26,8 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::resource('shift', ShiftController::class)->names('shift');
+
+    Route::resource('submission', SubmissionController::class)->names('submission');
+
+    Route::resource('schedule', ShiftController::class)->names('schedule');
 });

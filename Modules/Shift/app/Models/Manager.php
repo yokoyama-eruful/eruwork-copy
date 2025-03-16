@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 // use Modules\Shift\Database\Factories\モManagersFactory;
 
-class Managers extends Model
+class Manager extends Model
 {
     use HasFactory;
 
@@ -25,7 +25,14 @@ class Managers extends Model
         'submission_end_date',
     ];
 
-    // protected static function newFactory(): モManagersFactory
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'submission_start_date' => 'date',
+        'submission_end_date' => 'date',
+    ];
+
+    // protected static function newFactory(): ManagersFactory
     // {
     //     // return モManagersFactory::new();
     // }
