@@ -5,66 +5,41 @@ declare(strict_types=1);
 namespace Modules\Shift\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Modules\Shift\Models\Manager;
+use Modules\Shift\Models\Schedule;
 
 class ShiftController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $managers = Manager::get();
 
-        return view('shift::index', ['managers' => $managers]);
-    }
+        $shifts = Schedule::where('date', now())
+            ->get();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        return view('shift::create');
-    }
+        $users = [];
+        foreach ($shifts as $shift) {
+            if ($shift->user) {
+                $users[$shift->user_id] = $shift->user;
+            }
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $userSchedules = [];
+        foreach ($users as $user) {
+            $userSchedules[$user->id] = [
+                'name' => $user->name,
+                'schedules' => [],
+            ];
+        }
 
-    /**
-     * Show the specified resource.
-     */
-    public function show($id)
-    {
-        return view('shift::show');
-    }
+        foreach ($shifts as $shift) {
+            $user = User::find($shift->user_id);
+            if ($user) {
+                $userSchedules[$user->id]['schedules'][] = $shift;
+            }
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id)
-    {
-        return view('shift::edit');
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        //
+        return view('shift::index', ['managers' => $managers, 'userSchedules' => $userSchedules]);
     }
 }

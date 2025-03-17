@@ -8,7 +8,6 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
-use Livewire\Attributes\On;
 use Livewire\Component;
 use Modules\Shift\Models\DraftSchedule;
 use Modules\Shift\Models\Manager;
@@ -17,21 +16,11 @@ class SubmissionCalendar extends Component
 {
     public Manager $manager;
 
-    public SubmissionForm $form;
-
     public CarbonImmutable $selectedDate;
 
-    public function mount($managerId)
-    {
-        $this->manager = Manager::findOrFail($managerId);
-        $this->form->managerId = $this->manager->id;
-    }
-
-    #[Computed] #[On('reloadCalendar')]
+    #[Computed]
     public function calendar()
     {
-        // $drafts = $this->getDraftSchedules();
-
         $calendarViewTerm = CarbonPeriodImmutable::create(
             $this->manager->start_date->startOfWeek(CarbonImmutable::MONDAY),
             $this->manager->end_date->endOfWeek(CarbonImmutable::SUNDAY)
@@ -47,7 +36,6 @@ class SubmissionCalendar extends Component
                 ->map(function ($date) use ($mangerTerm) {
                     return [
                         'date' => $date,
-                        // 'drafts' => $this->findSchedules($drafts, $date),
                         'type' => $this->getDateType($mangerTerm, $date),
                         'draftShifts' => $this->getDraftShifts($date),
                     ];
@@ -79,38 +67,6 @@ class SubmissionCalendar extends Component
             ->where('date', $date)
             ->where('manager_id', $this->manager->id)
             ->get();
-    }
-
-    public function setDate($date)
-    {
-        $this->form->date = $date;
-
-        $this->reset(['form.startTime', 'form.endTime']);
-    }
-
-    public function setData($id)
-    {
-        $draftSchedule = DraftSchedule::find($id);
-
-        $this->form->setData($draftSchedule);
-    }
-
-    public function save()
-    {
-        $date = $this->form->date;
-
-        $this->form->save();
-
-        $this->dispatch('close-modal', 'create-dialog-' . $date);
-    }
-
-    public function update()
-    {
-        $date = $this->form->date;
-
-        $this->form->update();
-
-        $this->dispatch('close-modal', 'edit-dialog-' . $date);
     }
 
     public function render()

@@ -32,6 +32,16 @@ class Manager extends Model
         'submission_end_date' => 'date',
     ];
 
+    public function getViewScheduleAttribute()
+    {
+        return $this->start_date->format('Y年m月d日') . '~' . $this->end_date->format('Y年m月d日');
+    }
+
+    public function getViewSubmissionScheduleAttribute()
+    {
+        return $this->submission_start_date->format('Y年m月d日') . '~' . $this->submission_end_date->format('Y年m月d日');
+    }
+
     // protected static function newFactory(): ManagersFactory
     // {
     //     // return モManagersFactory::new();

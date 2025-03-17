@@ -12,35 +12,46 @@
       </div>
 
       <div class="grid w-full sm:grid-cols-7" wire:key="calendar-grid">
-        @foreach ($this->calendar as $content)
-          <div wire:click='setDate("{{ $content['date']->format('Y-m-d') }}")'
-            x-on:click="$dispatch('open-modal', 'create-dialog-{{ $content['date']->format('Y-m-d') }}')"
-            @class([
-                'cursor-pointer flex flex-col min-h-24 border',
-                'bg-sky-100' => $content['type'] == '土曜日',
-                'bg-red-100' => $content['type'] == '日曜日',
-                'bg-orange-200' => $content['type'] == '公休日',
-                'bg-gray-100 hidden sm:block' => $content['type'] == '期間外',
-            ]) wire:key="calendar-box-{{ $content['date']->format('Y-m-d') }}">
-            <div class="flex justify-between">
+        @foreach ($this->calendar as $key => $content)
+          <div @class([
+              'cursor-pointer flex flex-col min-h-24 border',
+              'bg-sky-100' => $content['type'] == '土曜日',
+              'bg-red-100' => $content['type'] == '日曜日',
+              'bg-orange-200' => $content['type'] == '公休日',
+              'bg-gray-100 hidden sm:block' => $content['type'] == '期間外',
+          ]) wire:key="calendar-box-{{ $content['date']->format('Y-m-d') }}">
+            <div class="mx-1 flex items-center justify-between">
               @if ($content['type'] != '期間外')
-                <div class="ms-1">{{ $content['date']->isoFormat('D日') }}</div>
+                <div>
+                  @if ($content['date']->day == 1 || $key == 1)
+                    {{ $content['date']->isoFormat('Y年M月D日') }}
+                  @else
+                    {{ $content['date']->isoFormat('D日') }}
+                  @endif
+                </div>
+                <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
+                  x-on:click="$dispatch('open-modal', 'create-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                  <i class="fa-regular fa-square-plus"></i>
+                </button>
               @endif
             </div>
             <div class="flex flex-col items-center justify-center px-1 text-center sm:text-sm">
-              @foreach ($content['draftShifts'] as $key => $time)
-                <div class="flex rounded-sm py-1" wire:key="{{ $time->id }}">
-                  <button class="hover:text-ao-main" type="button" wire:click="setData({{ $time->id }})"
-                    x-on:click.stop="$dispatch('open-modal', 'edit-dialog-{{ $content['date']->format('Y-m-d') }}')">
-                    {{ $time->ViewSubmissionTime }}
-                  </button>
-                </div>
+              @foreach ($content['draftShifts'] as $key => $schedule)
+                <button class="flex w-full justify-start rounded-sm py-1 hover:bg-gray-100" type="button"
+                  wire:key="{{ $schedule->id }}"
+                  x-on:click.stop="$dispatch('open-modal', 'edit-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                  <div class="flex flex-row items-center">
+                    <div class="pr-1 text-[6px] text-ao-main"><i class="fa-solid fa-circle"></i></div>
+                    <div>{{ $schedule->ViewSubmissionTime }}</div>
+                  </div>
+                </button>
+                <livewire:shift::submission-edit-modal @edited="$refresh" :key="$schedule->id" :$schedule />
               @endforeach
             </div>
           </div>
           @if ($content['type'] != '期間外')
-            @include('shift::livewire.layouts.submission-create-modal')
-            @include('shift::livewire.layouts.submission-edit-modal')
+            <livewire:shift::submission-create-modal @added="$refresh" :key="$content['date']->format('Ymd')" :day="$content['date']"
+              :manager="$manager" />
           @endif
         @endforeach
       </div>

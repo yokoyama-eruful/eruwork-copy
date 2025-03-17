@@ -22,6 +22,8 @@ class SubmissionForm extends Form
 
     public ?string $endTime;
 
+    public DraftSchedule $schedule;
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -54,12 +56,13 @@ class SubmissionForm extends Form
         ];
     }
 
-    public function setData(
-        DraftSchedule $draftSchedule,
-    ) {
+    public function setData(DraftSchedule $draftSchedule)
+    {
+        $this->schedule = $draftSchedule;
         $this->userId = $draftSchedule->user_id;
         $this->date = $draftSchedule->date->format('Y-m-d');
         $this->id = $draftSchedule->id;
+        $this->managerId = $draftSchedule->manager_id;
         $this->startTime = $draftSchedule->start_time?->format('H:i');
         $this->endTime = $draftSchedule->end_time?->format('H:i');
     }
@@ -84,15 +87,18 @@ class SubmissionForm extends Form
     {
         $this->validate();
 
-        $draftSchedule = DraftSchedule::find($this->id);
-
-        $draftSchedule->update(
+        $this->schedule->update(
             [
                 'date' => $this->date,
                 'start_time' => $this->startTime,
                 'end_time' => $this->endTime,
             ]
         );
+    }
+
+    public function delete()
+    {
+        DraftSchedule::destroy($this->id);
 
         $this->reset(['date', 'startTime', 'endTime']);
     }

@@ -1,24 +1,16 @@
-<x-modal name="edit-dialog-{{ $content['date']->format('Y-m-d') }}" title="シフト希望編集">
-  <form class="p-4" wire:submit="update">
+<x-modal name="create-dialog-{{ $day->format('Y-m-d') }}" title="シフト希望登録">
+  <form class="p-4" wire:submit="save">
     @csrf
 
-    <div class="mt-4">
-      <x-input-label for="date" value="日付" />
-
-      <x-text-input class="mt-1 block w-full" id="date" name="date" type="date"
-        min="{{ $this->manager->start_date->format('Y-m-d') }}" max="{{ $this->manager->end_date->format('Y-m-d') }}"
-        wire:model="form.date" required />
-
-      @error('form.date')
-        <div class="font-normal text-red-500">{{ $message }}</div>
-      @enderror
+    <div class="mt-4 text-lg font-bold">
+      {{ $day->format('Y年m月d日') }}
     </div>
 
     <div class="mt-4">
       <x-input-label for="start_time" value="開始時間" />
 
-      <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time"
-        wire:model="form.startTime" required />
+      <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time" wire:model="form.startTime"
+        required />
 
       @error('form.start_time')
         <div class="font-normal text-red-500">{{ $message }}</div>
@@ -42,7 +34,7 @@
       </x-secondary-button>
 
       <x-primary-button class="ms-3">
-        更新
+        登録
       </x-primary-button>
     </div>
   </form>

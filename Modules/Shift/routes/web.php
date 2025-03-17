@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Modules\Shift\Http\Controllers\ScheduleController;
 use Modules\Shift\Http\Controllers\ShiftController;
 use Modules\Shift\Http\Controllers\SubmissionController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -27,7 +28,7 @@ Route::middleware([
 ])->group(function () {
     Route::resource('shift', ShiftController::class)->names('shift');
 
-    Route::resource('submission', SubmissionController::class)->names('submission');
+    Route::get('submission/{manager}', SubmissionController::class)->name('submission.show');
 
-    Route::resource('schedule', ShiftController::class)->names('schedule');
+    Route::resource('schedule', ScheduleController::class)->names('schedule');
 });
