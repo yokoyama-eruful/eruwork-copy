@@ -9,33 +9,29 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "intervention/image": "^3.11",
-        "laravel/framework": "^11.31",
+        "laravel/framework": "^12.0.2",
         "laravel/reverb": "^1.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "log1x/laravel-webfonts": "^1.0",
-        "mamdouhkhaled/tenancy-modules": "^1.0",
-        "mhmiton/laravel-modules-livewire": "^4.3",
-        "nwidart/laravel-modules": "^11.1",
+        "mhmiton/laravel-modules-livewire": "^5.1",
+        "nwidart/laravel-modules": "^12.0",
         "spatie/laravel-permission": "^6.15",
         "stancl/tenancy": "^3.9"
     },
     "require-dev": {
+        "askdkc/breezejp": "^2.3",
         "fakerphp/faker": "^1.23",
-        "larastan/larastan": "^3.1",
-        "laravel-lang/common": "^6.5",
         "laravel/breeze": "^2.3",
-        "laravel/pail": "^1.1",
+        "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.13",
-        "laravel/sail": "^1.26",
-        "laravel/telescope": "^5.5",
+        "laravel/sail": "^1.41",
+        "log1x/laravel-webfonts": "^2.0",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^3.7",
-        "pestphp/pest-plugin-laravel": "^3.1",
-        "silviolleite/laravelpwa": "^2.0"
+        "nunomaduro/collision": "^8.6",
+        "phpunit/phpunit": "^11.5.3"
     },
     "autoload": {
         "psr-4": {
@@ -72,9 +68,7 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": [
-                "laravel/telescope"
-            ]
+            "dont-discover": []
         },
         "merge-plugin": {
             "include": [

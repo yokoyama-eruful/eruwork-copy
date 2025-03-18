@@ -1,3 +1,9 @@
 {
-    "Account": true
+    "Account": true,
+    "Board": true,
+    "Calendar": true,
+    "Chat": true,
+    "Timecard": true,
+    "Shift": true,
+    "Manual": true
 }
