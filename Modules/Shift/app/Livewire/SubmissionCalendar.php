@@ -8,6 +8,7 @@ use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Modules\Shift\Models\DraftSchedule;
 use Modules\Shift\Models\Manager;
@@ -18,7 +19,7 @@ class SubmissionCalendar extends Component
 
     public CarbonImmutable $selectedDate;
 
-    #[Computed]
+    #[Computed] #[On('SubmissionCalendarAllRefresh')]
     public function calendar()
     {
         $calendarViewTerm = CarbonPeriodImmutable::create(

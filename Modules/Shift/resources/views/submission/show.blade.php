@@ -13,6 +13,7 @@
         <div class="font-medium">{{ $manager->submission_end_date->isoFormat('Y年M月D日(ddd)') }}</div>
         まで
       </div>
+      <livewire:shift::submission-multi-create :$manager />
     </div>
     @livewire('shift::submission-calendar', ['manager' => $manager])
   </x-widget>
