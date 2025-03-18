@@ -97,6 +97,7 @@ class BreakTimeData extends Form
     public function delete()
     {
         BreakTime::destroy($this->id);
+        $this->reset(['id', 'userId', 'date', 'inTime', 'outTime']);
     }
 
     public function term()
