@@ -29,6 +29,23 @@ export default {
                   dark:'#95a4b7',
                 },
               },
+              gridColumnStart: {
+                ...Array.from({ length: 1428 }, (_, i) => [String(i + 14), String(i + 14)]).reduce((acc, [key, value]) => {
+                  acc[key] = value;
+                  return acc;
+                }, {}),
+              },
+              gridColumn: {
+                ...Array.from({ length: 1428 }, (_, i) => [String(i + 13), `span ${i + 13} / span ${i + 13}`]).reduce((acc, [key, value]) => {
+                  acc[`span-${key}`] = value;
+                  return acc;
+                }, {}),
+              },
+
+              gridTemplateColumns: {
+                '25-cols': '100px repeat(24, minmax(50px, 1fr))',
+                '1440': 'repeat(1441, minmax(0, 1fr))',
+              },
         },
     },
 
