@@ -3,7 +3,7 @@
     "Board": true,
     "Calendar": true,
     "Chat": true,
-    "Manual": true,
+    "Timecard": true,
     "Shift": true,
-    "Timecard": true
+    "Manual": true
 }
