@@ -33,6 +33,11 @@ class DraftSchedule extends Model
         'end_time' => 'datetime',
     ];
 
+    public function getShiftStatusAttribute()
+    {
+        return $this->status === '承認';
+    }
+
     public function getViewSubmissionTimeAttribute()
     {
         return (is_null($this->start_time) ? ' -- : -- ' : $this->start_time->format('H:i')) . ' ～ ' . (is_null($this->end_time) ? ' -- : -- ' : $this->end_time->format('H:i'));

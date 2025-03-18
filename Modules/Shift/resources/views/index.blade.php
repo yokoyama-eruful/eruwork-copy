@@ -123,10 +123,18 @@
             </div>
             <div class="flex flex-wrap justify-between space-x-1 font-medium xl:flex-row">
               <div>締め切り:{{ $manager->submission_end_date->format('Y年m月d日') }}</div>
-              <div class="block rounded-md bg-ao-main px-2 font-semibold text-white xl:hidden">受付中</div>
+              @if ($manager->OverSubmissionPeriod)
+                <div class="block rounded-md bg-ao-main px-2 font-semibold text-white xl:hidden">受付中</div>
+              @else
+                <div class="block rounded-md bg-rose-400 px-2 font-semibold text-white xl:hidden">受付終了</div>
+              @endif
             </div>
           </div>
-          <div class="hidden rounded-md bg-ao-main p-2 font-semibold text-white xl:block">受付中</div>
+          @if ($manager->OverSubmissionPeriod)
+            <div class="hidden rounded-md bg-ao-main p-2 font-semibold text-white xl:block">受付中</div>
+          @else
+            <div class="hidden rounded-md bg-rose-400 p-2 font-semibold text-white xl:block">受付終了</div>
+          @endif
         </a>
       @endforeach
     </div>
