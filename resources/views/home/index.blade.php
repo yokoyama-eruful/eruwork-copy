@@ -1,6 +1,5 @@
 <x-app-layout>
   <div class="h-full w-full">
-
     <x-widget>
       aaaaaaaaaaaaaaaaaaaaaaaaa
       aaaaaaaaaaaaaaaaaaaaaaaaa

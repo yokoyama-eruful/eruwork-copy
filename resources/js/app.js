@@ -1,7 +1,42 @@
-import './bootstrap';
+import flatpickr from 'flatpickr/dist/flatpickr.min.js';
+import { Japanese } from "flatpickr/dist/l10n/ja.js"
 
-// import Alpine from 'alpinejs';
+window.Japanese=Japanese;
+document.addEventListener("DOMContentLoaded", function() {
+  function initializeFlatpickr() {
+      flatpickr('.js-datepicker', {
+        locale:{
+            ...Japanese,
+            "firstDayOfWeek": 1
+        } ,
+          dateFormat: 'Y-m-d',
+          allowInvalidPreload:true,
+      });
 
-// window.Alpine = Alpine;
+      flatpickr('.js-multiple-datepicker', {
+          locale:{
+            ...Japanese,
+            "firstDayOfWeek": 1
+        } ,
+        mode: "multiple",
+        dateFormat: 'Y-m-d',
+        allowInvalidPreload:true,
+      });
 
-// Alpine.start();
+      flatpickr('.js-range-datepicker', {
+        locale:{
+            ...Japanese,
+            "firstDayOfWeek": 1
+        } ,
+          mode: "range",
+          dateFormat: 'Y-m-d',
+          allowInvalidPreload:true,
+      });
+  }
+
+  initializeFlatpickr();
+
+  Livewire.on('refreshFlatpickr', () => {
+      initializeFlatpickr();
+  });
+});
