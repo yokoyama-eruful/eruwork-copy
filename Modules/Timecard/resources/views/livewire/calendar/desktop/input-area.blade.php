@@ -16,14 +16,12 @@
             <div class="ms-1 min-w-32 leading-5 text-gray-800">
               {{ $time->term() }}
             </div>
-            <x-dialog.open>
-              <button
-                class="my-1 rounded bg-white px-2 py-1 text-sm font-medium text-gray-700 hover:bg-slate-100 hover:text-blue-500"
-                type="button" x-on:click.prevent="$dispatch('open-modal', 'work-time-modal')"
-                wire:click="setWorkTime('{{ $time->id }}')">
-                <i class="fa-regular fa-pen-to-square"></i>
-              </button>
-            </x-dialog.open>
+            <button
+              class="my-1 rounded bg-white px-2 py-1 text-sm font-medium text-gray-700 hover:bg-slate-100 hover:text-blue-500"
+              type="button" x-on:click.prevent="$dispatch('open-modal', 'work-time-modal')"
+              wire:click="setWorkTime('{{ $time->id }}')">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </button>
           </div>
         @empty
           <div class="flex items-center rounded-sm border-b border-dashed border-gray-400 hover:bg-sky-200">
