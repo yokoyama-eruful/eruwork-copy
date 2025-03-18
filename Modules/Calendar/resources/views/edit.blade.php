@@ -40,8 +40,8 @@
     <div class="mt-4">
       <x-input-label for="start_date" value="開始日" />
 
-      <x-text-input class="mt-1 block w-full" id="start_date" name="start_date" type="date" value=""
-        required />
+      <x-text-input class="js-datepicker mt-1 block w-full" id="start_date" name="start_date" type="text"
+        value="" required />
 
       <x-input-error class="mt-2" :messages="$errors->userDeletion->get('start_date')" />
     </div>
@@ -49,7 +49,8 @@
     <div class="mt-2">
       <x-input-label for="end_date" value="終了日" />
 
-      <x-text-input class="mt-1 block w-full" id="end_date" name="end_date" type="date" value="" required />
+      <x-text-input class="js-datepicker mt-1 block w-full" id="end_date" name="end_date" type="text" value=""
+        required />
 
       <x-input-error class="mt-2" :messages="$errors->userDeletion->get('end_date')" />
     </div>

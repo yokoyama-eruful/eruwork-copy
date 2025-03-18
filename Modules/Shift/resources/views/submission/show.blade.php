@@ -13,6 +13,9 @@
         <div class="font-medium">{{ $manager->submission_end_date->isoFormat('Y年M月D日(ddd)') }}</div>
         まで
       </div>
+      @if ($manager->OverSubmissionPeriod)
+        <livewire:shift::submission-multi-create :$manager />
+      @endif
     </div>
     @livewire('shift::submission-calendar', ['manager' => $manager])
   </x-widget>

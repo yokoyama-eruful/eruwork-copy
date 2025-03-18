@@ -1,6 +1,6 @@
 <x-dashboard-layout>
   <x-widget>
-    <div class="flex space-x-3 py-2">
+    <div class="flex space-x-3 pb-2">
       <div class="text-lg font-bold">アカウント一覧</div>
       <a class="flex cursor-pointer items-center space-x-1 rounded border border-hai-main px-6 py-1 text-base font-medium hover:bg-gray-200"
         href="{{ route('account.create') }}">

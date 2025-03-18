@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Modules\Shift\Livewire;
 
 use Livewire\Component;
+use Modules\Shift\Models\Manager;
 
 class SubmissionEditModal extends Component
 {
     public $schedule;
+
+    public Manager $manager;
 
     public SubmissionForm $form;
 

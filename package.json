@@ -34,6 +34,7 @@
         "@tiptap/extension-underline": "^2.8.0",
         "@tiptap/pm": "^2.11.5",
         "@tiptap/starter-kit": "^2.11.5",
+        "flatpickr": "^4.6.13",
         "fullcalendar": "^6.1.15",
         "tippy.js": "^6.3.7"
     }

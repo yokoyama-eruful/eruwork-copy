@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Shift\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,6 +41,11 @@ class Manager extends Model
     public function getViewSubmissionScheduleAttribute()
     {
         return $this->submission_start_date->format('Y年m月d日') . '~' . $this->submission_end_date->format('Y年m月d日');
+    }
+
+    public function getOverSubmissionPeriodAttribute()
+    {
+        return Carbon::parse($this->submission_end_date)->endOfDay()->gte(now());
     }
 
     // protected static function newFactory(): ManagersFactory

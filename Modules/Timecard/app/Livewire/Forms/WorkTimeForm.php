@@ -97,6 +97,7 @@ class WorkTimeData extends Form
     public function delete()
     {
         WorkTime::destroy($this->id);
+        $this->reset(['id', 'userId', 'date', 'inTime', 'outTime']);
     }
 
     public function term()

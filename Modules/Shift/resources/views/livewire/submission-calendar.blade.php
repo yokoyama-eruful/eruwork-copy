@@ -29,10 +29,12 @@
                     {{ $content['date']->isoFormat('D日') }}
                   @endif
                 </div>
-                <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
-                  x-on:click="$dispatch('open-modal', 'create-dialog-{{ $content['date']->format('Y-m-d') }}')">
-                  <i class="fa-regular fa-square-plus"></i>
-                </button>
+                @if ($manager->OverSubmissionPeriod)
+                  <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
+                    x-on:click="$dispatch('open-modal', 'create-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                    <i class="fa-regular fa-square-plus"></i>
+                  </button>
+                @endif
               @endif
             </div>
             <div class="flex flex-col items-center justify-center px-1 text-center sm:text-sm">
@@ -40,12 +42,19 @@
                 <button class="flex w-full justify-start rounded-sm py-1 hover:bg-gray-100" type="button"
                   wire:key="{{ $schedule->id }}"
                   x-on:click.stop="$dispatch('open-modal', 'edit-dialog-{{ $content['date']->format('Y-m-d') }}')">
-                  <div class="flex flex-row items-center">
-                    <div class="pr-1 text-[6px] text-ao-main"><i class="fa-solid fa-circle"></i></div>
-                    <div>{{ $schedule->ViewSubmissionTime }}</div>
+                  <div class="flex flex-row items-center space-x-1">
+                    @if (!$schedule->shiftStatus)
+                      <div class="rounded bg-yellow-300 px-1 font-medium">未</div>
+                      <div>{{ $schedule->ViewSubmissionTime }}</div>
+                    @endif
+
+                    @if ($schedule->shiftStatus)
+                      <div class="rounded bg-green-300 px-1 font-medium">確</div>
+                      <div>{{ $schedule->ViewSubmissionTime }}</div>
+                    @endif
                   </div>
                 </button>
-                <livewire:shift::submission-edit-modal @edited="$refresh" :key="$schedule->id" :$schedule />
+                <livewire:shift::submission-edit-modal @edited="$refresh" :key="$schedule->id" :$schedule :$manager />
               @endforeach
             </div>
           </div>

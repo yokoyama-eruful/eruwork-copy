@@ -34,7 +34,6 @@ class SubmissionForm extends Form
         return [
             'date' => [
                 'required',
-                'date',
             ],
             'startTime' => [
                 'required',
@@ -81,6 +80,30 @@ class SubmissionForm extends Form
         ]);
 
         $this->reset(['date', 'startTime', 'endTime']);
+    }
+
+    public function multiSave()
+    {
+        $this->validate();
+
+        $dateArray = explode(', ', $this->date);
+
+        $insertData = [];
+
+        foreach ($dateArray as $date) {
+            $insertData[] = [
+                'manager_id' => $this->managerId,
+                'user_id' => Auth::id(),
+                'date' => $date,
+                'start_time' => $this->startTime,
+                'end_time' => $this->endTime,
+                'status' => '未承認',
+            ];
+        }
+
+        DraftSchedule::insert($insertData);
+
+        $this->reset(['date',  'startTime', 'endTime']);
     }
 
     public function update(): void

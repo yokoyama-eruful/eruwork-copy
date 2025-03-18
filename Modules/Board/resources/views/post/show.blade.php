@@ -29,18 +29,17 @@
           </div>
         </div>
         <div>
-          <livewire:board::download, post={{ $post }} canBeDeleted = "false" />
-          {{-- @livewire('Board.FileDownloader', ['post' => $post, 'canBeDeleted' => false]) --}}
+          <livewire:board::download :post="$post" :canBeDeleted="false" />
           @error('file')
             <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
           @enderror
         </div>
-        {{-- @livewire('Board.LikeButton', ['postID' => $post->id]) --}}
+        <livewire:board::like :postId="$post->id" />
 
         <div class="row mt-10 flex justify-center space-x-5">
           @if ($post->canEdit())
             <a class="inline-flex items-center rounded-md border border-transparent bg-ao-main px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-gray-700 focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
-              name="action" type="submit" href="{{ route('board.edit', ['board' => $post->id]) }}" value="post">
+              name="action" type="submit" href="{{ route('board.edit', ['id' => $post->id]) }}" value="post">
               編集する
             </a>
           @endif
@@ -62,7 +61,7 @@
           @if ($post->canEdit())
             <form
               class="inline-flex items-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 active:bg-red-700"
-              action="{{ route('board.destroy', ['board' => $post->id]) }}" method="POST"
+              action="{{ route('board.destroy', ['id' => $post->id]) }}" method="POST"
               onsubmit="return confirm('本当に削除しますか？');">
               @csrf
               @method('DELETE')

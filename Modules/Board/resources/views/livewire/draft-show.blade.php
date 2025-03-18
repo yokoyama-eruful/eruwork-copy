@@ -42,7 +42,7 @@
         <tbody>
           @foreach ($posts as $post)
             <tr class='cursor-pointer hover:bg-gray-100'
-              onclick="window.location.href='{{ route('board.show', ['board' => $post->id]) }}'">
+              onclick="window.location.href='{{ route('board.show', ['id' => $post->id]) }}'">
               <td class="w-7 border-b border-ao-main py-2 text-center">
                 @if ($post->attachments->isNotEmpty())
                   <i class="fas fa-paperclip mx-1 text-blue-700"></i>

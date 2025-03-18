@@ -39,9 +39,6 @@ class Calendar extends Component
 
     public BreakTimeData $breakData;
 
-    // TODO ダイアログが閉じない
-    public bool $showDialog = false;
-
     public function mount(): void
     {
         $this->clickDate(CarbonImmutable::now());
@@ -132,8 +129,8 @@ class Calendar extends Component
         $this->workData->date = $this->selectedDate;
         $this->workData->save();
 
-        $this->workData->reset(['date', 'inTime', 'outTime']);
-        $this->reset('showDialog');
+        $this->workData->reset(['id', 'userId', 'date', 'inTime', 'outTime']);
+        $this->dispatch('close-modal', 'work-time-modal');
 
         $this->setWorkTimeList($this->selectedDate);
     }
@@ -144,8 +141,8 @@ class Calendar extends Component
         $this->breakData->date = $this->selectedDate;
         $this->breakData->save();
 
-        $this->breakData->reset(['date', 'inTime', 'outTime']);
-        $this->reset('showDialog');
+        $this->breakData->reset(['id', 'userId', 'date', 'inTime', 'outTime']);
+        $this->dispatch('close-modal', 'break-time-modal');
 
         $this->setBreakTimeList($this->selectedDate);
     }
@@ -153,16 +150,14 @@ class Calendar extends Component
     public function deleteWorkTime()
     {
         $this->workData->delete();
-        $this->workData->reset(['date', 'inTime', 'outTime']);
-        $this->reset('showDialog');
+        $this->dispatch('close-modal', 'work-time-modal');
         $this->setWorkTimeList($this->selectedDate);
     }
 
     public function deleteBreakTime()
     {
         $this->breakData->delete();
-        $this->breakData->reset(['date', 'inTime', 'outTime']);
-        $this->reset('showDialog');
+        $this->dispatch('close-modal', 'break-time-modal');
         $this->setBreakTimeList($this->selectedDate);
     }
 

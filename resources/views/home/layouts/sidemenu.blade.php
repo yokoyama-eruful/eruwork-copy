@@ -8,12 +8,15 @@
   <nav class="mb-4">
     <ul class="grid grid-cols-4 gap-2 sm:grid-cols-6 xl:grid-cols-2">
       <li class="mb-2">
-        {{-- ここにicon --}}
-        <a class="flex h-20 w-20 flex-col items-end rounded-md border hover:bg-gray-100" href="#">
-          <div class="h-2/3 bg-sky-100">
-            <x-application-logo />
-          </div>
-          <div class="h-1/3 w-full rounded-b-md bg-ao-main">
+        <a class="mb-2 flex h-20 w-20 flex-col rounded border bg-ao-sub fill-gray-500 hover:bg-sky-200"
+          href="{{ route('home') }}">
+          <svg class="p-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path
+              d="M256.7,17.8l245.9,175.7v299.9h-185.2v-165.9h-121.3v165.9H10.8V193.4L256.7,17.8M256.7,9.3L3.9,189.9v310.3h199.1v-165.9h107.4v165.9h199.1V189.9L256.7,9.3h0Z"
+              fill="#6f8184" stroke="#6f8184" stroke-miterlimit="10" stroke-width="8" />
+          </svg>
+          <div class="rounded-b bg-ao-main">
+            <span class="flex items-center justify-center text-xs text-white">ホーム</span>
           </div>
         </a>
       </li>
@@ -35,7 +38,7 @@
     <ul class="grid grid-cols-4 gap-2 sm:grid-cols-6 xl:grid-cols-2">
       @can('register')
         <li class="mb-2">
-          <a class="mb-2 flex h-20 w-20 flex-col rounded bg-gray-200 fill-gray-500 hover:bg-gray-300"
+          <a class="mb-2 flex h-20 w-20 flex-col rounded border bg-ao-sub fill-gray-500 hover:bg-sky-200"
             href="{{ route('dashboard') }}">
             <svg viewBox="0 0 512 512">
               <path

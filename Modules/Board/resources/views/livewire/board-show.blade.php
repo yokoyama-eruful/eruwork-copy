@@ -44,19 +44,20 @@
         <tbody>
           @foreach ($posts as $post)
             <tr class='cursor-pointer hover:bg-gray-100'
-              onclick="window.location.href='{{ route('board.show', ['board' => $post->id]) }}'">
-              <td class="w-7 border-b border-ao-main py-2 text-center">
+              onclick="window.location.href='{{ route('board.show', ['id' => $post->id]) }}'">
+              <td class="border-b border-ao-main py-2 text-center sm:w-7">
                 @if ($post->attachments->isNotEmpty())
                   <i class="fas fa-paperclip mx-1 text-blue-700"></i>
                 @endif
               </td>
               <td @class([
-                  'max-w-xs truncate border-b border-ao-main py-2 pr-4 text-blue-500 underline',
+                  'sm:max-w-xs truncate border-b border-ao-main py-2 truncate max-w-20 sm:pr-4 text-blue-500 underline',
                   'text-gray-400' => $post->ReadStatus != null,
               ])>
                 {!! nl2br(e($post->title)) !!}
               </td>
-              <td class="border-b border-ao-main px-4 py-2">{{ $post->user->profile->name ?? 'UnknownUser' }}</td>
+              <td class="border-b border-ao-main px-4 py-2">{{ $post->user->profile->name ?? 'UnknownUser' }}
+              </td>
               <td class="border-b border-ao-main px-4 py-2">{{ $post->updated_at?->format('Y/m/d H:i') }}</td>
             </tr>
           @endforeach
