@@ -14,6 +14,7 @@ use Modules\Board\Models\BoardLike;
 use Modules\Board\Models\BoardPost;
 use Modules\Calendar\Models\PublicHoliday;
 use Modules\Calendar\Models\Schedule as CalendarSchedule;
+use Modules\Chat\Database\Seeders\ChatDatabaseSeeder;
 use Modules\Chat\Models\Group;
 use Modules\Chat\Models\Message;
 use Modules\Chat\Models\MessageImage;
@@ -39,10 +40,6 @@ class DatabaseSeeder extends Seeder
             'login_id' => 'test',
         ]);
 
-        // User::factory()->create([
-        //     'login_id' => 'test1',
-        // ]);
-
         $adminRole = Role::create(['name' => 'admin']);
         $memberRole = Role::create(['name' => 'member']);
 
@@ -62,7 +59,7 @@ class DatabaseSeeder extends Seeder
         Message::factory()->count(10)->withImages()->create();
         MessageImage::factory()->count(10)->create();
         MessageRead::factory()->count(100)->create();
-        // PublicHoliday::factory()->count(16)->create();
+
         $holidays = [
             ['date' => '2025-01-01', 'name' => '元日'],
             ['date' => '2025-01-13', 'name' => '成人の日'],
@@ -94,5 +91,7 @@ class DatabaseSeeder extends Seeder
         BoardLike::factory()->count(100)->create();
         BoardAttachment::factory()->count(100)->create();
         Profile::factory()->count(10)->create();
+
+        $this->call(ChatDatabaseSeeder::class); // ChatGroupUserSeederを追加
     }
 }

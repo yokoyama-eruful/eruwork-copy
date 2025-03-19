@@ -84,22 +84,24 @@
             @include('calendar::livewire.layouts.shift-view-modal')
           @endforeach
           @foreach ($content['schedules'] as $schedule)
-            <button
-              class="mx-1 mb-1 cursor-pointer truncate rounded border border-sky-500 bg-sky-300 pb-1 ps-1 hover:bg-sky-500"
-              x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')">
-              <div class="flex justify-between">
-                <div class="underline decoration-gray-400">
-                  {{ $schedule->title }}
-                </div>
-                {{-- @if ($this->overlappingSchedules($content['shifts']) || $this->overlappingShifts())
+            @if ($content['type'] != '補助日')
+              <button
+                class="mx-1 mb-1 cursor-pointer truncate rounded border border-sky-500 bg-sky-300 pb-1 ps-1 hover:bg-sky-500"
+                x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')">
+                <div class="flex justify-between">
+                  <div class="w-full truncate text-left underline decoration-gray-400">
+                    {{ $schedule->title }}
+                  </div>
+                  {{-- @if ($this->overlappingSchedules($content['shifts']) || $this->overlappingShifts())
                   <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
                 @endif --}}
-              </div>
-              <div class="ms-1 text-start">
-                {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
-              </div>
-            </button>
-            <livewire:calendar::edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $selectedDate->format('Ym')" />
+                </div>
+                <div class="ms-1 text-start">
+                  {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
+                </div>
+              </button>
+              <livewire:calendar::edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $selectedDate->format('Ym')" />
+            @endif
           @endforeach
         </div>
 
