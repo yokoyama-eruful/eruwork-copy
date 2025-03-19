@@ -1,33 +1,36 @@
 <div>
-  <div class="mb-2 flex items-center md:ml-0">
-    <button
-      class="flex h-10 items-center space-x-1 rounded-l bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-2"
-      wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
-      <i class="fa-solid fa-chevron-left"></i>
-      <p class="hidden sm:block">前月</p>
-    </button>
-    <div class="flex flex-row">
-      <select class="h-10" wire:model.live="year" wire:change="updateCalendar">
-        @foreach (range(2000, 2050) as $year)
-          <option value="{{ $year }}">{{ $year }}年</option>
-        @endforeach
-      </select>
-      <select class="h-10" wire:model.live="month" wire:change="updateCalendar">
-        @foreach (range(1, 12) as $month)
-          <option value="{{ $month }}">{{ $month }}月</option>
-        @endforeach
-      </select>
+  <div class="mb-2 flex flex-wrap items-center justify-between">
+    <div class="flex items-center md:ml-0">
+      <button
+        class="flex h-10 items-center space-x-1 rounded-l bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-2"
+        wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
+        <i class="fa-solid fa-chevron-left"></i>
+        <p class="hidden sm:block">前月</p>
+      </button>
+      <div class="flex flex-row">
+        <select class="h-10" wire:model.live="year" wire:change="updateCalendar">
+          @foreach (range(2000, 2050) as $year)
+            <option value="{{ $year }}">{{ $year }}年</option>
+          @endforeach
+        </select>
+        <select class="h-10" wire:model.live="month" wire:change="updateCalendar">
+          @foreach (range(1, 12) as $month)
+            <option value="{{ $month }}">{{ $month }}月</option>
+          @endforeach
+        </select>
+      </div>
+      <button
+        class="flex h-10 items-center space-x-1 rounded-r bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-2"
+        wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
+        <p class="hidden sm:block">翌月</p>
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+      <div class="h-10">
+        <button class="mx-2 h-10 rounded border bg-ao-sub px-2 hover:bg-ao-main"
+          wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
+      </div>
     </div>
-    <button
-      class="flex h-10 items-center space-x-1 rounded-r bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-2"
-      wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
-      <p class="hidden sm:block">翌月</p>
-      <i class="fa-solid fa-chevron-right"></i>
-    </button>
-    <div class="h-10">
-      <button class="mx-2 h-10 rounded border bg-ao-sub px-2 hover:bg-ao-main"
-        wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
-    </div>
+    <livewire:calendar::multi-create-schedule />
   </div>
 
   <div class="items-center overflow-x-auto">
@@ -100,7 +103,7 @@
                   {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
                 </div>
               </button>
-              <livewire:calendar::edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $selectedDate->format('Ym')" />
+              <livewire:calendar::edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . '-' . $selectedDate->format('Ymd')" />
             @endif
           @endforeach
         </div>
