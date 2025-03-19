@@ -22,3 +22,30 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+  /* Timecard */
+@layer components {
+  .shape-stamp-in {
+      box-shadow: 0px 0px 0px 3px #1995ad;
+      background-color: #1995ad;
+
+      @apply text-xl rounded-md text-white overflow-hidden transition disabled:bg-ao-sub disabled:text-ao-main;
+  }
+
+  .shape-stamp-in:hover {
+      color: #1995ad;
+      background-color: #e0f3f8;
+  }
+
+  .shape-stamp-out {
+      box-shadow: 0px 0px 0px 3px #1995ad;
+      background-color: #1995ad;
+
+      @apply text-xl rounded-md text-white overflow-hidden transition disabled:bg-ao-sub disabled:text-ao-main;
+  }
+
+  .shape-stamp-out:hover {
+      color: #1995ad;
+      background-color: #e0f3f8;
+  }
+}
