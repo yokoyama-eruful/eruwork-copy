@@ -13,6 +13,7 @@ use Livewire\Component;
 use Modules\Calendar\Actions\CalendarManager;
 use Modules\Calendar\Models\PublicHoliday;
 use Modules\Calendar\Models\Schedule;
+use Modules\Shift\Models\Schedule as ShiftSchedule;
 
 class Widget extends Component
 {
@@ -85,34 +86,57 @@ class Widget extends Component
     {
         $term = CarbonPeriodImmutable::create($this->startDate, $this->endDate);
 
+        $shifts = ShiftSchedule::where('user_id', Auth::id())
+            ->whereBetween('date', [$term->first(), $term->last()])
+            ->orderBy('start_time')
+            ->get()
+            ->groupBy(function ($shift) {
+                return $shift->date->format('Y-m-d');
+            });
+
+        $schedules = Schedule::where('user_id', Auth::id())
+            ->whereBetween('date', [$term->first(), $term->last()])
+            ->orderBy('start_time')
+            ->get()
+            ->groupBy(function ($schedule) {
+                return $schedule->date->format('Y-m-d');
+            });
+
         $holidays =
             PublicHoliday::whereBetween('date', [$this->startDate, $this->endDate])
                 ->get();
 
-        return $term
-            ->map(function ($date) use ($holidays) {
-                $type = '平日';
-                $name = '';
+        return $term->map(function ($date) use ($shifts, $schedules, $holidays) {
+            $value = $this->getDayType($date, $holidays);
 
-                if ($date->format('w') === '0') {
-                    $type = '土曜日';
-                }
+            return [
+                'date' => $date,
+                'date_name' => $value['name'],
+                'type' => $value['type'],
+                'shifts' => $shifts->has($date->format('Y-m-d')) ? $shifts[$date->format('Y-m-d')] : [],
+                'schedules' => $schedules->has($date->format('Y-m-d')) ? $schedules[$date->format('Y-m-d')] : [],
+            ];
+        });
+    }
 
-                if ($date->format('w') === '6') {
-                    $type = '日曜日';
-                }
+    private function getDayType(CarbonImmutable $date, $holidays): array
+    {
+        $value = [];
 
-                if ($holidays->where('date', $date)->isNotEmpty()) {
-                    $type = '公休日';
-                    $name = '（' . $holidays->where('date', $date)->first()->name . '）';
-                }
+        if ($holidays->where('date', $date)->isNotEmpty()) {
+            $value = [
+                'type' => '公休日',
+                'name' => '（' . $holidays->where('date', $date)->first()->name . '）',
+            ];
 
-                return [
-                    'date' => $date,
-                    'date_name' => $name,
-                    'type' => $type,
-                ];
-            });
+            return $value;
+        }
+
+        return match ($date->dayOfWeek) {
+            CarbonImmutable::SATURDAY => ['type' => '土曜日', 'name' => ''],
+            CarbonImmutable::SUNDAY => ['type' => '日曜日', 'name' => ''],
+            default => ['type' => '平日', 'name' => ''],
+        };
     }
 
     public function overlappingSchedules($shift)

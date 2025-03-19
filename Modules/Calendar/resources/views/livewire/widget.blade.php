@@ -45,65 +45,51 @@
               {{ $content['date']->isoFormat('MM/DD(ddd)') }}{{ $content['date_name'] }}
             </div>
             <div class="m-2 flex justify-end">
-              <livewire:calendar::create-schedule :date="$content['date']" :key="$content['date']->format('Ymd') . $key" />
-              {{-- @livewire('Calendar.CreateSchedule', ['date' => $content['date']], key($content['date']->format('Ymd') . $key . now()->format('His'))) --}}
+              <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
+                x-on:click="$dispatch('open-modal', 'create-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                <i class="fa-regular fa-square-plus"></i>
+              </button>
             </div>
-            <div class="mt-2 flex flex-col gap-1">
-              @foreach ($this->shiftSchedules[$content['date']->format('Y-m-d')] as $schedule)
-                {{-- <x-dialog>
-                <x-dialog.open>
-                  <div class="mx-1 mb-1 cursor-pointer truncate rounded bg-teal-400 pb-1 ps-1">
-                    <div class="flex justify-between">
-                      <div class="underline decoration-gray-400">
-                        {{ $schedule->label }}
-                      </div>
-                      @if ($this->overlappingSchedules($schedule) || $this->overlappingShifts($schedule))
-                        <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                      @endif
-                    </div>
-                    <div class="ms-1">
-                      {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
-                    </div>
-                  </div>
-                </x-dialog.open>
-                <x-dialog.panel title="シフト">
+            <div class="flex flex-col space-y-1">
+              @foreach ($content['shifts'] as $shift)
+                <button
+                  class="mx-1 mb-1 cursor-pointer truncate rounded border border-emerald-500 bg-emerald-300 pb-1 ps-1 hover:bg-emerald-500"
+                  x-on:click="$dispatch('open-modal','shift-view-modal-{{ $shift->id }}')">
                   <div class="flex justify-between">
-                    <div class="text-xl font-bold">
-                      {{ $schedule->date->isoFormat('YYYY年M月D日(ddd)') }}
+                    <div class="underline decoration-gray-400">
+                      シフト
                     </div>
+                    {{-- @if ($this->overlappingSchedules($content['shifts']) || $this->overlappingShifts())
+                  <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
+                @endif --}}
                   </div>
-                  @if ($this->overlappingSchedules($schedule) || $this->overlappingShifts($schedule))
-                    <div><i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>予定が重複しています</div>
-                  @endif
-                  <hr class="w-11/12">
-                  <div class="flex flex-col">
-                    <label class="flex items-center gap-x-4 py-4">
-                      <span class="w-24 whitespace-nowrap">開始時刻</span>
-                      <div class="flex-1 border-b border-slate-300 px-3 py-2 font-normal read-only:cursor-not-allowed">
-                        {{ $schedule->start_time->format('H:i') }}
-                      </div>
-                    </label>
-                    <label class="flex items-center gap-x-4 py-4">
-                      <span class="w-24 whitespace-nowrap">終了時刻</span>
-                      <div class="flex-1 border-b border-slate-300 px-3 py-2 font-normal read-only:cursor-not-allowed">
-                        {{ $schedule->end_time->format('H:i') }}
-                      </div>
-                    </label>
-
-                    <x-dialog.footer>
-                      <x-dialog.cancel>
-                        キャンセル
-                      </x-dialog.cancel>
-                    </x-dialog.footer>
+                  <div class="ms-1 text-start">
+                    {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}
                   </div>
-                </x-dialog.panel>
-              </x-dialog> --}}
+                </button>
+                @include('calendar::livewire.layouts.shift-view-modal')
               @endforeach
-              @foreach ($this->schedules[$content['date']->format('Y-m-d')] as $schedule)
-                @livewire('Calendar.EditSchedule', ['schedule' => $schedule], key($schedule->date->format('Ymd') . $key . $schedule->id))
+              @foreach ($content['schedules'] as $schedule)
+                <button
+                  class="mx-1 mb-1 cursor-pointer truncate rounded border border-sky-500 bg-sky-300 pb-1 ps-1 hover:bg-sky-500"
+                  x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')">
+                  <div class="flex justify-between">
+                    <div class="underline decoration-gray-400">
+                      {{ $schedule->title }}
+                    </div>
+                    {{-- @if ($this->overlappingSchedules($content['shifts']) || $this->overlappingShifts())
+                  <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
+                @endif --}}
+                  </div>
+                  <div class="ms-1 text-start">
+                    {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
+                  </div>
+                </button>
+                <livewire:calendar::edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ym')" />
               @endforeach
             </div>
           </div>
+          <livewire:calendar::create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd') . $key" />
         @endforeach
       </div>
     </div>
