@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Profile\UpdateRequest;
+use App\Http\Requests\Auth\UserSettingRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class ProfileController extends Controller
 {
@@ -23,20 +25,46 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
-    public function update(UpdateRequest $request): RedirectResponse
+    public function update(UserSettingRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($request->icon) {
+            $this->iconUpdate($request);
         }
 
-        $request->user()->save();
+        if ($request->current_password && $request->new_password) {
+            $this->passwordUpdate($request);
+        }
+
+        return to_route('home');
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+    private function iconUpdate($request)
+    {
+        $manager = new ImageManager(new Driver);
+
+        $file = $request->file('icon');
+
+        $filePath = $file->getRealPath();
+
+        $image = $manager->read($filePath);
+
+        $base64 = $image->resize(100, 100)->toPng()->toDataUri();
+
+        Auth::user()->profile->update([
+            'icon' => $base64,
+        ]);
+    }
+
+    private function passwordUpdate($request)
+    {
+        $request->checkPassword();
+
+        Auth::user()
+            ->update([
+                'password' => $request->new_password,
+            ]);
     }
 
     /**

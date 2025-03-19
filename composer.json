@@ -17,6 +17,7 @@
         "livewire/livewire": "^3.5",
         "mhmiton/laravel-modules-livewire": "^5.1",
         "nwidart/laravel-modules": "^12.0",
+        "silviolleite/laravelpwa": "^2.0",
         "spatie/laravel-permission": "^6.15",
         "stancl/tenancy": "^3.9"
     },
