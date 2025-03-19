@@ -33,7 +33,7 @@
       id="updateButton" type="button">
       更新
     </button>
-    @if (!$status)
+    @if ($status == '下書き')
       <button
         class="inline-flex items-center rounded-md border px-4 py-2 text-xs font-semibold uppercase tracking-widest transition duration-150 ease-in-out hover:bg-sky-700 hover:text-white focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
         id="postButton" type="button">
@@ -49,13 +49,13 @@
   <script>
     document.getElementById('updateButton').addEventListener('click', function() {
       Livewire.dispatch('submit-edit-post', {
-        branchStatus: false
+        branchStatus: '下書き'
       });
     });
 
     document.getElementById('postButton').addEventListener('click', function() {
       Livewire.dispatch('submit-edit-post', {
-        branchStatus: true
+        branchStatus: '掲載'
       });
     });
   </script>

@@ -18,7 +18,7 @@ class BoardPostFactory extends Factory
      */
     public function definition(): array
     {
-        $statuses = ['draft', 'published', 'archived'];
+        $statuses = ['下書き', '掲載'];
 
         return [
             'user_id' => rand(1, 10),

@@ -28,7 +28,7 @@ class CreateEditor extends Component
     public $files = [];
 
     #[On('submit-post')]
-    public function submitPost($branchStatus = false)
+    public function submitPost($branchStatus = '下書き')
     {
         $this->validate();
         $post = BoardPost::create([

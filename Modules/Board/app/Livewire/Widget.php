@@ -16,7 +16,7 @@ class Widget extends Component
     public function mount()
     {
         $this->posts =
-            BoardPost::where('status', true)
+            BoardPost::where('status', '掲載')
                 ->orderBy('created_at', 'desc')
                 ->take(5)
                 ->get();

@@ -17,7 +17,7 @@ class DraftShow extends Component
 
     public function render()
     {
-        $posts = BoardPost::where('status', false)
+        $posts = BoardPost::where('status', '下書き')
             ->where('user_id', Auth::id())
             ->where(function ($query) {
                 if ($this->search) {

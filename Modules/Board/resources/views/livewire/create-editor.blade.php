@@ -49,14 +49,14 @@
     document.getElementById('postButton').addEventListener('click', function() {
       console.log('a')
       Livewire.dispatch('submit-post', {
-        branchStatus: true
+        branchStatus: '掲載'
       });
     });
 
     document.getElementById('draftButton').addEventListener('click', function() {
       console.log('b')
       Livewire.dispatch('submit-post', {
-        branchStatus: false
+        branchStatus: '下書き'
       });
     });
   </script>
