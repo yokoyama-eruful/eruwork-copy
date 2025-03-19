@@ -111,7 +111,7 @@ class Calendar extends Component
     private function getCalendarPeriod()
     {
         $startDate = $this->selectedDate->startOfMonth()->startOfWeek(CarbonImmutable::MONDAY);
-        $endDate = $startDate->addWeeks(5)->endOfWeek(CarbonImmutable::SATURDAY);
+        $endDate = $startDate->addWeeks(5)->endOfWeek(CarbonImmutable::SUNDAY);
 
         return CarbonPeriodImmutable::create($startDate, $endDate);
     }
