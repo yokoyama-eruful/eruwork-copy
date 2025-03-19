@@ -2,9 +2,9 @@
   <div class="flex space-x-3 pb-2">
     <div class="text-lg font-bold">タイムカード</div>
   </div>
-  <div class="my-5 flex w-full flex-col items-center justify-center space-x-5 xl:flex-row">
-    <div class="my-2 flex w-3/5 flex-col items-center">
-      <div class="mb-5 flex flex-row items-center space-x-3 font-extrabold" wire:poll.60s="updateClock">
+  <div class="my-5 flex w-full flex-col items-center justify-center space-x-5 sm:flex-row">
+    <div class="my-2 flex w-full flex-col items-center sm:w-3/5">
+      <div class="mb-5 flex flex-row items-center space-x-3 font-extrabold" wire:poll.20s="updateClock">
         <p class="text-xl">{{ $currentDate }}</p>
         <p class="text-4xl">{{ $currentTime }}</p>
       </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
     <div
-      class="flex h-56 w-56 flex-col justify-center space-y-5 rounded-md bg-ao-sub p-5 text-xl font-bold text-gray-500">
+      class="flex w-full flex-row justify-center space-x-3 rounded-md bg-ao-sub p-5 text-xl font-bold text-gray-500 sm:h-56 sm:w-56 sm:flex-col sm:space-y-5">
       <div class="flex flex-col items-center">
         <p>出　勤</p>
         <input class="h-10 w-full bg-white text-center outline-none" value="{{ $workTimes?->in_time->format('H:i') }}"
