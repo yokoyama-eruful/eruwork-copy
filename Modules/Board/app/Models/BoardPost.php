@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
+use Modules\Board\Database\Factories\BoardPostFactory;
 
 // use Modules\Board\Database\Factories\BoardPostFactory;
 
@@ -81,5 +82,10 @@ class BoardPost extends Model
         }
 
         return '';
+    }
+
+    protected static function newFactory(): BoardPostFactory
+    {
+        return BoardPostFactory::new();
     }
 }

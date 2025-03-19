@@ -7,6 +7,7 @@ namespace Modules\Shift\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Shift\Database\Factories\ScheduleFactory;
 
 // use Modules\Shift\Database\Factories\ScheduleFactory;
 
@@ -60,8 +61,8 @@ class Schedule extends Model
         return $this->start_time->format('H:i') . '~' . $this->end_time->format('H:i');
     }
 
-    // protected static function newFactory(): ScheduleFactory
-    // {
-    //     // return ScheduleFactory::new();
-    // }
+    protected static function newFactory(): ScheduleFactory
+    {
+        return ScheduleFactory::new();
+    }
 }

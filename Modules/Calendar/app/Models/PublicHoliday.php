@@ -6,6 +6,7 @@ namespace Modules\Calendar\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Calendar\Database\Factories\PublicHolidayFactory;
 
 // use Modules\Calendar\Database\Factories\PublicHolidayFactory;
 
@@ -27,8 +28,8 @@ class PublicHoliday extends Model
         'date' => 'immutable_datetime',
     ];
 
-    // protected static function newFactory(): PublicHolidayFactory
-    // {
-    //     // return PublicHolidayFactory::new();
-    // }
+    protected static function newFactory(): PublicHolidayFactory
+    {
+        return PublicHolidayFactory::new();
+    }
 }

@@ -7,6 +7,7 @@ namespace Modules\Shift\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Shift\Database\Factories\ManagerFactory;
 
 // use Modules\Shift\Database\Factories\モManagersFactory;
 
@@ -48,8 +49,8 @@ class Manager extends Model
         return Carbon::parse($this->submission_end_date)->endOfDay()->gte(now());
     }
 
-    // protected static function newFactory(): ManagersFactory
-    // {
-    //     // return モManagersFactory::new();
-    // }
+    protected static function newFactory(): ManagerFactory
+    {
+        return ManagerFactory::new();
+    }
 }

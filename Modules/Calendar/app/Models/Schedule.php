@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Calendar\Database\Factories\ScheduleFactory;
 
 // use Modules\Calendar\Database\Factories\ScheduleFactory;
 
@@ -40,8 +41,8 @@ class Schedule extends Model
         return $this->belongsTo(User::class);
     }
 
-    // protected static function newFactory(): ScheduleFactory
-    // {
-    //     // return ScheduleFactory::new();
-    // }
+    protected static function newFactory(): ScheduleFactory
+    {
+        return ScheduleFactory::new();
+    }
 }

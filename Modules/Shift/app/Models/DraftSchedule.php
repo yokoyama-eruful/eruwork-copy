@@ -6,6 +6,7 @@ namespace Modules\Shift\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Shift\Database\Factories\DraftScheduleFactory;
 
 // use Modules\Shift\Database\Factories\DraftScheduleFactory;
 
@@ -41,5 +42,10 @@ class DraftSchedule extends Model
     public function getViewSubmissionTimeAttribute()
     {
         return (is_null($this->start_time) ? ' -- : -- ' : $this->start_time->format('H:i')) . ' ～ ' . (is_null($this->end_time) ? ' -- : -- ' : $this->end_time->format('H:i'));
+    }
+
+    protected static function newFactory(): DraftScheduleFactory
+    {
+        return DraftScheduleFactory::new();
     }
 }
