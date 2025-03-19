@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-widget>
     <div>
-      @if ($post->status == false)
+      @if ($post->status == '下書き')
         <p class="flex justify-center font-bold">下書き</p>
       @endif
 
@@ -44,14 +44,14 @@
             </a>
           @endif
 
-          @if ($post->status)
+          @if ($post->status == '掲載')
             <a class="inline-flex items-center rounded-md border px-4 py-2 text-xs font-semibold uppercase tracking-widest transition duration-150 ease-in-out hover:bg-gray-700 hover:bg-sky-700 hover:text-white focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
               href="{{ route('board.index') }}">
               戻る
             </a>
           @endif
 
-          @if (!$post->status)
+          @if ($post->status == '下書き')
             <a class="inline-flex items-center rounded-md border px-4 py-2 text-xs font-semibold uppercase tracking-widest transition duration-150 ease-in-out hover:bg-gray-700 hover:bg-sky-700 hover:text-white focus:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 active:bg-gray-900"
               href="{{ route('draft.index') }}">
               戻る

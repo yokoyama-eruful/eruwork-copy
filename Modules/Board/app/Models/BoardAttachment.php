@@ -6,6 +6,7 @@ namespace Modules\Board\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Board\Database\Factories\BoardAttachmentFactory;
 
 // use Modules\Board\Database\Factories\BoardAttachmentFactory;
 
@@ -26,8 +27,8 @@ class BoardAttachment extends Model
         'post_id',
     ];
 
-    // protected static function newFactory(): BoardAttachmentFactory
-    // {
-    //     // return BoardAttachmentFactory::new();
-    // }
+    protected static function newFactory(): BoardAttachmentFactory
+    {
+        return BoardAttachmentFactory::new();
+    }
 }

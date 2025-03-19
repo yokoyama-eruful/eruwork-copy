@@ -7,6 +7,7 @@ namespace Modules\Chat\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Modules\Chat\Database\Factories\MessageImageFactory;
 
 // use Modules\Chat\Database\Factories\MessageImageFactory;
 
@@ -28,5 +29,10 @@ class MessageImage extends Model
     public function message(): BelongsTo
     {
         return $this->belongsTo(Message::class);
+    }
+
+    protected static function newFactory(): MessageImageFactory
+    {
+        return MessageImageFactory::new();
     }
 }

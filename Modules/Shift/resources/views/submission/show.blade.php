@@ -1,12 +1,16 @@
 <x-app-layout>
   <x-widget>
-    <div class="flex flex-wrap justify-between pb-2">
-      <div class="text-lg font-bold">シフト提出</div>
+    <div class="flex flex-wrap items-center justify-between pb-2">
+      <div class="flex flex-row items-center space-x-2">
+        <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
+        <div class="text-lg font-bold">シフト提出</div>
+      </div>
       <a class="text-ao-main hover:text-sky-700" href="{{ route('shift.index') }}">
         <i class="fa-solid fa-arrow-up-right-from-square"></i>
         シフトトップに戻る
       </a>
     </div>
+
     <div class="flex flex-wrap justify-between">
       <div class="flex flex-row">
         提出受付:

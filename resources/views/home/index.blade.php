@@ -15,38 +15,10 @@
       aaaaaaaaaaaaaaaaaaaaaaaaa
       aaaaaaaaaaaaaaaaaaaaaaaaa
     </x-widget>
-    <x-widget>
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-      aaaaaaaaaaaaaaaaaaaaaaaaa
-    </x-widget>
-    <div class="grid grid-cols-2 gap-2">
+    <livewire:calendar::widget />
+    <div class="grid-cols-2 gap-2 xl:grid">
       <livewire:timecard::stamp />
-      <x-widget>
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-        aaaaaaaaaaaaaaaaaaaaaaaaa
-      </x-widget>
+      <livewire:board::widget />
     </div>
   </div>
 </x-app-layout>

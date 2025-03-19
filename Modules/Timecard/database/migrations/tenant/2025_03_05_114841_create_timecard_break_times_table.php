@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->date('date');
-            $table->time('in_time')->nullable();
+            $table->time('in_time');
             $table->time('out_time')->nullable();
 
             $table->datetimes();

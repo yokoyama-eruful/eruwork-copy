@@ -1,11 +1,15 @@
 <x-app-layout>
   <x-widget>
-    <div class="flex flex-wrap justify-between pb-2">
-      <div class="text-lg font-bold">本日のシフト</div>
+    <div class="flex flex-wrap items-center justify-between pb-2">
+      <div class="flex flex-row items-center space-x-2">
+        <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
+        <div class="text-lg font-bold">本日のシフト</div>
+      </div>
       <a class="text-ao-main hover:text-sky-700" href="{{ route('schedule.index') }}">
         詳しく見る
         <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
     </div>
+
     <div class="hidden xl:block">
       <div class="sticky -top-6 z-0 flex w-full flex-row bg-gray-100">
         <div class="flex w-32 items-center justify-center border">ユーザー名</div>
@@ -110,8 +114,11 @@
   </x-widget>
 
   <x-widget>
-    <div class="flex py-2">
-      <div class="text-lg font-bold">シフト提出</div>
+    <div class="flex flex-wrap items-center justify-between pb-2">
+      <div class="flex flex-row items-center space-x-2">
+        <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
+        <div class="text-lg font-bold">シフト提出</div>
+      </div>
     </div>
     <div class="w-full">
       @foreach ($managers as $manager)

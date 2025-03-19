@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('contents');
-            $table->boolean('status')->default(false);
+            $table->string('status');
             $table->foreignId('user_id')->constrained()->nullable();
             $table->datetimes();
         });

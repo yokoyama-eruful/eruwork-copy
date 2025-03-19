@@ -6,6 +6,7 @@ namespace Modules\Account\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Account\Database\Factories\ProfileFactory;
 
 // use Modules\Account\Database\Factories\ProfileFactory;
 
@@ -37,5 +38,10 @@ class Profile extends Model
             'birthday' => 'immutable_date',
             'hire_date' => 'immutable_date',
         ];
+    }
+
+    protected static function newFactory(): ProfileFactory
+    {
+        return ProfileFactory::new();
     }
 }

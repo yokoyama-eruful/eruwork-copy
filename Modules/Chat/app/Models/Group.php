@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Modules\Chat\Database\Factories\GroupFactory;
 
 // use Modules\Chat\Database\Factories\GroupFactory;
 
@@ -74,5 +75,10 @@ class Group extends Model
     public function getCountUserAttribute()
     {
         return $this->users->count();
+    }
+
+    protected static function newFactory(): GroupFactory
+    {
+        return GroupFactory::new();
     }
 }

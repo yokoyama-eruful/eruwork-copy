@@ -6,6 +6,7 @@ namespace Modules\Timecard\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Timecard\Database\Factories\WorkTimeFactory;
 
 // use Modules\Timecard\Database\Factories\AttendanceFactory;
 
@@ -29,4 +30,9 @@ class WorkTime extends Model
         'in_time' => 'immutable_datetime',
         'out_time' => 'immutable_datetime',
     ];
+
+    protected static function newFactory(): WorkTimeFactory
+    {
+        return WorkTimeFactory::new();
+    }
 }

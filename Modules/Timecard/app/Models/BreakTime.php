@@ -6,6 +6,7 @@ namespace Modules\Timecard\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Modules\Timecard\Database\Factories\BreakTimeFactory;
 
 // use Modules\Timecard\Database\Factories\BreakTimeFactory;
 
@@ -31,5 +32,10 @@ class BreakTime extends Model
     public function attendance()
     {
         return $this->hasOne(WorkTime::class, 'attendance_id');
+    }
+
+    protected static function newFactory(): BreakTimeFactory
+    {
+        return BreakTimeFactory::new();
     }
 }

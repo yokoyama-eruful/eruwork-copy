@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Auth;
+use Modules\Chat\Database\Factories\MessageFactory;
 
 // use Modules\Chat\Database\Factories\MessageFactory;
 
@@ -69,5 +70,10 @@ class Message extends Model
         }
 
         return '既読' . ($readCount === 1 ? '' : $readCount);
+    }
+
+    protected static function newFactory(): MessageFactory
+    {
+        return MessageFactory::new();
     }
 }

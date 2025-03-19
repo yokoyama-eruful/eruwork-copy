@@ -16,7 +16,7 @@ class BoardShow extends Component
 
     public function render()
     {
-        $posts = BoardPost::where('status', true)
+        $posts = BoardPost::where('status', '掲載')
             ->where(function ($query) {
                 if ($this->search) {
                     $query->where('title', 'like', '%' . $this->search . '%');

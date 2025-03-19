@@ -38,12 +38,12 @@ class EditEditor extends Component
     }
 
     #[On('submit-edit-post')]
-    public function updatePost($branchStatus = false)
+    public function updatePost($branchStatus = '下書き')
     {
         $this->validate();
 
         if ($this->status) {
-            $branchStatus = true;
+            $branchStatus = '掲載';
         }
 
         $post = BoardPost::updateOrCreate(

@@ -1,11 +1,11 @@
 <x-app-layout>
   <x-widget>
-    @vite('Modules/Calendar/resources/assets/js/app.js')
-    <div class="flex space-x-3 pb-2">
-      <div class="text-lg font-bold">カレンダー</div>
+    <div class="flex flex-wrap items-center justify-between pb-2">
+      <div class="flex flex-row items-center space-x-2">
+        <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
+        <div class="text-lg font-bold">カレンダー</div>
+      </div>
     </div>
-    <div id='calendar'></div>
-    @include('calendar::create')
-    @include('calendar::edit')
+    <livewire:calendar::calendar />
   </x-widget>
 </x-app-layout>
