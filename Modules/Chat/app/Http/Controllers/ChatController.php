@@ -25,7 +25,11 @@ class ChatController extends Controller
                 return $group->lastMessage ? $group->lastMessage->created_at : null;
             });
 
-        return to_route('chat.show', ['group' => $groups->first()]);
+        if ($groups->first()) {
+            return to_route('chat.show', ['group' => $groups->first()]);
+        }
+
+        return view('chat::index');
     }
 
     /**
