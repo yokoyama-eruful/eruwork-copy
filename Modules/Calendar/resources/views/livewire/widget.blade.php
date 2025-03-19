@@ -1,5 +1,11 @@
 <div class="hidden xl:block">
   <x-widget>
+    <div class="flex flex-wrap items-center justify-between pb-2">
+      <div class="flex flex-row items-center space-x-2">
+        <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
+        <div class="text-lg font-bold">カレンダー</div>
+      </div>
+    </div>
     <div class="flex justify-between">
       <div class="mb-2 flex items-center justify-end gap-1">
         <h1 class="text-2xl font-bold">{{ $startDate->format('Y年n月') }}</h1>

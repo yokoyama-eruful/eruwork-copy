@@ -1,6 +1,9 @@
 <x-widget>
-  <div class="flex space-x-3 pb-2">
-    <div class="text-lg font-bold">タイムカード</div>
+  <div class="flex flex-wrap items-center justify-between pb-2">
+    <div class="flex flex-row items-center space-x-2">
+      <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
+      <div class="text-lg font-bold">タイムカード</div>
+    </div>
   </div>
   <div class="my-5 flex w-full flex-col items-center justify-center space-y-5 sm:flex-row sm:space-x-5 sm:space-y-0">
     <div class="my-2 flex w-full flex-col items-center sm:w-3/5">
