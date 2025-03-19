@@ -122,7 +122,7 @@
     </div>
     <div class="w-full">
       @foreach ($managers as $manager)
-        <a class="flex flex-wrap items-center justify-between rounded-md border px-4 py-2 hover:bg-sky-50"
+        <a class="mb-2 flex flex-wrap items-center justify-between rounded-md border px-4 py-2 shadow hover:bg-sky-50"
           href="{{ route('submission.show', ['manager' => $manager->id]) }}">
           <div class="flex flex-col">
             <div class="flex flex-col sm:flex-row sm:space-x-1">
