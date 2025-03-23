@@ -1,52 +1,91 @@
-var staticCacheName = "pwa-v" + new Date().getTime();
-var filesToCache = [
-    '/offline',
-    '/css/app.css',
-    '/js/app.js',
-    '/images/icons/eruwork_application_icon-72x72.png',
-    '/images/icons/eruwork_application_icon-96x96.png',
-    '/images/icons/eruwork_application_icon-128x128.png',
-    '/images/icons/eruwork_application_icon-144x144.png',
-    '/images/icons/eruwork_application_icon-152x152.png',
-    '/images/icons/eruwork_application_icon-192x192.png',
-    '/images/icons/eruwork_application_icon-384x384.png',
-    '/images/icons/eruwork_application_icon-512x512.png',
+const preLoad = function () {
+    return caches.open("offline").then(function (cache) {
+        // caching index and important routes
+        return cache.addAll(filesToCache);
+    });
+};
+
+self.addEventListener("install", function (event) {
+    event.waitUntil(preLoad());
+});
+
+const filesToCache = [
+    '/',
+    // '/offline.html'
 ];
 
-// Cache on install
-self.addEventListener("install", event => {
-    this.skipWaiting();
-    event.waitUntil(
-        caches.open(staticCacheName)
-            .then(cache => {
-                return cache.addAll(filesToCache);
-            })
-    )
+const checkResponse = function (request) {
+    return new Promise(function (fulfill, reject) {
+        fetch(request).then(function (response) {
+            if (response.status !== 404) {
+                fulfill(response);
+            } else {
+                reject();
+            }
+        }, reject);
+    });
+};
+
+const addToCache = function (request) {
+    return caches.open("offline").then(function (cache) {
+        return fetch(request).then(function (response) {
+            return cache.put(request, response);
+        });
+    });
+};
+
+const returnFromCache = function (request) {
+    return caches.open("offline").then(function (cache) {
+        return cache.match(request).then(function (matching) {
+            if (!matching || matching.status === 404) {
+                return cache.match("offline.html");
+            } else {
+                return matching;
+            }
+        });
+    });
+};
+
+self.addEventListener("fetch", function (event) {
+    event.respondWith(checkResponse(event.request).catch(function () {
+        return returnFromCache(event.request);
+    }));
+    if(!event.request.url.startsWith('http')){
+        event.waitUntil(addToCache(event.request));
+    }
 });
 
-// Clear cache on activate
-self.addEventListener('activate', event => {
-    event.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(
-                cacheNames
-                    .filter(cacheName => (cacheName.startsWith("pwa-")))
-                    .filter(cacheName => (cacheName !== staticCacheName))
-                    .map(cacheName => caches.delete(cacheName))
-            );
-        })
-    );
+
+"use strict";
+
+self.addEventListener("install", function (event) {
+    self.skipWaiting();
 });
 
-// Serve from Cache
-self.addEventListener("fetch", event => {
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                return response || fetch(event.request);
-            })
-            .catch(() => {
-                return caches.match('offline');
-            })
-    )
+self.addEventListener("activate", function (event) {
+    event.waitUntil(self.clients.claim());
+});
+
+self.addEventListener("push", function (event) {
+    if (!(self.Notification && self.Notification.permission === 'granted')) {
+        return;
+    }
+
+
+    self.addEventListener('notificationclick', function(event) {
+        event.preventDefault();
+
+        const url = event.notification.data.url;
+      
+        clients.openWindow(url).then(function(windowClient) {
+          console.log('ウィンドウが開かれました:', windowClient);
+        }).catch(function(error) {
+          console.log('ウィンドウのオープンに失敗:', error);
+        });
+
+        event.notification.close();
+      });
+
+    const payload = event.data ? event.data.json() : {};
+    event.waitUntil(self.registration.showNotification(payload.title, payload));
 });
