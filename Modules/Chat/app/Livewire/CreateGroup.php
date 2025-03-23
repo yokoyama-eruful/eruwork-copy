@@ -28,7 +28,7 @@ class CreateGroup extends Component
     public function store()
     {
         $this->form->save();
-
+        $this->dispatch('close-modal', 'view-group-create-dialog');
         ChatEvent::dispatch();
     }
 
