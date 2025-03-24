@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Calendar\Livewire;
+namespace Modules\Calendar\Livewire\General;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -74,6 +74,6 @@ class EditSchedule extends Component
 
     public function render()
     {
-        return view('calendar::livewire.edit-schedule');
+        return view('calendar::general.livewire.edit-schedule');
     }
 }

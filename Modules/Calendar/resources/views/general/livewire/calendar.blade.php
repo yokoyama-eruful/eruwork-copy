@@ -30,7 +30,7 @@
           wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
       </div>
     </div>
-    <livewire:calendar::multi-create-schedule />
+    <livewire:calendar::general.multi-create-schedule />
   </div>
 
   <div class="items-center overflow-x-auto">
@@ -84,7 +84,7 @@
                 {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}
               </div>
             </button>
-            @include('calendar::livewire.layouts.shift-view-modal')
+            @include('calendar::general.livewire.layouts.shift-view-modal')
           @endforeach
           @foreach ($content['schedules'] as $schedule)
             @if ($content['type'] != '補助日')
@@ -103,13 +103,13 @@
                   {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
                 </div>
               </button>
-              <livewire:calendar::edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . '-' . $selectedDate->format('Ymd')" />
+              <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . '-' . $selectedDate->format('Ymd')" />
             @endif
           @endforeach
         </div>
 
         @if ($content['type'] != '補助日')
-          <livewire:calendar::create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd') . $key" />
+          <livewire:calendar::general.create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd') . $key" />
         @endif
       @endforeach
     </div>

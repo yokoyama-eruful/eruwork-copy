@@ -73,7 +73,7 @@
                     {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}
                   </div>
                 </button>
-                @include('calendar::livewire.layouts.shift-view-modal')
+                @include('calendar::general.livewire.layouts.shift-view-modal')
               @endforeach
               @foreach ($content['schedules'] as $schedule)
                 <button
@@ -91,11 +91,11 @@
                     {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
                   </div>
                 </button>
-                <livewire:calendar::edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ym')" />
+                <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ym')" />
               @endforeach
             </div>
           </div>
-          <livewire:calendar::create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd') . $key" />
+          <livewire:calendar::general.create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd') . $key" />
         @endforeach
       </div>
     </div>

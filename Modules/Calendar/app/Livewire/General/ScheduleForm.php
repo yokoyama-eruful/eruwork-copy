@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Calendar\Livewire;
+namespace Modules\Calendar\Livewire\General;
 
 use Livewire\Form;
 use Modules\Calendar\Models\Schedule;

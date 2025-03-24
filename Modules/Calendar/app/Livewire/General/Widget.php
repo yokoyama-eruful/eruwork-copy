@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Calendar\Livewire;
+namespace Modules\Calendar\Livewire\General;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
@@ -175,6 +175,6 @@ class Widget extends Component
 
     public function render()
     {
-        return view('calendar::livewire.widget');
+        return view('calendar::general.livewire.widget');
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Calendar\Livewire;
+namespace Modules\Calendar\Livewire\General;
 
 use App\Models\User;
 use Carbon\CarbonImmutable;
@@ -152,6 +152,6 @@ class Calendar extends Component
 
     public function render()
     {
-        return view('calendar::livewire.calendar');
+        return view('calendar::general.livewire.calendar');
     }
 }

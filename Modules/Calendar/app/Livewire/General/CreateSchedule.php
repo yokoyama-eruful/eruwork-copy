@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Calendar\Livewire;
+namespace Modules\Calendar\Livewire\General;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +31,6 @@ class CreateSchedule extends Component
 
     public function render()
     {
-        return view('calendar::livewire.create-schedule');
+        return view('calendar::general.livewire.create-schedule');
     }
 }

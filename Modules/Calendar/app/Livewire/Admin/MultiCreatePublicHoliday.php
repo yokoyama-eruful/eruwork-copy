@@ -2,18 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Modules\Calendar\Livewire;
+namespace Modules\Calendar\Livewire\Admin;
 
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class MultiCreateSchedule extends Component
+class MultiCreatePublicHoliday extends Component
 {
-    public ScheduleForm $form;
+    public PublicHolidayForm $form;
 
     public function add(): void
     {
-        $this->form->userId = Auth::id();
         $this->form->save();
 
         $this->dispatch('reloadCalendar');
@@ -28,6 +26,6 @@ class MultiCreateSchedule extends Component
 
     public function render()
     {
-        return view('calendar::livewire.multi-create-schedule');
+        return view('calendar::admin.livewire.multi-create-public-holiday');
     }
 }
