@@ -15,12 +15,13 @@ use Modules\Account\Models\Profile;
 use Modules\Chat\Models\Group;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
+use NotificationChannels\WebPush\HasPushSubscriptions;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, HasRoles,Notifiable;
+    use HasFactory,HasPushSubscriptions,HasRoles,Notifiable;
 
     /**
      * The attributes that are mass assignable.

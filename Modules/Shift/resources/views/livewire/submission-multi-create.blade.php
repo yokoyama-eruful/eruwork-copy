@@ -9,8 +9,8 @@
         <x-input-label for="date" value="日付" />
 
         <x-text-input class="js-multiple-term-datepicker mt-1 block w-full" id="date" name="date" type="text"
-          min="{{ $manager->submission_start_date->format('Y-m-d') }}"
-          min="{{ $manager->submission_end_date->format('Y-m-d') }}" wire:model="form.date" required />
+          min="{{ $manager->start_date->format('Y-m-d') }}" min="{{ $manager->end_date->format('Y-m-d') }}"
+          wire:model="form.date" required />
 
         @error('form.date')
           <div class="font-normal text-red-500">{{ $message }}</div>
@@ -18,8 +18,8 @@
       </div>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
-          const startDate = @json($manager->submission_start_date->format('Y-m-d'));
-          const endDate = @json($manager->submission_end_date->format('Y-m-d'));
+          const startDate = @json($manager->start_date->format('Y-m-d'));
+          const endDate = @json($manager->end_date->format('Y-m-d'));
 
           let datepicker;
 

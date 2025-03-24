@@ -1,3 +1,5 @@
+import "./bootstrap";
+
 import flatpickr from 'flatpickr/dist/flatpickr.min.js';
 import { Japanese } from "flatpickr/dist/l10n/ja.js"
 
