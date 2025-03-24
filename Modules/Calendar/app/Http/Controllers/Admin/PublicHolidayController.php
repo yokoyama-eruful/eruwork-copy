@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Calendar\Http\Controllers;
+namespace Modules\Calendar\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
