@@ -41,7 +41,7 @@
               @foreach ($content['draftShifts'] as $key => $schedule)
                 <button class="flex w-full justify-start rounded-sm py-1 hover:bg-gray-100" type="button"
                   wire:key="{{ $schedule->id }}"
-                  x-on:click.stop="$dispatch('open-modal', 'edit-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                  x-on:click.stop="$dispatch('open-modal', 'edit-dialog-{{ $schedule->id }}')">
                   <div class="flex flex-row items-center space-x-1">
                     @if (!$schedule->shiftStatus)
                       <div class="rounded bg-yellow-300 px-1 font-medium">未</div>
@@ -54,12 +54,13 @@
                     @endif
                   </div>
                 </button>
-                <livewire:shift::submission-edit-modal @edited="$refresh" :key="$schedule->id" :$schedule :$manager />
+                <livewire:shift::general.submission-edit-modal @edited="$refresh" :key="$schedule->id" :$schedule
+                  :$manager />
               @endforeach
             </div>
           </div>
           @if ($content['type'] != '期間外')
-            <livewire:shift::submission-create-modal @added="$refresh" :key="$content['date']->format('Ymd')" :day="$content['date']"
+            <livewire:shift::general.submission-create-modal @added="$refresh" :key="$content['date']->format('Ymd')" :day="$content['date']"
               :manager="$manager" />
           @endif
         @endforeach

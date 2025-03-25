@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shift\Http\Controllers;
+namespace Modules\Shift\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -40,6 +40,6 @@ class ShiftController extends Controller
             }
         }
 
-        return view('shift::index', ['managers' => $managers, 'userSchedules' => $userSchedules]);
+        return view('shift::general.index', ['managers' => $managers, 'userSchedules' => $userSchedules]);
     }
 }

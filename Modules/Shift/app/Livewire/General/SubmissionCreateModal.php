@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shift\Livewire;
+namespace Modules\Shift\Livewire\General;
 
 use Carbon\CarbonImmutable;
 use Livewire\Component;
@@ -35,6 +35,6 @@ class SubmissionCreateModal extends Component
 
     public function render()
     {
-        return view('shift::livewire.submission-create-modal');
+        return view('shift::general.livewire.submission-create-modal');
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shift\Livewire;
+namespace Modules\Shift\Livewire\General;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Form;

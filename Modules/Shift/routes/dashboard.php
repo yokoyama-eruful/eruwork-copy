@@ -3,9 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Modules\Shift\Http\Controllers\General\ScheduleController;
-use Modules\Shift\Http\Controllers\General\ShiftController;
-use Modules\Shift\Http\Controllers\General\SubmissionController;
+use Modules\Shift\Http\Controllers\Admin\ShiftManagerController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -22,13 +20,18 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::middleware([
     'web',
-    'auth',
+    'can:register',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::resource('shift', ShiftController::class)->names('shift');
+    // Route::resource('shiftManager', ShiftManagerController::class)->names('manager');
 
-    Route::get('submission/{manager}', SubmissionController::class)->name('submission.show');
-
-    Route::resource('schedule', ScheduleController::class)->names('schedule');
+    Route::controller(ShiftManagerController::class)
+        ->prefix('shiftManager')
+        ->name('shiftManager.')
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('{manager}', 'show')->name('show');
+            Route::delete('{manager}', 'destroy')->name('destroy');
+        });
 });

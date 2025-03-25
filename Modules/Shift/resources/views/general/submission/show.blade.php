@@ -18,9 +18,9 @@
         まで
       </div>
       @if ($manager->OverSubmissionPeriod)
-        <livewire:shift::submission-multi-create :$manager />
+        <livewire:shift::general.submission-multi-create :$manager />
       @endif
     </div>
-    @livewire('shift::submission-calendar', ['manager' => $manager])
+    @livewire('shift::general.submission-calendar', ['manager' => $manager])
   </x-widget>
 </x-app-layout>

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shift\Livewire;
+namespace Modules\Shift\Livewire\General;
 
 use Livewire\Component;
 use Modules\Shift\Models\Manager;
@@ -22,28 +22,28 @@ class SubmissionEditModal extends Component
 
     public function update()
     {
-        $date = $this->form->date;
+        $scheduleId = $this->schedule->id;
 
         $this->form->update();
 
         $this->schedule->refresh();
 
         $this->dispatch('edited');
-        $this->dispatch('close-modal', 'edit-dialog-' . $date);
+        $this->dispatch('close-modal', 'edit-dialog-' . $scheduleId);
     }
 
     public function delete()
     {
-        $date = $this->form->date;
+        $scheduleId = $this->schedule->id;
 
         $this->form->delete();
 
         $this->dispatch('edited');
-        $this->dispatch('close-modal', 'edit-dialog-' . $date);
+        $this->dispatch('close-modal', 'edit-dialog-' . $scheduleId);
     }
 
     public function render()
     {
-        return view('shift::livewire.submission-edit-modal');
+        return view('shift::general.livewire.submission-edit-modal');
     }
 }

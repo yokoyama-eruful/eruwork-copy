@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shift\Livewire;
+namespace Modules\Shift\Livewire\General;
 
 use App\Models\User;
 use Carbon\CarbonImmutable;
@@ -148,6 +148,6 @@ class DaySchedule extends Component
     {
         $this->getUserShiftSchedules();
 
-        return view('shift::livewire.day-schedule');
+        return view('shift::general.livewire.day-schedule');
     }
 }

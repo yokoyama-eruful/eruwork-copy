@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shift\Livewire;
+namespace Modules\Shift\Livewire\General;
 
 use Livewire\Component;
 use Modules\Shift\Models\Manager;
@@ -24,6 +24,6 @@ class SubmissionMultiCreate extends Component
 
     public function render()
     {
-        return view('shift::livewire.submission-multi-create');
+        return view('shift::general.livewire.submission-multi-create');
     }
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Shift\Livewire;
+namespace Modules\Shift\Livewire\General;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
@@ -72,6 +72,6 @@ class SubmissionCalendar extends Component
 
     public function render()
     {
-        return view('shift::livewire.submission-calendar');
+        return view('shift::general.livewire.submission-calendar');
     }
 }

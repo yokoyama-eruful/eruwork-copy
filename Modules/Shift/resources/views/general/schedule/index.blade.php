@@ -9,15 +9,15 @@
     </div>
 
     <div class="block xl:hidden">
-      <livewire:shift::week-schedule />
+      <livewire:shift::general.week-schedule />
     </div>
 
     <div class="hidden xl:block" x-data="{ schedule: 'week' }">
       <div x-show="schedule === 'week'">
-        <livewire:shift::week-schedule />
+        <livewire:shift::general.week-schedule />
       </div>
       <div x-show="schedule === 'day'">
-        <livewire:shift::day-schedule />
+        <livewire:shift::general.day-schedule />
       </div>
     </div>
   </x-widget>

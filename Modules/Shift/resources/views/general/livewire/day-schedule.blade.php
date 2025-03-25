@@ -132,7 +132,7 @@
           <div class="absolute h-full w-full">
             <div class="col grid h-full grid-cols-1440 py-1">
               @foreach ($shiftSchedules['schedules'] as $shiftSchedule)
-                @include('shift::layouts.time', ['shiftSchedule' => $shiftSchedule])
+                @include('shift::general.layouts.time', ['shiftSchedule' => $shiftSchedule])
               @endforeach
             </div>
           </div>
@@ -191,7 +191,7 @@
           <div class="absolute h-full w-full">
             <div class="col grid h-full grid-cols-1440 py-2">
               @foreach ($shiftSchedules['schedules'] as $shiftSchedule)
-                @include('shift::layouts.time', ['shiftSchedule' => $shiftSchedule])
+                @include('shift::general.layouts.time', ['shiftSchedule' => $shiftSchedule])
               @endforeach
             </div>
           </div>

@@ -1,4 +1,4 @@
-<x-modal name="edit-dialog-{{ $form->date }}" title="シフト希望編集">
+<x-modal name="edit-dialog-{{ $schedule->id }}" title="シフト希望編集">
   @if ($schedule->shiftStatus || !$manager->OverSubmissionPeriod)
     <div class="px-4 pb-4">
       <div class="mt-4 text-start text-lg font-bold">
