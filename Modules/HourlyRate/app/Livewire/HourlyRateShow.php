@@ -12,32 +12,24 @@ use Modules\HourlyRate\Models\HourlyRate;
 
 class HourlyRateShow extends Component
 {
-    public ?int $userId = null;
-
     public User $user;
 
-    public bool $showEditDialog = false;
-
-    public function mount(): void
+    public function mount($selectedUser)
     {
-        $this->user = User::find($this->userId);
+        $this->user = $selectedUser;
     }
 
     public function update()
     {
         $this->form->update();
-
-        $this->reset('showEditDialog');
     }
 
     public function delete()
     {
         $this->form->delete();
-
-        $this->reset('showEditDialog');
     }
 
-    #[Computed] #[On('reloadUsers')]
+    #[Computed] #[On('reloadRate')]
     public function rateTable()
     {
         return

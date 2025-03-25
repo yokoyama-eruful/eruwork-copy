@@ -28,10 +28,28 @@
     </div>
   </div>
 
+  <script>
+    function Datepickr() {
+      return {
+        initDatepickr() {
+          flatpickr('.js-datepicker', {
+            locale: {
+              ...flatpickr.l10ns.ja,
+              "firstDayOfWeek": 1
+            },
+            dateFormat: "Y-m-d",
+            disableMobile: "true",
+            static: false,
+          });
+        }
+      }
+    }
+  </script>
+
   <!-- 右側の部分 -->
   <div class="w-1/2 min-w-96">
-    @isset($selectedId)
-      <livewire:hourlyrate::hourly-rate-show :userId="$selectedId" :key="$selectedId" />
+    @isset($selectedUser)
+      <livewire:hourlyrate::hourly-rate-show :$selectedUser :key="$selectedId" />
     @endisset
   </div>
 </div>

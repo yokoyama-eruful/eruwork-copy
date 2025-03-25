@@ -12,18 +12,11 @@ class HourlyRateCreate extends Component
 {
     public string $loginId;
 
-    public int $userId;
-
     public User $user;
 
     public ?int $rate;
 
     public ?CarbonImmutable $date;
-
-    public function mount(int $id): void
-    {
-        $this->user = User::where('id', $id)->firstOrFail();
-    }
 
     public function rules()
     {
@@ -58,7 +51,7 @@ class HourlyRateCreate extends Component
 
         $this->dispatch('close-modal', 'create-dialog');
 
-        $this->dispatch('reloadUsers');
+        $this->dispatch('reloadRate');
     }
 
     public function render()

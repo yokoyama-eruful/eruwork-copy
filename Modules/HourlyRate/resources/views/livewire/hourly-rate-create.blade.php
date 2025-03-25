@@ -4,7 +4,7 @@
     <i class="fa-solid fa-plus me-2 text-lg"></i>追加
   </button>
   <x-modal name="create-dialog" title="時給情報の追加">
-    <form class="p-4" wire:submit="save">
+    <form class="p-4" wire:submit="save" x-data="Datepickr()" x-init="initDatepickr">
 
       <div class="mt-4">
         <x-input-label for="rate" value="時給" />
@@ -18,7 +18,7 @@
       </div>
 
       <div class="mt-4">
-        <x-input-label for="date" value="開始日時" />
+        <x-input-label for="date" value="開始日" />
 
         <x-text-input class="js-datepicker mt-1 block w-full" id="date" name="date" type="text"
           wire:model="date" required />

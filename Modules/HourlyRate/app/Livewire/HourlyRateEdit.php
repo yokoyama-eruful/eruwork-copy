@@ -17,9 +17,8 @@ class HourlyRateEdit extends Component
 
     public string $date;
 
-    public function mount(int $id): void
+    public function mount(): void
     {
-        $this->hourlyRate = HourlyRate::find($id);
         $this->rate = $this->hourlyRate->rate;
 
         $this->date = $this->hourlyRate->effective_date->format('Y-m-d');
@@ -51,7 +50,7 @@ class HourlyRateEdit extends Component
         ]);
 
         $this->dispatch('close-modal', 'edit-dialog-' . $this->hourlyRate->id);
-        $this->dispatch('reloadUsers');
+        $this->dispatch('reloadRate');
     }
 
     public function delete()
@@ -59,7 +58,7 @@ class HourlyRateEdit extends Component
         $this->hourlyRate->delete();
 
         $this->dispatch('close-modal', 'edit-dialog-' . $this->hourlyRate->id);
-        $this->dispatch('reloadUsers');
+        $this->dispatch('reloadRate');
     }
 
     public function render()

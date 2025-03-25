@@ -15,14 +15,20 @@ class HourlyRate extends Component
     #[Url(as: 'user_id')]
     public ?int $selectedId = null;
 
+    public ?User $selectedUser;
+
     public ?int $hourlyRate = null;
 
     public function selectUser(int $id)
     {
         $this->selectedId = $id;
+        $this->selectedUser =
+            $this->users
+                ->where('id', $id)
+                ->first();
     }
 
-    #[Computed] #[On('reloadUsers')]
+    #[Computed] #[On('reloadRate')]
     public function users()
     {
         return User::orderBy('id')->get();
