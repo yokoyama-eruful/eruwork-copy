@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Chat\Http\Controllers;
+namespace Modules\Chat\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

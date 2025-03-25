@@ -1,4 +1,4 @@
-@extends('chat::layouts.chat-widget')
+@extends('chat::general.layouts.chat-widget')
 
 @section('content')
   <div class="relative flex h-full flex-col">
@@ -11,7 +11,7 @@
             x-show="showMemberList===true" x-transition:enter="-translate-x-full opacity-0"
             x-transition:enter-start="-translate-x-full opacity-0" x-transition:enter-end="translate-x-0 opacity-100"
             x-cloak>
-            @livewire('chat::member-list', ['selectGroup' => $selectGroup])
+            @livewire('chat::general.member-list', ['selectGroup' => $selectGroup])
           </div>
         </div>
         {{-- モバイルメニュー --}}
@@ -50,10 +50,10 @@
     </div>
 
     <div class="flex h-full flex-col">
-      @livewire('chat::talk-area', ['group' => $selectGroup])
+      @livewire('chat::general.talk-area', ['group' => $selectGroup])
       <div class="flex h-auto items-center border-t bg-white p-3">
         @vite(['Modules/Chat/resources/js/tiptap.js', 'resources/css/tiptap.css'])
-        @livewire('chat::editor', ['group' => $selectGroup])
+        @livewire('chat::general.editor', ['group' => $selectGroup])
       </div>
     </div>
 

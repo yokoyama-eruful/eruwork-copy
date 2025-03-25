@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Chat\Livewire;
+namespace Modules\Chat\Livewire\General;
 
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Drivers\Gd\Driver;

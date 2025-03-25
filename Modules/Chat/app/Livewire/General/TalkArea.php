@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Chat\Livewire;
+namespace Modules\Chat\Livewire\General;
 
 use App\Events\ChatEvent;
 use Carbon\CarbonImmutable;
@@ -45,7 +45,7 @@ class TalkArea extends Component
             ->whereNull('read_at')
             ->update(['read_at' => CarbonImmutable::now()]);
 
-        return view('chat::livewire.talk-area');
+        return view('chat::general.livewire.talk-area');
     }
 
     #[Computed] #[On('echo-private:chat-channel,ChatEvent')]

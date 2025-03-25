@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Chat\Livewire;
+namespace Modules\Chat\Livewire\General;
 
 use App\Events\ChatEvent;
 use App\Models\User;
@@ -34,6 +34,6 @@ class CreateGroup extends Component
 
     public function render()
     {
-        return view('chat::livewire.create-group');
+        return view('chat::general.livewire.create-group');
     }
 }

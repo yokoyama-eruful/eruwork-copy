@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Chat\Livewire;
+namespace Modules\Chat\Livewire\General;
 
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
@@ -28,6 +28,6 @@ class MemberList extends Component
     #[On('echo-private:chat-channel,ChatEvent')]
     public function render()
     {
-        return view('chat::livewire.member-list');
+        return view('chat::general.livewire.member-list');
     }
 }

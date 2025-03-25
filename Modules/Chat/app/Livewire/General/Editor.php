@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Chat\Livewire;
+namespace Modules\Chat\Livewire\General;
 
 use App\Events\ChatEvent;
 use Illuminate\Support\Facades\Auth;
@@ -101,6 +101,6 @@ class Editor extends Component
 
     public function render()
     {
-        return view('chat::livewire.editor');
+        return view('chat::general.livewire.editor');
     }
 }

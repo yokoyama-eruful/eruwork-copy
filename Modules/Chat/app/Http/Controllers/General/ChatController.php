@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Chat\Http\Controllers;
+namespace Modules\Chat\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -29,7 +29,7 @@ class ChatController extends Controller
             return to_route('chat.show', ['group' => $groups->first()]);
         }
 
-        return view('chat::index');
+        return view('chat::general.index');
     }
 
     /**
@@ -37,6 +37,6 @@ class ChatController extends Controller
      */
     public function show(Group $group)
     {
-        return view('chat::show', ['selectGroup' => $group]);
+        return view('chat::general.show', ['selectGroup' => $group]);
     }
 }
