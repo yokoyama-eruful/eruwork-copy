@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Modules\Account\Models\Profile;
 use Modules\Chat\Models\Group;
+use Modules\HourlyRate\Models\HourlyRate;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
 use NotificationChannels\WebPush\HasPushSubscriptions;
@@ -61,6 +62,11 @@ class User extends Authenticatable
     public function profile()
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function hourlyRate()
+    {
+        return $this->hasMany(HourlyRate::class);
     }
 
     public function scopeMember($query)

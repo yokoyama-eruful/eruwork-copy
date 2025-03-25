@@ -20,7 +20,7 @@
         @include('chat::admin.icon')
       </li>
       <li class="mb-2">
-        @include('account::icon')
+        @include('hourlyrate::icon')
       </li>
       <li class="mb-2">
         @include('account::icon')

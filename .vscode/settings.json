@@ -29,6 +29,7 @@
         "datetimes",
         "enderror",
         "endforeach",
+        "hourlyrate",
         "Laravel",
         "livewire",
         "Spatie",

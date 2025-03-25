@@ -1,0 +1,11 @@
+{
+    "name": "HourlyRate",
+    "alias": "hourlyrate",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\HourlyRate\\Providers\\HourlyRateServiceProvider"
+    ],
+    "files": []
+}
