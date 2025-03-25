@@ -1,7 +1,7 @@
 <div class="min-w-84 h-full rounded-lg bg-white">
-  <div class="h-[5%] text-lg font-bold">時給詳細</div>
+  <div class="h-[5%] font-bold">時給詳細</div>
   <div class="h-[95%] overflow-y-auto border-2 border-gray-300">
-    <div class="flex justify-between bg-gray-100 px-4 py-2 text-xl">
+    <div class="flex items-center justify-between bg-gray-100 px-4 py-2">
       <div>{{ $user->name }}</div>
       <livewire:hourlyrate::hourly-rate-create :$user :key="$user->id" />
     </div>
@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         @foreach ($this->rateTable as $hourlyRate)
-          <tr class="border-b border-dotted border-gray-400 text-lg">
+          <tr class="border-b border-dotted border-gray-400">
             <td class="py-3 ps-5">{{ $hourlyRate->rate }}円</td>
             <td class="ps-5">{{ $hourlyRate->effective_date->format('Y年m月d日') }}</td>
             <td class="flex items-center justify-end px-4">

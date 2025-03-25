@@ -1,7 +1,7 @@
 <div class="flex w-full flex-row space-x-10">
   <div class="h-full w-1/2 min-w-96">
     <div>
-      <div class="h-[5%] text-lg font-bold">時給一覧</div>
+      <div class="h-[5%] font-bold">時給一覧</div>
       <div class="h-[95%] min-w-full bg-white">
         <div class="border-t-ao-dash sticky top-0 z-10 h-[6%] w-full border-t-4 bg-ao-sub text-left">
           <div class="flex">
