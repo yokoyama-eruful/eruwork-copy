@@ -11,7 +11,7 @@
         <i class="fa-solid fa-plus rounded-full bg-ao-sub p-1 text-hai-main"></i>
       </a>
     </div>
-    <table class="min-w-full bg-white">
+    <table class="hidden min-w-full bg-white xl:block">
       <thead>
         <tr class="border-t-ao-dash border-t-4 bg-ao-sub text-left">
           <th class="px-4 py-3 text-left">アイコン</th>
@@ -73,5 +73,60 @@
         @endforeach
       </tbody>
     </table>
+
+    <div class="block xl:hidden">
+      @foreach ($groups as $group)
+        <div class="mb-2 rounded border p-2 shadow">
+          <div class="mb-2 flex flex-row items-center space-x-2">
+            <div
+              class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+              @if ($group->icon)
+                <img class="h-full w-full object-cover" src="{{ $group->icon }}">
+              @else
+                <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white"><i
+                    class="fa-solid fa-image"></i>
+                </div>
+              @endif
+            </div>
+            <div class="font-medium">{{ $group->name }}</div>
+          </div>
+          <div class="mb-2">
+            <div class="font-medium">メンバー</div>
+            <div>{{ $group->users->implode('name', '、') }}</div>
+          </div>
+          <div class="flex flex-wrap justify-between">
+            <div>
+              <div class="mb-2">
+                <div class="font-medium">作成日</div>
+                <div>{{ $group->created_at->format('Y月m日d日') }}</div>
+              </div>
+              <div class="mb-2">
+                <div class="font-medium">作成日</div>
+                <div>{{ $group->updated_at->format('Y月m日d日') }}</div>
+              </div>
+            </div>
+            <div class="flex flex-row items-end space-x-2">
+              <a class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-green-600 hover:text-white"
+                href="{{ route('chatManager.edit', ['group' => $group]) }}">
+                <div class="flex items-center space-x-1">
+                  <div>編集</div>
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+              </a>
+              <form method="POST" action="{{ route('chatManager.destroy', ['group' => $group]) }}">
+                @csrf
+                @method('delete')
+                <button
+                  class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-red-600 hover:text-white"
+                  type="submit" onclick='return confirm("本当に削除しますか")'>
+                  削除
+                  <i class="fa-solid fa-trash me-1"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      @endforeach
+    </div>
   </x-widget>
 </x-dashboard-layout>
