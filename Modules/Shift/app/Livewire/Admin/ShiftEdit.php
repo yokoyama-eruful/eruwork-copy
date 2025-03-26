@@ -35,7 +35,7 @@ class ShiftEdit extends Component
         $date = $this->form->date;
         $this->form->delete();
         $this->dispatch('close-modal', 'edit-dialog-' . $this->schedule->id);
-        $this->dispatch("reloadSchedule.{$date->format('Y-m-d')}", $date->format('Y-m-d'));
+        $this->dispatch("reloadSchedule.{$date}", $date->format('Y-m-d'));
     }
 
     public function render()

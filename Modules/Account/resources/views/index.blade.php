@@ -11,7 +11,7 @@
         <i class="fa-solid fa-plus rounded-full bg-ao-sub p-1 text-hai-main"></i>
       </a>
     </div>
-    <table class="hidden min-w-full bg-white xl:block">
+    <table class="hidden min-w-full bg-white xl:table">
       <thead>
         <tr class="border-t-ao-dash border-t-4 bg-ao-sub text-left">
           <th class="px-4 py-2 text-left text-gray-600">名前</th>

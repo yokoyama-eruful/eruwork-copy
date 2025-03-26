@@ -32,9 +32,9 @@ class Schedule extends Model
     ];
 
     protected $casts = [
-        'date' => 'date',
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
+        'date' => 'immutable_datetime',
+        'start_time' => 'immutable_datetime',
+        'end_time' => 'immutable_datetime',
     ];
 
     public function user()

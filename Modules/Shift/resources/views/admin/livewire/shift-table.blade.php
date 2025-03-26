@@ -43,7 +43,7 @@
                 <i class="fa-regular fa-pen-to-square"></i>
               </button>
             </div>
-            <livewire:shift::admin.shift-edit :$schedule :key="$schedule->id" />
+            <livewire:shift::admin.shift-edit :$schedule :key="$schedule->id . $schedule->updated_at->format('YmdHis')" />
           </div>
         @endforeach
       </div>

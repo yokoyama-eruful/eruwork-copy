@@ -8,7 +8,7 @@
       <livewire:shift::admin.manager-create />
     </div>
 
-    <table class="hidden min-w-full bg-white xl:block">
+    <table class="hidden min-w-full bg-white xl:table">
       <thead>
         <tr class="border-t-ao-dash border-t-4 bg-ao-sub text-left">
           <th class="px-4 py-2 text-left text-gray-600">シフト表期間</th>
