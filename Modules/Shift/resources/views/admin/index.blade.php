@@ -64,6 +64,10 @@
       @foreach ($managers as $manager)
         <div class="mb-2 flex flex-wrap justify-between rounded border p-2 shadow">
           <div>
+            <div
+              class="{{ $manager->ReceptionStatus == '受付中' ? 'bg-sky-400' : '' }} {{ $manager->ReceptionStatus == '受付終了' ? 'bg-rose-400' : '' }} {{ $manager->ReceptionStatus == '準備中' ? 'bg-emerald-400' : '' }} mb-2 inline-block rounded px-4 text-white">
+              {{ $manager->ReceptionStatus }}
+            </div>
             <div class="font-medium">シフト表期間</div>
             <div class="text-lg">
               {{ $manager->start_date->isoFormat('YYYY年MM月DD日(ddd)') }}～{{ $manager->end_date->isoFormat('YYYY年MM月DD日(ddd)') }}
