@@ -37,20 +37,20 @@
               </div>
             </td>
             <td class="px-6 py-4 text-center">
-              <a class="inline-flex items-center rounded-lg border border-transparent bg-blue-100 px-4 py-2 text-sm font-semibold text-blue-500 transition duration-300 ease-in-out hover:bg-blue-200"
+              <a class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-ao-main hover:text-white"
                 href="{{ route('shiftManager.show', ['manager' => $manager]) }}">
                 表　示
               </a>
             </td>
             <td class="px-6 py-4 text-center">
-              <form method="POST" action="{{ route('shiftManager.destroy', ['manager' => $manager]) }}"
-                onsubmit="return confirm('本当に削除しますか？');">
+              <form method="POST" action="{{ route('shiftManager.destroy', ['manager' => $manager]) }}">
                 @csrf
-                @method('DELETE')
+                @method('delete')
                 <button
-                  class="inline-flex items-center rounded-lg border border-transparent bg-red-100 px-4 py-2 text-sm font-semibold text-red-500 transition duration-300 ease-in-out hover:bg-red-200"
-                  type="submit">
-                  <i class="fa-solid fa-trash"></i> 削除する
+                  class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-red-600 hover:text-white"
+                  type="submit" onclick='return confirm("本当に削除しますか")'>
+                  削除
+                  <i class="fa-solid fa-trash me-1"></i>
                 </button>
               </form>
             </td>

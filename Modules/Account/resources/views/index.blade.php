@@ -49,8 +49,8 @@
                 <button
                   class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-red-600 hover:text-white"
                   type="submit" onclick='return confirm("本当に削除しますか")'>
-                  <i class="fa-solid fa-trash me-1"></i>
                   削除
+                  <i class="fa-solid fa-trash me-1"></i>
                 </button>
               </form>
             </td>
