@@ -19,7 +19,7 @@ class GroupFactory extends Factory
     public function definition(): array
     {
         $isDm = $this->faker->boolean();
-        $name = $isDm ? null : $this->faker->sentence(3); // DMなら名前はnull、グループならランダムな文字列
+        $name = $isDm ? null : $this->faker->realText(10); // DMなら名前はnull、グループならランダムな文字列
         $icon = $this->faker->imageUrl(640, 480, 'people', true); // ランダムな画像URL
 
         return [
