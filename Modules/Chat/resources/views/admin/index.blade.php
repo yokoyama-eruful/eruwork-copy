@@ -20,6 +20,7 @@
           <th class="min-w-[150px] px-4 py-3 text-right">作成時</th>
           <th class="min-w-[150px] px-4 py-3 text-right">更新日</th>
           <th class="max-w-[100px] px-4 py-2 text-left text-gray-600"></th>
+          <th class="max-w-[100px] px-4 py-2 text-left text-gray-600"></th>
         </tr>
       </thead>
       <tbody class="divide-y divide-gray-200">
@@ -27,11 +28,13 @@
           <tr class="transition-colors duration-200 hover:bg-gray-50">
             <td class="px-4 py-3 text-xl text-gray-700">
               <div
-                class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-4xl text-gray-800">
+                class="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
                 @if ($group->icon)
                   <img class="h-full w-full object-cover" src="{{ $group->icon }}">
                 @else
-                  G
+                  <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white"><i
+                      class="fa-solid fa-image"></i>
+                  </div>
                 @endif
               </div>
             </td>
@@ -45,25 +48,26 @@
               {{ $group->updated_at->format('Y年') }}<br>
               {{ $group->updated_at->format('n月d日') }}
             </td>
-            <td class="px-4 py-3">
-              <div class="flex justify-end space-x-2">
-                <a class="flex items-center space-x-1 rounded px-2 py-2 font-semibold text-green-600 hover:bg-green-600 hover:text-white"
-                  href="{{ route('chatManager.edit', ['group' => $group]) }}">
+            <td class="px-4 py-3 text-right">
+              <a class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-green-600 hover:text-white"
+                href="{{ route('chatManager.edit', ['group' => $group]) }}">
+                <div class="flex items-center space-x-1">
                   <div>編集</div>
                   <i class="fa-solid fa-pen-to-square"></i>
-                </a>
-                <form action="{{ route('chatManager.destroy', ['group' => $group]) }}" method="POST"
-                  onsubmit="return confirm('本当に削除しますか？')">
-                  @csrf
-                  @method('DELETE')
-                  <button
-                    class="flex items-center space-x-1 rounded px-2 py-2 font-semibold text-red-600 hover:bg-red-600 hover:text-white"
-                    type="submit">
-                    <div>削除</div>
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </form>
-              </div>
+                </div>
+              </a>
+            </td>
+            <td class="px-4 py-3 text-right">
+              <form method="POST" action="{{ route('chatManager.destroy', ['group' => $group]) }}">
+                @csrf
+                @method('delete')
+                <button
+                  class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-red-600 hover:text-white"
+                  type="submit" onclick='return confirm("本当に削除しますか")'>
+                  削除
+                  <i class="fa-solid fa-trash me-1"></i>
+                </button>
+              </form>
             </td>
           </tr>
         @endforeach
