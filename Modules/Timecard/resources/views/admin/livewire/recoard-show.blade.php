@@ -15,7 +15,7 @@
 }">
   <form class="flex flex-col" @submit.prevent="submitForm">
     <div class="mb-1 flex justify-between">
-      <div class="space-x- flex flex-row items-center">
+      <div class="flex flex-row items-center space-x-2">
         <div class="font-medium">勤怠記録
         </div>
         <input class="js-datepicker rounded border border-gray-500 px-6 py-1" type="text" wire:model.live="startDate">
