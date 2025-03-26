@@ -7,7 +7,8 @@
       </div>
       <livewire:shift::admin.manager-create />
     </div>
-    <table class="min-w-full bg-white">
+
+    <table class="hidden min-w-full bg-white xl:block">
       <thead>
         <tr class="border-t-ao-dash border-t-4 bg-ao-sub text-left">
           <th class="px-4 py-2 text-left text-gray-600">シフト表期間</th>
@@ -58,6 +59,40 @@
         @endforeach
       </tbody>
     </table>
+
+    <div class="block xl:hidden">
+      @foreach ($managers as $manager)
+        <div class="mb-2 flex flex-wrap justify-between rounded border p-2 shadow">
+          <div>
+            <div class="font-medium">シフト表期間</div>
+            <div class="text-lg">
+              {{ $manager->start_date->isoFormat('YYYY年MM月DD日(ddd)') }}～{{ $manager->end_date->isoFormat('YYYY年MM月DD日(ddd)') }}
+            </div>
+            <div class="pt-2 font-medium">シフト受付期間</div>
+            <div class="text-lg">
+              {{ $manager->submission_start_date->isoFormat('YYYY年MM月DD日(ddd)') }}～{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日(ddd)') }}
+            </div>
+          </div>
+          <div class="flex flex-row items-end space-x-2">
+            <a class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-ao-main hover:text-white"
+              href="{{ route('shiftManager.show', ['manager' => $manager]) }}">
+              表　示
+            </a>
+            <form method="POST" action="{{ route('shiftManager.destroy', ['manager' => $manager]) }}">
+              @csrf
+              @method('delete')
+              <button
+                class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-red-600 hover:text-white"
+                type="submit" onclick='return confirm("本当に削除しますか")'>
+                削除
+                <i class="fa-solid fa-trash me-1"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      @endforeach
+    </div>
+
     <div class="mt-4">
       {{ $managers->links('vendor.pagination.tailwind') }}
     </div>
