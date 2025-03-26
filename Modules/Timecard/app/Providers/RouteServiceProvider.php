@@ -28,6 +28,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         // $this->mapApiRoutes();
         $this->mapWebRoutes();
+        $this->mapDashboardRoutes();
     }
 
     /**
@@ -40,13 +41,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')->group(module_path($this->name, '/routes/web.php'));
     }
 
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     */
-    protected function mapApiRoutes(): void
+    protected function mapDashboardRoutes(): void
     {
-        Route::middleware('api')->prefix('api')->name('api.')->group(module_path($this->name, '/routes/api.php'));
+        Route::middleware('web')->group(module_path($this->name, '/routes/dashboard.php'));
     }
 }

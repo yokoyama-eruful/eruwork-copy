@@ -7,7 +7,7 @@
         <button class="bg-ao-main px-4 text-white" type="button"
           x-on:click.prevent="$dispatch('open-modal', 'work-time-modal')" wire:click="setWorkTime(null)">追加</button>
       </div>
-      @include('timecard::livewire.calendar.desktop.work-time-modal')
+      @include('timecard::general.livewire.calendar.desktop.work-time-modal')
       <div class="bg-white p-2">
         @forelse ($workTimeForm->workTimes as $key => $time)
           <div
@@ -39,7 +39,7 @@
         <button class="bg-ao-main px-4 text-white" type="button"
           x-on:click.prevent="$dispatch('open-modal', 'break-time-modal')" wire:click="setBreakTime(null)">追加</button>
       </div>
-      @include('timecard::livewire.calendar.desktop.break-time-modal')
+      @include('timecard::general.livewire.calendar.desktop.break-time-modal')
       <div class="bg-white p-2">
         @forelse ($breakTimeForm->breakTimes as $key => $time)
           <div

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\Livewire;
+namespace Modules\Timecard\Livewire\General;
 
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
@@ -11,11 +11,11 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
-use Modules\Timecard\Livewire\Dto\totalWorkingTimeDto;
-use Modules\Timecard\Livewire\Forms\BreakTimeData;
-use Modules\Timecard\Livewire\Forms\BreakTimeForm;
-use Modules\Timecard\Livewire\Forms\WorkTimeData;
-use Modules\Timecard\Livewire\Forms\WorkTimeForm;
+use Modules\Timecard\Livewire\General\Dto\totalWorkingTimeDto;
+use Modules\Timecard\Livewire\General\Forms\BreakTimeData;
+use Modules\Timecard\Livewire\General\Forms\BreakTimeForm;
+use Modules\Timecard\Livewire\General\Forms\WorkTimeData;
+use Modules\Timecard\Livewire\General\Forms\WorkTimeForm;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
 
@@ -244,6 +244,6 @@ class Calendar extends Component
 
     public function render()
     {
-        return view('timecard::livewire.calendar.index');
+        return view('timecard::general.livewire.calendar.index');
     }
 }

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\Livewire\Forms;
+namespace Modules\Timecard\Livewire\General\Forms;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Form;
-use Modules\Timecard\Models\BreakTime;
+use Modules\Timecard\Models\WorkTime;
 
-class BreakTimeData extends Form
+class WorkTimeData extends Form
 {
     public ?int $id = null;
 
@@ -51,13 +51,13 @@ class BreakTimeData extends Form
     }
 
     public function setData(
-        BreakTime $breakTime,
+        WorkTime $workTime,
     ) {
-        $this->userId = $breakTime->user_id;
-        $this->date = $breakTime->date;
-        $this->id = $breakTime->id;
-        $this->inTime = $breakTime->in_time?->format('H:i');
-        $this->outTime = $breakTime->out_time?->format('H:i');
+        $this->userId = $workTime->user_id;
+        $this->date = $workTime->date;
+        $this->id = $workTime->id;
+        $this->inTime = $workTime->in_time?->format('H:i');
+        $this->outTime = $workTime->out_time?->format('H:i');
     }
 
     public function clear()
@@ -76,7 +76,7 @@ class BreakTimeData extends Form
         $this->validate();
 
         if (! empty($this->inTime) || ! empty($this->outTime)) {
-            BreakTime::updateOrCreate(
+            WorkTime::updateOrCreate(
                 ['id' => $this->id],
                 [
                     'user_id' => $this->userId,
@@ -90,13 +90,13 @@ class BreakTimeData extends Form
         }
 
         if (! is_null($this->id)) {
-            BreakTime::destroy($this->id);
+            WorkTime::destroy($this->id);
         }
     }
 
     public function delete()
     {
-        BreakTime::destroy($this->id);
+        WorkTime::destroy($this->id);
         $this->reset(['id', 'userId', 'date', 'inTime', 'outTime']);
     }
 
@@ -109,50 +109,50 @@ class BreakTimeData extends Form
     }
 }
 
-final class BreakTimeForm extends Form
+final class WorkTimeForm extends Form
 {
-    public array $breakTimes = [];
+    public array $workTimes = [];
 
     public array $deleteList = [];
 
     public function sync(): void
     {
-        collect($this->breakTimes)->each(function ($breakTime) {
-            $breakTime->save();
+        collect($this->workTimes)->each(function ($workTime) {
+            $workTime->save();
         });
 
-        BreakTime::destroy($this->deleteList);
+        WorkTime::destroy($this->deleteList);
         $this->deleteList = [];
     }
 
-    public function setBreakTimes(BreakTimeData $breakData, Collection $breakTimes): void
+    public function setWorkTimes(WorkTimeData $workData, Collection $workTimes): void
     {
-        $this->reset('breakTimes');
-        foreach ($breakTimes as $breakTime) {
-            $wd = clone $breakData;
-            $wd->setData($breakTime);
-            array_push($this->breakTimes, $wd);
+        $this->reset('workTimes');
+        foreach ($workTimes as $workTime) {
+            $wd = clone $workData;
+            $wd->setData($workTime);
+            array_push($this->workTimes, $wd);
         }
     }
 
-    public function addBreakTime(BreakTimeData $breakData, CarbonImmutable $date)
+    public function addWorkTime(WorkTimeData $workData, CarbonImmutable $date)
     {
-        $breakTime = new BreakTime([
+        $workTime = new WorkTime([
             'id' => CarbonImmutable::now()->toString(),
             'user_id' => Auth::id(),
             'date' => $date,
         ]);
 
-        $breakData->setData($breakTime);
-        array_push($this->breakTimes, $breakData);
+        $workData->setData($workTime);
+        array_push($this->workTimes, $workData);
     }
 
-    public function removeBreakTime($key)
+    public function removeWorkTime($key)
     {
-        $breakTime = $this->breakTimes[$key];
+        $workTime = $this->workTimes[$key];
 
-        $id = $breakTime->id;
-        unset($this->breakTimes[$key]);
+        $id = $workTime->id;
+        unset($this->workTimes[$key]);
 
         if ($id) {
             $this->deleteList[] = $id;

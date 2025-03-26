@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\Http\Controllers;
+namespace Modules\Timecard\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +16,7 @@ class TimecardController extends Controller
      */
     public function index()
     {
-        return view('timecard::index');
+        return view('timecard::general.index');
     }
 
     /**
@@ -36,7 +36,6 @@ class TimecardController extends Controller
 
     public function update(AttendanceRequest $request, $id)
     {
-        dd($request);
         $attendance = WorkTime::findOrFail($id);
 
         $attendance->update(

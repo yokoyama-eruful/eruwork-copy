@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Modules\Timecard\Http\Controllers\General\TimecardController;
+use Modules\Timecard\Http\Controllers\Admin\WorkTimeController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -20,8 +20,16 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::middleware([
     'web',
+    'can:register',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::resource('timecard', TimecardController::class)->names('timecard');
+    // Route::resource('shiftManager', ShiftManagerController::class)->names('manager');
+
+    Route::controller(WorkTimeController::class)
+        ->prefix('timecardManager')
+        ->name('timecardManager.')
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+        });
 });

@@ -6,6 +6,6 @@
         <div class="text-lg font-bold">タイムカード</div>
       </div>
     </div>
-    @livewire('timecard::calendar')
+    @livewire('timecard::general.calendar')
   </x-widget>
 </x-app-layout>

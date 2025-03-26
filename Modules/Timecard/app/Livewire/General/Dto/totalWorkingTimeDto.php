@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\Livewire\Dto;
+namespace Modules\Timecard\Livewire\General\Dto;
 
 use App\Models\User;
 use Carbon\CarbonImmutable;

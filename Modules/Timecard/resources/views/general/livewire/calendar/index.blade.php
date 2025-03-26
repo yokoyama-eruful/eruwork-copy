@@ -1,5 +1,5 @@
 <div class="flex w-full justify-between">
-  @include('timecard::livewire.calendar.desktop.input-area')
+  @include('timecard::general.livewire.calendar.desktop.input-area')
   <div class="w-full rounded-t bg-white py-2 xl:w-9/12 xl:px-5">
     <div class="flex flex-col justify-center xl:my-5 xl:flex-row xl:items-center xl:justify-between">
       <div class="mb-2 block xl:hidden">{{ $selectedDate->isoFormat('Y年M月D日(ddd)') }}</div>
@@ -81,7 +81,7 @@
         </div>
       </div>
       <div class="sm:hidden" style="display: none;" x-show="openModal" @click.outside="openModal = false">
-        @include('timecard::livewire.calendar.modal')
+        @include('timecard::general.livewire.calendar.modal')
       </div>
     </div>
   </div>

@@ -17,7 +17,7 @@
     </x-widget>
     <livewire:calendar::general.widget />
     <div class="grid-cols-2 gap-2 xl:grid">
-      <livewire:timecard::stamp />
+      <livewire:timecard::general.stamp />
       <livewire:board::widget />
     </div>
   </div>

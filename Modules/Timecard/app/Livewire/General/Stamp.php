@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\Livewire;
+namespace Modules\Timecard\Livewire\General;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
@@ -81,6 +81,6 @@ class Stamp extends Component
 
     public function render()
     {
-        return view('timecard::livewire.stamp');
+        return view('timecard::general.livewire.stamp');
     }
 }
