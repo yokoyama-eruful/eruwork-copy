@@ -11,7 +11,7 @@
         <div class="bg-sky-300 px-4 py-1">今日</div>
         <div>{{ now()->isoFormat('M月D日(ddd)') }}</div>
       </div>
-      <div class="text-xl">
+      <div class="text-lg">
         @foreach ($todayShiftList as $name => $schedules)
           <div class="pb-1">
             <div class="mb-1">
@@ -34,7 +34,7 @@
         <div class="bg-sky-200 px-4 py-1">明日</div>
         <div>{{ now()->addDay()->isoFormat('M月D日(ddd)') }}</div>
       </div>
-      <div class="text-xl">
+      <div class="text-lg">
         @foreach ($tomorrowShiftList as $name => $schedules)
           <div class="py-1">
             <div class="mb-1">
