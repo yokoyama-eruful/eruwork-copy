@@ -11,7 +11,7 @@
         <i class="fa-solid fa-plus rounded-full bg-ao-sub p-1 text-hai-main"></i>
       </a>
     </div>
-    <table class="min-w-full bg-white">
+    <table class="hidden min-w-full bg-white xl:block">
       <thead>
         <tr class="border-t-ao-dash border-t-4 bg-ao-sub text-left">
           <th class="px-4 py-2 text-left text-gray-600">名前</th>
@@ -58,5 +58,31 @@
         @endforeach
       </tbody>
     </table>
+
+    <div class="block xl:hidden">
+      @foreach ($users as $user)
+        <div class="flex items-center justify-between border-b border-gray-200 bg-white p-2">
+          <div class="text-xl font-bold">{{ $user->name }}</div>
+          <div class="flex flex-row items-center space-x-2">
+            <a class="flex items-center space-x-1 rounded px-3 py-2 font-semibold text-hai-main hover:bg-green-600 hover:text-white"
+              href="{{ route('account.edit', ['account' => $user->login_id]) }}">
+              <div>編集</div>
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <form method="POST" action="{{ route('account.destroy', ['account' => $user->login_id]) }}">
+              @csrf
+              @method('delete')
+              <button
+                class="inline-block rounded px-2 py-2 font-semibold text-hai-main hover:bg-red-600 hover:text-white"
+                type="submit" onclick='return confirm("本当に削除しますか")'>
+                削除
+                <i class="fa-solid fa-trash me-1"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      @endforeach
+    </div>
+
   </x-widget>
 </x-dashboard-layout>
