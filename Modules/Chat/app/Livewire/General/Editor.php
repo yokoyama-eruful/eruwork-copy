@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Modules\Chat\Livewire\General;
 
 use App\Events\ChatEvent;
+use App\Notifications\WebPushNotification;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -36,13 +38,15 @@ class Editor extends Component
 
         $message = $this->sendMessage();
         $this->createReadStatus($message);
-        $this->fileUpload($message);
+        $files = $this->fileUpload($message);
 
         $this->dispatch('clear-editor');
 
         ChatEvent::dispatch();
 
         $this->reset(['message', 'files']);
+
+        $this->webPush($message, $files);
     }
 
     private function isEmptyMessage(): bool
@@ -57,6 +61,35 @@ class Editor extends Component
             'group_id' => $this->group->id,
             'message' => $this->message,
         ]);
+    }
+
+    private function webPush($message, $files)
+    {
+        $otherUsers = $this->group->users->reject(function ($user) {
+            return $user->id === Auth::id();
+        });
+
+        $formatMessage = Auth::user()->name . ':';
+
+        if ($message) {
+            $formatMessage = $formatMessage . preg_replace('/<[^>]+>/', '', $message->message);
+        }
+
+        if ($files) {
+            $formatMessage = $formatMessage . 'と' . count($files) . '件の画像';
+        }
+
+        $url = Request::getSchemeAndHttpHost() . '/app/chat/' . $this->group->id;
+
+        foreach ($otherUsers as $user) {
+            $user->notify(
+                new WebPushNotification(
+                    title: 'エルフルサービス',
+                    message : $formatMessage,
+                    image: '',
+                    url: $url,
+                ));
+        }
     }
 
     private function createReadStatus($message)
@@ -89,6 +122,8 @@ class Editor extends Component
         }, $this->files);
 
         MessageImage::insert($data);
+
+        return $data;
     }
 
     public function deleteUploadFile($key)
