@@ -2,7 +2,7 @@
   <div class="flex flex-wrap items-center justify-between pb-2">
     <div class="flex flex-row items-center space-x-2 py-2">
       <div class="h-auto self-stretch border-l-4 border-hai-main"></div>
-      <div class="text-lg font-bold">カレンダー</div>
+      <div class="text-lg font-bold">アカウント</div>
     </div>
   </div>
   <div class="flex w-full justify-between space-x-5">
