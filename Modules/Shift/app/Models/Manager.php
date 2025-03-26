@@ -49,6 +49,19 @@ class Manager extends Model
         return Carbon::parse($this->submission_end_date)->endOfDay()->gte(now());
     }
 
+    public function getReceptionStatusAttribute(): string
+    {
+        if ($this->submission_start_date > now()) {
+            return '準備中';
+        }
+
+        if ($this->submission_start_date < now() && $this->submission_end_date > now()) {
+            return '受付中';
+        }
+
+        return '受付終了';
+    }
+
     protected static function newFactory(): ManagerFactory
     {
         return ManagerFactory::new();
