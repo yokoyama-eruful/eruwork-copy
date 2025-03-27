@@ -5,13 +5,7 @@
         <i class="fa-solid fa-check pr-1"></i>
         <span>確定シフト</span>
       </div>
-      <button
-        class="flex items-center justify-center rounded-sm px-1 font-medium text-ao-main hover:bg-ao-main hover:text-white"
-        type="button" x-on:click="$dispatch('open-modal', 'create-dialog-{{ $date->format('Y-m-d') }}')">
-        <i class="fa-regular fa-calendar-plus me-1"></i>
-        <span>追加</span>
-      </button>
-      <livewire:shift::admin.shift-create :$date :key="$date->format('Ymd')" />
+      @include('shift::admin.livewire.layouts.shift-create')
     </div>
 
     @foreach ($shifts as $name => $schedules)
@@ -21,29 +15,7 @@
             class="fa-solid fa-person-circle-check pr-1"></i>{{ $name }}</div>
         @foreach ($schedules as $id => $schedule)
           <div class="px-2" wire:key="{{ $schedule->id . $schedule->user_id }}">
-
-            <div class="flex flex-row items-center border-b hover:bg-slate-100 hover:text-blue-500"
-              wire:click="setSchedule({{ $schedule->id }})"
-              x-on:click="$dispatch('open-modal', 'edit-dialog-{{ $schedule->id }}')">
-              @if (is_null($schedule->draftSchedule))
-                <div>
-                  ・{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time?->format('H:i') }}
-                </div>
-              @else
-                <div @class([
-                    'text-black',
-                    'text-red-500' =>
-                        $schedule->draftSchedule->start_time > $schedule->start_time ||
-                        $schedule->draftSchedule->end_time < $schedule->end_time,
-                ])>
-                  ・{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time?->format('H:i') }}
-                </div>
-              @endif
-              <button class="pl-1">
-                <i class="fa-regular fa-pen-to-square"></i>
-              </button>
-            </div>
-            <livewire:shift::admin.shift-edit :$schedule :key="$schedule->id . $schedule->updated_at->format('YmdHis')" />
+            @include('shift::admin.livewire.layouts.shift-edit')
           </div>
         @endforeach
       </div>
@@ -66,7 +38,7 @@
                 ・{{ $draft->start_time->format('H:i') . ' ～ ' . $draft->end_time?->format('H:i') }}
               </div>
               <button class="pl-1 text-gray-700 hover:bg-slate-100 hover:text-blue-500"
-                wire:click="goToShift({{ $draft->id }})">
+                wire:click="upShift({{ $draft->id }})">
                 <i class="fa-regular fa-circle-up"></i>
               </button>
             </div>

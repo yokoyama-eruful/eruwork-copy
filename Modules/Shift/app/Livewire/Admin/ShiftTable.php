@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Modules\Shift\Livewire\Admin;
 
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
-use Livewire\Attributes\On;
 use Livewire\Component;
 use Modules\Shift\Models\DraftSchedule;
 use Modules\Shift\Models\Schedule;
@@ -21,7 +21,14 @@ class ShiftTable extends Component
 
     public ShiftScheduleForm $form;
 
-    public function goToShift(int $draftId)
+    public Collection $users;
+
+    public function mount()
+    {
+        $this->users = User::orderBy('id')->get();
+    }
+
+    public function upShift(int $draftId)
     {
         $draft = DraftSchedule::find($draftId);
 
@@ -42,7 +49,14 @@ class ShiftTable extends Component
         $this->reloadSchedule($draft->date);
     }
 
-    #[On('reloadSchedule.{date}')]
+    public function downShift()
+    {
+        $date = $this->form->date;
+        $this->form->delete();
+        $this->dispatch('close-modal', 'edit-dialog-' . $this->form->schedule->id);
+        $this->reloadSchedule($this->date);
+    }
+
     public function reloadSchedule($date)
     {
         $date = CarbonImmutable::parse($date);
@@ -84,6 +98,23 @@ class ShiftTable extends Component
     {
         $schedule = Schedule::find($scheduleId);
         $this->form->setSchedule($schedule);
+        $this->dispatch('open-modal', 'edit-dialog-' . $scheduleId);
+    }
+
+    public function save()
+    {
+        $this->form->date = $this->date;
+        $this->form->save();
+
+        $this->dispatch('close-modal', 'create-dialog-' . $this->date->format('Y-m-d'));
+        $this->reloadSchedule($this->date);
+    }
+
+    public function update(): void
+    {
+        $this->form->update();
+        $this->dispatch('close-modal', 'edit-dialog-' . $this->form->schedule->id);
+        $this->reloadSchedule($this->form->date);
     }
 
     public function render()

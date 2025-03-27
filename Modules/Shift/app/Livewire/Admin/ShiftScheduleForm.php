@@ -65,7 +65,7 @@ final class ShiftScheduleForm extends Form
 
         Schedule::create($params);
 
-        $this->reset(['date', 'name', 'startTime', 'endTime']);
+        $this->reset(['date', 'name', 'startTime', 'endTime', 'userId']);
     }
 
     public function setSchedule(Schedule $schedule): void
@@ -98,5 +98,7 @@ final class ShiftScheduleForm extends Form
         }
 
         $this->schedule->delete();
+
+        $this->reset(['date', 'name', 'startTime', 'endTime', 'userId']);
     }
 }
