@@ -13,12 +13,39 @@
         }
     }
 }">
-  <form class="flex flex-col" @submit.prevent="submitForm">
+  <div class="flex w-full flex-row items-center justify-between space-x-2 border-b bg-white p-2 xl:hidden">
+    <input class="js-datepicker w-32 rounded border border-gray-500 py-1" type="text" wire:model.live="startDate">
+    ～
+    <input class="js-datepicker w-32 rounded border border-gray-500 py-1" type="text" wire:model.live="endDate">
+  </div>
+
+  <div class="mt-2 flex flex-col xl:hidden">
+    @foreach ($this->users as $user)
+      <div class="mb-2 rounded border p-2 shadow">
+        <div class="font-semibold">{{ $user->name }}</div>
+        <div class="flex justify-between">
+          <div>勤務時間:</div>
+          <div>{{ $this->workingTime($user->id) }}</div>
+        </div>
+        <div class="flex justify-between">
+          <div>支給額(勤怠時間×時給):</div>
+          <div>{{ $this->getTotalPay($user->id) }}</div>
+        </div>
+        <div class="flex justify-between">
+          <div>見　込(確定シフト×時給):</div>
+          <div>{{ $this->prospectHourlyRate($user->id) }}</div>
+        </div>
+      </div>
+    @endforeach
+  </div>
+
+  <form class="hidden flex-col xl:flex" @submit.prevent="submitForm">
     <div class="mb-1 flex justify-between">
       <div class="flex flex-row items-center space-x-2">
         <div class="font-medium">勤怠記録
         </div>
-        <input class="js-datepicker rounded border border-gray-500 px-6 py-1" type="text" wire:model.live="startDate">
+        <input class="js-datepicker rounded border border-gray-500 px-6 py-1" type="text"
+          wire:model.live="startDate">
         <div>～</div>
         <input class="js-datepicker rounded border border-gray-500 px-6 py-1" type="text" wire:model.live="endDate">
       </div>
