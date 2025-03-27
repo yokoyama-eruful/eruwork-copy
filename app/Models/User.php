@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -78,6 +80,22 @@ class User extends Authenticatable
     public function getNameAttribute()
     {
         return $this->profile?->name ?? 'No name';
+    }
+
+    public function getLatestHourlyRateAttribute()
+    {
+        $todayRate = $this->hourlyRate()
+            ->whereDate('effective_date', Carbon::today())
+            ->first()?->rate;
+
+        if (! $todayRate) {
+            $todayRate = $this->hourlyRate()
+                ->whereDate('effective_date', '<', Carbon::today())
+                ->orderBy('effective_date', 'desc')
+                ->first()?->rate;
+        }
+
+        return $todayRate;
     }
 
     public function getIconAttribute()

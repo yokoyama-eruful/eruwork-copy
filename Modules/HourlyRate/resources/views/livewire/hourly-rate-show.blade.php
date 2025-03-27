@@ -1,5 +1,5 @@
 <div class="min-w-84 h-full rounded-lg bg-white">
-  <div class="h-[5%] font-bold">時給詳細</div>
+  <div class="hidden h-[5%] font-bold xl:block">時給詳細</div>
   <div class="h-[95%] overflow-y-auto border-2 border-gray-300">
     <div class="flex items-center justify-between bg-gray-100 px-4 py-2">
       <div>{{ $user->name }}</div>

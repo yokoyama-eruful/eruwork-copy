@@ -28,6 +28,12 @@ class HourlyRate extends Component
                 ->first();
     }
 
+    public function refreshUser()
+    {
+        $this->selectedId = null;
+        $this->selectedUser = null;
+    }
+
     #[Computed] #[On('reloadRate')]
     public function users()
     {
