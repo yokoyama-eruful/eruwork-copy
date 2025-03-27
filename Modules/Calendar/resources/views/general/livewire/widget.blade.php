@@ -38,10 +38,10 @@
 
     </div>
     <div class="flex justify-center">
-      <div class="flex w-full overflow-x-auto">
+      <div class="flex w-full flex-row overflow-x-auto">
         @foreach ($this->calendar as $key => $content)
           <div class=
-                'm-0 mb-3 min-h-48 min-w-56 border md:w-1/6'>
+                'm-0 mb-3 min-h-48 border md:w-1/6'>
             <div @class([
                 'text-lg w-full border-b flex justify-center py-1 bg-ao-sub',
                 'bg-rose-200' => $content['type'] === '土曜日',
@@ -66,8 +66,8 @@
                       シフト
                     </div>
                     {{-- @if ($this->overlappingSchedules($content['shifts']) || $this->overlappingShifts())
-                  <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                @endif --}}
+                      <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
+                    @endif --}}
                   </div>
                   <div class="ms-1 text-start">
                     {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}
