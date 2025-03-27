@@ -122,27 +122,34 @@
     </div>
     <div class="w-full">
       @foreach ($managers as $manager)
-        <a class="mb-2 flex flex-wrap items-center justify-between rounded-md border px-4 py-2 shadow hover:bg-sky-50"
-          href="{{ route('submission.show', ['manager' => $manager->id]) }}">
-          <div class="flex flex-col">
-            <div class="flex flex-col sm:flex-row sm:space-x-1">
-              <div class="font-semibold">{{ $manager->viewSchedule }}</div>
+        @if ($manager->ReceptionStatus == '受付中' || $manager->ReceptionStatus == '受付終了')
+          <a class="mb-2 flex flex-wrap items-center justify-between rounded-md border px-4 py-2 shadow hover:bg-sky-50"
+            href="{{ route('submission.show', ['manager' => $manager->id]) }}">
+            <div class="flex flex-col">
+              <div class="flex flex-col sm:flex-row sm:space-x-1">
+                <div class="font-semibold">{{ $manager->viewSchedule }}</div>
+              </div>
+              <div class="flex flex-wrap justify-between space-x-1 font-medium xl:flex-row">
+                <div>締め切り:{{ $manager->submission_end_date->format('Y年m月d日') }}</div>
+                <div @class([
+                    'inline-block rounded px-4 text-white xl:hidden block',
+                    'bg-sky-400' => $manager->ReceptionStatus == '受付中',
+                    'bg-rose-400' => $manager->ReceptionStatus == '受付終了',
+                ])>
+                  {{ $manager->ReceptionStatus }}
+                </div>
+              </div>
             </div>
-            <div class="flex flex-wrap justify-between space-x-1 font-medium xl:flex-row">
-              <div>締め切り:{{ $manager->submission_end_date->format('Y年m月d日') }}</div>
-              @if ($manager->OverSubmissionPeriod)
-                <div class="block rounded-md bg-ao-main px-2 font-semibold text-white xl:hidden">受付中</div>
-              @else
-                <div class="block rounded-md bg-rose-400 px-2 font-semibold text-white xl:hidden">受付終了</div>
-              @endif
+
+            <div @class([
+                'inline-block rounded p-2 px-4 text-white xl:block hidden',
+                'bg-sky-400' => $manager->ReceptionStatus == '受付中',
+                'bg-rose-400' => $manager->ReceptionStatus == '受付終了',
+            ])>
+              {{ $manager->ReceptionStatus }}
             </div>
-          </div>
-          @if ($manager->OverSubmissionPeriod)
-            <div class="hidden rounded-md bg-ao-main p-2 font-semibold text-white xl:block">受付中</div>
-          @else
-            <div class="hidden rounded-md bg-rose-400 p-2 font-semibold text-white xl:block">受付終了</div>
-          @endif
-        </a>
+          </a>
+        @endif
       @endforeach
     </div>
   </x-widget>

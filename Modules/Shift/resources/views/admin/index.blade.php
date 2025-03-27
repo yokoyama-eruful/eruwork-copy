@@ -33,7 +33,7 @@
             </td>
             <td class="flex justify-center px-4 py-3">
               <div
-                class="{{ $manager->ReceptionStatus == '受付中' ? 'bg-sky-400' : '' }} {{ $manager->ReceptionStatus == '受付終了' ? 'bg-rose-400' : '' }} {{ $manager->ReceptionStatus == '準備中' ? 'bg-emerald-400' : '' }} inline-block rounded-full p-2 px-4 text-white">
+                class="{{ $manager->ReceptionStatus == '受付中' ? 'bg-sky-400' : '' }} {{ $manager->ReceptionStatus == '受付終了' ? 'bg-rose-400' : '' }} {{ $manager->ReceptionStatus == '準備中' ? 'bg-emerald-400' : '' }} inline-block rounded p-2 px-4 text-white">
                 {{ $manager->ReceptionStatus }}
               </div>
             </td>
