@@ -1,6 +1,7 @@
 <div>
-  <button class="rounded border border-ao-main bg-ao-sub px-2 hover:bg-ao-main" type="button"
-    x-on:click="$dispatch('open-modal','submission-multi-create-modal')">複数日登録</button>
+  <button class="x:mt-0 mt-2 rounded border border-ao-main bg-ao-sub px-2 hover:bg-ao-main" type="button"
+    x-on:click="$dispatch('open-modal','submission-multi-create-modal')"><i class="fa-regular fa-calendar-plus"></i>
+    複数日登録</button>
   <x-modal name="submission-multi-create-modal" title="複数日登録">
     <form class="p-4" wire:submit="save">
       @csrf

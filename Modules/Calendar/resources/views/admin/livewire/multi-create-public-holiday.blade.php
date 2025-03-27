@@ -1,6 +1,6 @@
 <div>
-  <button class="rounded border border-ao-main bg-ao-sub px-2 hover:bg-ao-main" type="button"
-    x-on:click="$dispatch('open-modal','multi-create-dialog')">複数日登録</button>
+  <button class="x:mt-0 mt-2 rounded border border-ao-main bg-ao-sub px-2 hover:bg-ao-main" type="button"
+    x-on:click="$dispatch('open-modal','multi-create-dialog')"><i class="fa-regular fa-calendar-plus"></i> 複数日登録</button>
   <x-modal name="multi-create-dialog" title="予定複数登録">
     <form class="p-4" method="post" wire:submit="add">
       @csrf
