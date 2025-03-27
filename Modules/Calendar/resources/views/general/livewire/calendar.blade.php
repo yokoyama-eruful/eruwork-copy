@@ -92,7 +92,7 @@
                 class="mx-1 mb-1 cursor-pointer truncate rounded border border-sky-500 bg-sky-300 pb-1 ps-1 hover:bg-sky-500"
                 x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')">
                 <div class="flex justify-between">
-                  <div class="w-full truncate text-left underline decoration-gray-400">
+                  <div class="max-w-96 truncate text-left underline decoration-gray-400">
                     {{ $schedule->title }}
                   </div>
                   @if ($this->overlappingSchedules($schedule) || $this->overlappingShifts($schedule))
