@@ -44,18 +44,41 @@
 
     <form class="px-4 pb-4" wire:submit="update">
       <div class="mt-4">
-        <x-input-label for="user" value="ユーザー名" />
-        <select class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-          wire:model="form.userId">
-          <option value="">選択してください</option>
-          @foreach ($users as $user)
-            <option value="{{ $user->id }}">{{ $user->name }}</option>
-          @endforeach
-        </select>
-        @error('form.user')
-          <div class="text-sm font-normal text-red-500">{{ $message }}</div>
-        @enderror
+
+        @if ($schedule->shift_draft_schedule_id)
+          <x-input-label value="ユーザー名" />
+          <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            {{ $schedule->user->name }}
+          </div>
+        @else
+          <x-input-label for="user" value="ユーザー名" />
+          <select class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+            wire:model="form.userId">
+            <option value="">選択してください</option>
+            @foreach ($users as $user)
+              <option value="{{ $user->id }}">{{ $user->name }}</option>
+            @endforeach
+          </select>
+          @error('form.user')
+            <div class="text-sm font-normal text-red-500">{{ $message }}</div>
+          @enderror
+        @endif
       </div>
+
+      @if ($schedule->shift_draft_schedule_id)
+        <div class="mt-4">
+          <x-input-label value="希望開始時間" />
+          <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            {{ $schedule->draftSchedule->start_time->format('H:i') }}
+          </div>
+        </div>
+        <div class="mt-4">
+          <x-input-label value="希望終了時間" />
+          <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            {{ $schedule->draftSchedule->end_time->format('H:i') }}
+          </div>
+        </div>
+      @endif
 
       <div class="mt-4">
         <x-input-label for="start_time" value="開始時間" />
