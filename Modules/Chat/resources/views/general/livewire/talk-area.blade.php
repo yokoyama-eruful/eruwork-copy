@@ -67,7 +67,8 @@
                     x-on:click="viewImage{{ $image->id }} = false"><i class="fa-solid fa-xmark"></i></button>
                   <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                   <div class="relative z-10 flex max-h-[100vh] max-w-[100vh] items-center justify-center">
-                    <img class="max-h-[90vh] max-w-[90vw] object-contain" src="{{ $image->file_path }}">
+                    <img class="max-h-[90vh] max-w-[90vw] object-contain" src="{{ $image->file_path }}"
+                      x-on:click.away="viewImage{{ $image->id }} = false">
                   </div>
                 </div>
               </div>
