@@ -61,7 +61,7 @@ class EditSchedule extends Component
         $startTime = $this->schedule->start_time;
         $endTime = $this->schedule->end_time;
 
-        return ShiftSchedule::where('user_id', Auth::id())
+        return ShiftSchedule::where('id', '!=', $this->schedule->id)->where('user_id', Auth::id())
             ->where('date', $date)
             ->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($query) use ($startTime, $endTime) {

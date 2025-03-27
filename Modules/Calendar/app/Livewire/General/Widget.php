@@ -162,7 +162,7 @@ class Widget extends Component
         $startTime = $shift->start_time;
         $endTime = $shift->end_time;
 
-        return Schedule::where('user_id', Auth::id())
+        return Schedule::where('id', '!=', $this->schedule->id)->where('user_id', Auth::id())
             ->where('date', $date)
             ->where(function ($query) use ($startTime, $endTime) {
                 $query->where(function ($query) use ($startTime, $endTime) {

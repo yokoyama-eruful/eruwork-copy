@@ -7,6 +7,9 @@
       <x-danger-button>削除</x-danger-button>
     </form>
   </div>
+  @if ($this->overlappingSchedules() || $this->overlappingShifts())
+    <div><i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>予定が重複しています</div>
+  @endif
   <form class="px-4 pb-4" id="edit-schedule-form" wire:submit="update">
 
     <div class="mt-4">

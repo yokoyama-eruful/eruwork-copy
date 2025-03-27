@@ -76,9 +76,9 @@
                 <div class="underline decoration-gray-400">
                   シフト
                 </div>
-                {{-- @if ($this->overlappingSchedules($content['shifts']) || $this->overlappingShifts())
+                @if ($this->overlappingSchedules($shift) || $this->overlappingShifts($shift))
                   <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                @endif --}}
+                @endif
               </div>
               <div class="ms-1 text-start">
                 {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}
@@ -95,9 +95,9 @@
                   <div class="w-full truncate text-left underline decoration-gray-400">
                     {{ $schedule->title }}
                   </div>
-                  {{-- @if ($this->overlappingSchedules($content['shifts']) || $this->overlappingShifts())
-                  <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                @endif --}}
+                  @if ($this->overlappingSchedules($schedule) || $this->overlappingShifts($schedule))
+                    <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
+                  @endif
                 </div>
                 <div class="ms-1 text-start">
                   {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}

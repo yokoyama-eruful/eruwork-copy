@@ -3,7 +3,9 @@
     <div class="text-xl font-bold">{{ $content['date']->format('Y年m月d日') }}</div>
   </div>
   <div class="px-4 pb-4">
-
+    @if ($this->overlappingSchedules($shift) || $this->overlappingShifts($shift))
+      <div><i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>予定が重複しています</div>
+    @endif
     <div class="mt-4">
       <x-input-label for="start_time" value="開始時間" />
 
