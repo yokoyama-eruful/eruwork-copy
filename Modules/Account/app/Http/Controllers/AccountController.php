@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Modules\Account\Http\Requests\AccountStoreRequest;
 use Modules\Account\Http\Requests\AccountUpdateRequest;
+use Modules\Chat\Models\Group;
 
 class AccountController extends Controller
 {
@@ -43,6 +44,12 @@ class AccountController extends Controller
         }
 
         $user->roles()->sync($params['role']);
+
+        $users = User::get();
+
+        foreach ($users as $partner) {
+            Group::open([$user, $partner]);
+        }
 
         return to_route('account.index');
     }

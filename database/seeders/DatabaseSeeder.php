@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        $users = User::factory(10)->create();
 
         $adminUser = User::factory()->create([
             'login_id' => 'test',
@@ -48,6 +48,10 @@ class DatabaseSeeder extends Seeder
         $adminRole->givePermissionTo($registerPermission);
 
         $adminUser->assignRole($adminRole);
+
+        $users->push($adminUser)->each(function ($user) {
+            Profile::factory()->create(['user_id' => $user->id]);
+        });
 
         Manager::factory()->count(5)->create();
         WorkTime::factory()->count(50)->create();
@@ -90,8 +94,7 @@ class DatabaseSeeder extends Seeder
         BoardPost::factory()->count(50)->create();
         BoardLike::factory()->count(100)->create();
         BoardAttachment::factory()->count(100)->create();
-        Profile::factory()->count(10)->create();
 
-        $this->call(ChatDatabaseSeeder::class); // ChatGroupUserSeederを追加
+        $this->call(ChatDatabaseSeeder::class);
     }
 }

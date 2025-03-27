@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } ,
           dateFormat: 'Y-m-d',
           allowInvalidPreload:true,
+          disableMobile: "true"
       });
 
       flatpickr('.js-multiple-datepicker', {
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         mode: "multiple",
         dateFormat: 'Y-m-d',
         allowInvalidPreload:true,
+        disableMobile: "true"
       });
 
       flatpickr('.js-range-datepicker', {
@@ -33,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function() {
           mode: "range",
           dateFormat: 'Y-m-d',
           allowInvalidPreload:true,
+          disableMobile: "true"
       });
   }
 

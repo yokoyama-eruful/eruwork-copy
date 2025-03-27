@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Account\Database\Factories;
 
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,7 +26,7 @@ class ProfileFactory extends Factory
         $relationships = ['配偶者', '親', '兄弟', '友人'];
 
         return [
-            'user_id' => rand(1, 10),
+            'user_id' => User::factory(),
             'icon' => $this->faker->imageUrl(),
             'name' => $this->faker->name(),
             'name_kana' => $this->faker->kanaName(),

@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Modules\Account\Models\Profile;
 use Modules\Chat\Models\Group;
+use Modules\HourlyRate\Models\HourlyRate;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
 use NotificationChannels\WebPush\HasPushSubscriptions;
@@ -21,7 +25,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory,HasPushSubscriptions,HasRoles,Notifiable;
+    use HasFactory,HasPushSubscriptions,HasRoles,Notifiable,SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -63,6 +67,11 @@ class User extends Authenticatable
         return $this->hasOne(Profile::class);
     }
 
+    public function hourlyRate()
+    {
+        return $this->hasMany(HourlyRate::class);
+    }
+
     public function scopeMember($query)
     {
         return $query->where('user_id', '!=', Auth::id());
@@ -71,6 +80,22 @@ class User extends Authenticatable
     public function getNameAttribute()
     {
         return $this->profile?->name ?? 'No name';
+    }
+
+    public function getLatestHourlyRateAttribute()
+    {
+        $todayRate = $this->hourlyRate()
+            ->whereDate('effective_date', Carbon::today())
+            ->first()?->rate;
+
+        if (! $todayRate) {
+            $todayRate = $this->hourlyRate()
+                ->whereDate('effective_date', '<', Carbon::today())
+                ->orderBy('effective_date', 'desc')
+                ->first()?->rate;
+        }
+
+        return $todayRate;
     }
 
     public function getIconAttribute()

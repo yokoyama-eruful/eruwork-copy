@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('password');
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
+
+            $table->softDeletes();
         });
 
         Schema::create('sessions', function (Blueprint $table) {

@@ -26,7 +26,7 @@
       @include('dashboard.layouts.sidemenu')
     </aside>
 
-    <main class="flex-1 p-4">
+    <main class="flex-1 xl:p-4">
       {{ $slot }}
     </main>
 

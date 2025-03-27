@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use NotificationChannels\WebPush\WebPushChannel;
 use NotificationChannels\WebPush\WebPushMessage;
 
-class WebPushNotification extends Notification
+final class WebPushNotification extends Notification
 {
     use Queueable;
 

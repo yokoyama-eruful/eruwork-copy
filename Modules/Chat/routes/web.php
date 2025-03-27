@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Modules\Chat\Http\Controllers\ChatController;
-use Modules\Chat\Http\Controllers\ImageController;
+use Modules\Chat\Http\Controllers\General\ChatController;
+use Modules\Chat\Http\Controllers\General\ImageController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 

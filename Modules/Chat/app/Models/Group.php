@@ -77,6 +77,20 @@ class Group extends Model
         return $this->users->count();
     }
 
+    public static function open(array $member, ?string $name = null, bool $isDM = true)
+    {
+        $userIds = array_map(function ($user) {
+            return $user->id;
+        }, $member);
+
+        $group = self::create([
+            'name' => $name,
+            'is_dm' => $isDM,
+        ]);
+
+        $group->users()->sync($userIds);
+    }
+
     protected static function newFactory(): GroupFactory
     {
         return GroupFactory::new();

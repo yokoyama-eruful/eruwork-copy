@@ -7,6 +7,7 @@ namespace Modules\Shift\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Modules\Shift\Database\Factories\ScheduleFactory;
 
 // use Modules\Shift\Database\Factories\ScheduleFactory;
@@ -27,17 +28,23 @@ class Schedule extends Model
         'date',
         'start_time',
         'end_time',
+        'shift_draft_schedule_id',
     ];
 
     protected $casts = [
-        'date' => 'date',
-        'start_time' => 'datetime',
-        'end_time' => 'datetime',
+        'date' => 'immutable_datetime',
+        'start_time' => 'immutable_datetime',
+        'end_time' => 'immutable_datetime',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function draftSchedule(): BelongsTo
+    {
+        return $this->BelongsTo(DraftSchedule::class, 'shift_draft_schedule_id');
     }
 
     public function getColStartAttribute()
@@ -59,6 +66,11 @@ class Schedule extends Model
     public function getViewScheduleAttribute()
     {
         return $this->start_time->format('H:i') . '~' . $this->end_time->format('H:i');
+    }
+
+    public function getDateLabelAttribute()
+    {
+        return $this->date->format('Y-m-d');
     }
 
     protected static function newFactory(): ScheduleFactory

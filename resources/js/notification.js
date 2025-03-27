@@ -39,6 +39,7 @@ const enablePushNotifications = () => {
                 console.log('Subscription already exists.');
                 return subscription;
             }
+
             const VAPID_PUBLIC_KEY = import.meta.env.VITE_VAPID_PUBLIC_KEY;
             const serverKey = urlBase64ToUint8Array(VAPID_PUBLIC_KEY);
             return registration.pushManager.subscribe({
