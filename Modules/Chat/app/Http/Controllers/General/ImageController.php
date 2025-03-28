@@ -12,8 +12,9 @@ class ImageController extends Controller
     public function show(Request $request)
     {
         $fileName = $request->fileName;
+        $groupId = $request->groupId;
 
-        $filePath = storage_path('app/chat/files/' . $fileName);
+        $filePath = storage_path('app/chat/files/' . $groupId . '/' . $fileName);
 
         if (! file_exists($filePath)) {
             abort(404);

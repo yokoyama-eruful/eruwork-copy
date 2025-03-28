@@ -112,8 +112,8 @@ class Editor extends Component
     private function fileUpload(Message $message)
     {
         $data = array_map(function ($file) use ($message) {
-            $fileName = basename($file->store(path: 'chat/files'));
-            $filePath = route('chat.image.show', ['fileName' => $fileName]);
+            $fileName = basename($file->store(path: 'chat/files/' . $message->group_id));
+            $filePath = route('chat.image.show', ['groupId' => $message->group_id, 'fileName' => $fileName]);
 
             return [
                 'message_id' => $message->id,

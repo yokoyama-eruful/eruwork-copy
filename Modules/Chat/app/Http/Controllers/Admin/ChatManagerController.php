@@ -6,6 +6,7 @@ namespace Modules\Chat\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
 use Modules\Chat\Http\Requests\GroupStoreRequest;
@@ -111,6 +112,8 @@ class ChatManagerController extends Controller
      */
     public function destroy(Group $group)
     {
+        Storage::deleteDirectory('chat/files/' . $group->id);
+
         $group->delete();
 
         return to_route('chatManager.index');
