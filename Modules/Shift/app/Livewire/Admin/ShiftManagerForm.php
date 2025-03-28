@@ -69,28 +69,6 @@ final class ShiftManagerForm extends Form
         $this->reset(['startDate', 'endDate', 'submissionStartDate', 'submissionEndDate']);
     }
 
-    public function setSchedule(Schedule $schedule): void
-    {
-        // TODO
-        $this->schedule = $schedule;
-        // $this->date = $schedule->date;
-        // $this->user = $schedule->user;
-        // $this->userId = $this->user->id;
-        // $this->startTime = $schedule->start_time->format('H:i');
-        // $this->endTime = $schedule->end_time->format('H:i');
-    }
-
-    public function update(): void
-    {
-        $this->validate();
-
-        // $this->schedule->update([
-        //     'user_id' => $this->userId,
-        //     'start_time' => $this->startTime,
-        //     'end_time' => $this->endTime,
-        // ]);
-    }
-
     public function delete(): void
     {
         $this->schedule->delete();

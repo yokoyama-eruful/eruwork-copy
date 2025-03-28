@@ -24,7 +24,7 @@
 
       <x-input-error class="mt-2" :messages="$errors->get('breakData.outTime')" />
     </div>
-
+    <x-input-error class="mt-2" :messages="$errors->get('breakError')" />
     <div class="mt-6 flex justify-end">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}

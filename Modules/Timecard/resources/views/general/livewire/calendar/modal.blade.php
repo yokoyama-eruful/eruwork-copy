@@ -45,7 +45,6 @@
           </div>
         @endforelse
       </div>
-
     </div>
 
     <div class="mb-6">
@@ -87,6 +86,11 @@
         @endforelse
       </div>
     </div>
+
+    @foreach ($errors->all() as $error)
+      <li class="text-red-500">{{ $error }}</li>
+    @endforeach
+
     <button class="w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
       wire:click='save'>更新</button>
   </div>

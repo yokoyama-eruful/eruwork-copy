@@ -7,8 +7,11 @@ namespace Modules\Timecard\Livewire\General\Forms;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Livewire\Form;
 use Modules\Timecard\Models\BreakTime;
+use Modules\Timecard\Models\WorkTime;
 
 class BreakTimeData extends Form
 {
@@ -71,9 +74,46 @@ class BreakTimeData extends Form
         ]);
     }
 
+    private function overlappingValidate()
+    {
+        $breakInTime = CarbonImmutable::parse($this->inTime);
+        $breakEndTime = CarbonImmutable::parse($this->outTime);
+
+        $breakTimes = BreakTime::query()
+            ->where('user_id', Auth::id())
+            ->where('date', $this->date)
+            ->where(function ($query) use ($breakInTime, $breakEndTime) {
+                $query->where('id', '!=', $this->id)
+                    ->where('in_time', '<=', $breakEndTime)
+                    ->where('out_time', '>=', $breakInTime);
+            })->get();
+
+        if ($breakTimes->isNotEmpty()) {
+            throw ValidationException::withMessages([
+                'breakError' => '休憩時間が重複しています',
+            ]);
+        }
+
+        $workTimes = WorkTime::query()
+            ->where('user_id', Auth::id())
+            ->where('date', $this->date)
+            ->where(function ($query) use ($breakInTime, $breakEndTime) {
+                $query->where('in_time', '<=', $breakInTime)
+                    ->where('out_time', '>=', $breakEndTime);
+            })->get();
+
+        if ($workTimes->isEmpty()) {
+            throw ValidationException::withMessages([
+                'breakError' => '休憩時間は勤務時間内でなくてはなりません',
+            ]);
+        }
+    }
+
     public function save()
     {
         $this->validate();
+
+        $this->overlappingValidate();
 
         if (! empty($this->inTime) || ! empty($this->outTime)) {
             BreakTime::updateOrCreate(
@@ -118,6 +158,15 @@ final class BreakTimeForm extends Form
     public function sync(): void
     {
         collect($this->breakTimes)->each(function ($breakTime) {
+            $validator = Validator::make($breakTime->toArray(), [
+                'inTime' => 'required|date_format:H:i',
+                'outTime' => 'required|date_format:H:i|after:in_time',
+            ]);
+
+            if ($validator->fails()) {
+                throw new \Illuminate\Validation\ValidationException($validator);
+            }
+
             $breakTime->save();
         });
 

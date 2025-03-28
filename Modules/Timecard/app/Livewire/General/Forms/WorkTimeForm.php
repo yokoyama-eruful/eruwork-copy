@@ -7,6 +7,8 @@ namespace Modules\Timecard\Livewire\General\Forms;
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 use Livewire\Form;
 use Modules\Timecard\Models\WorkTime;
 
@@ -71,9 +73,32 @@ class WorkTimeData extends Form
         ]);
     }
 
+    private function overlappingValidate()
+    {
+        $workInTime = CarbonImmutable::parse($this->inTime);
+        $workOutTime = CarbonImmutable::parse($this->outTime);
+
+        $workTimes = WorkTime::query()
+            ->where('user_id', Auth::id())
+            ->where('date', $this->date)
+            ->where(function ($query) use ($workInTime, $workOutTime) {
+                $query->where('id', '!=', $this->id)
+                    ->where('in_time', '<=', $workOutTime)
+                    ->where('out_time', '>=', $workInTime);
+            })->get();
+
+        if ($workTimes->isNotEmpty()) {
+            throw ValidationException::withMessages([
+                'workError' => '勤務時間が重複しています',
+            ]);
+        }
+    }
+
     public function save()
     {
         $this->validate();
+
+        $this->overlappingValidate();
 
         if (! empty($this->inTime) || ! empty($this->outTime)) {
             WorkTime::updateOrCreate(
@@ -118,6 +143,15 @@ final class WorkTimeForm extends Form
     public function sync(): void
     {
         collect($this->workTimes)->each(function ($workTime) {
+            $validator = Validator::make($workTime->toArray(), [
+                'inTime' => 'required|date_format:H:i',
+                'outTime' => 'required|date_format:H:i|after:in_time',
+            ]);
+
+            if ($validator->fails()) {
+                throw new \Illuminate\Validation\ValidationException($validator);
+            }
+
             $workTime->save();
         });
 

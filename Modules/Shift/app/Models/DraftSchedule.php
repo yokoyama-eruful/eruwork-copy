@@ -44,8 +44,10 @@ class DraftSchedule extends Model
 
     public function getViewSubmissionTimeAttribute()
     {
-        // TODO
-        return (is_null($this->start_time) ? ' -- : -- ' : $this->start_time->format('H:i')) . ' ～ ' . (is_null($this->end_time) ? ' -- : -- ' : $this->end_time->format('H:i'));
+        $startTime = (is_null($this->start_time) ? ' -- : -- ' : $this->start_time->format('H:i'));
+        $endTime = (is_null($this->end_time) ? ' -- : -- ' : $this->end_time->format('H:i'));
+
+        return $startTime . ' ～ ' . $endTime;
     }
 
     public function shiftSchedule(): HasOne
