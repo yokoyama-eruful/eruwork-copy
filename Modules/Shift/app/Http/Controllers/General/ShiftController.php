@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\Shift\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use Modules\Shift\Models\Manager;
 use Modules\Shift\Models\Schedule;
 
@@ -13,6 +12,7 @@ class ShiftController extends Controller
 {
     public function index()
     {
+        // TODO
         $managers = Manager::get();
 
         $shifts = Schedule::where('date', now())
@@ -34,10 +34,7 @@ class ShiftController extends Controller
         }
 
         foreach ($shifts as $shift) {
-            $user = User::find($shift->user_id);
-            if ($user) {
-                $userSchedules[$user->id]['schedules'][] = $shift;
-            }
+            $userSchedules[$shift->user_id]['schedules'][] = $shift;
         }
 
         return view('shift::general.index', ['managers' => $managers, 'userSchedules' => $userSchedules]);

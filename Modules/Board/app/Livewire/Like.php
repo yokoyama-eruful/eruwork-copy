@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Board\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Modules\Board\Models\BoardLike;
 
@@ -41,7 +42,8 @@ class Like extends Component
         return $like;
     }
 
-    public function getLike()
+    #[Computed()]
+    public function likes()
     {
         return BoardLike::where('post_id', $this->postId)->get();
     }

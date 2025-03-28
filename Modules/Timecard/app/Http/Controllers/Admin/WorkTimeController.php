@@ -8,9 +8,6 @@ use App\Http\Controllers\Controller;
 
 class WorkTimeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         return view('timecard::admin.index');

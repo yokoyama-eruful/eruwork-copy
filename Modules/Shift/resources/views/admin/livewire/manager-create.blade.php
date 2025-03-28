@@ -1,11 +1,11 @@
 <div>
   <button
     class="flex cursor-pointer items-center space-x-1 rounded border border-hai-main px-6 py-1 text-base font-medium hover:bg-gray-200"
-    type="button" x-on:click="$dispatch('open-modal', 'manager-create-dialog')">
+    type="button" x-on:click="$dispatch('open-modal', 'manager-create-modal')">
     <span>シフト表を追加する</span>
     <i class="fa-solid fa-plus rounded-full bg-ao-sub p-1 text-hai-main"></i>
   </button>
-  <x-modal name="manager-create-dialog" title="シフト表作成">
+  <x-modal name="manager-create-modal" title="シフト表作成">
     <form class="p-4" wire:submit="save">
       <div class="mt-4">
         <x-input-label for="start_date" value="シフト表開始日" />

@@ -1,11 +1,11 @@
 <div>
   <button
     class="flex items-center justify-center rounded-sm px-1 font-medium text-ao-main hover:bg-ao-main hover:text-white"
-    type="button" x-on:click="$dispatch('open-modal', 'create-dialog-{{ $date->format('Y-m-d') }}')">
+    type="button" x-on:click="$dispatch('open-modal', 'create-modal-{{ $date->format('Y-m-d') }}')">
     <i class="fa-regular fa-calendar-plus me-1"></i>
     <span>追加</span>
   </button>
-  <x-modal name="create-dialog-{{ $date->format('Y-m-d') }}" title="確定シフト登録">
+  <x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="確定シフト登録">
     <form class="p-4" wire:submit="save">
       @csrf
 

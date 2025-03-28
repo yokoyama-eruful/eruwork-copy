@@ -19,7 +19,7 @@ class CreatePublicHoliday extends Component
         $this->form->save();
 
         $this->dispatch('added');
-        $this->dispatch('close', 'public-holiday-create-dialog-' . $this->date->format('Y-m-d'));
+        $this->dispatch('close', 'create-modal-' . $this->date->format('Y-m-d'));
     }
 
     public function cancel()

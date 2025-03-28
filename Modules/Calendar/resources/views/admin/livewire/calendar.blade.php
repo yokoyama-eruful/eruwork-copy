@@ -64,7 +64,7 @@
               </div>
               @if (!$content['holiday'])
                 <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
-                  x-on:click="$dispatch('open-modal', 'public-holiday-create-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                  x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">
                   <i class="fa-regular fa-square-plus"></i>
                 </button>
               @endif
@@ -72,7 +72,7 @@
           </div>
           @if ($content['holiday'])
             <button class="text-center text-xl font-medium hover:text-ao-main" type="button"
-              x-on:click="$dispatch('open-modal', 'public-holiday-edit-dialog-{{ $content['holiday']->id }}')">{{ $content['holiday']->name }}</button>
+              x-on:click="$dispatch('open-modal', 'edit-modal-{{ $content['holiday']->id }}')">{{ $content['holiday']->name }}</button>
             <livewire:calendar::admin.edit-public-holiday @updated="$refresh" :publicHoliday="$content['holiday']" :key="$content['holiday']->id . '-' . $selectedDate->format('Ymd')" />
           @endif
         </div>

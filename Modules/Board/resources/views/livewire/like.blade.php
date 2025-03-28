@@ -13,8 +13,8 @@
           <x-modal-alert name="like-modal" title="いいねした人">
             <div class="flex flex-col">
               <div class="max-h-96 overflow-y-auto border">
-                @if ($this->getLike()->isNotEmpty())
-                  @foreach ($this->getLike() as $like)
+                @if ($this->likes->isNotEmpty())
+                  @foreach ($this->likes as $like)
                     <div class="flex flex-row items-center space-x-3 border-b px-2 py-2">
                       <div
                         class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-4xl text-gray-800">
@@ -60,8 +60,8 @@
           <x-modal-alert name="like-modal" title="いいねした人">
             <div class="flex flex-col">
               <div class="max-h-96 overflow-y-auto border">
-                @if ($this->getLike()->isNotEmpty())
-                  @foreach ($this->getLike() as $like)
+                @if ($this->likes->isNotEmpty())
+                  @foreach ($this->likes as $like)
                     <div class="flex flex-row items-center space-x-3 border-b px-2 py-2">
                       <div
                         class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-4xl text-gray-800">

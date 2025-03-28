@@ -1,9 +1,9 @@
 <div>
   <button class="mt-2 rounded bg-gray-200 px-5 py-1 hover:bg-green-600 hover:text-white"
-    x-on:click="$dispatch('open-modal','edit-dialog-{{ $hourlyRate->id }}')">
+    x-on:click="$dispatch('open-modal','edit-modal-{{ $hourlyRate->id }}')">
     更　新
   </button>
-  <x-modal name="edit-dialog-{{ $hourlyRate->id }}" title="時給情報の編集">
+  <x-modal name="edit-modal-{{ $hourlyRate->id }}" title="時給情報の編集">
     <form class="flex justify-end" wire:submit="delete">
       <button class="rounded px-2 py-1 text-red-600 hover:bg-red-600 hover:text-white" type="submit"
         onclick='return confirm("本当に削除しますか")'>

@@ -29,7 +29,7 @@ class SubmissionEditModal extends Component
         $this->schedule->refresh();
 
         $this->dispatch('edited');
-        $this->dispatch('close-modal', 'edit-dialog-' . $scheduleId);
+        $this->dispatch('close-modal', 'edit-modal-' . $scheduleId);
     }
 
     public function delete()
@@ -39,7 +39,7 @@ class SubmissionEditModal extends Component
         $this->form->delete();
 
         $this->dispatch('edited');
-        $this->dispatch('close-modal', 'edit-dialog-' . $scheduleId);
+        $this->dispatch('close-modal', 'edit-modal-' . $scheduleId);
     }
 
     public function render()

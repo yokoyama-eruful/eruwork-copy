@@ -1,4 +1,4 @@
-<x-modal name="create-dialog-{{ $day->format('Y-m-d') }}" title="シフト希望登録">
+<x-modal name="create-modal-{{ $day->format('Y-m-d') }}" title="シフト希望登録">
   <form class="p-4" wire:submit="save">
     @csrf
 

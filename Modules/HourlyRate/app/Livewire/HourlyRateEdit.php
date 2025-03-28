@@ -49,7 +49,7 @@ class HourlyRateEdit extends Component
             'effective_date' => $this->date,
         ]);
 
-        $this->dispatch('close-modal', 'edit-dialog-' . $this->hourlyRate->id);
+        $this->dispatch('close-modal', 'edit-modal-' . $this->hourlyRate->id);
         $this->dispatch('reloadRate');
     }
 
@@ -57,7 +57,7 @@ class HourlyRateEdit extends Component
     {
         $this->hourlyRate->delete();
 
-        $this->dispatch('close-modal', 'edit-dialog-' . $this->hourlyRate->id);
+        $this->dispatch('close-modal', 'edit-modal-' . $this->hourlyRate->id);
         $this->dispatch('reloadRate');
     }
 

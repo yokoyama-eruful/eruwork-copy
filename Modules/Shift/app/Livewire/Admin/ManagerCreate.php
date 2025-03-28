@@ -14,7 +14,7 @@ class ManagerCreate extends Component
     {
         $this->form->save();
 
-        $this->dispatch('close-modal', 'manager-create-dialog');
+        $this->dispatch('close-modal', 'manager-create-modal');
 
         return to_route('shiftManager.index');
     }

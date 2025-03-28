@@ -13,5 +13,5 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::resource('hourlyRate', HourlyRateController::class)->names('hourlyRate');
+    Route::get('hourlyRate', HourlyRateController::class)->name('hourlyRate.index');
 });

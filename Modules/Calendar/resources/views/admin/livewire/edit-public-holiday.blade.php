@@ -1,4 +1,4 @@
-<x-modal name="public-holiday-edit-dialog-{{ $publicHoliday->id }}" title="公休日編集">
+<x-modal name="edit-modal-{{ $publicHoliday->id }}" title="公休日編集">
   <div class="flex items-center justify-between px-4 pt-4">
     <div class="text-xl font-bold"> {{ $form->date }}</div>
     <form wire:submit="delete">

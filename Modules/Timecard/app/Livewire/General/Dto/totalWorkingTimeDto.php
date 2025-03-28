@@ -13,7 +13,6 @@ class totalWorkingTimeDto
 {
     public static function month(User $user, CarbonImmutable $date): string
     {
-        // 準備
         $startOfMonth = $date->startOfMonth();
         $endOfMonth = $date->endOfMonth();
 

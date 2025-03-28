@@ -30,7 +30,7 @@ class SubmissionCreateModal extends Component
 
         $this->dispatch('added');
         $this->form->date = $this->day->format('Y-m-d');
-        $this->dispatch('close-modal', 'create-dialog-' . $date);
+        $this->dispatch('close-modal', 'create-modal-' . $date);
     }
 
     public function render()

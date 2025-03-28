@@ -15,10 +15,8 @@ class EditSchedule extends Component
 
     public ScheduleForm $form;
 
-    public function mount($schedule): void
+    public function mount(): void
     {
-        $this->schedule = Schedule::where('id', $schedule->id)->firstOrFail();
-
         $this->form->setSchedule($this->schedule);
     }
 

@@ -1,4 +1,4 @@
-<x-modal name="view-group-create-dialog">
+<x-modal name="view-group-create-modal">
   <form wire:submit="store" enctype="multipart/form-data">
     <x-slot:title>
       グループ作成

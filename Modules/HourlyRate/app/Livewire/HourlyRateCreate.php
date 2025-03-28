@@ -49,7 +49,7 @@ class HourlyRateCreate extends Component
 
         $this->reset(['rate', 'date']);
 
-        $this->dispatch('close-modal', 'create-dialog');
+        $this->dispatch('close-modal', 'create-modal');
 
         $this->dispatch('reloadRate');
     }

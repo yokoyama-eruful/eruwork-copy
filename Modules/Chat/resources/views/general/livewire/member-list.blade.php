@@ -3,7 +3,7 @@
     <div class="flex w-full flex-wrap justify-between px-2 sm:w-1/6">
       <div>グループ一覧</div>
       <button class="flex h-6 w-6 items-center justify-center rounded bg-white text-ao-main hover:bg-gray-200"
-        x-on:click.prevent="$dispatch('open-modal', 'view-group-create-dialog')">
+        x-on:click.prevent="$dispatch('open-modal', 'view-group-create-modal')">
         <i class="fa-solid fa-plus"></i>
       </button>
     </div>

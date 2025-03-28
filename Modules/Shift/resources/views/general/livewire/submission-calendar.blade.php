@@ -31,7 +31,7 @@
                 </div>
                 @if ($manager->OverSubmissionPeriod)
                   <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
-                    x-on:click="$dispatch('open-modal', 'create-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                    x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">
                     <i class="fa-regular fa-square-plus"></i>
                   </button>
                 @endif
@@ -41,7 +41,7 @@
               @foreach ($content['draftShifts'] as $key => $schedule)
                 <button class="flex w-full justify-start rounded-sm py-1 hover:bg-gray-100" type="button"
                   wire:key="{{ $schedule->id }}"
-                  x-on:click.stop="$dispatch('open-modal', 'edit-dialog-{{ $schedule->id }}')">
+                  x-on:click.stop="$dispatch('open-modal', 'edit-modal-{{ $schedule->id }}')">
                   <div class="flex flex-row items-center space-x-1">
                     @if (!$schedule->shiftStatus)
                       <div class="rounded bg-yellow-300 px-1 font-medium">未</div>

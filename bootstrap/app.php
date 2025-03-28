@@ -16,8 +16,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withBroadcasting(
         __DIR__ . '/../routes/channels.php',
-        ['middleware' => ['web', InitializeTenancyByDomain::class,
-            PreventAccessFromCentralDomains::class, 'universal']],
+        ['middleware' => [
+            'web',
+            InitializeTenancyByDomain::class,
+            PreventAccessFromCentralDomains::class,
+            'universal',
+        ]],
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->redirectGuestsTo(function () {

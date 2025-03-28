@@ -20,7 +20,7 @@
     </button>
   </div>
 
-  <x-modal name="edit-dialog-{{ $schedule->id }}" title="確定シフト編集">
+  <x-modal name="edit-modal-{{ $schedule->id }}" title="確定シフト編集">
     <div class="flex justify-between px-4 pt-4">
       <div class="text-xl font-bold">
         {{ $date->isoFormat('YYYY年MM月DD日 (ddd)') }}

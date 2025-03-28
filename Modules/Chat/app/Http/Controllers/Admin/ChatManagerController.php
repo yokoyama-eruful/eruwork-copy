@@ -6,6 +6,7 @@ namespace Modules\Chat\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Drivers\Gd\Driver;
 use Intervention\Image\ImageManager;
@@ -98,11 +99,13 @@ class ChatManagerController extends Controller
             $params['icon'] = $base64;
         }
 
-        $group->update($params);
+        DB::transaction(function () use ($group, $params, $userIds) {
+            $group->update($params);
 
-        $group->users()->sync($userIds);
+            $group->users()->sync($userIds);
 
-        $group->touch();
+            $group->touch();
+        });
 
         return to_route('chatManager.index');
     }

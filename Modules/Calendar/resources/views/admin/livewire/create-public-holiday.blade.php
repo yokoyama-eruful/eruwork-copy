@@ -1,4 +1,4 @@
-<x-modal name="create-dialog-{{ $date->format('Y-m-d') }}" title="公休日登録">
+<x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="公休日登録">
   <form class="p-4" method="post" wire:submit="add">
     @csrf
 

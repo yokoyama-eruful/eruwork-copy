@@ -13,6 +13,8 @@ class AttendanceRequest extends FormRequest
      */
     public function rules(): array
     {
+        // TODO 使えてないから変更
+
         $rules = [
             'date' => [
                 'required',
@@ -65,13 +67,5 @@ class AttendanceRequest extends FormRequest
         }];
 
         return $rules;
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return true;
     }
 }

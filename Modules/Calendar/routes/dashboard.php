@@ -24,5 +24,5 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::resource('public_holiday', PublicHolidayController::class)->names('public_holiday');
+    Route::get('public_holiday', PublicHolidayController::class)->name('public_holiday.index');
 });

@@ -51,9 +51,8 @@ class ShiftTable extends Component
 
     public function downShift()
     {
-        $date = $this->form->date;
         $this->form->delete();
-        $this->dispatch('close-modal', 'edit-dialog-' . $this->form->schedule->id);
+        $this->dispatch('close-modal', 'edit-modal-' . $this->form->schedule->id);
         $this->reloadSchedule($this->date);
     }
 
@@ -98,7 +97,7 @@ class ShiftTable extends Component
     {
         $schedule = Schedule::find($scheduleId);
         $this->form->setSchedule($schedule);
-        $this->dispatch('open-modal', 'edit-dialog-' . $scheduleId);
+        $this->dispatch('open-modal', 'edit-modal-' . $scheduleId);
     }
 
     public function save()
@@ -106,14 +105,14 @@ class ShiftTable extends Component
         $this->form->date = $this->date;
         $this->form->save();
 
-        $this->dispatch('close-modal', 'create-dialog-' . $this->date->format('Y-m-d'));
+        $this->dispatch('close-modal', 'create-modal-' . $this->date->format('Y-m-d'));
         $this->reloadSchedule($this->date);
     }
 
     public function update(): void
     {
         $this->form->update();
-        $this->dispatch('close-modal', 'edit-dialog-' . $this->form->schedule->id);
+        $this->dispatch('close-modal', 'edit-modal-' . $this->form->schedule->id);
         $this->reloadSchedule($this->form->date);
     }
 

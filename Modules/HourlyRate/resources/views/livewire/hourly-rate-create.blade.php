@@ -1,9 +1,9 @@
 <div>
   <button class="me-2 ml-auto cursor-pointer bg-gray-300 px-3 py-1 text-base font-medium"
-    x-on:click="$dispatch('open-modal','create-dialog')">
+    x-on:click="$dispatch('open-modal','create-modal')">
     <i class="fa-solid fa-plus me-2 text-lg"></i>追加
   </button>
-  <x-modal name="create-dialog" title="時給情報の追加">
+  <x-modal name="create-modal" title="時給情報の追加">
     <form class="p-4" wire:submit="save" x-data="Datepickr()" x-init="initDatepickr">
 
       <div class="mt-4">

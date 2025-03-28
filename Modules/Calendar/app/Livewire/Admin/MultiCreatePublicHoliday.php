@@ -16,7 +16,7 @@ class MultiCreatePublicHoliday extends Component
 
         $this->dispatch('reloadCalendar');
         $this->dispatch('reset-property');
-        $this->dispatch('close-modal', 'multi-create-dialog');
+        $this->dispatch('close-modal', 'multi-create-modal');
     }
 
     public function cancel()

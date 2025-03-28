@@ -63,7 +63,7 @@
                 @endif
               </div>
               <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
-                x-on:click="$dispatch('open-modal', 'create-dialog-{{ $content['date']->format('Y-m-d') }}')">
+                x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">
                 <i class="fa-regular fa-square-plus"></i>
               </button>
             @endif
