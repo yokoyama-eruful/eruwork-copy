@@ -52,7 +52,7 @@ class ConsoleController extends Controller
                 'phone_number' => $request->phone_number,
                 'email' => $request->email,
             ]);
-            $tenant->domains()->create(['domain' => $randomId . '.localhost']);
+            $tenant->domains()->create(['domain' => $randomId . '.' . request()->getHost()]);
             session()->flash('success', 'スキーマを作成しました。');
         } catch (Throwable $e) {
             session()->flash('error', 'スキーマの作成に失敗しました。エラー: ' . $e->getMessage());
