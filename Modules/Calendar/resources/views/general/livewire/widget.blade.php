@@ -91,11 +91,11 @@
                     {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
                   </div>
                 </button>
-                <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ym')" />
+                <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
               @endforeach
             </div>
           </div>
-          <livewire:calendar::general.create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd') . $key" />
+          <livewire:calendar::general.create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd')" />
         @endforeach
       </div>
     </div>
