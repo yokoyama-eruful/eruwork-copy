@@ -1,4 +1,4 @@
-<div class="flex w-full xl:flex-row xl:space-x-10">
+<div class="flex h-screen w-full xl:h-full xl:flex-row xl:space-x-10">
   <div class="hidden h-full w-1/2 min-w-96 xl:block">
     <div>
       <div class="h-[5%] font-bold">時給一覧</div>
