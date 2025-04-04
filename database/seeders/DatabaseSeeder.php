@@ -34,7 +34,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // $users = User::factory(10)->create();
+        $this->call(
+            [
+                TestSeeder::class,
+            ]
+        );
+    }
+
+    private function callFactory()
+    {
+        $users = User::factory(10)->create();
 
         $adminUser = User::factory()->create([
             'login_id' => 'test',
@@ -49,20 +58,20 @@ class DatabaseSeeder extends Seeder
 
         $adminUser->assignRole($adminRole);
 
-        // $users->push($adminUser)->each(function ($user) {
-        //     Profile::factory()->create(['user_id' => $user->id]);
-        // });
+        $users->push($adminUser)->each(function ($user) {
+            Profile::factory()->create(['user_id' => $user->id]);
+        });
 
-        // Manager::factory()->count(5)->create();
-        // WorkTime::factory()->count(50)->create();
-        // BreakTime::factory()->count(50)->create();
-        // DraftSchedule::factory()->count(50)->create();
-        // Schedule::factory()->count(50)->create();
-        // Group::factory()->count(50)->create();
-        // Message::factory()->count(50)->create();
-        // Message::factory()->count(10)->withImages()->create();
-        // MessageImage::factory()->count(10)->create();
-        // MessageRead::factory()->count(100)->create();
+        Manager::factory()->count(5)->create();
+        WorkTime::factory()->count(50)->create();
+        BreakTime::factory()->count(50)->create();
+        DraftSchedule::factory()->count(50)->create();
+        Schedule::factory()->count(50)->create();
+        Group::factory()->count(50)->create();
+        Message::factory()->count(50)->create();
+        Message::factory()->count(10)->withImages()->create();
+        MessageImage::factory()->count(10)->create();
+        MessageRead::factory()->count(100)->create();
 
         $holidays = [
             ['date' => '2025-01-01', 'name' => '元日'],
@@ -90,11 +99,11 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // CalendarSchedule::factory()->count(50)->create();
-        // BoardPost::factory()->count(50)->create();
-        // BoardLike::factory()->count(100)->create();
-        // BoardAttachment::factory()->count(100)->create();
+        CalendarSchedule::factory()->count(50)->create();
+        BoardPost::factory()->count(50)->create();
+        BoardLike::factory()->count(100)->create();
+        BoardAttachment::factory()->count(100)->create();
 
-        // $this->call(ChatDatabaseSeeder::class);
+        $this->call(ChatDatabaseSeeder::class);
     }
 }
