@@ -4,6 +4,9 @@
       <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
       <div class="text-lg font-bold">掲示板</div>
     </div>
+    <a class="text-ao-main hover:text-sky-700" href="{{ route('board.index') }}">
+      詳しく見る
+      <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
   </div>
   <div class="overflow-y-auto">
     @if ($posts->isEmpty())

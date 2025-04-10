@@ -4,6 +4,9 @@
       <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
       <div class="text-lg font-bold">タイムカード</div>
     </div>
+    <a class="text-ao-main hover:text-sky-700" href="{{ route('timecard.index') }}">
+          詳しく見る
+          <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
   </div>
   <div class="my-5 flex w-full flex-col items-center justify-center space-y-5 sm:flex-row sm:space-x-5 sm:space-y-0">
     <div class="my-2 flex w-full flex-col items-center sm:w-3/5">
