@@ -29,6 +29,12 @@ class Calendar extends Component
 
     public $totalWorkingTime;
 
+    #[Url(as: 'startDate')]
+    public $startDate;
+
+    #[Url(as: 'endDate')]
+    public $endDate;
+
     public CarbonImmutable $selectedDate;
 
     public WorkTimeForm $workTimeForm;
@@ -49,12 +55,14 @@ class Calendar extends Component
     public function clickDate($date): void
     {
         $this->selectedDate = CarbonImmutable::parse($date);
+        $this->startDate = CarbonImmutable::parse($date)->startOfMonth();
+        $this->endDate = CarbonImmutable::parse($date)->endOfMonth();
+
         $this->year = $this->selectedDate->year;
         $this->month = $this->selectedDate->month;
 
         $this->setWorkTimeList($this->selectedDate);
         $this->setBreakTimeList($this->selectedDate);
-
     }
 
     public function setWorkTimeList(CarbonImmutable $date)
