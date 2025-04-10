@@ -1,4 +1,13 @@
 <div class="w-full rounded-t bg-white py-2 xl:px-5">
+  <div class="flex flex-row items-center justify-between rounded-t-md border-x border-t bg-gray-100 p-4">
+    <div class="flex flex-col text-lg font-semibold text-gray-700 sm:flex-row xl:items-center">
+      <div>シフト受付期間</div>
+      <div class="hidden sm:block"> : </div>
+      <div>{{ $manager->submission_start_date->format('Y年m月d日') }} ~ </div>
+      <div>{{ $manager->submission_end_date->format('Y年m月d日') }}</div>
+    </div>
+    <livewire:shift::admin.manager-edit :$manager @updated="$refresh" />
+  </div>
   <div>
     <div class="items-center overflow-x-auto">
       <div class="hidden w-full grid-cols-7 border sm:grid">
@@ -21,7 +30,7 @@
               'bg-gray-100 hidden sm:block' => $content['type'] == '期間外',
           ]) wire:key="{{ $content['date']->format('Y-m-d') }}">
             @if ($content['type'] != '期間外')
-              <div>
+              <div class="px-1">
                 @if ($content['date']->day == 1 || $key == 1)
                   {{ $content['date']->isoFormat('Y年M月D日') }}
                 @else

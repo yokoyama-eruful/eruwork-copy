@@ -6,7 +6,6 @@ namespace Modules\Shift\Livewire\Admin;
 
 use Livewire\Form;
 use Modules\Shift\Models\Manager;
-use Modules\Shift\Models\Schedule;
 
 final class ShiftManagerForm extends Form
 {
@@ -18,7 +17,7 @@ final class ShiftManagerForm extends Form
 
     public ?string $submissionEndDate = null;
 
-    public Schedule $schedule;
+    public Manager $manager;
 
     public function rules()
     {
@@ -55,6 +54,15 @@ final class ShiftManagerForm extends Form
         ];
     }
 
+    public function setValues(Manager $manager): void
+    {
+        $this->manager = $manager;
+        $this->startDate = $manager->start_date->format('Y-m-d');
+        $this->endDate = $manager->end_date->format('Y-m-d');
+        $this->submissionStartDate = $manager->submission_start_date->format('Y-m-d');
+        $this->submissionEndDate = $manager->submission_end_date->format('Y-m-d');
+    }
+
     public function save(): void
     {
         $this->validate();
@@ -69,8 +77,22 @@ final class ShiftManagerForm extends Form
         $this->reset(['startDate', 'endDate', 'submissionStartDate', 'submissionEndDate']);
     }
 
-    public function delete(): void
+    public function update()
     {
-        $this->schedule->delete();
+        $this->validate();
+
+        $this->manager->update([
+            'start_date' => $this->startDate,
+            'end_date' => $this->endDate,
+            'submission_start_date' => $this->submissionStartDate,
+            'submission_end_date' => $this->submissionEndDate,
+        ]);
+
+        $this->reset(['startDate', 'endDate', 'submissionStartDate', 'submissionEndDate']);
     }
+
+    // public function delete(): void
+    // {
+    //     $this->schedule->delete();
+    // }
 }
