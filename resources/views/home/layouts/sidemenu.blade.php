@@ -23,7 +23,7 @@
       <li class="mb-2">@include('board::icon')</li>
       <li class="mb-2">@include('calendar::general.icon')</li>
       <li class="mb-2">@include('chat::general.icon')</li>
-      <li class="mb-2">@include('timecard::general.icon')</li>
+
       <li class="mb-2">@include('shift::general.icon')</li>
     </ul>
   </nav>

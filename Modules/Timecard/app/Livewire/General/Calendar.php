@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Timecard\Livewire\General;
 
+use App\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
 use Illuminate\Support\Facades\Auth;
@@ -45,11 +46,33 @@ class Calendar extends Component
 
     public BreakTimeData $breakData;
 
+    public $users;
+
+    public int $selectUserId;
+
     public function mount(): void
     {
+        $this->users = User::get();
+
+        $this->selectUserId = Auth::id();
+
+        $selectUser = User::find($this->selectUserId);
+
         $this->clickDate(CarbonImmutable::now());
 
-        $this->totalWorkingTime = totalWorkingTimeDto::month(Auth::user(), $this->selectedDate);
+        $this->totalWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+    }
+
+    public function changeSelectUser()
+    {
+
+        $selectUser = User::find($this->selectUserId);
+
+        $this->clickDate(CarbonImmutable::now());
+
+        $this->totalWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+
+        $this->dispatch('refreshCalendar');
     }
 
     public function clickDate($date): void
@@ -67,7 +90,7 @@ class Calendar extends Component
 
     public function setWorkTimeList(CarbonImmutable $date)
     {
-        $times = WorkTime::where('user_id', Auth::id())
+        $times = WorkTime::where('user_id', $this->selectUserId)
             ->where('date', $date)
             ->orderBy('in_time', 'asc')
             ->get();
@@ -100,7 +123,7 @@ class Calendar extends Component
 
     public function setBreakTimeList(CarbonImmutable $date)
     {
-        $times = BreakTime::where('user_id', Auth::id())
+        $times = BreakTime::where('user_id', $this->selectUserId)
             ->where('date', $date)
             ->orderBy('in_time', 'asc')
             ->get();
@@ -133,7 +156,7 @@ class Calendar extends Component
 
     public function storeWorkTime()
     {
-        $this->workData->userId = Auth::id();
+        $this->workData->userId = $this->selectUserId;
         $this->workData->date = $this->selectedDate;
         $this->workData->save();
 
@@ -145,7 +168,7 @@ class Calendar extends Component
 
     public function storeBreakTime()
     {
-        $this->breakData->userId = Auth::id();
+        $this->breakData->userId = $this->selectUserId;
         $this->breakData->date = $this->selectedDate;
         $this->breakData->save();
 
@@ -186,21 +209,21 @@ class Calendar extends Component
     {
         BreakTime::create([
             'date' => $this->selectedDate,
-            'user_id' => Auth::id(),
+            'user_id' => $this->selectUserId,
         ]);
     }
 
     #[Computed()] #[On('refreshCalendar')]
     public function calendar()
     {
-        $workTimes = WorkTime::where('user_id', Auth::id())
+        $workTimes = WorkTime::where('user_id', $this->selectUserId)
             ->whereYear('date', $this->selectedDate->year)
             ->whereMonth('date', $this->selectedDate->month)
             ->orderBy('in_time', 'asc')
             ->get()
             ->groupBy(fn ($attendance) => $attendance->date->toDateString());
 
-        $breakTimes = BreakTime::where('user_id', Auth::id())
+        $breakTimes = BreakTime::where('user_id', $this->selectUserId)
             ->whereYear('date', $this->selectedDate->year)
             ->whereMonth('date', $this->selectedDate->month)
             ->get()

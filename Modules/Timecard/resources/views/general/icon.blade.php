@@ -10,7 +10,7 @@
     <path fill="none" stroke="#6f8184" stroke-miterlimit="10" stroke-width="10" d="M93 5h304v85H93z" />
     <path fill="none" stroke="#6f8184" stroke-miterlimit="10" stroke-width="9" d="M124 34h246M124 67h246" />
   </svg>
-  <div class="rounded-b bg-ao-main">
+  <div class="rounded-b bg-hai-main">
     <span class="flex items-center justify-center text-xs text-white">タイムカード</span>
   </div>
 </a>

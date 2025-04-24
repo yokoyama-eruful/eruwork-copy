@@ -3,6 +3,15 @@
   <div class="w-full rounded-t bg-white py-2 xl:w-9/12 xl:px-5">
     <div class="flex flex-col justify-center xl:my-5 xl:flex-row xl:items-center xl:justify-between">
       <div class="mb-2 block xl:hidden">{{ $selectedDate->isoFormat('Y年M月D日(ddd)') }}</div>
+      <div class="flex items-center">
+        <div>ユーザー</div>
+        <select class="mb-2 ms-2 sm:mb-0" wire:model="selectUserId" wire:change="changeSelectUser">
+          @foreach ($users as $user)
+            <option value="{{ $user->id }}" @if ($selectUserId == $user->id) selected @endif>{{ $user->name }}
+            </option>
+          @endforeach
+        </select>
+      </div>
       <div class="flex items-center md:ml-0">
         <button
           class="flex h-10 items-center space-x-1 rounded-l bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-2"

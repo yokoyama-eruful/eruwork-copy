@@ -38,6 +38,9 @@
       <li class="mb-2">
         @include('timecard::admin.icon')
       </li>
+      <li class="mb-2">
+        @include('timecard::general.icon')
+      </li>
     </ul>
   </nav>
 
