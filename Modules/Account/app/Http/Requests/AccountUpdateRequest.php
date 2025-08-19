@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Account\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AccountUpdateRequest extends FormRequest
 {
@@ -16,7 +17,11 @@ class AccountUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'login_id' => ['required', 'string', 'unique:users,login_id,' . $this->login_id . ',login_id'],
+            'login_id' => [
+                'required',
+                'string',
+                Rule::unique('users', 'login_id')->ignore($this->id),
+            ],
             'name' => ['required', 'string',  'max:15'],
             'password' => ['nullable', 'confirmed', 'min:4'],
             'contract_type' => ['nullable', 'string'],
