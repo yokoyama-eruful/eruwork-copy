@@ -1,0 +1,60 @@
+/* 掲示板 */
+.bulletin-board-area {
+  width: 92%;
+  margin: 15px auto;
+}
+.bulletin-board-box {
+  position: relative;
+  background: #f7f7f7;
+  padding: 10px 20px;
+  overflow: hidden;
+  border-radius:4px;
+}
+.board-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.board-title img {
+  width: 11px;
+  height: 12px;
+}
+.board-title span {
+  font-size: 11px;
+  color: #6f6c6c;
+}
+.bulletin-board-box h4 {
+  font-size: 14px;
+  margin: 4px 0;
+  font-weight: bold;
+}
+.ellipsis {
+  width: 16em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bulletin-board-box p {
+  margin: 0;
+  font-size: 11px;
+}
+
+/* NEWリボン（重複解消） */
+.new-ribbon {
+  position: absolute;
+  background: red;
+  color: #fff;
+  font-size: 7px;
+  font-weight: bold;
+  width: 70px;
+  height: 20px;
+  top: 25px;
+  left: -25px;
+
+  display: flex;
+  justify-content: center;
+  align-items: end;
+
+  transform: rotate(-45deg);
+  transform-origin: top left;
+}

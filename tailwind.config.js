@@ -35,6 +35,7 @@ export default {
                   return acc;
                 }, {}),
               },
+
               gridColumn: {
                 ...Array.from({ length: 1428 }, (_, i) => [String(i + 13), `span ${i + 13} / span ${i + 13}`]).reduce((acc, [key, value]) => {
                   acc[`span-${key}`] = value;
@@ -42,10 +43,15 @@ export default {
                 }, {}),
               },
 
+
               gridTemplateColumns: {
                 '25-cols': '100px repeat(24, minmax(50px, 1fr))',
                 '1440': 'repeat(1441, minmax(0, 1fr))',
               },
+
+              spacing: {
+                15: '15px', // p-15, m-15 として使える
+              }
         },
     },
 

@@ -1,0 +1,145 @@
+.timecard-area {
+  width: 90%;
+  margin: 15px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.date {
+  font-size: 14px;
+  margin: 0;
+}
+.time-display {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0 12px 0 0;
+}
+
+.timerecord-button-area {
+  width: 90%;
+  margin: 1.4em auto;
+  display: flex;
+  justify-content: space-around;
+}
+.shape-stamp-in {
+  width: 100px;
+  height: 100px;
+  color: #fff;
+  background: #48cbff;
+  border-radius: 10px;
+  box-shadow: 0 4px 13px 0 #48cbff3d;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.shape-stamp-in:disabled {
+  background: #48cbff4d;
+}
+
+.shape-stamp-in:hover{
+  opacity: 70%;
+
+}
+
+
+.shape-stamp-out {
+  width: 100px;
+  height: 100px;
+  color: #fff;
+  background: #f76e80;
+  border-radius: 10px;
+  box-shadow: 0 4px 13px 0 #f76e803d;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 20px;
+}
+.shape-stamp-out:disabled {
+  background: #f76e804d;
+}
+
+.shape-stamp-out:hover{
+  opacity: 70%;
+
+}
+
+.shape-stamp-b-start,
+.shape-stamp-b-end {
+  width: 100px;
+  height: 30px;
+  background: #fff;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+}
+.shape-stamp-b-start {
+  border: 2px solid #6ed0f7;
+  color: #6ed0f7;
+}
+
+.shape-stamp-b-start:hover{
+  opacity: 70%;
+}
+
+.shape-stamp-b-end {
+  border: 2px solid #f76e80;
+  color: #f76e80;
+}
+
+.shape-stamp-b-end:hover{
+  opacity: 70%;
+}
+
+.day-timerecord-area {
+  width: 90%;
+  margin: 35px auto 15px;
+}
+
+.day-timerecord-area p {
+  margin: 5px 0;
+}
+
+.day-timerecord-title {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.day-timerecord-box {
+  width: 250px;
+  height: 40px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  margin-bottom: 5px;
+}
+
+.day-timerecord-box p {
+  margin: 0;
+  line-height: 10px;
+  font-size: 14px;
+}
+.stamp-start {
+  color: #48cbff;
+}
+.stamp-end {
+  color: #f76e80;
+}
+.stamp-break {
+  color: #6f6c6c;
+}
+.day-timerecord-box input {
+  border: none;
+  color: #6f6c6c;
+  font-size: 16px;
+  font-weight: bold;
+  width: 50%;
+  text-align: end;
+  padding: 0;
+}
+.border-line {
+  border-top: 1px solid #ddd;
+  width: 98%;
+  margin: 35px auto 5px;
+}

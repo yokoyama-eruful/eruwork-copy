@@ -1,6 +1,11 @@
 // https://aka.ms/devcontainer.json
 {
 	"name": "Eruwork Project Container",
+	"forwardPorts": [8000, 5173],
+  "portsAttributes": {
+    "8000": { "label": "Laravel", "onAutoForward": "notify" },
+    "5173": { "label": "Vite", "onAutoForward": "notify" }
+  },
 	"dockerComposeFile": [
 		"../docker-compose.yml"
 	],
@@ -24,7 +29,8 @@
 				"open-southeners.laravel-pint",
 				"damms005.devdb",
 				"st-pham.php-refactor-tool",
-				"Gruntfuggly.todo-tree"
+				"Gruntfuggly.todo-tree",
+				"ms-vsliveshare.vsliveshare"
 			],
 			"settings": {}
 		}

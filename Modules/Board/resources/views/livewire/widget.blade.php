@@ -1,48 +1,33 @@
-<x-widget>
-  <div class="flex flex-wrap items-center justify-between pb-2">
-    <div class="flex flex-row items-center space-x-2">
-      <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
-      <div class="text-lg font-bold">掲示板</div>
-    </div>
-    <a class="text-ao-main hover:text-sky-700" href="{{ route('board.index') }}">
-      詳しく見る
-      <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+<div>
+  @vite(['Modules/Board/resources/css/widget.css'])
+  <div class="sidebar-title">
+    <h5 class="pt-15 font-bold">掲示板</h5>
+    <a class="sidebar-link pt-15" href="{{ route('board.index') }}">
+      掲示板一覧へ
+      <img src="img/icon/transition-link.png" />
+    </a>
   </div>
-  <div class="overflow-y-auto">
-    @if ($posts->isEmpty())
-      <p>投稿はありません</p>
-    @else
-      <table class="min-w-full table-auto rounded-lg bg-white shadow-lg">
-        <thead>
-          <tr class="border-t-4 border-t-ao-main bg-ao-sub text-left">
-            <th class="py-2 text-left font-medium text-gray-600"></th>
-            <th class="py-2 pr-4 text-left font-medium text-gray-600">表題</th>
-            <th class="px-1 py-2 text-left font-medium text-gray-600">作成者</th>
-            <th class="px-1 py-2 text-left font-medium text-gray-600">作成日</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($posts as $post)
-            <tr class='cursor-pointer hover:bg-gray-100'
-              onclick="window.location.href='{{ route('board.show', ['id' => $post->id]) }}'">
-              <td class="border-b border-ao-main py-2 text-center sm:w-7">
-                @if ($post->attachments->isNotEmpty())
-                  <i class="fas fa-paperclip mx-1 text-blue-700"></i>
-                @endif
-              </td>
-              <td @class([
-                  'sm:max-w-xs truncate border-b border-ao-main py-2 truncate max-w-20 sm:pr-4 text-blue-500 underline',
-                  'text-gray-400' => $post->ReadStatus != null,
-              ])>
-                {!! nl2br(e($post->title)) !!}
-              </td>
-              <td class="border-b border-ao-main px-1 py-2">{{ $post->user->profile->name ?? 'UnknownUser' }}
-              </td>
-              <td class="border-b border-ao-main px-1 py-2">{{ $post->updated_at?->format('Y/m/d H:i') }}</td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
-    @endif
-  </div>
-</x-widget>
+  @if ($posts->isEmpty())
+    <p>投稿はありません</p>
+  @else
+    @foreach ($posts as $post)
+      <a href="{{ route('board.show', ['id' => $post->id]) }}">
+        <div class="bulletin-board-area">
+          <div class="bulletin-board-box">
+            @if ($post->ReadStatus === null)
+              <div class="new-ribbon">NEW</div>
+            @endif
+            <div class="board-title">
+              <span>{{ $post->created_at->format('Y.m.d') }}</span>
+              @if ($post->attachments->isNotEmpty())
+                <img src="img/icon/attached-icon.png" />
+              @endif
+            </div>
+            <h4 class="ellipsis">{!! nl2br(e($post->title)) !!}</h4>
+            <p>{{ $post->user->profile->name ?? 'UnknownUser' }}</p>
+          </div>
+        </div>
+      </a>
+    @endforeach
+  @endif
+</div>

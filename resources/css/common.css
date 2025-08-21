@@ -1,0 +1,99 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/web/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/web/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/web/Inter-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
+:root {
+  --row-h: 50px; /* 1時間の高さ */
+  --head-h: 44px; /* 日付ヘッダーの高さ（左の月の高さと揃える） */
+  --days: 7;
+  --col-min: 100px;
+  --time-col-w: 68px;
+  --grid-line: #eee;
+  --grid-active-line: #ff4a62;
+  --card-w: 140px; /* deck（見本スタック）用 */
+  --card-h: 140px; /* deck（見本スタック）用 */
+  --stack-gap: 15px; /* deck（見本スタック）用 */
+  --anim: 220ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+}
+
+.main-area {
+  display: flex;
+  margin-left: 80px;
+  width: calc(100% - 80px);
+  height: 100vh;
+}
+
+/* ========== レイアウト（サイドバー/メイン） ========== */
+
+.sidebar {
+  width: 280px;
+  background: #fff;
+  color: #000;
+  padding: 25px 0;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.sidebar h5 {
+  font-size: 16px;
+  margin: 5px 0;
+}
+.sidebar-title {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  margin: 0 auto;
+}
+.sidebar-title a {
+  color: #3289fa;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+}
+.sidebar-link img {
+  width: 15px;
+  height: 15px;
+}

@@ -1,0 +1,465 @@
+/* ========== トップメニュー ========== */
+.add-schedule {
+  background: #3289fa;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 5px;
+  padding: 8px 20px;
+  height: 35px;
+}
+.add-schedule:hover {
+  background: #3289fa4d;
+}
+.add-schedule img {
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+}
+
+.calender-move {
+  color: #777;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  background: transparent;
+  height: 17px;
+  margin: 0 5px;
+}
+.calender-move i {
+  padding: 2px 5px 0;
+}
+
+.top-calender-menu-select {
+  border: 1px solid #ddd;
+  color: #222;
+  border-radius: 5px;
+  padding: 5px 0 5px 10px;
+  font-size: 16px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("../images/icon/arrow-down.png");
+  background-repeat: no-repeat;
+  background-size: 18px auto;
+  background-position: right 10px center;
+  margin: 0 2px;
+}
+
+.select-y {
+  min-width: 115px;
+  min-height: 35px;
+}
+
+.select-m {
+  min-width: 81px;
+  min-height: 35px;
+}
+
+.today-btn {
+  background: #77829c;
+  color: #fff;
+  border-radius: 3px;
+  min-width: 52px;
+  min-height: 25px;
+  font-size: 15px;
+  margin: 0 15px;
+}
+
+.speach-news {
+  display: flex;
+  align-items: center;
+}
+.speach-news img {
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+}
+.speech-bubble {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  height: 25px;
+  padding: 2px 5px 2px 10px;
+  width: fit-content;
+  max-width: 300px;
+  box-shadow: 0 2px 13px rgba(0, 0, 0, 0.12);
+  line-height: 1.2;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  border-style: solid;
+  border-width: 5px 8px 6px 0;
+  border-color: transparent #fff transparent transparent;
+  translate: -100% -50%;
+}
+.speech-bubble p {
+  font-size: 12px;
+  margin: 0;
+}
+.speech-bubble img {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+}
+.speech-bubble a {
+  font-size: 12px;
+  color: #3289fa;
+  font-weight: bold;
+  margin: 0 3px;
+}
+
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.modal-content a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+.modal-content form button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.modal-content img {
+  margin-right: 5px;
+}
+.modal-content svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ========== カレンダー本体 ========== */
+.top-calender-container {
+  padding: 20px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 13px rgba(93, 95, 98, 0.25);
+  margin: 13px 0 0;
+  min-width: 1300px;
+}
+
+.top-calender-container h4 {
+  font-size: 16px;
+  margin: 0 0 8px;
+}
+
+/* 2カラム：左固定/右スクロール */
+.calendar-body {
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+/* 左：月＋時間軸（固定） */
+.calendar-left {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 var(--time-col-w);
+  width: var(--time-col-w);
+}
+.month-label {
+  height: var(--head-h);
+  line-height: var(--head-h);
+  font-weight: 700;
+  font-size: 20px;
+  padding-left: 4px;
+}
+.calender-time-column {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 14px 0 0 0;
+}
+.time-cell {
+  position: relative;
+  height: var(--row-h);
+}
+
+.tick-label {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: #888;
+  padding: 0 2px;
+  line-height: 1;
+  margin: auto;
+  text-align: center;
+}
+
+.current-time {
+  position: absolute;
+  background-color: #ff4a62;
+  color: #fff;
+  border-radius: 3px;
+  width: 100%;
+  left: 0;
+  z-index: 0;
+  padding: 5px 0;
+}
+
+/* 右：ヘッダー＋グリッド（同じ横スクロール） */
+.schedule-scroll {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+}
+
+/* ヘッダー（日付） */
+.top-calender-day-area {
+  display: flex;
+  gap: 0;
+  min-width: calc(var(--days) * var(--col-min));
+  height: var(--head-h);
+  margin-bottom: 15px;
+}
+.top-calender-day {
+  flex: 1 1 0;
+  min-width: var(--col-min);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.top-calender-day p {
+  font-size: 22px;
+  font-weight: 400;
+  margin: 5px 0 0;
+  line-height: 1;
+}
+.calender-today-color {
+  background: rgba(50, 137, 250, 0.12);
+  color: #3289fa;
+  border-radius: 8px;
+}
+
+.otherday{
+  font-size: 11px;
+  color: #9aa0a6;
+  line-height: 1;
+}
+
+.saturday{
+  font-size: 11px;
+  color:#48CBFF;
+  line-height: 1;
+}
+
+.sunday{
+  font-size: 11px;
+  color:#FF0000;
+  line-height: 1;
+}
+
+/* グリッド本体 */
+.calender-schedule-grid {
+  position: relative;
+  display: flex;
+  min-width: calc(var(--days) * var(--col-min));
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(var(--row-h) - 1px), var(--grid-line) calc(var(--row-h) - 1px), var(--grid-line) var(--row-h)),
+    linear-gradient(to right, var(--grid-line) 1px, transparent 0);
+  background-size: auto auto, calc(100% / var(--days)) 100%;
+  background-repeat: repeat, repeat-x;
+  padding: 15px 0;
+}
+
+.calender-schedule-grid::after {
+  content: "";
+  position: absolute;
+  top: calc((9 - 8) * var(--row-h));
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: #ff4a62;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.schedule-day {
+  position: relative;
+  flex: 1 1 0;
+  min-width: var(--col-min);
+  height: calc(var(--row-h) * 12);
+  border-bottom: 1px solid var(--grid-line);
+}
+
+/* ========== カード（共通） ========== */
+.card {
+  position: absolute;
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--border, transparent);
+  padding: 10px 14px;
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: box-shadow var(--anim), filter var(--anim);
+  height: auto;
+  min-height: 50px;
+}
+
+.card:hover,
+.card:focus-visible {
+  box-shadow: 0 4px 13px rgba(93, 95, 98, 0.25);
+}
+
+.card[aria-selected="true"] {
+  filter: saturate(1.05);
+}
+
+.title {
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 0 5px 0;
+}
+
+.card-time {
+  font-size: 12px;
+}
+
+/* テーマ（色） */
+.event-card01 {
+  --bg: #fff7ec;
+  --text: #de993a;
+  --border: #de993a;
+}
+.event-card02 {
+  --bg: #f2fbff;
+  --text: #00a1ff;
+  --border: #00a1ff;
+}
+.event-card03 {
+  --bg: #ffecfd;
+  --text: #de3a94;
+  --border: #de3a94;
+}
+.event-card04 {
+  --bg: #fff;
+  --text: #000;
+  --border: #ddd;
+}
+
+/* ========== deck（見本スタック用,予定には干渉しない） ========== */
+.deck {
+  position: relative;
+  height: auto;
+  min-height: 80px;
+  overflow: visible;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
+
+.card {
+  will-change: transform, box-shadow, filter;
+}
+
+.card--stack {
+  position: absolute;
+  top: 0;
+  width: var(--card-w);
+  height: auto;
+}
+
+.card--stack {
+  left: calc(var(--i, 0) * var(--stack-gap));
+  z-index: calc(var(--i, 0) + 1);
+}
+
+/* 予定カード（列に余白を移したので左右0でOK） */
+.card--event {
+  position: absolute;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  left: 0; /* ← 4px から 0 に変更 */
+  right: 0; /* ← 4px から 0 に変更 */
+}
+
+/* 同時刻の横割り（基点leftも0起点に調整） */
+.card--event {
+  --gap: 6px;
+  width: calc((100% - (var(--cols, 1) - 1) * var(--gap)) / var(--cols, 1));
+  left: calc(var(--col, 0) * (100% / var(--cols, 1)) + var(--col, 0) * var(--gap));
+  right: auto;
+}
+
+/* ========== モーダル(dialog) ========== */
+dialog {
+  width: min(92vw, 560px);
+  border: none;
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  padding: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 8px;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.modal-close {
+  appearance: none;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-body {
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+/* ========== 小画面微調整 ========== */
+@media (max-width: 380px) {
+  :root {
+    --card-h: 180px;
+    --stack-gap: 14px;
+  }
+  .title {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 440px) {
+}
