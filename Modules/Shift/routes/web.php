@@ -15,9 +15,17 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::resource('shift', ShiftController::class)->names('shift');
+    // Route::resource('shift', ShiftController::class)->names('shift');
 
-    Route::get('submission/{manager}', SubmissionController::class)->name('submission.show');
+    Route::controller(SubmissionController::class)
+        ->prefix('shift/submission')
+        ->name('shift.submission.')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/{manager}', 'show')->name('show');
+        });
 
-    Route::get('schedule', [ScheduleController::class, 'index'])->name('schedule.index');
+    // Route::get('shift/submission/{manager}', SubmissionController::class)->name('shift.submission');
+
+    Route::get('shift/schedule', [ScheduleController::class, 'index'])->name('shift.schedule');
 });

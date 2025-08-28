@@ -1,4 +1,4 @@
-<x-modal name="schedule-edit-modal-{{ $schedule->id }}" title="予定編集">
+<x-modal name="schedule-edit-modal-{{ $schedule->id }}" title="予定編集" maxWidth="lg">
   <div class="flex items-center justify-between px-4 pt-4">
     <div class="text-xl font-bold"> {{ $form->date }}</div>
     <form id="delete-schedule-form" wire:submit="delete">
@@ -10,7 +10,7 @@
   @if ($this->overlappingSchedules() || $this->overlappingShifts())
     <div><i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>予定が重複しています</div>
   @endif
-  <form class="px-4 pb-4" id="edit-schedule-form" wire:submit="update">
+  <form class="px-4 pb-4" id="edit-form-{{ $schedule->id }}" id="edit-schedule-form" wire:submit="update">
 
     <div class="mt-4">
       <x-input-label for="title" value="タイトル" />
@@ -47,15 +47,14 @@
 
       <x-input-error class="mt-2" :messages="$errors->userDeletion->get('end_time')" />
     </div>
-
-    <div class="mt-6 flex justify-end">
-      <x-secondary-button x-on:click="$dispatch('close')">
-        {{ __('Cancel') }}
-      </x-secondary-button>
-
-      <x-primary-button class="ms-3">
-        更新
-      </x-primary-button>
-    </div>
   </form>
+  <x-slot:footer>
+    <x-secondary-button x-on:click="$dispatch('close')">
+      {{ __('Cancel') }}
+    </x-secondary-button>
+
+    <x-primary-button class="ms-3" form="edit-form-{{ $schedule->id }}">
+      更新
+    </x-primary-button>
+  </x-slot:footer>
 </x-modal>

@@ -28,7 +28,9 @@ class Calendar extends Component
     #[Url(as: 'month')]
     public int $month;
 
-    public $totalWorkingTime;
+    public $totalMonthWorkingTime;
+
+    public $totalYearWorkingTime;
 
     #[Url(as: 'startDate')]
     public $startDate;
@@ -50,6 +52,10 @@ class Calendar extends Component
 
     public int $selectUserId;
 
+    public $workTimeList;
+
+    public $breakTimeList;
+
     public function mount(): void
     {
         $this->users = User::get();
@@ -60,7 +66,9 @@ class Calendar extends Component
 
         $this->clickDate(CarbonImmutable::now());
 
-        $this->totalWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+
+        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
     }
 
     public function changeSelectUser()
@@ -70,7 +78,9 @@ class Calendar extends Component
 
         $this->clickDate(CarbonImmutable::now());
 
-        $this->totalWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+
+        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
 
         $this->dispatch('refreshCalendar');
     }
@@ -86,16 +96,22 @@ class Calendar extends Component
 
         $this->setWorkTimeList($this->selectedDate);
         $this->setBreakTimeList($this->selectedDate);
+
+        $selectUser = User::find($this->selectUserId);
+
+        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+
+        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
     }
 
     public function setWorkTimeList(CarbonImmutable $date)
     {
-        $times = WorkTime::where('user_id', $this->selectUserId)
+        $this->workTimeList = WorkTime::where('user_id', $this->selectUserId)
             ->where('date', $date)
             ->orderBy('in_time', 'asc')
             ->get();
 
-        $this->workTimeForm->setWorkTimes($this->workData, $times);
+        $this->workTimeForm->setWorkTimes($this->workData, $this->workTimeList);
     }
 
     public function setWorkTime(?int $id)
@@ -123,12 +139,12 @@ class Calendar extends Component
 
     public function setBreakTimeList(CarbonImmutable $date)
     {
-        $times = BreakTime::where('user_id', $this->selectUserId)
+        $this->breakTimeList = BreakTime::where('user_id', $this->selectUserId)
             ->where('date', $date)
             ->orderBy('in_time', 'asc')
             ->get();
 
-        $this->breakTimeForm->setBreakTimes($this->breakData, $times);
+        $this->breakTimeForm->setBreakTimes($this->breakData, $this->breakTimeList);
     }
 
     public function setBreakTime(?int $id)
@@ -203,6 +219,12 @@ class Calendar extends Component
         $this->selectedDate = CarbonImmutable::parse($date);
         $this->year = $this->selectedDate->year;
         $this->month = $this->selectedDate->month;
+
+        $selectUser = User::find($this->selectUserId);
+
+        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+
+        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
     }
 
     public function createBreakTime()
@@ -234,7 +256,7 @@ class Calendar extends Component
             $this->selectedDate->endOfMonth()->endOfWeek(CarbonImmutable::SUNDAY)
         );
 
-        return $period->map(function ($date) use ($workTimes, $breakTimes) {
+        return iterator_to_array($period->map(function ($date) use ($workTimes, $breakTimes) {
             $type = $this->getDayType($date);
 
             $workTimeRecords = $workTimes->get($date->toDateString(), collect());
@@ -246,7 +268,7 @@ class Calendar extends Component
                 'workTimes' => $workTimeRecords,
                 'breakTimes' => $breakTimeRecords,
             ];
-        });
+        }));
     }
 
     private function getDayType(CarbonImmutable $date): string

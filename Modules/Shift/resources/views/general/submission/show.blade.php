@@ -1,5 +1,5 @@
 <x-app-layout>
-  <x-widget>
+  {{-- <x-widget>
     <div class="flex flex-wrap items-center justify-between pb-2">
       <div class="flex flex-row items-center space-x-2">
         <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
@@ -22,5 +22,7 @@
       @endif
     </div>
     @livewire('shift::general.submission-calendar', ['manager' => $manager])
-  </x-widget>
+  </x-widget> --}}
+
+  @livewire('shift::general.submission-calendar', ['manager' => $manager])
 </x-app-layout>

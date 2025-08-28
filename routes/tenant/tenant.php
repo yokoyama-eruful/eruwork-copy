@@ -38,7 +38,7 @@ Route::middleware([
             ->group(function (): void {
                 Route::get('/', 'index');
                 Route::post('subscribe', 'subscribe')->name('subscribe');
-                Route::post('unsubscribe', 'unsubscribe')->name('subscribe');
+                Route::post('unsubscribe', 'unsubscribe')->name('unsubscribe');
                 Route::get('welcomeMessage', 'send')->name('welcomeMessage');
             });
 

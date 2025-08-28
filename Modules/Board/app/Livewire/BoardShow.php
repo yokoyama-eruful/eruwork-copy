@@ -27,4 +27,14 @@ class BoardShow extends Component
 
         return view('board::livewire.board-show', ['posts' => $posts]);
     }
+
+    public function deletePost($postId)
+    {
+        $this->dispatch('close-modal', 'delete-modal-' . $postId);
+
+        $post = BoardPost::find($postId);
+        if ($post) {
+            $post->delete();
+        }
+    }
 }

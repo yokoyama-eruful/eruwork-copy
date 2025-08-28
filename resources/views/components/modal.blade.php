@@ -42,18 +42,31 @@
     <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
   </div>
 
-  <div class="{{ $maxWidth }} mb-6 transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:w-full"
+  <div class="{{ $maxWidth }} mb-6 transform overflow-hidden rounded-xl bg-white shadow-xl transition-all sm:w-full"
     x-show="show" x-transition:enter="ease-out duration-300"
     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
     x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
     x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
-    <div class="flex h-8 w-full flex-wrap items-center justify-between bg-ao-main px-2 text-white">
-      <div>{{ $title }}</div>
-      <div class="hover:text-gray-300" x-on:click="show = false"><i class="fa-solid fa-xmark"></i></div>
-    </div>
-    <div class="p-4">
-      {{ $slot }}
+    <div>
+      <div class="flex items-center justify-between px-5 py-4">
+        <p class="text-start text-base font-bold">{{ $title }}</p>
+        <button class="hover:opacity-40" type="button" x-on:click="show = false">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 18L18 6M6 6L18 18" stroke="#5E5E5E" stroke-width="1.2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <hr class="border-t">
+      <div class="bg-[#F7F7F7]">
+        {{ $slot }}
+      </div>
+      @if (isset($footer))
+        <div class="flex justify-center bg-white pb-5 pt-3">
+          {{ $footer }}
+        </div>
+      @endif
     </div>
   </div>
 </div>

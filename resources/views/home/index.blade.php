@@ -1,12 +1,6 @@
 <x-app-layout>
   {{-- top.cssの読み込み --}}
   @vite(['resources/css/top.css'])
-  {{--
-    <livewire:shift::general.widget />
-    <livewire:calendar::general.widget />
-    <livewire:timecard::general.stamp />
-    <livewire:board::widget />
-  --}}
   <div class="sidebar">
     {{-- タイムカードの読み込み（Modules/Timecard/resources/views/general/livewire/stamp.blade.php） --}}
     <livewire:timecard::general.stamp />
@@ -15,8 +9,7 @@
     <livewire:board::widget />
   </div>
 
-  <x-main.index>
-    <!-- ヘッダー、カレンダー、打刻など -->
+  <x-main.index class="hidden sm:block">
     <x-main.top>
       <button class="add-schedule" type="button" x-on:click="$dispatch('open-modal')">
         <img src="img/icon/add-schedule.png" />
@@ -42,17 +35,13 @@
           <i class="fa-solid fa-angle-right"></i>
         </button>
         <button class="today-btn" wire:click="clickDate('')">今日</button>
-        <div class="speach-news">
-          <img src="img/icon/news-bell.png" />
-          <div class="speech-bubble">
-            <p>シフト申請：</p>
-            <a href="">2件受信済み</a>
-            <img src="img/icon/close.png" />
-          </div>
-        </div>
+        {{-- シフト通知の読み込み --}}
+        <livewire:shift::general.widget />
       </div>
     </x-main.top>
     <x-main.container>
+      {{-- カレンダーの読み込み --}}
+      {{-- <livewire:calendar::general.widget /> --}}
       <div class="calendar-body">
         <!-- 左：月（固定）＋ 時間軸（固定） -->
         <div class="calendar-left">
@@ -189,142 +178,123 @@
     </div>
   </dialog>
 
-  <script>
-    (() => {
-      // ===== 設定 =====
-      const GAP_FIXED = 15; // “ずらし”の上限(px)
-      const SAFE = 1; // 右端の安全余白(px)
-      const MIN_W = 140; // カード最小幅(px)
+  {{-- 以下モバイル --}}
+  <div class="overlay"></div>
+  <div class="sp">
+    <div class="slider">
+      <div class="slides-wrapper">
+        <a href="">
+          <div class="bulletin-board-area slide">
+            <div class="bulletin-board-box">
+              <div class="new-ribbon">NEW</div>
+              <div class="board-title">
+                <span>2025.08.01</span>
+                <img src="images/icon/attached-icon.png" />
+              </div>
+              <div class="board-text">
+                <h4 class="ellipsis">館内設備について日時変更がありましたのでお知らせします</h4>
+                <p>サンプル 太郎</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a href="">
+          <div class="bulletin-board-area slide">
+            <div class="bulletin-board-box">
+              <div class="new-ribbon">NEW</div>
+              <div class="board-title">
+                <span>2025.08.01</span>
+                <img src="images/icon/attached-icon.png" />
+              </div>
+              <div class="board-text">
+                <h4 class="ellipsis">館内設備について日時変更がありましたのでお知らせします</h4>
+                <p>サンプル 太郎</p>
+              </div>
+            </div>
+          </div>
+        </a>
+        <a href="">
+          <div class="bulletin-board-area slide">
+            <div class="bulletin-board-box">
+              <div class="new-ribbon">NEW</div>
+              <div class="board-title">
+                <span>2025.08.01</span>
+                <img src="images/icon/attached-icon.png" />
+              </div>
+              <div class="board-text">
+                <h4 class="ellipsis">館内設備について日時変更がありましたのでお知らせします</h4>
+                <p>サンプル 太郎</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="pagination">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    {{-- タイムカードの読み込み（Modules/Timecard/resources/views/general/livewire/stamp.blade.php） --}}
+    <livewire:timecard::general.stamp />
 
-      // ===== モーダル（共通） =====
-      const modal = document.getElementById("cardModal");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalBody = document.getElementById("modalBody");
-      const modalClose = document.getElementById("modalClose");
-
-      function openModalFromCard(card) {
-        const titleEl = card.querySelector(".title");
-        const bodyEl = card.querySelector(".body");
-        modalTitle.textContent = titleEl ? titleEl.textContent : "詳細";
-        modalBody.textContent = bodyEl ? bodyEl.textContent : "内容がありません。";
-        if (typeof modal.showModal === "function") modal.showModal();
-        else modal.setAttribute("open", "");
-        modalClose?.focus({
-          preventScroll: true
-        });
-      }
-
-      function closeModal() {
-        if (modal.hasAttribute("open")) modal.close?.();
-        modal.removeAttribute("open");
-      }
-      modal?.addEventListener("click", (e) => {
-        const r = modal.getBoundingClientRect();
-        const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-        if (!inside) closeModal();
-      });
-      modalClose?.addEventListener("click", closeModal);
-      window.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && modal.hasAttribute("open")) closeModal();
-      });
-
-      // ===== レイアウト（単一デッキ） =====
-      function layoutDeck(deckEl) {
-        const cards = Array.from(deckEl.querySelectorAll(".card"));
-        const n = cards.length;
-        if (!n) return;
-
-        deckEl.style.removeProperty("width");
-        const deckW = deckEl.clientWidth;
-
-        // 狭いときは gap を自動縮小
-        let gapMax = n > 1 ? (deckW - SAFE - MIN_W) / (n - 1) : 0;
-        gapMax = Math.max(0, gapMax);
-        const gap = Math.min(GAP_FIXED, gapMax);
-
-        const cardW = Math.max(MIN_W, deckW - gap * (n - 1) - SAFE);
-
-        cards.forEach((c, i) => {
-          if (!c.hasAttribute("tabindex")) c.setAttribute("tabindex", "0");
-          if (!c.hasAttribute("role")) c.setAttribute("role", "button");
-          if (!c.hasAttribute("aria-selected")) c.setAttribute("aria-selected", "false");
-
-          c.style.position = "absolute";
-          c.style.left = "0";
-          c.style.width = cardW + "px";
-          c.style.transform = `translateX(${i * gap}px)`;
-          c.style.zIndex = String(i + 1); // 右に行くほど前面
-        });
-      }
-
-      function layoutAllDecks() {
-        document.querySelectorAll(".deck").forEach(layoutDeck);
-      }
-
-      // ===== 右端へ移動（クリック動作） =====
-      function isRightmost(card) {
-        const deckEl = card.closest(".deck");
-        if (!deckEl) return false;
-        const last = Array.from(deckEl.querySelectorAll(".card")).pop();
-        return last === card;
-      }
-
-      function moveToRight(card) {
-        const deckEl = card.closest(".deck");
-        if (!deckEl) return;
-        // 1) 選択状態をリセット
-        deckEl.querySelectorAll(".card").forEach((c) => c.setAttribute("aria-selected", "false"));
-        // 2) 末尾へ移動（DOM順を変える）
-        deckEl.appendChild(card);
-        // 3) レイアウト更新
-        layoutDeck(deckEl);
-        // 4) このカードを選択状態に
-        card.setAttribute("aria-selected", "true");
-        card.focus({
-          preventScroll: true
-        });
-      }
-
-      // ===== イベント委譲（全デッキ共通） =====
-      document.addEventListener("click", (e) => {
-        const card = e.target.closest(".deck .card");
-        if (!card) return;
-
-        if (isRightmost(card)) {
-          // すでに右端＝選択中 → モーダル
-          openModalFromCard(card);
-        } else {
-          moveToRight(card);
-        }
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if (e.key !== "Enter" && e.key !== " ") return;
-        const card = e.target.closest?.(".deck .card");
-        if (!card) return;
-        e.preventDefault();
-
-        if (isRightmost(card)) openModalFromCard(card);
-        else moveToRight(card);
-      });
-
-      // ===== 初期化 =====
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => {
-          layoutAllDecks();
-          observeDecks();
-        });
-      } else {
-        layoutAllDecks();
-        observeDecks();
-      }
-
-      // ===== リサイズ追従 =====
-      function observeDecks() {
-        const ro = new ResizeObserver(() => layoutAllDecks());
-        document.querySelectorAll(".deck").forEach((el) => ro.observe(el));
-        window.addEventListener("resize", layoutAllDecks);
-      }
-    })();
-  </script>
+    <div class="calender-area-sp">
+      <h3 class="calender-sp-title">シフト</h3>
+      <div class="calendar-sp-month-day">
+        <h4>9月</h4>
+        <div class="calendar-sp-day">
+          <ul>
+            <li class="current calendar-sp-day-box">
+              <a href="">
+                <span>月</span>
+                23
+              </a>
+            </li>
+            <li class="calendar-sp-day-box">
+              <a href="">
+                <span>火</span>
+                24
+              </a>
+            </li>
+            <li class="calendar-sp-day-box">
+              <a href="">
+                <span>水</span>
+                25
+              </a>
+            </li>
+            <li class="calendar-sp-day-box">
+              <a href="">
+                <span>木</span>
+                26
+              </a>
+            </li>
+            <li class="calendar-sp-day-box">
+              <a href="">
+                <span>金</span>
+                27
+              </a>
+            </li>
+            <li class="calendar-sp-day-box">
+              <a href="">
+                <span>土</span>
+                28
+              </a>
+            </li>
+            <li class="calendar-sp-day-box">
+              <a href="">
+                <span>日</span>
+                29
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="schedule-box-area">
+        <h4>9月23日の予定</h4>
+        <div class="schedule-detail-box">
+          <p>予定は入っていません</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </x-app-layout>

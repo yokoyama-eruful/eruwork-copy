@@ -6,8 +6,8 @@
         <div class="text-lg font-bold">カレンダー</div>
       </div>
       <a class="text-ao-main hover:text-sky-700" href="{{ route('calendar.index') }}">
-          詳しく見る
-          <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        詳しく見る
+        <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
     </div>
     <div class="flex justify-between">
       <div class="mb-2 flex items-center justify-end gap-1">

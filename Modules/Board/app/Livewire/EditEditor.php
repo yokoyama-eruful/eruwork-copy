@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Modules\Board\Livewire;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Modules\Board\Models\BoardAttachment;
 use Modules\Board\Models\BoardPost;
 
 class EditEditor extends Component
@@ -26,6 +28,10 @@ class EditEditor extends Component
     #[Validate('nullable', 'file', 'max:20000')]
     public $files = [];
 
+    public $existingFiles = [];
+
+    public $dropFiles = [];
+
     public $status;
 
     public function mount()
@@ -35,6 +41,15 @@ class EditEditor extends Component
         $this->title = $post->title;
         $this->contents = $post->contents;
         $this->status = $post->status;
+        $this->existingFiles = $post->attachments;
+    }
+
+    public function dropFile($file)
+    {
+        $this->dropFiles[] = $file;
+        $this->existingFiles = $this->existingFiles->reject(
+            fn ($existingFile) => $existingFile['id'] === $file['id']
+        );
     }
 
     #[On('submit-edit-post')]
@@ -44,6 +59,13 @@ class EditEditor extends Component
 
         if ($this->status) {
             $branchStatus = '掲載';
+        }
+
+        if (! empty($this->dropFiles)) {
+            foreach ($this->dropFiles as $file) {
+                Storage::delete($file['file_path']);
+                BoardAttachment::where('id', $file['id'])->delete();
+            }
         }
 
         $post = BoardPost::updateOrCreate(

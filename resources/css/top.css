@@ -117,34 +117,6 @@
 }
 
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.modal-content a {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  font-weight: bold;
-}
-.modal-content form button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-.modal-content img {
-  margin-right: 5px;
-}
-.modal-content svg {
-  width: 15px;
-  height: 15px;
-}
-
 /* ========== カレンダー本体 ========== */
 .top-calender-container {
   padding: 20px;
@@ -450,6 +422,14 @@ dialog::backdrop {
   line-height: 1.7;
 }
 
+.pc{
+  display: block;
+}
+
+.sp{
+  display: none;
+}
+
 /* ========== 小画面微調整 ========== */
 @media (max-width: 380px) {
   :root {
@@ -462,4 +442,216 @@ dialog::backdrop {
 }
 
 @media (max-width: 440px) {
+  .main-area-sp {
+    display: block;
+    width: 100%;
+    margin: 50px auto 0;
+    padding-top: 20px;
+    overflow: auto;
+  }
+
+  /*掲示板*/
+  .slider {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+    padding-top: 10px;
+  }
+
+  .slides-wrapper {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .slides-wrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .slides-wrapper > a {
+    flex: 0 0 95%;
+    scroll-snap-align: center;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .slide {
+    width: 100%;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 5px 0 15px 0;
+  }
+
+  .pagination span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ddd;
+    transition: background-color 0.3s;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .pagination span.active {
+    background: #3289fa;
+  }
+
+  .bulletin-board-area {
+    width: 100%;
+    margin: 5px auto;
+  }
+
+  .bulletin-board-box {
+    width: 100%;
+    height: 60px;
+    padding: 10px 20px;
+  }
+
+  .board-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  
+
+  .calender-area-sp {
+    width: 100%;
+    border-top: solid 1px #ddd;
+    padding-top: 15px;
+    margin-top: 30px;
+  }
+
+  .calender-sp-title {
+    font-size: 20px;
+    width: 90%;
+    margin: auto;
+  }
+
+  .calendar-sp-month-day {
+    display: flex;
+    width: calc(100% - 6%);
+    margin-left: 6%;
+    justify-content: left;
+    align-items: center;
+  }
+
+  .calendar-sp-day {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+  }
+
+  .calendar-sp-day::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, 新Edge */
+  }
+
+  .calendar-sp-month-day h4 {
+    font-size: 20px;
+    width: 60px;
+    border-right: solid 1px #ddd;
+    padding-right: 15px;
+    line-height: 2.5;
+  }
+
+  .calendar-sp-day {
+    margin-left: 10px;
+  }
+
+  .calendar-sp-day ul {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    justify-content: space-between;
+    list-style: none;
+    gap: 10px;
+    padding-left: 12px;
+  }
+
+  .calendar-sp-day ul li:last-child {
+    margin-right: 20px;
+  }
+
+  .calendar-sp-day a {
+    color: #222;
+  }
+
+  .current {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    align-items: center;
+    background-color: rgba(50, 137, 250, 0.1);
+    font-weight: bold;
+  }
+
+  .current a {
+    color: #3289fa;
+  }
+
+  .calendar-sp-day-box {
+    border: solid 1px #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 20px;
+    width: 48px;
+    height: 48px;
+  }
+
+  .calendar-sp-day-box a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 5px;
+  }
+
+  .calendar-sp-day-box span {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+
+  .schedule-box-area {
+    width: 90%;
+    margin: auto;
+  }
+
+  .schedule-box-area h4 {
+    font-size: 15px;
+    margin: 18px 0;
+    font-weight: bold;
+  }
+
+  .schedule-detail-box {
+    width: 100%;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 100px;
+  }
+
+  .schedule-box-area p {
+    font-size: 20px;
+    color: rgb(111, 108, 108, 0.3);
+    margin: auto;
+    text-align: center;
+  }
+
+.pc{
+  display: none;
+}
+
+.sp{
+  display: block;
+}
+
 }

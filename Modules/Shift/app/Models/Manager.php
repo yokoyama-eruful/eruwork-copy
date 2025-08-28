@@ -59,7 +59,7 @@ class Manager extends Model
             return '受付中';
         }
 
-        return '受付終了';
+        return '終了';
     }
 
     protected static function newFactory(): ManagerFactory

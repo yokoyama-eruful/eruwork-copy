@@ -1,58 +1,52 @@
-<div class="h-1 flex-auto overflow-y-auto" x-data x-init="$el.scrollTop = $el.scrollHeight"
-  @scroll=" if ($el.scrollTop === 0) {
-         $dispatch('addViewMessage');
-         $el.scrollTop += 10;
-       }">
+<div class="h-full overflow-y-auto" x-data x-init="$nextTick(() => { $el.scrollTop = $el.scrollHeight })"
+  @scroll="if ($el.scrollTop === 0) {
+        $dispatch('addViewMessage');
+        $el.scrollTop += 1;
+      }">
+
+  @php
+    $previousDate = null;
+  @endphp
   @foreach ($this->messages as $message)
-    <div class="group relative flex h-auto flex-row hover:bg-gray-100">
-      @if ($message->user->id === Auth::id())
-        <button class="absolute right-2 top-2 opacity-0 hover:text-red-600 group-hover:opacity-100" type="button">
-          <i class="fa-solid fa-trash"
-            x-on:click.prevent="$dispatch('open-modal', 'delete-message-alert-{{ $message->id }}')"></i>
-        </button>
-        <x-modal-alert class="bg-red-600" name="delete-message-alert-{{ $message->id }}">
-          <div class="text-center text-lg font-bold">削除しますか</div>
-          <div class="my-2 max-h-32 min-h-32 overflow-y-auto rounded-md border p-2 shadow">
-            <div class="flex h-full flex-1 flex-col py-2 pl-1 pr-2">
-              <div class="flex flex-row space-x-1">
-                <div class="font-bold">{{ $message->user->name }}</div>
-                <div class="flex items-end text-sm text-gray-500">{{ $message->created_at->format('Y-m-d H:i') }}</div>
-              </div>
-              <div class="w-full">
-                {!! $message->message !!}
-                <div class="flex flex-row space-x-2">
-                  @foreach ($message->images as $image)
-                    <img class="max-h-20 rounded" src="{{ $image->file_path }}">
-                  @endforeach
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-end space-x-2">
-            <x-secondary-button x-on:click="show = false">キャンセル</x-secondary-button>
-            <button
-              class="inline-flex items-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-white transition duration-150 ease-in-out hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 active:bg-red-700"
-              type="button" wire:click="delete({{ $message->id }})" x-on:click="show = false">削除</button>
-          </div>
-        </x-modal-alert>
-      @endif
-      <div class="h-full w-10 py-2 pl-2 pr-1">
+    @php
+      $messageDate = $message->created_at->format('Y-m-d');
+    @endphp
+
+    {{-- 日付ラベル --}}
+    @if ($previousDate !== $messageDate)
+      <div @class([
+          'my-5 flex items-center text-xs font-bold py-[5.5px] px-[10px] rounded',
+          'bg-[#3289FA1A] bg-opacity-10 text-[#3289FA] w-fit' =>
+              $message->created_at->format('Ymd') == now()->format('Ymd'),
+      ])>
+        <div class="">{{ $message->created_at->isoFormat('M月D日（ddd）') }}</div>
+        @if ($message->created_at->format('Ymd') != now()->format('Ymd'))
+          <div class="flex-1 border-t border-gray-300"></div>
+        @endif
+      </div>
+      @php $previousDate = $messageDate; @endphp
+    @endif
+
+    <div class="my-5 grid grid-cols-[65px,1fr] gap-2">
+      <!-- 左側（1エリア固定） -->
+      <div class="flex justify-center">
         @if ($message->user->icon)
-          <img class="h-8 w-8 rounded-full border bg-white" src="{{ $message->user->icon }}" alt="アイコン">
+          <img class="h-[45px] w-[45px] rounded-full border bg-white" src="{{ $message->user->icon }}" alt="アイコン">
         @else
-          <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white">
+          <div class="flex h-[45px] w-[45px] items-center justify-center rounded-full border bg-white">
             <i class="fa-solid fa-image"></i>
           </div>
         @endif
       </div>
-      <div class="flex h-full flex-1 flex-col py-2 pl-1 pr-2">
-        <div class="flex flex-row space-x-1">
-          <div class="font-bold">{{ $message->user->name }}</div>
-          <div class="flex items-end text-sm text-gray-500">{{ $message->created_at->format('Y-m-d H:i') }}
-            {{ $message->readStatuses }}
-          </div>
+
+      <!-- 右側（上下2エリア） -->
+      <div class="grid grid-rows-[auto,1fr] gap-2">
+        <div class="flex space-x-3">
+          <div class="text-xs">{{ $message->user->name }}</div>
+          <div class="text-xs text-[#AAB0B6]">{{ $message->created_at->format('H:i') }}</div>
+          <div class="text-xs text-[#AAB0B6]">{{ $message->readStatuses }}</div>
         </div>
-        <div class="w-full">
+        <div class="w-fit break-all rounded-bl-xl rounded-br-xl rounded-tr-xl bg-[#F7F7F7] px-5 py-[11px]">
           {!! $message->message !!}
           <div class="flex flex-row space-x-2">
             @foreach ($message->images as $image)

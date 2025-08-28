@@ -1,6 +1,6 @@
 <div>
   @vite(['Modules/Timecard/resources/css/general/stamp.css'])
-  <div class="sidebar-title">
+  <div class="sidebar-title pc">
     <h5 class="font-bold">タイムカード</h5>
     <a class="sidebar-link" href="{{ route('timecard.index') }}">
       勤怠記録へ

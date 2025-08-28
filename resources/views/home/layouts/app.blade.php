@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200..900&display=swap" rel="stylesheet" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <!-- Scripts -->
-  @vite(['resources/css/app.css', 'resources/css/common.css', 'resources/js/app.js', 'resources/js/notification.js'])
+  @vite(['resources/css/app.css', 'resources/css/common.css', 'resources/js/app.js', 'resources/js/top.js', 'resources/js/notification.js'])
 </head>
 
 <body>

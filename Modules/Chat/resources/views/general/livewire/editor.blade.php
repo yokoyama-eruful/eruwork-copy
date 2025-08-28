@@ -54,8 +54,13 @@
         <i class="fa-solid fa-plus text-gray-600"></i>
       </button>
       <input id="fileInput" type="file" wire:model="files" multiple accept="image/*" hidden>
-      <button class="h-7 w-7 rounded" type="button" wire:click="store">
-        <i @class(['fa-solid fa-paper-plane text-gray-600'])></i>
+      <button class="flex h-7 w-7 items-center justify-center rounded bg-[#3289FA]" type="button" wire:click="store">
+        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M4.00004 10L1.26904 1.125C7.80191 3.025 13.9624 6.02646 19.485 10C13.9627 13.9735 7.80257 16.9749 1.27004 18.875L4.00004 10ZM4.00004 10H11.5"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        {{-- <i @class(['fa-solid fa-paper-plane text-gray-600'])></i> --}}
       </button>
     </div>
   </div>

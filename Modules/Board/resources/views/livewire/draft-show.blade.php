@@ -1,66 +1,169 @@
-<div>
-  <div class="overflow-hidden rounded-lg bg-white">
-    <div class="flex flex-col items-center py-2 xl:flex-row xl:justify-between">
-      <div class="flex w-full flex-row items-center space-x-5 pb-2 xl:w-auto xl:pb-0">
-        <a class="inline-block rounded border border-transparent bg-ao-main px-2 py-1 text-white transition duration-300 ease-in-out hover:bg-sky-600 hover:text-gray-100"
-          href="{{ route('board.create') }}">
-          <div class="flex flex-row items-center justify-center space-x-3">
-            <i class="fa-solid fa-plus"></i>
-            <p>新規投稿</p>
-          </div>
-        </a>
-        <a class="inline-block rounded border border-transparent bg-ao-main px-2 py-1 text-white transition duration-300 ease-in-out hover:bg-sky-600 hover:text-gray-100"
-          href="{{ route('board.index') }}">
-          <div class="flex flex-row items-center justify-center space-x-3">
-            <i class="fa-solid fa-check"></i>
-            <p>投稿一覧</p>
-          </div>
-        </a>
-      </div>
-      <div class="w-full xl:w-auto">
-        <div class="relative">
-          <div class="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
-            <i class="fa-solid fa-magnifying-glass h-4 w-4 text-gray-500"></i>
-          </div>
-          <input
-            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
-            type="search" wire:model.live="search" placeholder="表題検索..." required />
-        </div>
-      </div>
+<x-main.index>
+  <x-main.top>
+    <h5 class="block text-xl font-bold sm:hidden">下書き一覧</h5>
+    <x-main.add-a href="{{ route('board.create') }}">新規投稿</x-main.add-a>
+  </x-main.top>
+  <x-main.container>
+    <div class="flex items-center justify-between">
+      <h5 class="hidden text-xl font-bold sm:block">下書き一覧</h5>
+      <a class="flex items-center px-5 text-sm text-[#3289FA] hover:text-[#3289fa4d] sm:px-0"
+        href="{{ route('board.index') }}">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M15.625 5.21403C15.6249 4.5925 15.1746 4.08272 14.5882 4.01449C14.3048 3.98167 14.0206 3.9517 13.7354 3.92497C13.6976 4.1917 13.5765 4.44108 13.3838 4.63379C13.1494 4.86821 12.8315 5 12.5 5H7.5C7.16848 5 6.85063 4.86821 6.61621 4.63379C6.42348 4.44106 6.30159 4.19175 6.26383 3.92497C5.97927 3.95168 5.6949 3.98161 5.41097 4.01449C4.82425 4.08291 4.37507 4.5924 4.375 5.21403V16.25C4.375 16.5815 4.50679 16.8994 4.74121 17.1338C4.97563 17.3682 5.29348 17.5 5.625 17.5H14.375C14.7065 17.5 15.0244 17.3682 15.2588 17.1338C15.4932 16.8994 15.625 16.5815 15.625 16.25V5.21403ZM8.75 2.5C8.17938 2.5 7.6949 2.88319 7.54639 3.40658L7.5472 3.40739C7.51677 3.51672 7.5 3.63225 7.5 3.75H12.5C12.5 3.63031 12.4835 3.51612 12.4536 3.41064V3.40983C12.3795 3.14784 12.2216 2.91732 12.0044 2.75309C11.7872 2.58889 11.5223 2.4999 11.25 2.5H8.75ZM16.875 16.25C16.875 16.913 16.6114 17.5487 16.1426 18.0176C15.6737 18.4864 15.038 18.75 14.375 18.75H5.625C4.96196 18.75 4.32626 18.4864 3.85742 18.0176C3.38858 17.5487 3.125 16.913 3.125 16.25V5.21403C3.12507 3.98928 4.01898 2.91775 5.26693 2.77262C5.67899 2.72491 6.09223 2.68486 6.50553 2.64974C6.91251 1.82107 7.7644 1.25 8.75 1.25H11.25L11.4535 1.25814C11.9256 1.29655 12.3788 1.46879 12.7588 1.75618C13.0725 1.99344 13.3231 2.30035 13.4945 2.64974C13.6362 2.6618 13.7779 2.67288 13.9193 2.68636L14.7331 2.77262L14.9626 2.81006C16.0883 3.05176 16.8749 4.06554 16.875 5.21403V16.25Z"
+            fill="#3289FA" />
+        </svg>
+        <p class="ml-[4px]">掲示板一覧</p>
+      </a>
     </div>
+
     @if ($posts->isEmpty())
-      <p>投稿はありません</p>
+      <p class="mt-[30px]">投稿はありません</p>
     @else
-      <table class="min-w-full table-auto rounded-lg bg-white shadow-lg">
-        <thead>
-          <tr class="border-t-4 border-t-ao-main bg-ao-sub text-left">
-            <th class="py-2 text-left font-medium text-gray-600"></th>
-            <th class="py-2 pr-4 text-left font-medium text-gray-600">表題</th>
-            <th class="px-4 py-2 text-left font-medium text-gray-600">作成日</th>
-          </tr>
-        </thead>
-        <tbody>
-          @foreach ($posts as $post)
-            <tr class='cursor-pointer hover:bg-gray-100'
-              onclick="window.location.href='{{ route('board.show', ['id' => $post->id]) }}'">
-              <td class="w-7 border-b border-ao-main py-2 text-center">
-                @if ($post->attachments->isNotEmpty())
-                  <i class="fas fa-paperclip mx-1 text-blue-700"></i>
+      <div class="mt-[30px] hidden grid-cols-[65%,10%,10%,10%,5%] sm:grid">
+        <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">表題</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]">作成者</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]">作成日時</div>
+        <div class="text-center text-xs font-normal text-[#AAB0B6]">添付ファイル</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
+      </div>
+
+      <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+        @foreach ($posts as $post)
+          <div onclick="window.location='{{ route('board.show', ['id' => $post->id]) }}'" @class([
+              'sm:grid sm:grid-cols-[66%,10%,10%,10%,4%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer',
+              'border-b' => !$loop->last,
+          ])>
+            <div class="hidden truncate px-[30px] font-bold sm:block">{!! nl2br(e($post->title)) !!}</div>
+            <div class="hidden truncate sm:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
+            <div class="hidden truncate sm:block">{{ $post->updated_at?->format('Y年m月d日') }}</div>
+            <div class="hidden items-center justify-center sm:flex">
+              @if ($post->attachments->isNotEmpty())
+                <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M15.758 4.42448C15.7579 3.72025 15.478 3.04451 14.9791 2.54654C14.4801 2.04859 13.8031 1.7691 13.0975 1.7691C12.3919 1.7691 11.7149 2.04859 11.2159 2.54654L3.07163 10.6759C2.24004 11.5059 1.77253 12.6318 1.77253 13.8056C1.77257 14.9793 2.24008 16.1052 3.07163 16.9352C3.9031 17.7649 5.03069 18.2308 6.20644 18.2309C7.38235 18.2309 8.51055 17.765 9.34211 16.9352L17.4872 8.80577C17.8334 8.46044 18.3944 8.46037 18.7405 8.80577C19.0865 9.15117 19.0865 9.71114 18.7405 10.0566L10.5953 18.186C9.43137 19.3476 7.85246 20 6.20644 20C4.56042 19.9999 2.98145 19.3476 1.81753 18.186C0.65363 17.0243 4.63315e-05 15.4484 0 13.8056C0 12.1627 0.653699 10.5869 1.81753 9.42513L9.96267 1.29573C10.7941 0.466006 11.9218 3.79071e-06 13.0975 0C14.2732 8.74287e-09 15.4009 0.466012 16.2323 1.29573C17.0636 2.12547 17.5305 3.25106 17.5305 4.42448C17.5305 5.59794 17.0636 6.72345 16.2323 7.55323L8.0785 15.6826C7.57971 16.1804 6.90312 16.4601 6.19778 16.4601C5.49243 16.46 4.81584 16.1804 4.31707 15.6826C3.81831 15.1848 3.53817 14.5095 3.53813 13.8056C3.53813 13.1016 3.81837 12.4263 4.31707 11.9285L11.8417 4.42707L11.9092 4.3666C12.2574 4.08324 12.7705 4.10388 13.0949 4.42794C13.4408 4.77355 13.4411 5.3335 13.0949 5.67875L5.5703 13.1793C5.40401 13.3453 5.31065 13.5708 5.31065 13.8056C5.3107 14.0403 5.40395 14.2658 5.5703 14.4318C5.73666 14.5979 5.96253 14.6909 6.19778 14.691C6.43302 14.691 6.65889 14.5978 6.82526 14.4318L14.9791 6.30242L15.1556 6.10806C15.5437 5.63547 15.758 5.04085 15.758 4.42448Z"
+                    fill="#3289FA" />
+                </svg>
+              @endif
+            </div>
+            <div class="relative hidden sm:block" x-data="{ openDialog{{ $post->id }}: false }">
+              <div onclick="event.stopPropagation();"
+                @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">…</div>
+              <div class="absolute -left-16 top-7 z-10 rounded-xl bg-white px-4 py-2 shadow-md"
+                @click.away="openDialog{{ $post->id }} = false" x-show="openDialog{{ $post->id }}===true"
+                x-cloak>
+                <a class="flex items-center" href="{{ route('board.edit', ['id' => $post->id]) }}">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M1.875 15.6248V6.87476C1.87505 6.21179 2.13863 5.57597 2.60742 5.10718C3.07625 4.6384 3.71201 4.37476 4.375 4.37476H8.33333C8.67844 4.37476 8.95822 4.65467 8.95833 4.99976C8.95833 5.34493 8.67851 5.62476 8.33333 5.62476H4.375C4.04353 5.62476 3.72562 5.75661 3.49121 5.99097C3.25684 6.22534 3.12505 6.54331 3.125 6.87476V15.6248C3.125 15.9562 3.25686 16.2741 3.49121 16.5085C3.72563 16.743 4.04348 16.8748 4.375 16.8748H13.125C13.4565 16.8748 13.7744 16.743 14.0088 16.5085C14.2431 16.2741 14.375 15.9562 14.375 15.6248V11.6664C14.3751 11.3213 14.6549 11.0414 15 11.0414C15.3451 11.0414 15.6249 11.3213 15.625 11.6664V15.6248C15.625 16.2877 15.3614 16.9235 14.8926 17.3923C14.4237 17.8612 13.788 18.1248 13.125 18.1248H4.375C3.71196 18.1248 3.07626 17.8612 2.60742 17.3923C2.13865 16.9235 1.875 16.2877 1.875 15.6248ZM17.5 3.43726C17.4999 3.18864 17.4016 2.94981 17.2257 2.77401C17.0499 2.59822 16.8111 2.49976 16.5625 2.49976C16.3139 2.49976 16.0751 2.59822 15.8993 2.77401L14.9349 3.73836L16.2614 5.06486L17.2257 4.1005C17.4015 3.92466 17.5 3.6859 17.5 3.43726ZM14.0511 4.62215L7.05078 11.6233C6.72977 11.9445 6.48236 12.3312 6.3265 12.7561L6.26546 12.9408L5.92855 14.0704L7.05892 13.7343L7.24365 13.6733C7.66852 13.5174 8.05526 13.2708 8.37646 12.9498L15.3776 5.94865L14.0511 4.62215ZM18.75 3.43726C18.75 4.01742 18.5197 4.57403 18.1095 4.98429L9.26025 13.8336C8.74635 14.3472 8.11251 14.7248 7.41618 14.9322L5.17822 15.5987C4.95832 15.6642 4.72035 15.6039 4.55811 15.4417C4.39591 15.2794 4.33554 15.0414 4.40104 14.8215L5.06755 12.5844C5.2749 11.8879 5.65249 11.2535 6.16618 10.7395L15.0155 1.89103C15.4257 1.48082 15.9823 1.24976 16.5625 1.24976C17.1427 1.24976 17.6993 1.48001 18.1095 1.89022C18.5198 2.30044 18.7499 2.85711 18.75 3.43726Z"
+                      fill="#777777" />
+                  </svg>
+                  <p class="px-[2px] text-sm font-bold text-[#777777]">編集</p>
+                  <svg width="11" height="11" viewBox="0 0 11 10" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#777777" stroke-width="1.1"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                <button class="flex items-center pt-[11px]" type="button" onclick="event.stopPropagation();"
+                  x-on:click="$dispatch('open-modal', 'delete-modal-{{ $post->id }}')">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M12.2833 7.49995L11.995 14.9999M8.005 14.9999L7.71667 7.49995M16.0233 4.82495C16.3083 4.86828 16.5917 4.91411 16.875 4.96328M16.0233 4.82495L15.1333 16.3941C15.097 16.8651 14.8842 17.3051 14.5375 17.626C14.1908 17.9469 13.7358 18.1251 13.2633 18.1249H6.73667C6.26425 18.1251 5.80919 17.9469 5.46248 17.626C5.11578 17.3051 4.90299 16.8651 4.86667 16.3941L3.97667 4.82495M16.0233 4.82495C15.0616 4.67954 14.0948 4.56919 13.125 4.49411M3.97667 4.82495C3.69167 4.86745 3.40833 4.91328 3.125 4.96245M3.97667 4.82495C4.93844 4.67955 5.9052 4.56919 6.875 4.49411M13.125 4.49411V3.73078C13.125 2.74745 12.3667 1.92745 11.3833 1.89661C10.4613 1.86714 9.53865 1.86714 8.61667 1.89661C7.63333 1.92745 6.875 2.74828 6.875 3.73078V4.49411M13.125 4.49411C11.0448 4.33334 8.95523 4.33334 6.875 4.49411"
+                      stroke="#F76E80" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <p class="px-[2px] text-sm font-bold text-[#F76E80]">削除</p>
+                  <svg width="11" height="11" viewBox="0 0 11 10" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#F76E80" stroke-width="1.1"
+                      stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="mb-[7px] flex items-center justify-between sm:hidden">
+              <div class="flex items-center space-x-2">
+                <div class="truncate text-xs">{{ $post->updated_at?->format('Y年m月d日') }}</div>
+                <div class="h-4 border-l border-gray-300"></div>
+                <div class="truncate text-xs">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
+              </div>
+              <div class="flex items-center space-x-[15px]">
+                <div class="flex items-center justify-center">
+                  @if ($post->attachments->isNotEmpty())
+                    <svg width="15" height="16" viewBox="0 0 19 20" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M15.758 4.42448C15.7579 3.72025 15.478 3.04451 14.9791 2.54654C14.4801 2.04859 13.8031 1.7691 13.0975 1.7691C12.3919 1.7691 11.7149 2.04859 11.2159 2.54654L3.07163 10.6759C2.24004 11.5059 1.77253 12.6318 1.77253 13.8056C1.77257 14.9793 2.24008 16.1052 3.07163 16.9352C3.9031 17.7649 5.03069 18.2308 6.20644 18.2309C7.38235 18.2309 8.51055 17.765 9.34211 16.9352L17.4872 8.80577C17.8334 8.46044 18.3944 8.46037 18.7405 8.80577C19.0865 9.15117 19.0865 9.71114 18.7405 10.0566L10.5953 18.186C9.43137 19.3476 7.85246 20 6.20644 20C4.56042 19.9999 2.98145 19.3476 1.81753 18.186C0.65363 17.0243 4.63315e-05 15.4484 0 13.8056C0 12.1627 0.653699 10.5869 1.81753 9.42513L9.96267 1.29573C10.7941 0.466006 11.9218 3.79071e-06 13.0975 0C14.2732 8.74287e-09 15.4009 0.466012 16.2323 1.29573C17.0636 2.12547 17.5305 3.25106 17.5305 4.42448C17.5305 5.59794 17.0636 6.72345 16.2323 7.55323L8.0785 15.6826C7.57971 16.1804 6.90312 16.4601 6.19778 16.4601C5.49243 16.46 4.81584 16.1804 4.31707 15.6826C3.81831 15.1848 3.53817 14.5095 3.53813 13.8056C3.53813 13.1016 3.81837 12.4263 4.31707 11.9285L11.8417 4.42707L11.9092 4.3666C12.2574 4.08324 12.7705 4.10388 13.0949 4.42794C13.4408 4.77355 13.4411 5.3335 13.0949 5.67875L5.5703 13.1793C5.40401 13.3453 5.31065 13.5708 5.31065 13.8056C5.3107 14.0403 5.40395 14.2658 5.5703 14.4318C5.73666 14.5979 5.96253 14.6909 6.19778 14.691C6.43302 14.691 6.65889 14.5978 6.82526 14.4318L14.9791 6.30242L15.1556 6.10806C15.5437 5.63547 15.758 5.04085 15.758 4.42448Z"
+                        fill="#3289FA" />
+                    </svg>
+                  @endif
+                </div>
+                @if ($post->canEdit())
+                  <div class="relative block" x-data="{ openDialog{{ $post->id }}: false }">
+                    <div onclick="event.stopPropagation();"
+                      @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">…</div>
+                    <div class="absolute -left-20 top-7 z-10 rounded-xl bg-white px-4 py-2 shadow-md"
+                      @click.away="openDialog{{ $post->id }} = false"
+                      x-show="openDialog{{ $post->id }}===true" x-cloak>
+                      <a class="flex items-center" href="{{ route('board.edit', ['id' => $post->id]) }}">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M1.875 15.6248V6.87476C1.87505 6.21179 2.13863 5.57597 2.60742 5.10718C3.07625 4.6384 3.71201 4.37476 4.375 4.37476H8.33333C8.67844 4.37476 8.95822 4.65467 8.95833 4.99976C8.95833 5.34493 8.67851 5.62476 8.33333 5.62476H4.375C4.04353 5.62476 3.72562 5.75661 3.49121 5.99097C3.25684 6.22534 3.12505 6.54331 3.125 6.87476V15.6248C3.125 15.9562 3.25686 16.2741 3.49121 16.5085C3.72563 16.743 4.04348 16.8748 4.375 16.8748H13.125C13.4565 16.8748 13.7744 16.743 14.0088 16.5085C14.2431 16.2741 14.375 15.9562 14.375 15.6248V11.6664C14.3751 11.3213 14.6549 11.0414 15 11.0414C15.3451 11.0414 15.6249 11.3213 15.625 11.6664V15.6248C15.625 16.2877 15.3614 16.9235 14.8926 17.3923C14.4237 17.8612 13.788 18.1248 13.125 18.1248H4.375C3.71196 18.1248 3.07626 17.8612 2.60742 17.3923C2.13865 16.9235 1.875 16.2877 1.875 15.6248ZM17.5 3.43726C17.4999 3.18864 17.4016 2.94981 17.2257 2.77401C17.0499 2.59822 16.8111 2.49976 16.5625 2.49976C16.3139 2.49976 16.0751 2.59822 15.8993 2.77401L14.9349 3.73836L16.2614 5.06486L17.2257 4.1005C17.4015 3.92466 17.5 3.6859 17.5 3.43726ZM14.0511 4.62215L7.05078 11.6233C6.72977 11.9445 6.48236 12.3312 6.3265 12.7561L6.26546 12.9408L5.92855 14.0704L7.05892 13.7343L7.24365 13.6733C7.66852 13.5174 8.05526 13.2708 8.37646 12.9498L15.3776 5.94865L14.0511 4.62215ZM18.75 3.43726C18.75 4.01742 18.5197 4.57403 18.1095 4.98429L9.26025 13.8336C8.74635 14.3472 8.11251 14.7248 7.41618 14.9322L5.17822 15.5987C4.95832 15.6642 4.72035 15.6039 4.55811 15.4417C4.39591 15.2794 4.33554 15.0414 4.40104 14.8215L5.06755 12.5844C5.2749 11.8879 5.65249 11.2535 6.16618 10.7395L15.0155 1.89103C15.4257 1.48082 15.9823 1.24976 16.5625 1.24976C17.1427 1.24976 17.6993 1.48001 18.1095 1.89022C18.5198 2.30044 18.7499 2.85711 18.75 3.43726Z"
+                            fill="#777777" />
+                        </svg>
+                        <p class="px-[2px] text-sm font-bold text-[#777777]">編集</p>
+                        <svg width="11" height="11" viewBox="0 0 11 10" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#777777" stroke-width="1.1"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </a>
+                      <button class="flex items-center pt-[11px]" type="button" onclick="event.stopPropagation();"
+                        x-on:click="$dispatch('open-modal', 'delete-modal-{{ $post->id }}')">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12.2833 7.49995L11.995 14.9999M8.005 14.9999L7.71667 7.49995M16.0233 4.82495C16.3083 4.86828 16.5917 4.91411 16.875 4.96328M16.0233 4.82495L15.1333 16.3941C15.097 16.8651 14.8842 17.3051 14.5375 17.626C14.1908 17.9469 13.7358 18.1251 13.2633 18.1249H6.73667C6.26425 18.1251 5.80919 17.9469 5.46248 17.626C5.11578 17.3051 4.90299 16.8651 4.86667 16.3941L3.97667 4.82495M16.0233 4.82495C15.0616 4.67954 14.0948 4.56919 13.125 4.49411M3.97667 4.82495C3.69167 4.86745 3.40833 4.91328 3.125 4.96245M3.97667 4.82495C4.93844 4.67955 5.9052 4.56919 6.875 4.49411M13.125 4.49411V3.73078C13.125 2.74745 12.3667 1.92745 11.3833 1.89661C10.4613 1.86714 9.53865 1.86714 8.61667 1.89661C7.63333 1.92745 6.875 2.74828 6.875 3.73078V4.49411M13.125 4.49411C11.0448 4.33334 8.95523 4.33334 6.875 4.49411"
+                            stroke="#F76E80" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <p class="px-[2px] text-sm font-bold text-[#F76E80]">削除</p>
+                        <svg width="11" height="11" viewBox="0 0 11 10" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#F76E80" stroke-width="1.1"
+                            stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 @endif
-              </td>
-              <td @class([
-                  'max-w-xs truncate border-b border-ao-main py-2 pr-4 text-blue-500 underline',
-              ])>
-                {!! nl2br(e($post->title)) !!}
-              </td>
-              <td class="border-b border-ao-main px-4 py-2">{{ $post->updated_at?->format('Y/m/d H:i') }}</td>
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
+              </div>
+            </div>
+
+            <div class="block break-words font-bold sm:hidden">{!! nl2br(e($post->title)) !!}</div>
+          </div>
+
+          <x-modal-alert name="delete-modal-{{ $post->id }}" title="削除" maxWidth="sm">
+            <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
+              <p class="text-xs">以下のタイトルを削除いたします</p>
+              <div class="pt-[13px] text-[15px] font-bold">{{ $post->title }}</div>
+            </div>
+            <div class="my-5 flex items-center justify-center space-x-[10px]">
+              <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+                @click="$dispatch('close-modal', 'delete-modal-{{ $post->id }}')">キャンセル</div>
+              <div
+                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+                wire:click="deletePost({{ $post->id }})">削除する</div>
+            </div>
+          </x-modal-alert>
+        @endforeach
+      </div>
+      <div>
+        {{ $posts->links('vendor.pagination.tailwind') }}
+      </div>
     @endif
-  </div>
-  <div class="mt-4">
-    {{ $posts->links() }}
-  </div>
-</div>
+  </x-main.container>
+</x-main.index>

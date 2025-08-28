@@ -185,6 +185,8 @@ col-start-1437 col-start-1438 col-start-1439 col-start-1440 --}}
   $colStartClass = 'col-start-' . $shiftSchedule->colStart;
 @endphp
 <div
-  class="{{ $colClass }} {{ $colStartClass }} flex items-center justify-center rounded-md border-2 border-blue-500 bg-blue-300">
-  {{ $shiftSchedule->start_time->format('H:i') . '～' . $shiftSchedule->end_time->format('H:i') }}
+  class="{{ $colClass }} {{ $colStartClass }} flex flex-col justify-center rounded-md border border-[#DE993A] bg-[#FFF7EC] px-5 text-[#DE993A]">
+  <div class="text-sm font-bold">出勤</div>
+  <div class="text-sm">
+    {{ $shiftSchedule->start_time->isoFormat('aH:mm') . '～' . $shiftSchedule->end_time->format('H:i') }}</div>
 </div>

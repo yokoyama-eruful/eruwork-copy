@@ -9,7 +9,17 @@ use Modules\Shift\Models\Manager;
 
 class SubmissionController extends Controller
 {
-    public function __invoke(Manager $manager)
+    public function index()
+    {
+        $managers = Manager::where('submission_start_date', '<', now())
+            ->where('submission_end_date', '>', now())
+            ->orWhere('submission_end_date', '<', now())
+            ->paginate(10);
+
+        return view('shift::general.submission.index', ['managers' => $managers]);
+    }
+
+    public function show(Manager $manager)
     {
         return view('shift::general.submission.show', ['manager' => $manager]);
     }

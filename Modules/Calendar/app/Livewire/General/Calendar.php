@@ -79,7 +79,7 @@ class Calendar extends Component
 
         $holidays = PublicHoliday::whereBetween('date', [$period->first(), $period->last()])->get();
 
-        return $period->map(function ($date) use ($shifts, $schedules, $holidays) {
+        return iterator_to_array($period->map(function ($date) use ($shifts, $schedules, $holidays) {
             $type = $this->getDayType($date, $holidays);
 
             return [
@@ -88,7 +88,7 @@ class Calendar extends Component
                 'shifts' => $shifts->has($date->format('Y-m-d')) ? $shifts[$date->format('Y-m-d')] : [],
                 'schedules' => $schedules->has($date->format('Y-m-d')) ? $schedules[$date->format('Y-m-d')] : [],
             ];
-        });
+        }));
     }
 
     private function getDayType(CarbonImmutable $date, $holidays): string
@@ -148,6 +148,18 @@ class Calendar extends Component
                 });
             })
             ->exists();
+    }
+
+    public function delete($scheduleId)
+    {
+        $this->dispatch('close-modal', 'schedule-delete-modal-' . $scheduleId);
+
+        $schedule = Schedule::find($scheduleId);
+        if ($schedule) {
+            $schedule->delete();
+        }
+
+        $schedule->delete();
     }
 
     public function render()

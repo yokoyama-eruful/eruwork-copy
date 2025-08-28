@@ -21,6 +21,7 @@
   display: flex;
   justify-content: space-around;
 }
+
 .shape-stamp-in {
   width: 100px;
   height: 100px;
@@ -129,6 +130,7 @@
 .stamp-break {
   color: #6f6c6c;
 }
+
 .day-timerecord-box input {
   border: none;
   color: #6f6c6c;
@@ -138,8 +140,78 @@
   text-align: end;
   padding: 0;
 }
+
 .border-line {
   border-top: 1px solid #ddd;
   width: 98%;
   margin: 35px auto 5px;
+}
+
+.pc{
+  display: block;
+}
+
+.sp{
+  display: none;
+}
+
+@media (max-width: 440px) {
+.date {
+    font-size: 16px;
+  }
+
+  .time-display {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 0 12px 0 0;
+  }
+
+  .timerecord-button-area {
+    width: 100%;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .shape-stamp-in {
+    width: 120px;
+    height: 120px;
+    font-size: 22px;
+  }
+
+  .shape-stamp-out {
+    width: 120px;
+    height: 120px;
+    font-size: 22px;
+  }
+
+  .shape-stamp-b-start,
+  .shape-stamp-b-end {
+    width: 120px;
+    height: 40px;
+    margin-bottom: 1.2em;
+  }
+
+  .day-timerecord-title {
+    font-size: 12px;
+  }
+
+  .day-timerecord-box {
+    width: 100%;
+    margin: 4px 0;
+    height: 50px;
+  }
+
+
+.pc{
+  display: none;
+}
+
+.sp{
+  display: block;
+}
+
+
+
 }

@@ -42,7 +42,7 @@ class SubmissionCalendar extends Component
                     ];
                 });
 
-        return $calendarContents;
+        return iterator_to_array($calendarContents);
     }
 
     private function getDateType($managerTerm, CarbonImmutable $date): string

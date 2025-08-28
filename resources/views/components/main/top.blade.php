@@ -1,17 +1,17 @@
-<div class="flex min-w-[1300px] items-center justify-between">
-  <div class="flex items-center">
+<div class="flex min-h-[30px] w-full items-center justify-between pt-[30px] sm:max-h-[30px] sm:min-w-[1300px] sm:pt-0">
+  <div class="flex w-full items-center justify-between px-[20px] sm:w-auto sm:justify-normal sm:px-0">
     {{ $slot }}
   </div>
-  @vite(['resources/css/account.css'])
-  <button class="account-area">
-    <img class="account-img" src="img/icon/yokoyama.png" />
-    <p>横山 廉</p>
-    <img class="account-arrow-down" src="img/icon/arrow-down.png" />
+  @vite(['resources/js/account.js'])
+  <button class="account-area hidden sm:flex">
+    <img class="account-img" src="{{ global_asset('img/icon/yokoyama.png') }}" />
+    <p>{{ Auth::user()->name }}</p>
+    <img class="account-arrow-down" src="{{ global_asset('img/icon/arrow-down.png') }}" />
   </button>
   <div class="account-modal-box" id="accountModal" style="display: none">
     <div class="modal-content">
-      <a class="account-setting" href="">
-        <img src="img/icon/account-modal-icon.png" />
+      <a class="account-setting" href="{{ route('profile.edit') }}">
+        <img src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
         アカウント
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path fill-rule="evenodd"
@@ -22,7 +22,7 @@
       <form method="POST" action="{{ route('logout') }}">
         @csrf
         <button class="account-logout" type="submit">
-          <img src="img/icon/logout.png" />
+          <img src="{{ global_asset('img/icon/logout.png') }}" />
           ログアウト
           <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
             <path fill-rule="evenodd"
@@ -33,21 +33,4 @@
       </form>
     </div>
   </div>
-  <script>
-    const accountBtn = document.querySelector(".account-area");
-    const accountModal = document.getElementById("accountModal");
-    // トグル表示
-    accountBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // 外クリック判定を防ぐ
-      const isVisible = accountModal.style.display === "block";
-      accountModal.style.display = isVisible ? "none" : "block";
-    });
-
-    // モーダル外をクリックしたら閉じる
-    document.addEventListener("click", (e) => {
-      if (!accountModal.contains(e.target) && !accountBtn.contains(e.target)) {
-        accountModal.style.display = "none";
-      }
-    });
-  </script>
 </div>
