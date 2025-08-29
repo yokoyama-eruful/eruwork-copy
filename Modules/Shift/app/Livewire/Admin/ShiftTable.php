@@ -15,6 +15,8 @@ class ShiftTable extends Component
 {
     public CarbonImmutable $date;
 
+    public string $type;
+
     public Collection $shifts;
 
     public Collection $drafts;
@@ -49,11 +51,11 @@ class ShiftTable extends Component
         $this->reloadSchedule($draft->date);
     }
 
-    public function downShift()
+    public function downShift($date)
     {
         $this->form->delete();
         $this->dispatch('close-modal', 'edit-modal-' . $this->form->schedule->id);
-        $this->reloadSchedule($this->date);
+        $this->reloadSchedule($date);
     }
 
     public function reloadSchedule($date)

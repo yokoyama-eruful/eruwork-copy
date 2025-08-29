@@ -24,7 +24,7 @@ class ChatManagerController extends Controller
         $groups =
         Group::where('is_dm', false)
             ->orderBy('id')
-            ->get();
+            ->paginate(10);
 
         return view('chat::admin.index', ['groups' => $groups]);
     }

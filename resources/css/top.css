@@ -26,11 +26,28 @@
   font-size: 15px;
   background: transparent;
   height: 17px;
-  margin: 0 5px;
+  margin: 0 10px 0 20px;
 }
+
 .calender-move i {
   padding: 2px 5px 0;
 }
+
+.calender-move2 {
+  color: #777;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  background: transparent;
+  height: 17px;
+  margin: 0 0px 0 10px;
+}
+
+.calender-move2 i {
+  padding: 2px 5px 0;
+}
+
+
 
 .top-calender-menu-select {
   border: 1px solid #ddd;
@@ -40,7 +57,7 @@
   font-size: 16px;
   -webkit-appearance: none;
   appearance: none;
-  background-image: url("../images/icon/arrow-down.png");
+  background-image: url("../../public/img/icon/arrow-down.png");
   background-repeat: no-repeat;
   background-size: 18px auto;
   background-position: right 10px center;
@@ -64,7 +81,7 @@
   min-width: 52px;
   min-height: 25px;
   font-size: 15px;
-  margin: 0 15px;
+  margin: 0 30px 0 10px;
 }
 
 .speach-news {

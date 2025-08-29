@@ -169,12 +169,27 @@
               <ul class="acc-panel is-open" id="admin-acc-panel">
                 <li class="acc-title">管理者設定</li>
                 <li class="sub-title">メニュー</li>
-                <li><a href="{{ route('shiftManager.index') }}">シフト管理</a></li>
-                <li><a href="#">タイムカード管理</a></li>
-                <li><a href="#">アカウント管理</a></li>
-                <li><a href="#">公休日登録</a></li>
-                <li><a href="#">勤怠管理</a></li>
-                <li><a href="#">チャット管理</a></li>
+                <li><a href="{{ route('shiftManager.index') }}" @class([
+                    'bg-blue-500 rounded' => request()->routeIs('shiftManager.*'),
+                ])>シフト管理</a></li>
+                <li><a href="{{ route('timecardManager.index') }}" @class([
+                    'bg-blue-500 rounded' => request()->routeIs('timecardManager.*'),
+                ])>タイムカード管理</a></li>
+                <li><a href="{{ route('account.index') }}" @class([
+                    'bg-blue-500 rounded' => request()->routeIs('account.*'),
+                ])>アカウント管理</a></li>
+                <li><a href="{{ route('public_holiday.index') }}" @class([
+                    'bg-blue-500 rounded' => request()->routeIs('public_holiday.*'),
+                ])>公休日登録</a></li>
+                <li><a href="{{ route('hourlyRate.index') }}" @class([
+                    'bg-blue-500 rounded' => request()->routeIs('hourlyRate.*'),
+                ])>時給管理</a></li>
+                <li><a href="{{ route('attendanceManager.index') }}" @class([
+                    'bg-blue-500 rounded' => request()->routeIs('attendanceManager.*'),
+                ])>勤怠管理</a></li>
+                <li><a href="{{ route('chatManager.index') }}" @class([
+                    'bg-blue-500 rounded' => request()->routeIs('chatManager.*'),
+                ])>チャット管理</a></li>
                 <li><a href="#">マニュアル管理</a></li>
               </ul>
             </li>

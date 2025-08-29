@@ -1,9 +1,9 @@
 <div>
   <button
-    class="flex cursor-pointer items-center space-x-1 rounded border border-hai-main px-6 py-1 text-base font-medium hover:bg-gray-200"
+    class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
     type="button" x-on:click="$dispatch('open-modal', 'manager-create-modal')">
-    <span>シフト表を追加する</span>
-    <i class="fa-solid fa-plus rounded-full bg-ao-sub p-1 text-hai-main"></i>
+    <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
+    シフト表を追加する
   </button>
   <x-modal name="manager-create-modal" title="シフト表作成">
     <form class="p-4" wire:submit="save">

@@ -1,0 +1,84 @@
+<x-dashboard.index>
+  <div x-data="{
+      selectAll: false,
+      selectUsers: @entangle('selectUsers'),
+      toggleAll() {
+          this.selectUsers = this.selectAll ? @entangle('selectUsers') : [];
+          @this.set('selectUsers', this.selectUsers);
+      },
+      submitForm() {
+          if (this.selectUsers.length === 0) {
+              alert('選択してください');
+          } else {
+              @this.call('downloadExcel');
+          }
+      }
+  }">
+    <form class="flex items-center" @submit.prevent="submitForm">
+      <x-dashboard.top>
+        <div class="flex items-center">
+          <button
+            class="flex items-center space-x-[6px] rounded bg-[#3289FA] px-[30px] py-[5px] font-bold text-white hover:opacity-40"
+            type="submit">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0.5 11.5V10C0.5 9.72386 0.723858 9.5 1 9.5C1.27614 9.5 1.5 9.72386 1.5 10V11.5C1.5 11.7652 1.60543 12.0195 1.79297 12.207C1.98051 12.3946 2.23478 12.5 2.5 12.5H11.5L11.599 12.4948C11.8278 12.472 12.043 12.3711 12.207 12.207C12.3946 12.0195 12.5 11.7652 12.5 11.5V10C12.5 9.72386 12.7239 9.5 13 9.5C13.2761 9.5 13.5 9.72386 13.5 10V11.5C13.5 12.0304 13.2891 12.539 12.9141 12.9141C12.539 13.2891 12.0304 13.5 11.5 13.5H2.5C1.96957 13.5 1.46101 13.2891 1.08594 12.9141C0.710865 12.539 0.5 12.0304 0.5 11.5ZM6.5 1C6.5 0.723858 6.72386 0.5 7 0.5C7.27614 0.5 7.5 0.723858 7.5 1V8.79297L9.64648 6.64648C9.84175 6.45122 10.1583 6.45122 10.3535 6.64648C10.5488 6.84175 10.5488 7.15825 10.3535 7.35352L7.35352 10.3535C7.15825 10.5488 6.84175 10.5488 6.64648 10.3535L3.64648 7.35352C3.45122 7.15825 3.45122 6.84175 3.64648 6.64648C3.84175 6.45122 4.15825 6.45122 4.35352 6.64648L6.5 8.79297V1Z"
+                fill="white" />
+            </svg>
+            <div>ダウンロード</div>
+          </button>
+          <div class="ml-[30px] text-[15px] text-[#5E5E5E]">勤怠管理：</div>
+          <input class="js-datepicker w-[150px] rounded border border-gray-500 px-6 py-1" type="text"
+            wire:model.live="startDate">
+          <div>　～　</div>
+          <input class="js-datepicker w-[150px] rounded border border-gray-500 px-6 py-1" type="text"
+            wire:model.live="endDate">
+        </div>
+      </x-dashboard.top>
+      <x-dashboard.container>
+        <h5 class="text-xl font-bold">勤怠管理</h5>
+        <div class="mt-[30px] hidden grid-cols-[8%,8%,26%,18%,20%,20%] sm:grid">
+          <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
+            @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); $wire.set('selectUsers', Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => checkbox.value));">
+            全選択</button>
+          <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
+          <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
+          <div class="text-left text-xs font-normal text-[#AAB0B6]">勤務時間</div>
+          <div class="text-left text-xs font-normal text-[#AAB0B6]">支給額（勤怠時間×時給）</div>
+          <div class="text-left text-xs font-normal text-[#AAB0B6]">※休憩を考慮しない<br>見込（確定シフト×時給）</div>
+        </div>
+        <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+          @foreach ($this->users as $user)
+            <div @class([
+                'sm:grid sm:grid-cols-[8%,8%,26%,18%,20%,20%] sm:py-[18px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer items-center',
+                'border-b' => !$loop->last,
+            ])>
+
+              <input class="checkbox ml-[30px] h-[18px] w-[18px] rounded border-[#DDDDDD]" type="checkbox"
+                value="{{ $user->id }}" wire:model="selectUsers">
+
+              <div
+                class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+                @if ($user->icon)
+                  <img class="h-full w-full object-cover" src="{{ $user->icon }}">
+                @else
+                  <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
+                      class="fa-solid fa-image"></i>
+                  </div>
+                @endif
+              </div>
+
+              <div class="text-[15px] font-bold">{{ $user->profile?->name }}</div>
+
+              <div class="text-[15px]">{{ $this->workingTime($user->id) }}</div>
+
+              <div class="text-[15px]">{{ $this->getTotalPay($user->id) }}</div>
+
+              <div class="text-[15px]">{{ $this->prospectHourlyRate($user->id) }}</div>
+            </div>
+          @endforeach
+          {{ $this->users->links('vendor.pagination.tailwind') }}
+      </x-dashboard.container>
+    </form>
+  </div>
+</x-dashboard.index>

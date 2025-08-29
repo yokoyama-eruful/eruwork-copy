@@ -62,7 +62,7 @@ class Calendar extends Component
             ->whereMonth('date', $this->month)
             ->get();
 
-        return $period->map(function ($date) use ($holidays) {
+        return iterator_to_array($period->map(function ($date) use ($holidays) {
             $type = $this->getDayType($date, $holidays);
             $holiday = $this->getPublicHoliday($date, $holidays);
 
@@ -71,7 +71,7 @@ class Calendar extends Component
                 'holiday' => $holiday,
                 'type' => $type,
             ];
-        });
+        }));
     }
 
     private function getDayType(CarbonImmutable $date, $holidays): string

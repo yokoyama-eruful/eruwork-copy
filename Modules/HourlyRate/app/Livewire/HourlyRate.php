@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\HourlyRate\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
@@ -18,6 +19,11 @@ class HourlyRate extends Component
     public ?User $selectedUser;
 
     public ?int $hourlyRate = null;
+
+    public function mount()
+    {
+        $this->selectedUser = Auth::user();
+    }
 
     public function selectUser(int $id)
     {

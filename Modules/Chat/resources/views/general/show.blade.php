@@ -64,6 +64,7 @@
     </div>
   </div>
 
+  {{-- モバイル版 --}}
   <div
     class="absolute inset-0 top-[50px] h-[calc(100vh-50px)] transform bg-white transition-transform duration-300 sm:hidden"
     x-show="mobileMemberArea == false" x-transition:enter="translate-x-full" x-transition:enter-start="translate-x-full"

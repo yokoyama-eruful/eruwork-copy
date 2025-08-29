@@ -1,4 +1,4 @@
-<div class="mb-10 mt-[50px] sm:mb-0">
+<div class="mb-10 mt-[30px] sm:mb-0 sm:mt-[50px]">
   <div class="mb-6 text-[11px] font-bold sm:mb-[7px]">グループ一覧</div>
   @foreach ($this->groups->where('is_dm', false) as $group)
     <a href="{{ route('chat.show', ['group' => $group]) }}" @class([
@@ -8,7 +8,7 @@
     ]) @click="mobileTalkArea=true">
       <div class="flex items-center justify-center">
         @if ($group->IconImage)
-          <img class="h-[25px] w-[25px] rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
+          <img class="h-[35px] w-[35px] rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
         @else
           <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
               class="fa-solid fa-image"></i>

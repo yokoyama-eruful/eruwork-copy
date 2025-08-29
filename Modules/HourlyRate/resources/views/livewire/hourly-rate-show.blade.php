@@ -1,29 +1,61 @@
-<div class="min-w-84 h-full rounded-lg bg-white">
-  <div class="hidden h-[5%] font-bold xl:block">時給詳細</div>
-  <div class="h-[95%] overflow-y-auto border-2 border-gray-300">
-    <div class="flex items-center justify-between bg-gray-100 px-4 py-2">
-      <div>{{ $user->name }}</div>
-      <livewire:hourlyrate::hourly-rate-create :$user :key="$user->id" />
+<div>
+  <div class="flex items-center justify-between">
+    <h5 class="hidden text-xl font-bold sm:block">時給詳細</h5>
+    <div><livewire:hourlyrate::hourly-rate-create :$user :key="$user->id" /></div>
+  </div>
+  <div class="mt-[10px] flex items-center space-x-[20px] border-b py-[20px]">
+    <div
+      class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+      @if ($user->icon)
+        <img class="h-full w-full object-cover" src="{{ $user->icon }}">
+      @else
+        <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
+            class="fa-solid fa-image"></i>
+        </div>
+      @endif
     </div>
-    <table class="min-w-full bg-white">
-      <thead>
-        <tr class="border-t-4 text-left">
-          <th class="px-4 py-2 text-left">時　給</th>
-          <th class="px-4 py-2 text-left">適用開始日</th>
-          <th class="max-w-24 px-4 py-2 text-left"></th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($this->rateTable as $hourlyRate)
-          <tr class="border-b border-dotted border-gray-400">
-            <td class="py-3 ps-5">{{ $hourlyRate->rate }}円</td>
-            <td class="ps-5">{{ $hourlyRate->effective_date->format('Y年m月d日') }}</td>
-            <td class="flex items-center justify-end px-4">
-              <livewire:hourlyrate::hourly-rate-edit :$hourlyRate :key="$hourlyRate->id" />
-            </td>
-          </tr>
-        @endforeach
-      </tbody>
-    </table>
+    <div class="truncate text-[20px] font-bold">{{ $user->profile?->name }}</div>
+  </div>
+
+  <div class="mt-[30px] hidden grid-cols-[30%,30%,30%,10%] sm:grid">
+    <div class="pl-[20px] pr-[30px] text-left text-xs font-normal text-[#AAB0B6]">時給</div>
+    <div class="text-left text-xs font-normal text-[#AAB0B6]">適用開始日</div>
+    <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
+    <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
+  </div>
+  <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+    @foreach ($this->rateTable as $hourlyRate)
+      <div @class([
+          'hidden grid-cols-[30%,30%,30%,10%] py-[30px] sm:grid',
+          'border-b' => !$loop->last,
+      ])>
+        <div class="pl-[20px] pr-[30px] text-[15px] font-bold">{{ $hourlyRate->rate }}円</div>
+        <div class="text-left text-[15px]">{{ $hourlyRate->effective_date->format('Y年m月d日') }}</div>
+        <div class="w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-xs font-bold text-[#3289FA]">
+          適用中
+        </div>
+        <div class="text-left">
+          <livewire:hourlyrate::hourly-rate-edit :$hourlyRate :key="$hourlyRate->id" />
+
+          <script>
+            function Datepickr() {
+              return {
+                initDatepickr() {
+                  flatpickr('.js-datepicker', {
+                    locale: {
+                      ...flatpickr.l10ns.ja,
+                      "firstDayOfWeek": 1
+                    },
+                    dateFormat: "Y-m-d",
+                    disableMobile: "true",
+                    static: false,
+                  });
+                }
+              }
+            }
+          </script>
+        </div>
+      </div>
+    @endforeach
   </div>
 </div>

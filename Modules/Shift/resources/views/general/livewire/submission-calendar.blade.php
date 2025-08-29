@@ -37,7 +37,7 @@
     <div class="mt-[19px] flex items-center space-x-[5px] px-5 sm:space-x-2 sm:px-0">
       <div class="block text-[10px] text-[#AAB0B6] sm:hidden">募集期限：</div>
       <div @class([
-          'text-[10px] text-white w-[60px] py-1 text-center rounded-full sm:block hidden',
+          'text-[12px] text-white w-[60px] py-1 mr-[10px] text-center rounded-full sm:block hidden',
           'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
           'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
           'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
@@ -94,7 +94,7 @@
                 :manager="$manager" />
             @endif
           </div>
-          <div class="flex flex-col px-1 sm:text-sm">
+          <div class="mb-1 flex flex-col space-y-1 pr-1 sm:text-sm">
             @foreach ($content['draftShifts'] as $key => $schedule)
               @if (!$schedule->shiftStatus)
                 <button
@@ -124,7 +124,7 @@
     </div>
 
     {{-- モバイル版 --}}
-    <div class="mt-[14px]">
+    <div class="mt-[14px] block sm:hidden">
       <div class="mx-5 rounded-lg border">
         @foreach ($this->calendar as $key => $content)
           @if ($content['type'] !== '期間外')

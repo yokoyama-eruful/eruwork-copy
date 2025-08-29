@@ -65,6 +65,7 @@
   <div class="main-area-d-board">
     {{ $slot }}
   </div>
+  @livewireScripts
 </body>
 
 </html>

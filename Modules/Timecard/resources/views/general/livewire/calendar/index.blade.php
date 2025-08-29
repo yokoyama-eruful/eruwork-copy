@@ -98,7 +98,7 @@
   <x-main.index class="hidden sm:block">
     <x-main.top>
       <div class="flex items-center md:ml-0">
-        <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-2"
+        <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-4"
           wire:click="selectedMonth('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="前月">
           <p class="hidden sm:block">前月</p>
@@ -115,13 +115,13 @@
             @endforeach
           </select>
         </div>
-        <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-2"
+        <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-4"
           wire:click="selectedMonth('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
           <p class="hidden sm:block">翌月</p>
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌月">
         </button>
         <div class="">
-          <button class="mx-2 h-[25px] rounded border bg-[#77829C] px-2 text-xs text-white"
+          <button class="mx-[15px] h-[30px] rounded border bg-[#77829C] px-3 text-[14px] text-white"
             wire:click="selectedMonth('{{ now()->format('Y-m-d') }}')">今月</button>
         </div>
       </div>

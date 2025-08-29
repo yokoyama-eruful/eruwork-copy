@@ -16,7 +16,7 @@ use Modules\Timecard\Models\WorkTime;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class RecoardShow extends Component
+class AttendanceRecoardShow extends Component
 {
     public CarbonImmutable $date;
 
@@ -253,11 +253,11 @@ class RecoardShow extends Component
     #[Computed]
     public function users()
     {
-        return User::orderBy('id', 'asc')->get();
+        return User::orderBy('id', 'asc')->paginate(10);
     }
 
     public function render()
     {
-        return view('timecard::admin.livewire.recoard-show');
+        return view('timecard::admin.attendance.livewire.recoard-show');
     }
 }

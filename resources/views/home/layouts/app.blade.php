@@ -27,6 +27,7 @@
   <div class="main-area">
     {{ $slot }}
   </div>
+  @livewireScripts
 </body>
 
 </html>

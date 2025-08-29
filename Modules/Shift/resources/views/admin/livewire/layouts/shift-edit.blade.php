@@ -1,5 +1,5 @@
 <div>
-  <div class="flex flex-row items-center border-b hover:bg-slate-100 hover:text-blue-500"
+  {{-- <div class="flex flex-row items-center border-b hover:bg-slate-100 hover:text-blue-500"
     wire:click="setSchedule({{ $schedule->id }})">
     @if (is_null($schedule->draftSchedule))
       <div>
@@ -18,15 +18,15 @@
     <button class="pl-1">
       <i class="fa-regular fa-pen-to-square"></i>
     </button>
-  </div>
+  </div> --}}
 
   <x-modal name="edit-modal-{{ $schedule->id }}" title="確定シフト編集">
     <div class="flex justify-between px-4 pt-4">
       <div class="text-xl font-bold">
-        {{ $date->isoFormat('YYYY年MM月DD日 (ddd)') }}
+        {{ $content['date']->isoFormat('YYYY年MM月DD日 (ddd)') }}
       </div>
       @if ($schedule->shift_draft_schedule_id)
-        <form class="flex justify-end" wire:submit="downShift">
+        <form class="flex justify-end" wire:submit="downShift('{{ $content['date'] }}')">
           <button class="rounded px-2 py-1 text-amber-600 hover:bg-amber-600 hover:text-white" type="submit">
             <i class="fa-solid fa-circle-arrow-down me-1"></i>
             希望シフトに戻す

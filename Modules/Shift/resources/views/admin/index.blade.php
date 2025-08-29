@@ -1,5 +1,50 @@
 <x-dashboard-layout>
-  <x-widget>
+  <x-dashboard.index>
+    <x-dashboard.top>
+      <livewire:shift::admin.manager-create />
+    </x-dashboard.top>
+    <x-dashboard.container>
+      <h5 class="hidden text-xl font-bold sm:block">シフト管理</h5>
+      <div class="mt-[30px] hidden grid-cols-[10%,64%,14%,8%,4%] sm:grid">
+        <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
+        <div class="text-center text-xs font-normal text-[#AAB0B6]"></div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
+      </div>
+      <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+        @foreach ($managers as $manager)
+          <div @class([
+              'sm:grid sm:grid-cols-[10%,64%,14%,8%,4%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer',
+              'border-b' => !$loop->last,
+          ])>
+            <div @class([
+                'hidden truncate px-[12px] w-fit font-bold sm:block text-xs text-white mx-[30px] rounded-full py-1',
+                'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
+                'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+                'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
+            ])>
+              {{ $manager->ReceptionStatus }}
+            </div>
+
+            <div class="text-[15px] font-bold">
+              {{ $manager->start_date->isoFormat('YYYY年MM月DD日（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
+            </div>
+
+            <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日') }}</div>
+
+            <a class="text-[#3289FA] hover:opacity-40"
+              href="{{ route('shiftManager.show', ['manager' => $manager]) }}">表示する</a>
+
+            <livewire:shift::admin.manager-delete :manager="$manager">
+          </div>
+        @endforeach
+      </div>
+      {{ $managers->links('vendor.pagination.tailwind') }}
+    </x-dashboard.container>
+  </x-dashboard.index>
+
+  {{-- <x-widget>
     <div class="flex flex-wrap items-center justify-between pb-2">
       <div class="flex flex-row items-center space-x-2 py-1">
         <div class="h-auto self-stretch border-l-4 border-hai-main"></div>
@@ -100,5 +145,5 @@
     <div class="mt-4">
       {{ $managers->links('vendor.pagination.tailwind') }}
     </div>
-  </x-widget>
+  </x-widget> --}}
 </x-dashboard-layout>

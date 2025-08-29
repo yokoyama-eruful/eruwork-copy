@@ -6,10 +6,10 @@ namespace Modules\Timecard\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
-class WorkTimeController extends Controller
+class TimecardController extends Controller
 {
     public function index()
     {
-        return view('timecard::admin.index');
+        return view('timecard::admin.timecard.index');
     }
 }

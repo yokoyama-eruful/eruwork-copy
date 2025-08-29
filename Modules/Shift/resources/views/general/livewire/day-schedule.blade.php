@@ -1,9 +1,9 @@
 {{-- <div x-data="{ showPrintArea: false }">
   <div class="flex flex-row items-center space-x-5">
     <div class="flex flex-row">
-      <button class="flex items-center justify-center border border-ao-main px-7 text-ao-main hover:bg-ao-sub"
+      <button class="flex items-center justify-center border border-ao-main px-7 text-ao-main hover:bg-ao-sub h-[35px]"
         @click="schedule = 'week'">週</button>
-      <button class="flex items-center justify-center border border-ao-main bg-ao-main px-7 text-white"
+      <button class="flex items-center justify-center border border-ao-main bg-ao-main px-7 text-white h-[35px]"
         @click="schedule = 'day'">日</button>
     </div>
     <div class="text-xl font-bold">{{ $date->isoFormat('Y/M/D(ddd)') }}</div>
@@ -12,7 +12,7 @@
   <div class="my-3 flex items-center justify-between">
     <div class="flex flex-row items-center md:ml-0">
       <button
-        class="flex h-10 items-center space-x-1 rounded-l bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-2"
+        class="flex h-10 items-center space-x-1 rounded-l bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-4"
         wire:click="setPreviousDay">
         <i class="fa-solid fa-chevron-left"></i>
         <p>前日</p>
@@ -35,13 +35,13 @@
         </select>
       </div>
       <button
-        class="flex h-10 items-center space-x-1 rounded-r bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-2"
+        class="flex h-10 items-center space-x-1 rounded-r bg-gray-800 px-4 text-gray-300 hover:bg-gray-900 hover:text-gray-400 xl:px-4"
         wire:click="setNextDay">
         <p>翌日</p>
         <i class="fa-solid fa-chevron-right"></i>
       </button>
       <div class="h-10">
-        <button class="mx-2 h-10 rounded border bg-ao-sub px-2 hover:bg-ao-main" wire:click="setToday">今日</button>
+        <button class="mx-2 h-10 rounded border bg-ao-sub px-4 hover:bg-ao-main" wire:click="setToday">今日</button>
       </div>
     </div>
 

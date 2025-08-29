@@ -9,7 +9,7 @@
             fill="#3289FA" />
         </svg>
         <p class="hidden ps-[2px] text-sm font-bold text-[#3289FA] sm:block">シフト画面に戻る</p>
-        <h5 class="text-xl font-bold">シフト表一覧</h5>
+        <h5 class="block text-xl font-bold sm:hidden">シフト表一覧</h5>
       </a>
     </x-main.top>
     <x-main.container>
@@ -22,53 +22,42 @@
           </div>
         </div>
       </div>
-      <table
-        class="sticky -top-6 mt-[18px] hidden min-w-full table-fixed border-separate border-spacing-0 bg-white sm:block">
-        <thead>
-          <tr>
-            <th class="min-w-[70px] max-w-[70px] px-[15px] text-start text-xs font-normal text-[#AAB0B6]">シフト募集</th>
-            <th class="min-w-[400px] max-w-[400px] px-[15px] text-start text-xs font-normal text-[#AAB0B6]">期間</th>
-            <th class="min-w-[110px] max-w-[110px] px-[15px] text-start text-xs font-normal text-[#AAB0B6]">受付終了日</th>
-            <th class="w-28 px-[15px] text-xs font-normal text-[#AAB0B6]"></th>
-          </tr>
-        </thead>
-      </table>
-
       {{-- デスクトップ版  --}}
-      <div class="mt-[11px] hidden overflow-x-auto rounded-lg border border-gray-300 sm:block">
-        <table class="min-w-full table-fixed border-collapse">
-          <tbody>
-            @foreach ($managers as $manager)
-              <tr class="h-[80px]">
-                <td @class([
-                    'min-w-[70px] max-w-[70px] break-words border-b border-gray-300 px-[15px] text-xs text-white',
-                ])>
-                  <div @class([
-                      'w-[60px] rounded-full py-1 text-center',
-                      'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
-                      'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
-                      'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
-                  ])>{{ $manager->ReceptionStatus }}<div>
-                </td>
-                <td
-                  class="min-w-[400px] max-w-[400px] break-words border-b border-gray-300 px-[15px] text-[15px] font-bold">
-                  {{ $manager->start_date->isoFormat('YYYY年MM月DD日（ddd）') }}　～　{{ $manager->end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
-                </td>
-                <td class="min-w-[110px] max-w-[110px] break-words border-b border-gray-300 px-[15px] text-[15px]">
-                  {{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
-                </td>
-                <td class="w-28 border-b border-gray-300 px-[15px] text-[15px] text-sm text-[#3289FA]">
-                  <a class="hover:opacity-40"
-                    href="{{ route('shift.submission.show', ['manager' => $manager]) }}">表示する</a>
-                </td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
+      <div class="mt-[30px] hidden grid-cols-[10%,64%,14%,12%] sm:grid">
+        <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
+        <div class="text-center text-xs font-normal text-[#AAB0B6]"></div>
+      </div>
+      <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+        @foreach ($managers as $manager)
+          <div @class([
+              'sm:grid sm:grid-cols-[10%,64%,14%,12%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer',
+              'border-b' => !$loop->last,
+          ])>
+            <div @class([
+                'hidden truncate px-[12px] w-fit font-bold sm:block text-xs text-white mx-[30px] rounded-full py-1',
+                'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
+                'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+                'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
+            ])>
+              {{ $manager->ReceptionStatus }}
+            </div>
+
+            <div class="text-[15px] font-bold">
+              {{ $manager->start_date->isoFormat('YYYY年MM月DD日（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
+            </div>
+
+            <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日') }}</div>
+
+            <a class="text-center text-[#3289FA] hover:opacity-40"
+              href="{{ route('shift.submission.show', ['manager' => $manager]) }}">表示する</a>
+          </div>
+        @endforeach
       </div>
 
       {{-- モバイル版 --}}
-      <div class="mt-[30px]">
+      <div class="mt-[30px] block sm:hidden">
         <div class="mx-5 rounded-lg border">
           @foreach ($managers as $manager)
             <div @class(['py-5 px-[13px] cursor-pointer', 'border-b' => !$loop->last])

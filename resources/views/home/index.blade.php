@@ -30,7 +30,7 @@
             <option value="{{ $month }}">{{ $month }}月</option>
           @endfor
         </select>
-        <button class="calender-move" wire:click="clickDate('')">
+        <button class="calender-move2" wire:click="clickDate('')">
           翌月
           <i class="fa-solid fa-angle-right"></i>
         </button>
