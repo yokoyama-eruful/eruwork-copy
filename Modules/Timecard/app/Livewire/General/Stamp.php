@@ -19,6 +19,8 @@ class Stamp extends Component
 
     public $workTimes;
 
+    public $breakTime;
+
     public $currentDate;
 
     public $currentTime;
@@ -28,6 +30,7 @@ class Stamp extends Component
         $this->buttonStatus = $this->buttonStatus();
 
         $this->workTimes = $this->getTodayWorkTimes();
+        $this->breakTime = $this->getTodayBreakTime();
         $this->currentDate = Carbon::now()->isoFormat('Y.M.D (ddd)');
         $this->currentTime = Carbon::now()->format('H:i');
     }
@@ -47,6 +50,7 @@ class Stamp extends Component
 
         $this->buttonStatus = $this->buttonStatus();
         $this->workTimes = $this->getTodayWorkTimes();
+        $this->breakTime = $this->getTodayBreakTime();
     }
 
     public function buttonStatus()
@@ -77,6 +81,28 @@ class Stamp extends Component
                 ->whereDate('date', now())
                 ->orderBy('in_time', 'desc')
                 ->first();
+    }
+
+    public function getTodayBreakTime()
+    {
+        $breakTimes = BreakTime::where('user_id', Auth::id())
+            ->whereDate('date', now())
+            ->whereNotNull('in_time')
+            ->whereNotNull('out_time')
+            ->get();
+
+        $totalBreakMinutes = $breakTimes->sum(function ($breakTime) {
+            $inTime = Carbon::parse($breakTime->in_time);
+            $outTime = Carbon::parse($breakTime->out_time);
+
+            return abs($outTime->diffInMinutes($inTime));
+        });
+
+        $hours = floor($totalBreakMinutes / 60);
+
+        $minutes = $totalBreakMinutes % 60;
+
+        return sprintf('%d時間%d分', $hours, $minutes);
     }
 
     public function render()

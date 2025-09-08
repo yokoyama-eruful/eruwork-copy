@@ -1,6 +1,7 @@
 <x-dashboard-layout>
   <x-dashboard.index>
     <x-dashboard.top>
+      <h5 class="block text-xl font-bold sm:hidden">シフト表管理</h5>
       <livewire:shift::admin.manager-create />
     </x-dashboard.top>
     <x-dashboard.container>
@@ -15,7 +16,7 @@
       <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
         @foreach ($managers as $manager)
           <div @class([
-              'sm:grid sm:grid-cols-[10%,64%,14%,8%,4%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer',
+              'sm:grid sm:grid-cols-[10%,64%,14%,8%,4%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer hidden',
               'border-b' => !$loop->last,
           ])>
             <div @class([
@@ -40,6 +41,32 @@
           </div>
         @endforeach
       </div>
+
+      <div class="mt-[30px] block sm:hidden">
+        <div class="mx-5 rounded-lg border">
+          @foreach ($managers as $manager)
+            <div @class(['py-5 px-[13px] cursor-pointer', 'border-b' => !$loop->last])
+              onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'">
+              <div class="flex items-center justify-between">
+                <div @class([
+                    'px-[15px] py-1 flex items-center justify-center rounded-full text-[10px] font-bold text-white',
+                    'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
+                    'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
+                    'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
+                ])>{{ $manager->ReceptionStatus }}</div>
+                <div class="flex items-center space-x-[10px] text-xs">
+                  <div class="text-[#AAB0B6]">受付終了日:</div>
+                  <div>{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日') }}</div>
+                </div>
+              </div>
+              <div class="mt-3 text-sm font-bold">
+                {{ $manager->start_date->isoFormat('YYYY年MM月DD日（ddd）') }}　～　{{ $manager->end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
+              </div>
+            </div>
+          @endforeach
+        </div>
+      </div>
+
       {{ $managers->links('vendor.pagination.tailwind') }}
     </x-dashboard.container>
   </x-dashboard.index>

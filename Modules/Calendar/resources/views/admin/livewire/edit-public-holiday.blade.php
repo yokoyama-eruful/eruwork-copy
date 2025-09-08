@@ -18,7 +18,7 @@
       <x-input-error class="mt-2" :messages="$errors->userDeletion->get('name')" />
     </div>
 
-    <div class="mt-6 flex justify-end">
+    <x-slot:footer>
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
@@ -26,6 +26,6 @@
       <x-primary-button class="ms-3">
         更新
       </x-primary-button>
-    </div>
+    </x-slot:footer>
   </form>
 </x-modal>

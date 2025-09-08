@@ -27,16 +27,18 @@
     <p class="day-timerecord-title">本日の打刻時間</p>
     <div class="day-timerecord-box">
       <p class="stamp-start">出 勤</p>
-      <input value="{{ $workTimes?->in_time->format('H:i') }}" placeholder="--:--" />
+      <input class="outline-none focus:border-transparent focus:outline-none focus:ring-0 focus:ring-transparent"
+        value="{{ $workTimes?->in_time->format('H:i') }}" placeholder="--:--" readonly />
     </div>
     <div class="day-timerecord-box">
       <p class="stamp-end">退 勤</p>
-      <input value="{{ $workTimes?->out_time?->format('H:i') }}" placeholder="--:--" />
+      <input class="outline-none focus:border-transparent focus:outline-none focus:ring-0 focus:ring-transparent"
+        value="{{ $workTimes?->out_time?->format('H:i') }}" placeholder="--:--" readonly />
     </div>
     <div class="day-timerecord-box">
       <p class="stamp-break">休 憩</p>
-      <input value="{{ $workTimes?->break_start?->format('H:i') }} - {{ $workTimes?->break_end?->format('H:i') }}"
-        placeholder="--:--" />
+      <input class="outline-none focus:border-transparent focus:outline-none focus:ring-0 focus:ring-transparent"
+        value="{{ $breakTime }}" placeholder="--:--" readonly />
     </div>
   </div>
 </div>

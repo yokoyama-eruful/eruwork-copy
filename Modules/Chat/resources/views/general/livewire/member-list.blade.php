@@ -15,7 +15,7 @@
           </div>
         @endif
       </div>
-      <div class="truncate text-[15px] font-semibold">{{ $group->name }}</div>
+      <div class="flex items-center truncate text-[15px] font-semibold">{{ $group->name }}</div>
       <div class="flex items-center justify-center">
         @if ($group->group_notification_count)
           <div

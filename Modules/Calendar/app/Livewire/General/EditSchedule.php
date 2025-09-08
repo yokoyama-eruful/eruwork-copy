@@ -62,6 +62,12 @@ class EditSchedule extends Component
             ->exists();
     }
 
+    public function delete()
+    {
+        $this->form->delete();
+        $this->dispatch('updated');
+    }
+
     public function render()
     {
         return view('calendar::general.livewire.edit-schedule');

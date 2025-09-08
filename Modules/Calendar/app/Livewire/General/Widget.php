@@ -25,9 +25,18 @@ class Widget extends Component
 
     public array $schedules = [];
 
+    public int $year;
+
+    public int $month;
+
+    public int $day;
+
+    public array $pullDownMenu = [];
+
     public function mount()
     {
         $this->setToday();
+        $this->updateDays();
 
         $this->reloadCalendar();
     }
@@ -41,6 +50,9 @@ class Widget extends Component
     public function setToday()
     {
         $this->setPeriod(CarbonImmutable::now()->startOfDay());
+        $this->year = CarbonImmutable::now()->year;
+        $this->month = CarbonImmutable::now()->month;
+        $this->day = CarbonImmutable::now()->day;
 
         $this->reloadCalendar();
     }
@@ -106,7 +118,7 @@ class Widget extends Component
             PublicHoliday::whereBetween('date', [$this->startDate, $this->endDate])
                 ->get();
 
-        return $term->map(function ($date) use ($shifts, $schedules, $holidays) {
+        return iterator_to_array($term->map(function ($date) use ($shifts, $schedules, $holidays) {
             $value = $this->getDayType($date, $holidays);
 
             return [
@@ -116,7 +128,7 @@ class Widget extends Component
                 'shifts' => $shifts->has($date->format('Y-m-d')) ? $shifts[$date->format('Y-m-d')] : [],
                 'schedules' => $schedules->has($date->format('Y-m-d')) ? $schedules[$date->format('Y-m-d')] : [],
             ];
-        });
+        }));
     }
 
     private function getDayType(CarbonImmutable $date, $holidays): array
@@ -171,6 +183,23 @@ class Widget extends Component
                 });
             })
             ->exists();
+    }
+
+    public function updateCalendar(): void
+    {
+        $this->setPeriod(CarbonImmutable::create($this->year, $this->month, $this->day)->startOfDay());
+        $this->updateDays();
+    }
+
+    public function updateDays(): void
+    {
+        $daysInCurrentMonth = CarbonImmutable::create($this->year, $this->month)->daysInMonth;
+
+        $this->pullDownMenu = [
+            'year' => range(2000, 2050),
+            'month' => range(1, 12),
+            'day' => range(1, $daysInCurrentMonth),
+        ];
     }
 
     public function render()

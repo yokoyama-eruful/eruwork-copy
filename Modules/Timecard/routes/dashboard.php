@@ -26,5 +26,6 @@ Route::middleware([
         ->name('timecardManager.')
         ->group(function () {
             Route::get('', 'index')->name('index');
+            Route::get('show/{id}', 'show')->name('show');
         });
 });

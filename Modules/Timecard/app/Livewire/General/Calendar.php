@@ -212,6 +212,12 @@ class Calendar extends Component
     {
         $this->selectedDate =
             CarbonImmutable::create($this->year, $this->month, $this->selectedDate->day);
+
+        $selectUser = User::find($this->selectUserId);
+
+        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+
+        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
     }
 
     public function selectedMonth(string $date)

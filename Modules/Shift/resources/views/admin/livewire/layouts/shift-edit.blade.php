@@ -42,7 +42,7 @@
       @endif
     </div>
 
-    <form class="px-4 pb-4" wire:submit="update">
+    <form class="px-[15px] py-5" wire:submit="update">
       <div class="mt-4">
 
         @if ($schedule->shift_draft_schedule_id)
@@ -102,7 +102,7 @@
         @enderror
       </div>
 
-      <div class="mt-6 flex justify-end">
+      <x-slot:footer>
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
@@ -110,7 +110,7 @@
         <x-primary-button class="ms-3">
           登録
         </x-primary-button>
-      </div>
+      </x-slot:footer>
     </form>
   </x-modal>
 

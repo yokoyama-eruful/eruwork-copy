@@ -90,6 +90,13 @@ class AccountController extends Controller
         return to_route('account.index');
     }
 
+    public function show($id)
+    {
+        $user = User::where('login_id', $id)->first();
+
+        return view('account::show', ['user' => $user]);
+    }
+
     /**
      * Remove the specified resource from storage.
      */

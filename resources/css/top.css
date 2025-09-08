@@ -269,26 +269,25 @@
     linear-gradient(to right, var(--grid-line) 1px, transparent 0);
   background-size: auto auto, calc(100% / var(--days)) 100%;
   background-repeat: repeat, repeat-x;
-  padding: 15px 0;
 }
 
 .calender-schedule-grid::after {
   content: "";
   position: absolute;
-  top: calc((9 - 8) * var(--row-h));
+  top: calc(var(--current-hour) * var(--row-h));
   left: 0;
   width: 100%;
   height: 1.5px;
   background-color: #ff4a62;
   pointer-events: none;
-  z-index: 100;
+  z-index: 5;
 }
 
 .schedule-day {
   position: relative;
   flex: 1 1 0;
   min-width: var(--col-min);
-  height: calc(var(--row-h) * 12);
+  height: calc(var(--row-h) * 24);
   border-bottom: 1px solid var(--grid-line);
 }
 

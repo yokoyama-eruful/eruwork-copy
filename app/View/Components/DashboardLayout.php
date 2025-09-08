@@ -9,9 +9,13 @@ use Illuminate\View\View;
 
 class DashboardLayout extends Component
 {
-    /**
-     * Get the view / contents that represents the component.
-     */
+    public $url;
+
+    public function __construct($url = null)
+    {
+        $this->url = $url;
+    }
+
     public function render(): View
     {
         return view('dashboard.layouts.app');

@@ -1,106 +1,144 @@
-<div class="hidden xl:block">
-  <x-widget>
-    <div class="flex flex-wrap items-center justify-between pb-2">
-      <div class="flex flex-row items-center space-x-2">
-        <div class="h-auto self-stretch border-l-4 border-ao-main"></div>
-        <div class="text-lg font-bold">カレンダー</div>
+<x-main.index class="hidden sm:block">
+  <x-main.top>
+    <button class="add-schedule" type="button"
+      x-on:click="$dispatch('open-modal', 'create-modal-{{ $startDate->format('Y-m-d') }}')">
+      <img src="img/icon/add-schedule.png" />
+      予定を追加する
+    </button>
+    <livewire:calendar::general.create-schedule @added="$refresh" :date="$startDate" />
+    <div class="flex items-center">
+      <button class="calender-move" wire:click="setPreviousWeek">
+        <i class="fa-solid fa-angle-left"></i>
+        先週
+      </button>
+      <div class="flex flex-row space-x-[5px]">
+        <select class="rounded border border-[#DDDDDD]" wire:model.change="year" wire:change="updateCalendar">
+          @foreach ($pullDownMenu['year'] as $year)
+            <option value="{{ $year }}">{{ $year }}年</option>
+          @endforeach
+        </select>
+        <select class="rounded border border-[#DDDDDD]" wire:model.change="month" wire:change="updateCalendar">
+          @foreach ($pullDownMenu['month'] as $month)
+            <option value="{{ $month }}">{{ $month }}月</option>
+          @endforeach
+        </select>
+        <select class="rounded border border-[#DDDDDD]" wire:model.change="day" wire:change="updateCalendar">
+          @foreach ($pullDownMenu['day'] as $day)
+            <option value="{{ $day }}">{{ $day }}日</option>
+          @endforeach
+        </select>
       </div>
-      <a class="text-ao-main hover:text-sky-700" href="{{ route('calendar.index') }}">
-        詳しく見る
-        <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+      <button class="calender-move2" wire:click="setNextWeek">
+        翌週
+        <i class="fa-solid fa-angle-right"></i>
+      </button>
+      <button class="today-btn" wire:click="setToday">今日</button>
+      {{-- シフト通知の読み込み --}}
+      <livewire:shift::general.widget />
     </div>
-    <div class="flex justify-between">
-      <div class="mb-2 flex items-center justify-end gap-1">
-        <h1 class="text-2xl font-bold">{{ $startDate->format('Y年n月') }}</h1>
-        <button
-          class="rounded-lg border border-gray-300 bg-hai-sub px-4 text-gray-400 shadow transition duration-150 ease-in-out hover:bg-hai-main"
-          wire:click="setPreviousWeek">
-          <i class="fa-solid fa-angles-left"></i> 前週
-        </button>
-        <button
-          class="rounded-lg border border-gray-300 bg-hai-sub px-4 text-gray-400 shadow transition duration-150 ease-in-out hover:bg-hai-main"
-          wire:click="setPreviousDay">
-          <i class="fa-solid fa-angle-left"></i> 前日
-        </button>
-        <button
-          class="rounded-lg border border-gray-300 bg-hai-sub px-4 text-gray-400 shadow transition duration-150 ease-in-out hover:bg-hai-main"
-          wire:click="setToday">
-          今日
-        </button>
-        <button
-          class="rounded-lg border border-gray-300 bg-hai-sub px-4 text-gray-400 shadow transition duration-150 ease-in-out hover:bg-hai-main"
-          wire:click="setNextDay">
-          翌日<i class="fa-solid fa-chevron-right"></i>
-        </button>
-        <button
-          class="rounded-lg border border-gray-300 bg-hai-sub px-4 text-gray-400 shadow transition duration-150 ease-in-out hover:bg-hai-main"
-          wire:click="setNextWeek">
-          翌週<i class="fa-solid fa-angles-right"></i>
-        </button>
+  </x-main.top>
+  <x-main.container>
+    <div class="calendar-body">
+      <!-- 左：月（固定）＋ 時間軸（固定） -->
+      <div class="calendar-left">
+        <div class="month-label">{{ $startDate->isoFormat('M月') }}</div>
+        <div class="calender-time-column">
+          @for ($h = 0; $h < 24; $h++)
+            @php
+              $ampm = $h < 12 ? '午前' : '午後';
+              $hour = $h % 12 === 0 ? 12 : $h % 12;
+            @endphp
+            <div class="time-cell"><span @class(['tick-label', 'current-time' => $h == now()->format('H')])>{{ $ampm }} {{ $hour }}時</span>
+            </div>
+          @endfor
+        </div>
       </div>
 
-    </div>
-    <div class="flex justify-center">
-      <div class="flex w-full flex-row overflow-x-auto">
-        @foreach ($this->calendar as $key => $content)
-          <div class=
-                'm-0 mb-3 min-h-48 border md:w-1/6'>
+      <!-- 右：ヘッダー（日付）＋ スケジュール（同じ横スクロール） -->
+      <div class="schedule-scroll">
+        <!-- ヘッダー（日付） -->
+        <div class="top-calender-day-area">
+          @foreach ($this->calendar as $key => $content)
             <div @class([
-                'text-lg w-full border-b flex justify-center py-1 bg-ao-sub',
-                'bg-rose-200' => $content['type'] === '土曜日',
-                'bg-sky-200' => $content['type'] === '日曜日',
-                'bg-orange-200' => $content['type'] === '公休日',
+                'top-calender-day' =>
+                    $content['date']->format('Y-m-d') !== now()->format('Y-m-d'),
+                'top-calender-day calender-today-color' =>
+                    $content['date']->format('Y-m-d') === now()->format('Y-m-d'),
             ])>
-              {{ $content['date']->isoFormat('MM/DD(ddd)') }}{{ $content['date_name'] }}
+              <span class="otherday">{{ $content['date']->isoFormat('ddd') }}</span>
+              <p>{{ $content['date']->isoFormat('D') }}</p>
             </div>
-            <div class="m-2 flex justify-end">
-              <button class="text-2xl opacity-30 hover:text-ao-main hover:opacity-100 xl:text-xl" type="button"
-                x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">
-                <i class="fa-regular fa-square-plus"></i>
-              </button>
-            </div>
-            <div class="flex flex-col space-y-1">
-              @foreach ($content['shifts'] as $shift)
-                <button
-                  class="mx-1 mb-1 cursor-pointer truncate rounded border border-emerald-500 bg-emerald-300 pb-1 ps-1 hover:bg-emerald-500"
-                  x-on:click="$dispatch('open-modal','shift-view-modal-{{ $shift->id }}')">
-                  <div class="flex justify-between">
-                    <div class="underline decoration-gray-400">
-                      シフト
-                    </div>
-                    @if ($this->overlappingSchedules($shift) || $this->overlappingShifts($shift))
-                      <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                    @endif
-                  </div>
-                  <div class="ms-1 text-start">
-                    {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}
-                  </div>
-                </button>
-                @include('calendar::general.livewire.layouts.shift-view-modal')
-              @endforeach
-              @foreach ($content['schedules'] as $schedule)
-                <button
-                  class="mx-1 mb-1 cursor-pointer truncate rounded border border-sky-500 bg-sky-300 pb-1 ps-1 hover:bg-sky-500"
-                  x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')">
-                  <div class="flex justify-between">
-                    <div class="underline decoration-gray-400">
-                      {{ $schedule->title }}
-                    </div>
-                    @if ($this->overlappingSchedules($schedule) || $this->overlappingShifts($schedule))
-                      <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                    @endif
-                  </div>
-                  <div class="ms-1 text-start">
-                    {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}
-                  </div>
-                </button>
+          @endforeach
+        </div>
+
+        <!-- スケジュール本体 -->
+
+        <div class="calender-schedule-grid" style="--current-hour: {{ now()->format('H') }};">
+          @foreach ($this->calendar as $key => $content)
+            <div class="schedule-day relative">
+              @php
+                $schedules = $content['schedules'];
+                if ($schedules instanceof \Illuminate\Support\Collection) {
+                    $schedules = $schedules->all();
+                }
+                usort($schedules, fn($a, $b) => $a->start_time <=> $b->start_time);
+
+                $drawnSchedules = [];
+              @endphp
+
+              @foreach ($schedules as $schedule)
+                @php
+                  $hourStart = (int) $schedule->start_time->format('H');
+                  $minuteStart = (int) $schedule->start_time->format('i');
+                  $hourEnd = (int) $schedule->end_time->format('H');
+                  $minuteEnd = (int) $schedule->end_time->format('i');
+
+                  $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
+                  $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
+                  if ($height <= 40) {
+                      $height = 40;
+                  }
+
+                  // 重なりカウント
+                  $overlapIndex = 0;
+                  foreach ($drawnSchedules as $d) {
+                      $dStart = (int) $d->start_time->format('H') * 60 + (int) $d->start_time->format('i');
+                      $dEnd = (int) $d->end_time->format('H') * 60 + (int) $d->end_time->format('i');
+                      $sStart = $hourStart * 60 + $minuteStart;
+                      $sEnd = $hourEnd * 60 + $minuteEnd;
+
+                      if ($sStart < $dEnd && $sEnd > $dStart) {
+                          $overlapIndex++;
+                      }
+                  }
+
+                  $zIndex = 5 + $overlapIndex;
+
+                  // 一番手前（上に表示される）だけ左をずらす
+                  $leftOffset = $overlapIndex > 0 ? $overlapIndex * 8 : 0;
+
+                  $classes =
+                      'absolute right-0 cursor-pointer rounded-[10px] border border-[#00A1FF] bg-[#F2FBFF] p-2 text-[#00A1FF] transition-all';
+                @endphp
+
+                <div class="{{ $classes }}"
+                  x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')"
+                  :style="'top: {{ $top }}px; height: {{ $height }}px; z-index: {{ $zIndex }}; left: {{ $leftOffset }}px;'">
+                  <p class="font-bold">{{ $schedule->title }}</p>
+                  @if ($height > 40)
+                    <p>{{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
+                  @endif
+                </div>
+
                 <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
+
+                @php $drawnSchedules[] = $schedule; @endphp
               @endforeach
             </div>
-          </div>
-          <livewire:calendar::general.create-schedule @added="$refresh" :date="$content['date']" :key="$content['date']->format('Ymd')" />
-        @endforeach
+          @endforeach
+        </div>
+
       </div>
     </div>
-  </x-widget>
-</div>
+  </x-main.container>
+</x-main.index>

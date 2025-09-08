@@ -8,10 +8,10 @@
     </svg>
   </button>
   <x-modal name="create-modal-{{ $content['date']->format('Y-m-d') }}" title="確定シフト登録">
-    <form class="p-4" wire:submit="save('{{ $content['date'] }}')">
+    <form class="px-[15px] py-5" wire:submit="save('{{ $content['date'] }}')">
       @csrf
 
-      <div class="mt-4 text-lg font-bold">
+      <div class="text-lg font-bold">
         {{ $content['date']->format('Y年m月d日') }}
       </div>
 
@@ -51,7 +51,7 @@
         @enderror
       </div>
 
-      <div class="mt-6 flex justify-end">
+      <x-slot:footer>
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
@@ -59,7 +59,7 @@
         <x-primary-button class="ms-3">
           登録
         </x-primary-button>
-      </div>
+      </x-slot:footer>
     </form>
   </x-modal>
 </div>

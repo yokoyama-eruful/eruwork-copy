@@ -72,7 +72,6 @@
       <div class="flex items-center justify-center text-[15px]">金</div>
       <div class="flex items-center justify-center text-[15px] text-[#48CBFF]">土</div>
       <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
-      {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
     <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border sm:grid">
       @foreach ($this->calendar as $key => $content)
@@ -103,14 +102,15 @@
                 </button>
               </div>
               <livewire:calendar::general.create-schedule @added="$refresh" :date="$content['date']"
-                wire:key="create-schedule-{{ $content['date']->format('Y-m-d') }}-{{ $key }}" />
+                wire:key="create-schedule-{{ $content['date']->format('Y-m-d') }}" />
             @endif
           </div>
 
           {{-- 確定シフト表示 --}}
           @if (!empty($content['shifts']))
             <div
-              class="mb-1 mr-1 min-h-[50px] min-w-[135px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] p-[9px] text-[#DE993A]">
+              class="mb-1 mr-1 min-h-[50px] min-w-[135px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] p-[9px] text-[#DE993A]"
+              x-cloak>
               <div class="text-[13px] font-bold">出勤</div>
               @foreach ($content['shifts'] as $shift)
                 <div class="relative pt-[4px] text-xs" x-data="{ openModalShift{{ $shift->id }}: false }"
@@ -147,7 +147,6 @@
                     </div>
                   </div>
                 </div>
-                {{-- @include('calendar::general.livewire.layouts.shift-view-modal') --}}
               @endforeach
             </div>
           @endif
@@ -160,13 +159,11 @@
                   'mb-[23px]' => $loop->last,
               ]) x-data="{ openModalSchedule{{ $schedule->id }}: false }"
                 @click="openModalSchedule{{ $schedule->id }}=true"
-                @click.away="openModalSchedule{{ $schedule->id }}=false" wire:key="schedule-{{ $schedule->id }}">
+                @click.away="openModalSchedule{{ $schedule->id }}=false" wire:key="schedule-{{ $schedule->id }}"
+                x-cloak>
                 <div class="text-[13px] font-bold">
                   {{ $schedule->title }}
                 </div>
-                {{-- @if ($this->overlappingSchedules($schedule) || $this->overlappingShifts($schedule))
-                  <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                @endif --}}
                 <div class="pt-[4px] text-xs">
                   {{ $schedule->start_time->isoFormat('aH:mm') . '～' . $schedule->end_time?->isoFormat('aH:mm') }}
                 </div>
@@ -223,10 +220,10 @@
               </div>
 
               <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule
-                wire:key="edit-schedule-{{ $schedule->id }}-{{ $loop->index }}" />
+                wire:key="edit-schedule-{{ $schedule->id }}" />
 
               <livewire:calendar::general.delete-schedule @updated="$refresh" :$schedule
-                wire:key="delete-schedule-{{ $schedule->id }}-{{ $loop->index }}" />
+                wire:key="delete-schedule-{{ $schedule->id }}" />
             @endif
           @endforeach
 
@@ -235,7 +232,7 @@
     </div>
 
     {{-- モバイル版 --}}
-    <div class="mt-[10px] block sm:hidden">
+    {{-- <div class="mt-[10px] block sm:hidden">
       <div class="border-b px-5 py-[10px] text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
       @foreach ($this->calendar as $key => $content)
         @if ($content['type'] != '補助日')
@@ -295,7 +292,6 @@
                         </div>
                       </div>
                     </div>
-                    {{-- @include('calendar::general.livewire.layouts.shift-view-modal') --}}
                   @endforeach
                 </div>
               @endif
@@ -312,9 +308,6 @@
                     <div class="text-[13px] font-bold">
                       {{ $schedule->title }}
                     </div>
-                    {{-- @if ($this->overlappingSchedules($schedule) || $this->overlappingShifts($schedule))
-                  <i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>
-                @endif --}}
                     <div class="pt-[4px] text-xs">
                       {{ $schedule->start_time->isoFormat('aH:mm') . '～' . $schedule->end_time?->isoFormat('aH:mm') }}
                     </div>
@@ -383,7 +376,7 @@
           </div>
         @endif
       @endforeach
-    </div>
+    </div> --}}
 
   </x-main.container>
 </x-main.index>
