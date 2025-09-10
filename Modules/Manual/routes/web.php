@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
-use Modules\Manual\Http\Controllers\ManualController;
+use Modules\Manual\Http\Controllers\General\ManualFileController;
+use Modules\Manual\Http\Controllers\General\ManualFolderController;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
@@ -23,5 +24,18 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::resource('manual', ManualController::class)->names('manual');
+    Route::controller(ManualFolderController::class)
+        ->name('manualFolder.')
+        ->prefix('manualFolder')
+        ->group(function () {
+            Route::get('/', 'index')->name('index');
+        });
+
+    Route::controller(ManualFileController::class)
+        ->name('manualFile.')
+        ->prefix('manualFile')
+        ->group(function () {
+            Route::get('folder/{folder_id}', 'index')->name('index');
+            Route::get('folder/{folder_id}/file/{file_id}', 'show')->name('show');
+        });
 });

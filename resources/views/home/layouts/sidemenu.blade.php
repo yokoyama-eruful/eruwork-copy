@@ -129,14 +129,20 @@
                 <li><a href="{{ route('chatManager.index') }}" @class([
                     'bg-blue-500 rounded' => request()->routeIs('chatManager.*'),
                 ])>チャット管理</a></li>
-                <li><a href="#">マニュアル管理</a></li>
+                <li><a href="{{ route('manualFolderManager.index') }}" @class([
+                    'bg-blue-500 rounded' =>
+                        request()->routeIs('manualFolderManager.*') ||
+                        request()->routeIs('manualFileManager.*'),
+                ])>マニュアル管理</a></li>
               </ul>
             </li>
             <li>
-              <a href="{{ route('manual.index') }}">
+              <a href="{{ route('manualFolder.index') }}">
                 <div @class([
                     'menuicon_bg',
-                    'menuicon_acbg' => request()->routeIs('manual.*'),
+                    'menuicon_acbg' =>
+                        request()->routeIs('manualFolder.*') ||
+                        request()->routeIs('manualFile.*'),
                 ])>
                   <img src="{{ global_asset('img/icon/manual.png') }}" />
                 </div>

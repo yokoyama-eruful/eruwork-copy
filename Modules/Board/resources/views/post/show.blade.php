@@ -11,7 +11,7 @@
       </a>
     </x-main.top>
     <x-main.container>
-      <h5 class="text-[15px] text-[#AAB0B6]">{{ $post->created_at->format('Y年m月d日') }}</h5>
+      <h5 class="text-[15px] text-[#AAB0B6]">{{ $post->created_at?->format('Y年m月d日') }}</h5>
       <div class="mt-2 flex items-center justify-between">
         <div class="truncate text-[22px] font-bold">{{ $post->title }}</div>
         <div class="flex items-center">

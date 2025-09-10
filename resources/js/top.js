@@ -1,39 +1,29 @@
 (() => {
-  // ====== 設定（Deck 用）======
   const GAP_FIXED = 15; // “ずらし”の上限(px)
-  const SAFE = 1;       // 右端の安全余白(px)
-  const MIN_W = 140;    // カード最小幅(px)
+  const MIN_W     = 140; // カード最小幅(px)
 
-  // ====== モーダル（共通）======
-  const modal = document.getElementById("cardModal");
-  const modalTitle = document.getElementById("modalTitle");
-  const modalBody = document.getElementById("modalBody");
-  const modalClose = document.getElementById("modalClose");
-
-  function openModalFromCard(card) {
-    const titleEl = card.querySelector(".title");
-    const bodyEl = card.querySelector(".body");
-    if (modalTitle) modalTitle.textContent = titleEl ? titleEl.textContent : "詳細";
-    if (modalBody) modalBody.textContent = bodyEl ? bodyEl.textContent : "内容がありません。";
-    if (typeof modal?.showModal === "function") modal.showModal();
-    else modal?.setAttribute("open", "");
-    modalClose?.focus({ preventScroll: true });
+  // ====== カード内 <p> の可視制御 ======
+  function updateSecondPVisibility(card) {
+    const ps = card.querySelectorAll("p");
+    if (ps.length >= 2) {
+      ps[1].hidden = card.offsetHeight < 50; // 50px 未満で2つ目を非表示
+    }
+  }
+  function updateAllCardsVisibility() {
+    document.querySelectorAll(".card").forEach(updateSecondPVisibility);
   }
 
-  function closeModal() {
-    if (modal?.hasAttribute("open")) modal.close?.();
-    modal?.removeAttribute("open");
+  // ====== レイアウト呼び出しの集約（1フレームに1回） ======
+  let layoutQueued = false;
+  function scheduleLayoutAll() {
+    if (layoutQueued) return;
+    layoutQueued = true;
+    requestAnimationFrame(() => {
+      layoutQueued = false;
+      layoutAllDecks();
+      updateAllCardsVisibility();
+    });
   }
-
-  modal?.addEventListener("click", (e) => {
-    const r = modal.getBoundingClientRect();
-    const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-    if (!inside) closeModal();
-  });
-  modalClose?.addEventListener("click", closeModal);
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && modal?.hasAttribute("open")) closeModal();
-  });
 
   // ====== レイアウト（単一デッキ）======
   function layoutDeck(deckEl) {
@@ -41,26 +31,32 @@
     const n = cards.length;
     if (!n) return;
 
-    deckEl.style.removeProperty("width");
-    const deckW = deckEl.clientWidth;
+    // deck の内側幅（padding を考慮）
+    const st   = getComputedStyle(deckEl);
+    const padL = parseFloat(st.paddingLeft)  || 0;
+    const padR = parseFloat(st.paddingRight) || 0;
+    const inner = deckEl.clientWidth - padL - padR;
 
-    // 狭いときは gap を自動縮小
-    let gapMax = n > 1 ? (deckW - SAFE - MIN_W) / (n - 1) : 0;
+    // ★ 非表示中/初期描画前などで inner が 0 のときはスキップ（異常値レイアウトを防止）
+    if (inner <= 0) return;
+
+    // gap を自動調整
+    let gapMax = n > 1 ? (inner - MIN_W) / (n - 1) : 0;
     gapMax = Math.max(0, gapMax);
-    const gap = Math.min(GAP_FIXED, gapMax);
-
-    const cardW = Math.max(MIN_W, deckW - gap * (n - 1) - SAFE);
+    const gap   = Math.min(GAP_FIXED, gapMax);
+    const cardW = Math.max(MIN_W, inner - gap * (n - 1));
 
     cards.forEach((c, i) => {
-      if (!c.hasAttribute("tabindex")) c.setAttribute("tabindex", "0");
-      if (!c.hasAttribute("role")) c.setAttribute("role", "button");
+      c.style.left      = padL + "px";
+      c.style.width     = cardW + "px";
+      c.style.transform = `translateX(${i * gap}px)`;
+      c.style.zIndex    = String(i + 1);
+
+      if (!c.hasAttribute("tabindex"))      c.setAttribute("tabindex", "0");
+      if (!c.hasAttribute("role"))          c.setAttribute("role", "button");
       if (!c.hasAttribute("aria-selected")) c.setAttribute("aria-selected", "false");
 
-      c.style.position = "absolute";
-      c.style.left = "0";
-      c.style.width = cardW + "px";
-      c.style.transform = `translateX(${i * gap}px)`;
-      c.style.zIndex = String(i + 1); // 右に行くほど前面
+      updateSecondPVisibility(c);
     });
   }
 
@@ -68,7 +64,7 @@
     document.querySelectorAll(".deck").forEach(layoutDeck);
   }
 
-  // ====== 右端へ移動（クリック動作）======
+  // ====== 右端へ移動 ======
   function isRightmost(card) {
     const deckEl = card.closest(".deck");
     if (!deckEl) return false;
@@ -79,45 +75,94 @@
   function moveToRight(card) {
     const deckEl = card.closest(".deck");
     if (!deckEl) return;
-    // 1) 選択状態をリセット
+
     deckEl.querySelectorAll(".card").forEach((c) => c.setAttribute("aria-selected", "false"));
-    // 2) 末尾へ移動（DOM順を変える）
     deckEl.appendChild(card);
-    // 3) レイアウト更新
-    layoutDeck(deckEl);
-    // 4) このカードを選択状態に
-    card.setAttribute("aria-selected", "true");
-    card.focus({ preventScroll: true });
+
+    // 追加直後は 2 フレーム待ってから再レイアウト（clientWidth=0 を避ける）
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        layoutDeck(deckEl);
+        card.setAttribute("aria-selected", "true");
+        card.focus({ preventScroll: true });
+        updateSecondPVisibility(card);
+      });
+    });
   }
 
-  // ====== イベント委譲（全デッキ共通）======
+  // ====== イベント ======
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".deck .card");
     if (!card) return;
 
-    if (isRightmost(card)) {
-      // すでに右端＝選択中 → モーダル
-      openModalFromCard(card);
-    } else {
+    if (!isRightmost(card)) {
+      e.preventDefault();
+      e.stopPropagation(); // Alpine の $dispatch を止める
       moveToRight(card);
     }
-  });
+    // 右端なら何もせず → Alpine 側の x-on:click が動作
+  }, true);
 
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Enter" && e.key !== " ") return;
     const card = e.target.closest?.(".deck .card");
     if (!card) return;
-    e.preventDefault();
 
-    if (isRightmost(card)) openModalFromCard(card);
-    else moveToRight(card);
+    e.preventDefault();
+    if (!isRightmost(card)) {
+      moveToRight(card);
+    } else {
+      card.click(); // Alpine 側のクリック処理を呼ぶ
+    }
   });
 
-  // ====== リサイズ追従（Deck）======
-  function observeDecks() {
-    const ro = new ResizeObserver(() => layoutAllDecks());
-    document.querySelectorAll(".deck").forEach((el) => ro.observe(el));
-    window.addEventListener("resize", layoutAllDecks);
+  // ====== Resize / 監視 ======
+  function observeDecksAndCards() {
+    // デッキ幅変化でまとめて再レイアウト
+    const roDeck = new ResizeObserver(() => scheduleLayoutAll());
+    document.querySelectorAll(".deck").forEach((el) => roDeck.observe(el));
+
+    // カードの高さ変化に追随（画像ロードや動的内容で高さが変わる場合）
+    const roCard = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        const el = entry.target;
+        if (el.classList.contains("card")) updateSecondPVisibility(el);
+      }
+    });
+    document.querySelectorAll(".card").forEach((el) => roCard.observe(el));
+
+    // ウィンドウリサイズでも再評価
+    window.addEventListener("resize", scheduleLayoutAll);
+  }
+
+  // 新規 .card 追加・削除を監視し、描画後にレイアウト（“二重 rAF”）
+  function observeDeckChildList() {
+    const mo = new MutationObserver((mutations) => {
+      let need = false;
+      for (const m of mutations) {
+        if (m.type !== "childList") continue;
+        if (m.addedNodes.length || m.removedNodes.length) {
+          need = true;
+          m.addedNodes.forEach((node) => {
+            if (node.nodeType === 1 && node.classList.contains("card")) {
+              node.classList.add("is-measuring"); // 一瞬不可視にしたい場合の保険（CSS任意）
+            }
+          });
+        }
+      }
+      if (!need) return;
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          scheduleLayoutAll();
+          document.querySelectorAll(".card.is-measuring")
+            .forEach((el) => el.classList.remove("is-measuring"));
+        });
+      });
+    });
+    document.querySelectorAll(".deck").forEach((deck) => {
+      mo.observe(deck, { childList: true });
+    });
   }
 
   // ===============================
@@ -180,12 +225,14 @@
       btnGNav?.classList.add("open");
       overlay.classList.add("active"); // 背景ブラーON
       lockScroll();
+      scheduleLayoutAll(); // 背景/スクロール固定で幅が変わるケースに備える
     };
     const closeDrawer = () => {
       gNav.classList.remove("open");
       btnGNav?.classList.remove("open");
       overlay.classList.remove("active"); // 背景ブラーOFF
       unlockScroll();
+      scheduleLayoutAll();
     };
     const toggleDrawer = () => (gNav.classList.contains("open") ? closeDrawer() : openDrawer());
 
@@ -267,8 +314,11 @@
           if (ev.propertyName !== "max-height") return;
           panel.style.maxHeight = panel.scrollHeight + "px";
           panel.removeEventListener("transitionend", onEnd);
+          scheduleLayoutAll(); // 開き切った後に再レイアウト
         };
         panel.addEventListener("transitionend", onEnd, { once: true });
+      } else {
+        scheduleLayoutAll(); // PCは即
       }
 
       // 下端はみ出し時の補正（SPのみ）
@@ -310,6 +360,7 @@
         panel.classList.remove("is-closing");
         panel.style.maxHeight = "";
         panel.removeEventListener("transitionend", onEnd);
+        scheduleLayoutAll(); // 閉じ切った後に再レイアウト
       };
       if (isMobile()) {
         panel.addEventListener("transitionend", onEnd);
@@ -324,8 +375,7 @@
         if (!id || id === currentId) return;
         const p = document.getElementById(id);
         if (!p || p.hidden) return;
-        // ★ ピン留めは閉じない
-        if (isPinnedNode(b) || isPinnedNode(p)) return;
+        if (isPinnedNode(b) || isPinnedNode(p)) return; // ★ ピン留めは閉じない
         closePanel(b, p);
       });
     }
@@ -335,8 +385,7 @@
         const id = b.getAttribute("aria-controls");
         const p = id ? document.getElementById(id) : null;
         if (!p || p.hidden) return;
-        // ★ ピン留めは閉じない
-        if (isPinnedNode(b) || isPinnedNode(p)) return;
+        if (isPinnedNode(b) || isPinnedNode(p)) return; // ★ ピン留めは閉じない
         closePanel(b, p);
       });
     }
@@ -359,7 +408,7 @@
       if (isMobile()) return;
       const hitSide = e.target.closest(".side-menu");
       const hitPanel = e.target.closest(".acc-panel");
-      if (!hitSide && !hitPanel) closeAllPanels(); // closeAllPanels 側で pinned 除外
+      if (!hitSide && !hitPanel) closeAllPanels();
     });
 
     // ★ PC時、ピン留め要素は初期オープン状態に整える（保険）
@@ -394,21 +443,20 @@
       // PC↔SP切替時にアコーディオンのインライン値を掃除/再評価
       document.querySelectorAll(".acc-panel").forEach((p) => {
         if (nowIsMobile) {
-          // SPでは hidden でない is-open のものは実高に合わせ直す
           if (!p.hidden && p.classList.contains("is-open")) {
             p.style.maxHeight = p.scrollHeight + "px";
           }
         } else {
-          // PCでは max-height は使わない
           p.style.maxHeight = "";
         }
       });
 
-      // ★ ビューポートがPCになった直後にピン留め状態を再確定
       if (!nowIsMobile && lastIsMobile) {
         initPinnedOpen();
       }
       lastIsMobile = nowIsMobile;
+
+      scheduleLayoutAll();
     });
 
     // 画像等の読込で高さが増えた場合に追随（SP時）
@@ -419,6 +467,7 @@
         if (isMobile()) {
           p.style.maxHeight = p.scrollHeight + "px";
         }
+        scheduleLayoutAll();
       });
     });
   }
@@ -436,7 +485,6 @@
       const wrapper = root.querySelector(".slides-wrapper");
       if (!wrapper) return;
 
-      // 直下の子（<a>）がスライド1枚
       const items = Array.from(wrapper.children);
       if (!items.length) return;
 
@@ -491,7 +539,6 @@
       window.addEventListener("resize", () => {
         const currentIdx = getIndex();
         setGutters();
-        // ガター変化で位置がずれないよう、同じインデックスへ補正
         wrapper.scrollTo({ left: currentIdx * getStep() });
         setDot(currentIdx);
       });
@@ -503,9 +550,11 @@
   // ===============================
   const init = () => {
     layoutAllDecks();
-    observeDecks();
+    observeDecksAndCards();
+    observeDeckChildList();   // ★ 新規カードの追加/削除を監視
     initNavAndOverlay();
     initSliders();
+    updateAllCardsVisibility();
   };
 
   if (document.readyState === "loading") {

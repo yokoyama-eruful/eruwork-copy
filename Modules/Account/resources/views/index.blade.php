@@ -45,9 +45,9 @@
 
             <div class="text-[15px]">{{ $user->profile?->contract_type }}</div>
 
-            <div class="hidden text-[15px] sm:block">{{ $user->profile?->updated_at->format('Y年m月d日') }}</div>
+            <div class="hidden text-[15px] sm:block">{{ $user->profile?->updated_at?->format('Y年m月d日') }}</div>
 
-            <div class="hidden text-[15px] sm:block">{{ $user->last_login_at->format('Y年m月d日') }}</div>
+            <div class="hidden text-[15px] sm:block">{{ $user->last_login_at?->format('Y年m月d日') }}</div>
 
             <div class="relative block" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"

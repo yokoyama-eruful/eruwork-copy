@@ -293,11 +293,6 @@
 
 /* ========== カード（共通） ========== */
 .card {
-  position: absolute;
-  border-radius: 12px;
-  background: var(--bg);
-  color: var(--text);
-  border: 1px solid var(--border, transparent);
   padding: 10px 14px;
   cursor: pointer;
   user-select: none;
@@ -315,6 +310,21 @@
 .card[aria-selected="true"] {
   filter: saturate(1.05);
 }
+
+.card p:nth-of-type(2) {
+  display: none;
+}
+
+@media (min-height: 60px) {
+  .card p:nth-of-type(2) {
+    display: block;
+  }
+}
+
+.no-animate .card { transition: none !important; }
+
+.card.is-measuring { visibility: hidden; }
+
 
 .title {
   font-weight: 700;

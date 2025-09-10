@@ -76,64 +76,34 @@
         <div class="calender-schedule-grid" style="--current-hour: {{ now()->format('H') }};">
           @foreach ($this->calendar as $key => $content)
             <div class="schedule-day relative">
-              @php
-                $schedules = $content['schedules'];
-                if ($schedules instanceof \Illuminate\Support\Collection) {
-                    $schedules = $schedules->all();
-                }
-                usort($schedules, fn($a, $b) => $a->start_time <=> $b->start_time);
+              <div class="deck">
+                @foreach ($content['schedules'] as $schedule)
+                  @php
+                    $hourStart = (int) $schedule->start_time->format('H');
+                    $minuteStart = (int) $schedule->start_time->format('i');
+                    $hourEnd = (int) $schedule->end_time->format('H');
+                    $minuteEnd = (int) $schedule->end_time->format('i');
 
-                $drawnSchedules = [];
-              @endphp
+                    $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
+                    $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
+                    if ($height <= 40) {
+                        $height = 40;
+                    }
 
-              @foreach ($schedules as $schedule)
-                @php
-                  $hourStart = (int) $schedule->start_time->format('H');
-                  $minuteStart = (int) $schedule->start_time->format('i');
-                  $hourEnd = (int) $schedule->end_time->format('H');
-                  $minuteEnd = (int) $schedule->end_time->format('i');
+                  @endphp
 
-                  $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
-                  $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
-                  if ($height <= 40) {
-                      $height = 40;
-                  }
-
-                  // 重なりカウント
-                  $overlapIndex = 0;
-                  foreach ($drawnSchedules as $d) {
-                      $dStart = (int) $d->start_time->format('H') * 60 + (int) $d->start_time->format('i');
-                      $dEnd = (int) $d->end_time->format('H') * 60 + (int) $d->end_time->format('i');
-                      $sStart = $hourStart * 60 + $minuteStart;
-                      $sEnd = $hourEnd * 60 + $minuteEnd;
-
-                      if ($sStart < $dEnd && $sEnd > $dStart) {
-                          $overlapIndex++;
-                      }
-                  }
-
-                  $zIndex = 5 + $overlapIndex;
-
-                  // 一番手前（上に表示される）だけ左をずらす
-                  $leftOffset = $overlapIndex > 0 ? $overlapIndex * 8 : 0;
-
-                  $classes =
-                      'absolute right-0 cursor-pointer rounded-[10px] border border-[#00A1FF] bg-[#F2FBFF] p-2 text-[#00A1FF] transition-all';
-                @endphp
-
-                <div class="{{ $classes }}"
-                  x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')"
-                  :style="'top: {{ $top }}px; height: {{ $height }}px; z-index: {{ $zIndex }}; left: {{ $leftOffset }}px;'">
-                  <p class="font-bold">{{ $schedule->title }}</p>
-                  @if ($height > 40)
-                    <p>{{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
-                  @endif
-                </div>
-
-                <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
-
-                @php $drawnSchedules[] = $schedule; @endphp
-              @endforeach
+                  <div
+                    class="card absolute cursor-pointer rounded-[10px] border border-[#00A1FF] bg-[#F2FBFF] p-2 text-[#00A1FF] transition-all"
+                    x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')"
+                    :style="'top: {{ $top }}px; height: {{ $height }}px;'">
+                    <p class="font-bold">{{ $schedule->title }}</p>
+                    @if ($height > 50)
+                      <p>{{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
+                    @endif
+                  </div>
+                  <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
+                @endforeach
+              </div>
             </div>
           @endforeach
         </div>
