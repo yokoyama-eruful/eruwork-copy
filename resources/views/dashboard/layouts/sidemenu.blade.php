@@ -231,29 +231,40 @@
     <ul>
       <li class="acc-title">管理者設定</li>
       <li class="sub-title">メニュー</li>
-      <li><a href="{{ route('shiftManager.index') }}" @class([
-          'bg-blue-500 rounded' => request()->routeIs('shiftManager.*'),
-      ])>シフト管理</a></li>
-      <li><a href="{{ route('timecardManager.index') }}" @class([
-          'bg-blue-500 rounded' => request()->routeIs('timecardManager.*'),
-      ])>タイムカード管理</a></li>
-      <li><a href="{{ route('account.index') }}" @class([
-          'bg-blue-500 rounded' => request()->routeIs('account.*'),
-      ])>アカウント管理</a></li>
-      <li><a href="{{ route('public_holiday.index') }}" @class([
-          'bg-blue-500 rounded' => request()->routeIs('public_holiday.*'),
-      ])>公休日登録</a></li>
-      <li><a href="{{ route('attendanceManager.index') }}" @class([
-          'bg-blue-500 rounded' => request()->routeIs('attendanceManager.*'),
-      ])>勤怠管理</a></li>
-      <li><a href="{{ route('chatManager.index') }}" @class([
-          'bg-blue-500 rounded' => request()->routeIs('chatManager.*'),
-      ])>チャット管理</a></li>
-      <li><a href="{{ route('manualFolderManager.index') }}" @class([
-          'bg-blue-500 rounded' =>
-              request()->routeIs('manualFolderManager.*') ||
-              request()->routeIs('manualFileManager.*'),
-      ])>マニュアル管理</a></li>
+      <li @class([
+          request()->routeIs('shiftManager.*')
+              ? 'bg-blue-500 rounded'
+              : 'bg-[#FFFFFF1A]',
+      ])><a href="{{ route('shiftManager.index') }}">シフト管理</a></li>
+      <li @class([
+          request()->routeIs('timecardManager.*')
+              ? 'bg-blue-500 rounded'
+              : 'bg-[#FFFFFF1A]',
+      ])><a href="{{ route('timecardManager.index') }}">タイムカード管理</a></li>
+      <li @class([
+          request()->routeIs('account.*') ? 'bg-blue-500 rounded' : 'bg-[#FFFFFF1A]',
+      ])><a href="{{ route('account.index') }}">アカウント管理</a></li>
+      <li @class([
+          request()->routeIs('public_holiday.*')
+              ? 'bg-blue-500 rounded'
+              : 'bg-[#FFFFFF1A]',
+      ])><a href="{{ route('public_holiday.index') }}">公休日登録</a></li>
+      <li @class([
+          request()->routeIs('attendanceManager.*')
+              ? 'bg-blue-500 rounded'
+              : 'bg-[#FFFFFF1A]',
+      ])><a href="{{ route('attendanceManager.index') }}">勤怠管理</a></li>
+      <li @class([
+          request()->routeIs('chatManager.*')
+              ? 'bg-blue-500 rounded'
+              : 'bg-[#FFFFFF1A]',
+      ])><a href="{{ route('chatManager.index') }}">チャット管理</a></li>
+      <li @class([
+          request()->routeIs('manualFolderManager.*') ||
+          request()->routeIs('manualFileManager.*')
+              ? 'bg-blue-500 rounded'
+              : 'bg-[#FFFFFF1A]',
+      ])><a href="{{ route('manualFolderManager.index') }}">マニュアル管理</a></li>
     </ul>
   </div>
 </div>

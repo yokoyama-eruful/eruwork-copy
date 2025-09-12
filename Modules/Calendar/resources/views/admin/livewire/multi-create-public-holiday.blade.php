@@ -6,7 +6,7 @@
     複数日登録
   </button>
   <x-modal name="multi-create-modal" title="予定複数登録">
-    <form class="p-4" method="post" wire:submit="add">
+    <form class="p-4" id="form-public-holiday-multi" method="post" wire:submit="add">
       @csrf
 
       <div class="mt-4">
@@ -58,7 +58,7 @@
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="ms-3" form="form-public-holiday-multi">
           登録
         </x-primary-button>
       </x-slot:footer>

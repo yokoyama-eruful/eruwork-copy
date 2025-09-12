@@ -39,16 +39,6 @@
                   'border-b' => !$loop->last,
               ])>{{ $detail['title'] }}</div>
               <textarea class="auto-resize w-full resize-none border-none p-5 text-[15px]">{{ $detail['content'] }}</textarea>
-
-              <script>
-                document.querySelectorAll('.auto-resize').forEach(el => {
-                  el.style.height = el.scrollHeight + 'px';
-                  el.addEventListener('input', e => {
-                    e.target.style.height = 'auto';
-                    e.target.style.height = e.target.scrollHeight + 'px';
-                  });
-                });
-              </script>
             @endforeach
           </div>
         @endif
@@ -56,7 +46,51 @@
       <div
         class="top-container mt-[20px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[320px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
         <h5 class="hidden text-xl font-bold sm:block">業務手順</h5>
+        @vite(['Modules/Manual/resources/assets/js/procedure.js', 'Modules/Manual/resources/assets/css/procedure.css'])
+        <div class="procedure-container">
+          @if (!empty($file->steps))
+            <div class="procedure-rows">
+              @foreach ($file->steps as $index => $step)
+                <div class="procedure-row">
+                  <div class="marker">
+                    <div class="circle">{{ $index + 1 }}</div>
+                  </div>
+                  <div class="procedure-box-general">
+                    <div class="procedure-box-title">
+                      <h4>{{ $step['title'] }}</h4>
+                    </div>
+                    <div class="form-area-general">
+                      <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7]">{{ $step['content'] }}</textarea>
+                      @if ($step['file'])
+                        <img class="h-auto max-w-full rounded-lg"
+                          src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $step['file']) }}" />
+                      @endif
+                    </div>
+                  </div>
+                </div>
+              @endforeach
+            </div>
+          @endif
+        </div>
       </div>
+
     </div>
+    <script>
+      document.querySelectorAll('.auto-resize').forEach(el => {
+        el.style.height = el.scrollHeight + 'px';
+        el.addEventListener('input', e => {
+          e.target.style.height = 'auto';
+          e.target.style.height = e.target.scrollHeight + 'px';
+        });
+      });
+
+      document.querySelectorAll('.auto-resize-textarea').forEach(el => {
+        el.style.height = el.scrollHeight + 'px';
+        el.addEventListener('textarea', e => {
+          e.target.style.height = 'auto';
+          e.target.style.height = e.target.scrollHeight + 'px';
+        });
+      });
+    </script>
   </x-main.index>
 </x-app-layout>

@@ -15,7 +15,8 @@
       </button>
     </form>
 
-    <form class="p-4" wire:submit="update" x-data="Datepickr()" x-init="initDatepickr">
+    <form class="p-4" id="form-hourly-rate-{{ $hourlyRate->id }}" wire:submit="update" x-data="Datepickr()"
+      x-init="initDatepickr">
 
       <div class="mt-4">
         <x-input-label for="rate" value="時給" />
@@ -44,7 +45,7 @@
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="ms-3" form="form-hourly-rate-{{ $hourlyRate->id }}">
           更新
         </x-primary-button>
       </x-slot:footer>

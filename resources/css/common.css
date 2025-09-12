@@ -751,7 +751,6 @@ ount-setting img {
 }
 
  .d-board-menu{
-    height: 35px;
    background: #3D475D;
    grid-column: 1 / -1;
    justify-self: stretch;
@@ -761,7 +760,7 @@ ount-setting img {
    scrollbar-width: none;
    -ms-overflow-style: none;
    grid-area: 2 / 1 / 3 / 4;
-   padding: 6px 0;
+   padding: 5px 0 5px 0;
  }
 
  .d-board-menu::-webkit-scrollbar { display: none; }
@@ -780,8 +779,7 @@ ount-setting img {
 .d-board-menu li{
   font-size: 12px;
   font-weight: 400;
-  background-color: hsla(0, 0%, 100%, 0.1);
-  padding: 2px 8px;
+  padding: 10px 8px 10px 8px;
   border-radius: 2px;
 }
 

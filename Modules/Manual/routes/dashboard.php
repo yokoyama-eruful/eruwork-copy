@@ -43,8 +43,8 @@ Route::middleware([
         ->group(function () {
             Route::get('/{folder_id}/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
-            Route::get('/{folder_id}', 'index')->name('index');
-            Route::get('/{file_id}/edit', 'edit')->name('edit');
+            Route::get('folder/{folder_id}', 'index')->name('index');
+            Route::get('folder/{folder_id}/file/{file_id}/edit', 'edit')->name('edit');
             Route::put('/{file_id}', 'update')->name('update');
             Route::delete('/{file_id}', 'destroy')->name('destroy');
         });

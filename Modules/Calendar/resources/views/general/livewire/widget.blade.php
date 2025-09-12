@@ -89,7 +89,6 @@
                     if ($height <= 40) {
                         $height = 40;
                     }
-
                   @endphp
 
                   <div
@@ -102,6 +101,31 @@
                     @endif
                   </div>
                   <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
+                @endforeach
+
+                @foreach ($content['shifts'] as $shift)
+                  @php
+                    $hourStart = (int) $shift->start_time->format('H');
+                    $minuteStart = (int) $shift->start_time->format('i');
+                    $hourEnd = (int) $shift->end_time->format('H');
+                    $minuteEnd = (int) $shift->end_time->format('i');
+
+                    $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
+                    $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
+                    if ($height <= 40) {
+                        $height = 40;
+                    }
+
+                  @endphp
+
+                  <div
+                    class="card absolute cursor-pointer rounded-[10px] border border-[#DE993A] bg-[#FFF7EC] p-2 text-[#DE993A] transition-all"
+                    :style="'top: {{ $top }}px; height: {{ $height }}px;'">
+                    <p class="font-bold">出勤日</p>
+                    @if ($height > 50)
+                      <p>{{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}</p>
+                    @endif
+                  </div>
                 @endforeach
               </div>
             </div>

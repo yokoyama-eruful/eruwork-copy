@@ -1,0 +1,185 @@
+:root {
+  --marker-w: 40px;
+  --circle: 26px;
+  --circle-offset-top: 15px;
+  --rail-gap: 10px;
+  --line-top-offset: 25px;
+  --line-bottom-offset: 10px;
+  --row-gap: 24px;
+  --arrow-gap: -22px;
+}
+
+/* コンテナ */
+.procedure-container {
+  width: 95%;
+  margin: 15px auto;
+}
+
+.procedure-rows {
+  display: grid;
+  gap: var(--row-gap) 0;
+}
+
+/* 行（左:丸＋線 / 右:ボックス） */
+.procedure-row {
+  display: grid;
+  grid-template-columns: var(--marker-w) 1fr;
+  align-items: stretch;
+  column-gap: 5px;
+}
+
+/* 左レール（番号丸） */
+.marker {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--circle-offset-top);
+}
+
+.circle {
+  position: absolute;
+  left: 50%;
+  top: var(--circle-offset-top);
+  transform: translateX(-50%);
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--circle);
+  height: var(--circle);
+  border-radius: 50%;
+  background: #3182ce;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* 点線：丸の外側に配置 */
+.procedure-row .marker::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: var(--line-top-offset);
+  height: 100%;
+  border-left: 2px dotted #dddddd;
+  width: 0;
+}
+
+/* 最終行は点線なし */
+.procedure-row:last-child .marker::after {
+  display: none;
+}
+
+/* 矢印（点線の延長上に配置） */
+.procedure-row:not(:last-child) .marker::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 50%) rotate(45deg); /* 少しだけ下側へ食い込ませる */
+  bottom: var(--arrow-gap); 
+  width: 8px;
+  height: 8px;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  background: #fff;
+}
+
+/* 手順ボックス */
+.procedure-box {
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.procedure-box-general{
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  padding: 20px 20px 10px 20px;
+  box-sizing: border-box;
+}
+
+.procedure-box-title {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.procedure-box h4,
+.procedure-box-general h4 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.image-add-btn {
+  color: #3289fa;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 14px;
+  height: 15px;
+  justify-content: flex-end;
+}
+
+.image-add-btn svg {
+  margin-right: 3px;
+}
+
+.form-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.form-area-general {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 15px 0 0;
+}
+
+.form-area textarea,
+.form-area-general textarea  {
+  width: 100%;
+  overflow: hidden;
+  resize: none;
+  box-sizing: border-box;
+}
+
+
+
+.form-area textarea::-webkit-scrollbar {
+  display: none;
+}
+
+.textarea-title-box,
+.textarea-explanation-box {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.textarea-explanation-box {
+  min-height: 130px;
+}
+
+
+
+
+/*手順追加ボタン*/
+.procedure-add-btn {
+  display: flex;
+  width: 118px;
+  align-items: center;
+  justify-content: space-between;
+  color: #3289FA;
+  font-size: 14px;
+  margin: 25px auto 0;
+  font-weight: 800;
+}

@@ -1,3 +1,3 @@
 <x-dashboard-layout>
-  <livewire:manual::admin.create :folder="$folder" />
+  <livewire:manual::admin.file.create :folder="$folder" />
 </x-dashboard-layout>

@@ -1,5 +1,5 @@
 <x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="公休日登録">
-  <form class="p-4" method="post" wire:submit="add">
+  <form class="p-4" id="form-public-holiday" method="post" wire:submit="add">
     @csrf
 
     <div class="text-xl font-bold"> {{ $date->format('Y年m月d日') }}</div>
@@ -20,7 +20,7 @@
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3">
+      <x-primary-button class="ms-3" form="form-public-holiday">
         登録
       </x-primary-button>
     </x-slot:footer>

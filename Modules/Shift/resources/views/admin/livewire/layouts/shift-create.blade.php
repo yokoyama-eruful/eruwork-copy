@@ -8,7 +8,8 @@
     </svg>
   </button>
   <x-modal name="create-modal-{{ $content['date']->format('Y-m-d') }}" title="確定シフト登録">
-    <form class="px-[15px] py-5" wire:submit="save('{{ $content['date'] }}')">
+    <form class="px-[15px] py-5" id="form-shift-{{ $content['date']->format('Y-m-d') }}"
+      wire:submit="save('{{ $content['date'] }}')">
       @csrf
 
       <div class="text-lg font-bold">
@@ -56,7 +57,7 @@
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="ms-3" form="form-shift-{{ $content['date']->format('Y-m-d') }}">
           登録
         </x-primary-button>
       </x-slot:footer>
