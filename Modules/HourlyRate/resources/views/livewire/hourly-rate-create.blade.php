@@ -8,7 +8,8 @@
     <div class="text-sm font-bold text-[#3289FA]">時給を追加</div>
   </button>
   <x-modal name="create-modal" title="時給情報の追加">
-    <form class="p-4" id="form-hourly-rate" wire:submit="save" x-data="Datepickr()" x-init="initDatepickr">
+    <form class="p-4" id="form-hourly-rate-{{ $user->id }}" wire:submit="save" x-data="Datepickr()"
+      x-init="initDatepickr">
 
       <div class="mt-4">
         <x-input-label for="rate" value="時給" />
@@ -37,7 +38,7 @@
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3" form="form-hourly-rate">
+        <x-primary-button class="ms-3" form="form-hourly-rate-{{ $user->id }}">
           登録
         </x-primary-button>
       </x-slot:footer>

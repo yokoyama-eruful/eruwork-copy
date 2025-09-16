@@ -34,7 +34,7 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => storage_path('tenants/' . tenant()->id . '/app'),
+            'root' => storage_path('tenants/' . optional(tenant())->id ?: 'default' . '/app'),
             'serve' => true,
             'throw' => false,
             'report' => false,

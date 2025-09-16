@@ -1,6 +1,7 @@
 <x-dashboard.index>
+  @vite(['Modules/Manual/resources/assets/js/procedure.js', 'Modules/Manual/resources/assets/css/procedure.css'])
   <x-dashboard.top>
-    <a class="flex items-center hover:opacity-40"
+    <a class="hidden items-center hover:opacity-40 sm:flex"
       href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -9,13 +10,14 @@
       </svg>
       <div class="font-bold text-[#3289FA]">一覧画面に戻る</div>
     </a>
+    <h5 class="text-xl font-bold sm:hidden">新規作成</h5>
   </x-dashboard.top>
   <form class="flex h-auto min-h-[calc(100vh-100px)] space-x-5" wire:submit="create">
     <div
-      class="top-container mt-[20px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      class="top-container mt-[30px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <h5 class="hidden text-xl font-bold sm:block">新規作成</h5>
-      <div class="mt-[30px] flex flex-col">
-        <x-input-label for="title" value="マニュアルタイトル" />
+      <div class="mx-5 flex flex-col sm:mx-0 sm:mt-[30px]">
+        <x-input-label class="hidden sm:block" for="title" value="マニュアルタイトル" />
         <x-text-input id="title" name="title" type="text" placeholder="タイトルを入力してください"
           wire:model="form.title" />
         @error('form.title')
@@ -68,7 +70,7 @@
           @endif
         @else
           <div
-            class="mt-[27px] flex h-[450px] w-full flex-col items-center justify-center rounded-lg border border-dashed bg-[#F7F9FA]"
+            class="mx-5 mt-[27px] flex h-[220px] flex-col items-center justify-center rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full"
             :class="{ 'border-blue-500 bg-blue-50': isDragging }">
             <svg width="214" height="66" viewBox="0 0 214 66" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g opacity="0.4">
@@ -86,7 +88,7 @@
                 fill="#222222" />
             </svg>
 
-            <svg class="mt-[28px]" width="50" height="50" viewBox="0 0 50 50" fill="none"
+            <svg class="mt-[28px] hidden sm:block" width="50" height="50" viewBox="0 0 50 50" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <circle cx="25" cy="25" r="25" fill="#EBEDF4" />
               <path
@@ -94,7 +96,7 @@
                 stroke="#AAB0B6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
 
-            <p class="mt-[10px] text-xs font-bold text-[#AAB0B6]">ファイルをエリア内にドラッグ＆ドロップしてください</p>
+            <p class="mt-[10px] hidden text-xs font-bold text-[#AAB0B6] sm:block">ファイルをエリア内にドラッグ＆ドロップしてください</p>
             <button class="mt-5 font-bold text-[#3289FA] hover:opacity-40" type="button"
               x-on:click="$refs.fileInput.click()">
               ファイルを選択する
@@ -102,7 +104,7 @@
 
             <p class="mt-5 text-center text-sm opacity-30">
               ※推奨サイズ<br>
-              画像：横780px × 高さ440px 動画：1080p（フルHD）
+              画像：横780px × 高さ440px <br class="block sm:hidden"> 動画：1080p（フルHD）
             </p>
           </div>
         @endif
@@ -115,8 +117,8 @@
       </div>
 
       <div class="mt-[27px]">
-        <x-input-label for="details[]" value="テキストボックス" />
-        <div class="mt-[9px] flex flex-col rounded-lg border border-[#DDDDDD]">
+        <x-input-label class="hidden sm:block" for="details[]" value="テキストボックス" />
+        <div class="mt-[9px] flex flex-col border-[#DDDDDD] sm:rounded-lg sm:border">
           @foreach ($form->details as $index => $detail)
             <div class="min-h-[250px]">
               <div class="flex h-[60px] items-center border-b bg-[#F7F7F7] px-[10px]">
@@ -157,9 +159,89 @@
         </div>
       </div>
 
-      <hr class="-mx-5 mt-[100px] border-t border-[#DDDDDD]">
+      <hr class="-mx-5 mt-[60px] border-t border-[#DDDDDD] sm:mt-[100px]">
 
-      <div class="mb-[80px] mt-5 flex items-center justify-center space-x-5">
+      <div class="mt-[30px] sm:hidden">
+        <div class="procedure-container">
+          <h5 class="text-xl font-bold">業務手順</h5>
+          <div class="procedure-rows mt-5">
+            @foreach ($form->steps as $index => $step)
+              <div class="procedure-row">
+                <div class="marker">
+                  <div class="circle">{{ $index + 1 }}</div>
+                </div>
+                <div x-data>
+                  <div class="procedure-box">
+                    <div class="procedure-box-title">
+                      <h4>手順{{ $index + 1 }}</h4>
+                      <div class="flex items-center space-x-5">
+                        <button class="image-add-btn" type="button" @click="$refs.fileInput.click()">
+                          <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M13.8462 7.5C13.8462 5.8169 13.1778 4.20245 11.9877 3.01232C10.7975 1.82219 9.1831 1.15385 7.5 1.15385C5.8169 1.15385 4.20245 1.82219 3.01232 3.01232C1.82219 4.20245 1.15385 5.8169 1.15385 7.5C1.15385 8.33339 1.31794 9.15868 1.63687 9.92864C1.95579 10.6986 2.42304 11.3984 3.01232 11.9877C3.6016 12.577 4.30143 13.0442 5.07136 13.3631C5.84131 13.6821 6.66661 13.8462 7.5 13.8462C8.33339 13.8462 9.15869 13.6821 9.92864 13.3631C10.6986 13.0442 11.3984 12.577 11.9877 11.9877C12.577 11.3984 13.0442 10.6986 13.3631 9.92864C13.6821 9.15869 13.8462 8.33339 13.8462 7.5ZM6.92308 9.80769V8.07692H5.19231C4.87368 8.07692 4.61538 7.81863 4.61538 7.5C4.61538 7.18137 4.87368 6.92308 5.19231 6.92308H6.92308V5.19231C6.92308 4.87368 7.18137 4.61538 7.5 4.61538C7.81863 4.61538 8.07692 4.87368 8.07692 5.19231V6.92308H9.80769C10.1263 6.92308 10.3846 7.18137 10.3846 7.5C10.3846 7.81863 10.1263 8.07692 9.80769 8.07692H8.07692V9.80769C8.07692 10.1263 7.81863 10.3846 7.5 10.3846C7.18137 10.3846 6.92308 10.1263 6.92308 9.80769ZM15 7.5C15 8.48491 14.806 9.4604 14.4291 10.3703C14.0522 11.2802 13.4999 12.1071 12.8035 12.8035C12.1071 13.4999 11.2802 14.0522 10.3703 14.4291C9.4604 14.806 8.48491 15 7.5 15C6.51509 15 5.5396 14.806 4.62966 14.4291C3.71979 14.0522 2.89291 13.4999 2.19651 12.8035C1.50012 12.1071 0.947822 11.2802 0.570913 10.3703C0.194003 9.4604 -1.35475e-08 8.48491 0 7.5C2.96403e-08 5.51088 0.789992 3.60304 2.19651 2.19651C3.60304 0.789992 5.51088 0 7.5 0C9.48912 0 11.397 0.789992 12.8035 2.19651C14.21 3.60304 15 5.51088 15 7.5Z"
+                              fill="#3289FA" />
+                          </svg>
+                          画像を追加する
+                        </button>
+                        @if ($index != 0 || count($form->steps) >= 2)
+                          <button class="hover:opacity-40" type="button"
+                            wire:click="deleteStep({{ $index }})">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6 18L18 6M6 6L18 18" stroke="#5E5E5E" stroke-width="1.2"
+                                stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </button>
+                        @endif
+                      </div>
+                    </div>
+                    <div class="form-area">
+                      <textarea class="textarea-title-box" wire:model="form.steps.{{ $index }}.title" placeholder="例：野菜を盛り付ける"></textarea>
+
+                      <textarea class="textarea-explanation-box" wire:model="form.steps.{{ $index }}.content"
+                        placeholder="タイトルに該当する文章を記載してください"></textarea>
+
+                      <input type="file" x-ref="fileInput" wire:model="form.steps.{{ $index }}.file"
+                        hidden />
+
+                      @if ($form->steps[$index]['file'])
+                        <div class="relative max-h-[200px] w-full">
+                          <img class="h-[200px] w-full" src="{{ $form->steps[$index]['file']->temporaryUrl() }}" />
+                          <button
+                            class="absolute right-2 top-2 flex h-[30px] w-[30px] items-center justify-center rounded bg-[#272727] bg-opacity-40 hover:bg-opacity-70"
+                            type="button" wire:click="deleteStepFile({{ $index }})">
+                            <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path d="M6.8457 18.8448L18.8457 6.84478M6.8457 6.84478L18.8457 18.8448" stroke="white"
+                                stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                          </button>
+                        </div>
+                      @endif
+                    </div>
+                  </div>
+                  <button
+                    class="mt-[11px] flex w-full items-center justify-center space-x-[4.25px] text-sm font-bold text-[#3289FA]"
+                    type="button" wire:click="addStep({{ $index }})">
+                    <svg width="15" height="15" viewBox="0 0 15 15" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M13.8462 7.5C13.8462 5.8169 13.1778 4.20245 11.9877 3.01232C10.7975 1.82219 9.1831 1.15385 7.5 1.15385C5.8169 1.15385 4.20245 1.82219 3.01232 3.01232C1.82219 4.20245 1.15385 5.8169 1.15385 7.5C1.15385 8.33339 1.31794 9.15868 1.63687 9.92864C1.95579 10.6986 2.42304 11.3984 3.01232 11.9877C3.6016 12.577 4.30143 13.0442 5.07136 13.3631C5.84131 13.6821 6.66661 13.8462 7.5 13.8462C8.33339 13.8462 9.15869 13.6821 9.92864 13.3631C10.6986 13.0442 11.3984 12.577 11.9877 11.9877C12.577 11.3984 13.0442 10.6986 13.3631 9.92864C13.6821 9.15869 13.8462 8.33339 13.8462 7.5ZM6.92308 9.80769V8.07692H5.19231C4.87368 8.07692 4.61538 7.81863 4.61538 7.5C4.61538 7.18137 4.87368 6.92308 5.19231 6.92308H6.92308V5.19231C6.92308 4.87368 7.18137 4.61538 7.5 4.61538C7.81863 4.61538 8.07692 4.87368 8.07692 5.19231V6.92308H9.80769C10.1263 6.92308 10.3846 7.18137 10.3846 7.5C10.3846 7.81863 10.1263 8.07692 9.80769 8.07692H8.07692V9.80769C8.07692 10.1263 7.81863 10.3846 7.5 10.3846C7.18137 10.3846 6.92308 10.1263 6.92308 9.80769ZM15 7.5C15 8.48491 14.806 9.4604 14.4291 10.3703C14.0522 11.2802 13.4999 12.1071 12.8035 12.8035C12.1071 13.4999 11.2802 14.0522 10.3703 14.4291C9.4604 14.806 8.48491 15 7.5 15C6.51509 15 5.5396 14.806 4.62966 14.4291C3.71979 14.0522 2.89291 13.4999 2.19651 12.8035C1.50012 12.1071 0.947822 11.2802 0.570913 10.3703C0.194003 9.4604 -1.35475e-08 8.48491 0 7.5C2.96403e-08 5.51088 0.789992 3.60304 2.19651 2.19651C3.60304 0.789992 5.51088 0 7.5 0C9.48912 0 11.397 0.789992 12.8035 2.19651C14.21 3.60304 15 5.51088 15 7.5Z"
+                        fill="#3289FA" />
+                    </svg>
+                    <p>手順を追加する</p>
+                  </button>
+                </div>
+              </div>
+            @endforeach
+          </div>
+        </div>
+      </div>
+
+      <hr class="-mx-5 mt-[60px] border-t border-[#DDDDDD] sm:hidden">
+
+      <div class="mb-[80px] mt-5 hidden items-center justify-center space-x-5 sm:flex">
         <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
           href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#5E5E5E] text-[#5E5E5E]">
@@ -175,11 +257,28 @@
           type="submit">投稿する</button>
       </div>
 
+      <div class="mx-5 mb-[80px] mt-[30px] sm:hidden">
+        <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+          type="submit">投稿する</button>
+        <div class="mt-[30px] flex items-center space-x-5">
+          <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
+            href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}">
+            <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#5E5E5E] text-[#5E5E5E]">
+              キャンセル
+            </p>
+          </a>
+          <button class="h-[50px] w-[230px] rounded hover:opacity-40" type="submit">
+            <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
+              下書きとして保存
+            </p>
+          </button>
+        </div>
+      </div>
+
     </div>
 
-    @vite(['Modules/Manual/resources/assets/js/procedure.js', 'Modules/Manual/resources/assets/css/procedure.css'])
     <div
-      class="top-container mt-[20px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[320px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:block sm:min-w-[320px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <h5 class="hidden text-xl font-bold sm:block">業務手順</h5>
       <div class="procedure-container">
         <div class="procedure-rows">

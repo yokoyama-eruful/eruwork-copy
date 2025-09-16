@@ -232,7 +232,7 @@
     </div>
 
     {{-- モバイル版 --}}
-    {{-- <div class="mt-[10px] block sm:hidden">
+    <div class="mt-[10px] block sm:hidden">
       <div class="border-b px-5 py-[10px] text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
       @foreach ($this->calendar as $key => $content)
         @if ($content['type'] != '補助日')
@@ -376,7 +376,7 @@
           </div>
         @endif
       @endforeach
-    </div> --}}
+    </div>
 
   </x-main.container>
 </x-main.index>

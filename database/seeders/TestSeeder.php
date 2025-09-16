@@ -23,11 +23,11 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         $this->user();
-        $this->board();
-        $this->calendar();
-        $this->chat();
-        $this->timecard();
-        $this->shift();
+        // $this->board();
+        // $this->calendar();
+        // $this->chat();
+        // $this->timecard();
+        // $this->shift();
     }
 
     private function user()

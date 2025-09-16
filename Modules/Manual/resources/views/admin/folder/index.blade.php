@@ -1,27 +1,33 @@
 <x-dashboard-layout>
   <x-dashboard.index>
     <x-dashboard.top>
-      <livewire:manual::admin.folder.create-modal />
+      <div class="hidden sm:block">
+        <livewire:manual::admin.folder.create-modal />
+      </div>
+      <h5 class="text-xl font-bold sm:hidden">マニュアル管理</h5>
     </x-dashboard.top>
     <x-dashboard.container>
-      <h5 class="text-xl font-bold">マニュアル管理</h5>
+      <h5 class="hidden text-xl font-bold sm:block">マニュアル管理</h5>
+      <div class="mx-5 sm:hidden">
+        <livewire:manual::admin.folder.create-modal />
+      </div>
       @if ($folders->isNotEmpty())
-        <div class="mt-[30px] grid grid-cols-[70%,10%,10%,5%,5%]">
+        <div class="mt-[30px] hidden grid-cols-[70%,10%,10%,5%,5%] sm:grid">
           <div class="pl-[30px] text-xs text-[#AAB0B6]">表題</div>
           <div class="text-xs text-[#AAB0B6]">メンバー</div>
           <div class="text-xs text-[#AAB0B6]">更新日</div>
           <div></div>
           <div></div>
         </div>
-        <div class="mt-[10px] rounded-xl border">
+        <div class="mt-[10px] border-b sm:rounded-xl sm:border">
           @foreach ($folders as $folder)
             <div @class([
-                'grid grid-cols-[70%,10%,10%,5%,5%] py-[30px] text-[15px] flex items-center',
+                'grid sm:grid-cols-[70%,10%,10%,5%,5%] grid-cols-[80%,10%,10%] sm:py-[30px] py-5 text-[15px] flex items-center',
                 'border-b' => !$loop->last,
             ])>
               <div class="pl-[30px] font-bold">{{ $folder->title }}</div>
-              <div>{{ $folder->user->name }}</div>
-              <div>{{ $folder->updated_at?->format('Y年m月d日') }}</div>
+              <div class="hidden sm:block">{{ $folder->user->name }}</div>
+              <div class="hidden sm:block">{{ $folder->updated_at?->format('Y年m月d日') }}</div>
               <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
                 <button type="button" @click="openDialog{{ $folder->id }} = !openDialog{{ $folder->id }};">
                   <svg width="30" height="30" viewBox="0 0 30 30" fill="none"

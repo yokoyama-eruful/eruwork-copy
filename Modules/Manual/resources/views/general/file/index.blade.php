@@ -1,7 +1,9 @@
-<x-app-layout>
+<x-app-layout :url="route('manualFolder.index')">
   <x-main.index>
     <x-main.top>
-      <a class="flex items-center space-x-[2px] text-[#3289FA] hover:opacity-40" href="{{ route('manualFolder.index') }}">
+      <h5 class="block text-xl font-bold sm:hidden">{{ $folder->title }}</h5>
+      <a class="hidden items-center space-x-[2px] text-[#3289FA] hover:opacity-40 sm:flex"
+        href="{{ route('manualFolder.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M5.78964 9.39738C5.6843 9.29192 5.62514 9.14895 5.62514 8.99988C5.62514 8.85082 5.6843 8.70785 5.78964 8.60238L11.4146 2.97738C11.5213 2.87802 11.6623 2.82393 11.808 2.8265C11.9538 2.82907 12.0928 2.88811 12.1959 2.99117C12.2989 3.09423 12.358 3.23327 12.3605 3.37899C12.3631 3.52472 12.309 3.66575 12.2096 3.77238L6.98214 8.99988L12.2096 14.2274C12.2649 14.2789 12.3092 14.341 12.34 14.41C12.3707 14.479 12.3873 14.5535 12.3886 14.629C12.3899 14.7045 12.376 14.7795 12.3477 14.8496C12.3194 14.9196 12.2773 14.9832 12.2239 15.0367C12.1705 15.0901 12.1069 15.1322 12.0368 15.1605C11.9668 15.1888 11.8918 15.2027 11.8162 15.2013C11.7407 15.2 11.6662 15.1835 11.5972 15.1527C11.5282 15.122 11.4661 15.0777 11.4146 15.0224L5.78964 9.39738Z"
@@ -11,9 +13,9 @@
       </a>
     </x-main.top>
     <x-main.container>
-      <h5 class="text-xl font-bold">{{ $folder->title }}</h5>
+      <h5 class="hidden text-xl font-bold sm:block">{{ $folder->title }}</h5>
       @if ($files->isNotEmpty())
-        <div class="mt-[30px] grid grid-cols-[10%,5%,41%,21%,21%,2%] px-5">
+        <div class="mt-[30px] hidden grid-cols-[10%,5%,41%,21%,21%,2%] px-5 sm:grid">
           <div class="text-xs text-[#AAB0B6]">サムネイル</div>
           <div class="text-xs text-[#AAB0B6]"></div>
           <div class="text-xs text-[#AAB0B6]">表題</div>
@@ -21,10 +23,10 @@
           <div class="text-xs text-[#AAB0B6]">更新日</div>
           <div class="text-xs text-[#AAB0B6]"></div>
         </div>
-        <div class="mt-[10px] rounded-xl border">
+        <div class="mt-[30px] border-b sm:mt-[10px] sm:rounded-xl sm:border">
           @foreach ($files as $file)
             <div @class([
-                'grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5',
+                'hidden sm:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5',
                 'border-b' => !$loop->last,
             ])>
               <img class="max-h-[80px] max-w-[145px] rounded"
@@ -54,7 +56,38 @@
                   <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
                 </svg>
-              </a href="">
+              </a>
+            </div>
+
+            <div @class([
+                'grid grid-cols-[30%,60%,10%] items-center px-[20px] py-[15px] sm:hidden',
+                'border-b' => !$loop->last,
+            ])>
+              <img class="max-h-[55px] max-w-[100px] rounded"
+                src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $file->thumbnail_path) }}" />
+
+              <div>
+                <div class="flex items-center space-x-1">
+                  @if (str_contains($file->type, 'video'))
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M11.8125 7.875L15.3525 4.335C15.4312 4.25643 15.5313 4.20294 15.6404 4.18128C15.7494 4.15961 15.8625 4.17075 15.9652 4.21328C16.0679 4.25582 16.1557 4.32784 16.2175 4.42025C16.2794 4.51266 16.3124 4.62132 16.3125 4.7325V13.2675C16.3124 13.3787 16.2794 13.4873 16.2175 13.5797C16.1557 13.6722 16.0679 13.7442 15.9652 13.7867C15.8625 13.8292 15.7494 13.8404 15.6404 13.8187C15.5313 13.7971 15.4312 13.7436 15.3525 13.665L11.8125 10.125M3.375 14.0625H10.125C10.5726 14.0625 11.0018 13.8847 11.3182 13.5682C11.6347 13.2518 11.8125 12.8226 11.8125 12.375V5.625C11.8125 5.17745 11.6347 4.74823 11.3182 4.43176C11.0018 4.11529 10.5726 3.9375 10.125 3.9375H3.375C2.92745 3.9375 2.49822 4.11529 2.18176 4.43176C1.86529 4.74823 1.6875 5.17745 1.6875 5.625V12.375C1.6875 12.8226 1.86529 13.2518 2.18176 13.5682C2.49822 13.8847 2.92745 14.0625 3.375 14.0625Z"
+                        stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  @endif
+                  <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
+                </div>
+                <div class="text-xs">更新日：{{ $file->updated_at->format('Y年m月d日') ?? '' }}</div>
+              </div>
+              <a class="flex items-center justify-end hover:opacity-40"
+                href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
+              </a>
             </div>
           @endforeach
         </div>
