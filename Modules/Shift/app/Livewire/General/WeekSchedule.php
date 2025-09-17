@@ -15,7 +15,7 @@ use Modules\Shift\Models\Schedule;
 
 class WeekSchedule extends Component
 {
-    public Manager $manager;
+    public ?Manager $manager = null;
 
     public Collection $users;
 

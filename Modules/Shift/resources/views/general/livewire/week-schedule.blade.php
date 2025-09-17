@@ -194,54 +194,58 @@
 
     <div class="flex w-full flex-col sm:hidden">
       <div class="text-xl font-bold">シフト表</div>
-      <div class="mt-[30px]">
-        <div class="text-[11px] font-bold">シフト提出依頼</div>
-        <div class="grid grid-cols-[80%,20%] bg-[#F7F7F7] px-5 py-2">
-          <div class="grid grid-rows-2">
-            <div class="flex items-center">
-              <div @class([
-                  'truncate px-[10px] w-fit font-bold text-xs text-white rounded-full py-[3px]',
-                  'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
-                  'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
-                  'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
-              ])>
-                {{ $manager->ReceptionStatus }}
+      @if ($manager)
+        <div class="mt-[30px]">
+          <div class="text-[11px] font-bold">シフト提出依頼</div>
+          <div class="grid grid-cols-[80%,20%] bg-[#F7F7F7] px-5 py-2">
+            <div class="grid grid-rows-2">
+              <div class="flex items-center">
+                <div @class([
+                    'truncate px-[10px] w-fit font-bold text-xs text-white rounded-full py-[3px]',
+                    'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
+                    'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+                    'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
+                ])>
+                  {{ $manager->ReceptionStatus }}
+                </div>
+                <div class="ml-[8px] text-sm text-[#FF4A62]">
+                  {{ $manager->submission_end_date->isoFormat('MM月DD日（ddd）まで') }}</div>
               </div>
-              <div class="ml-[8px] text-sm text-[#FF4A62]">
-                {{ $manager->submission_end_date->isoFormat('MM月DD日（ddd）まで') }}</div>
+              <div class="text-[18px] font-bold">{{ $manager->start_date->isoFormat('YYYY年MM月DD日') }}～
+                {{ $manager->end_date->isoFormat('MM月DD日') }}</div>
             </div>
-            <div class="text-[18px] font-bold">{{ $manager->start_date->isoFormat('YYYY年MM月DD日') }}～
-              {{ $manager->end_date->isoFormat('MM月DD日') }}</div>
+            <div class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40">入力する</div>
           </div>
-          <div class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40">入力する</div>
         </div>
-      </div>
+      @endif
     </div>
   </x-main.top>
   <x-main.container>
     <div class="hidden items-center justify-between sm:flex">
       <h5 class="text-xl font-bold">シフト表</h5>
-      <div class="flex items-center">
-        <p class="text-xs">シフト提出依頼：</p>
-        <div class="ml-3 flex h-[45px] items-center rounded bg-[#F7F7F7] px-5">
-          <div @class([
-              'hidden truncate px-[10px] w-fit font-bold sm:block text-xs text-white rounded-full py-[3px]',
-              'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
-              'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
-              'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
-          ])>
-            {{ $manager->ReceptionStatus }}
+      @if ($manager)
+        <div class="flex items-center">
+          <p class="text-xs">シフト提出依頼：</p>
+          <div class="ml-3 flex h-[45px] items-center rounded bg-[#F7F7F7] px-5">
+            <div @class([
+                'hidden truncate px-[10px] w-fit font-bold sm:block text-xs text-white rounded-full py-[3px]',
+                'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
+                'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+                'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
+            ])>
+              {{ $manager->ReceptionStatus }}
+            </div>
+            <div class="ml-[11px] font-semibold">{{ $manager->start_date->isoFormat('MM/DD（ddd）') }}～
+              {{ $manager->end_date->isoFormat('MM/DD（ddd）') }}</div>
+            <a class="ml-[10px] text-xs text-[#3289FA] hover:opacity-40"
+              href="{{ route('shift.submission.show', ['manager' => $manager]) }}">シフトを入力する</a>
+            <hr class="mx-5 h-5 border-r" />
+            <p class="text-xs">期限：</p>
+            <div class="ml-[8px] font-semibold text-[#FF4A62]">
+              {{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）まで') }}</div>
           </div>
-          <div class="ml-[11px] font-semibold">{{ $manager->start_date->isoFormat('MM/DD（ddd）') }}～
-            {{ $manager->end_date->isoFormat('MM/DD（ddd）') }}</div>
-          <a class="ml-[10px] text-xs text-[#3289FA] hover:opacity-40"
-            href="{{ route('shift.submission.show', ['manager' => $manager]) }}">シフトを入力する</a>
-          <hr class="mx-5 h-5 border-r" />
-          <p class="text-xs">期限：</p>
-          <div class="ml-[8px] font-semibold text-[#FF4A62]">
-            {{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）まで') }}</div>
         </div>
-      </div>
+      @endif
     </div>
     <div class="mb-[12px] mt-[35px] flex items-center justify-between px-5 sm:mb-[14px] sm:mt-[17px] sm:px-0">
       <div class="flex items-center">

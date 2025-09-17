@@ -13,7 +13,7 @@ use Modules\Shift\Models\Schedule;
 
 class DaySchedule extends Component
 {
-    public Manager $manager;
+    public ?Manager $manager = null;
 
     public $date;
 
