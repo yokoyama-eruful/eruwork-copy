@@ -11,7 +11,7 @@
     <form class="p-4" id="form-hourly-rate-{{ $user->id }}" wire:submit="save" x-data="Datepickr()"
       x-init="initDatepickr">
 
-      <div class="mt-4">
+      <div class="grid grid-cols-[20%,80%] items-center">
         <x-input-label for="rate" value="時給" />
 
         <x-text-input class="mt-1 block w-full" id="rate" name="rate" type="number" min="0"
@@ -22,7 +22,7 @@
         @enderror
       </div>
 
-      <div class="mt-4">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label for="date" value="開始日" />
 
         <x-text-input class="js-datepicker mt-1 block w-full" id="date" name="date" type="text"

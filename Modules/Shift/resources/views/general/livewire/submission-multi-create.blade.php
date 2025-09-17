@@ -85,7 +85,7 @@
     <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
     複数日登録
   </button>
-  <x-modal name="multi-create-modal" title="予定複数登録" maxWidth="lg">
+  <x-modal name="multi-create-modal" title="予定複数登録">
     <form class="px-[15px] py-5" id="multi-create-form" method="post" wire:submit="save">
       @csrf
 

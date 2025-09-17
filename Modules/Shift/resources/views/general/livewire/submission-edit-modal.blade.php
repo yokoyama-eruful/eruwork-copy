@@ -1,6 +1,6 @@
 <x-modal name="edit-modal-{{ $schedule->id }}" title="シフト希望編集">
   @if ($schedule->shiftStatus || !$manager->OverSubmissionPeriod)
-    <div class="px-4 pb-4">
+    <div class="p-4">
       <div class="mt-4 text-start text-lg font-bold">
         {{ $schedule->date->format('Y年m月d日') }}
       </div>
@@ -46,16 +46,16 @@
   @endif
 
   @if (!$schedule->shiftStatus && $manager->OverSubmissionPeriod)
-    <form class="flex justify-end" wire:submit="delete">
+    <form class="flex justify-end" id="shift-edit-{{ $schedule->id }}" wire:submit="delete">
       <x-danger-button>削除</x-danger-button>
     </form>
-    <form class="px-4 pb-4" wire:submit="update">
+    <form class="p-4" wire:submit="update">
       @csrf
 
-      <div class="mt-4 text-start text-lg font-bold">
+      <div class="text-start text-lg font-bold">
         {{ $schedule->date->format('Y年m月d日') }}
       </div>
-      <div class="mt-4">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label class="text-start" for="start_time" value="開始時間" />
 
         <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time"
@@ -66,7 +66,7 @@
         @enderror
       </div>
 
-      <div class="mt-2">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label class="text-start" for="end_time" value="終了時間" />
 
         <x-text-input class="mt-1 block w-full" id="end_time" name="end_time" type="time" wire:model="form.endTime"
@@ -77,15 +77,15 @@
         @enderror
       </div>
 
-      <div class="mt-6 flex justify-end">
+      <x-slot:footer>
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="ms-3" form="shift-edit-{{ $schedule->id }}">
           更新
         </x-primary-button>
-      </div>
+      </x-slot:footer>
     </form>
   @endif
 </x-modal>

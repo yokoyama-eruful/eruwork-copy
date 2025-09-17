@@ -14,7 +14,7 @@ class CreateSchedule extends Component
 
     public CarbonImmutable $date;
 
-    public function add(): void
+    public function add()
     {
         $this->form->date = $this->date->format('Y-m-d');
         $this->form->userId = Auth::id();

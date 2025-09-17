@@ -265,8 +265,23 @@
       <h5 class="text-xl font-bold">シフト表</h5>
       <div class="flex items-center">
         <p class="text-xs">シフト提出依頼：</p>
-        <div class="ml-3 rounded bg-[#F7F7F7] px-5 py-[13px]">
-
+        <div class="ml-3 flex h-[45px] items-center rounded bg-[#F7F7F7] px-5">
+          <div @class([
+              'hidden truncate px-[10px] w-fit font-bold sm:block text-xs text-white rounded-full py-[3px]',
+              'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
+              'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+              'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
+          ])>
+            {{ $manager->ReceptionStatus }}
+          </div>
+          <div class="ml-[11px] font-semibold">{{ $manager->start_date->isoFormat('MM/DD（ddd）') }}～
+            {{ $manager->end_date->isoFormat('MM/DD（ddd）') }}</div>
+          <a class="ml-[10px] text-xs text-[#3289FA] hover:opacity-40"
+            href="{{ route('shift.submission.show', ['manager' => $manager]) }}">シフトを入力する</a>
+          <hr class="mx-5 h-5 border-r" />
+          <p class="text-xs">期限：</p>
+          <div class="ml-[8px] font-semibold text-[#FF4A62]">
+            {{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）まで') }}</div>
         </div>
       </div>
     </div>

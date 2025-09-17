@@ -15,12 +15,12 @@
     <x-main.container>
       <div class="hidden items-center justify-between sm:flex">
         <h5 class="text-xl font-bold">シフト表一覧</h5>
-        <div class="flex items-center">
+        {{-- <div class="flex items-center">
           <p class="text-xs">シフト提出依頼：</p>
           <div class="ml-3 rounded bg-[#F7F7F7] px-5 py-[13px]">
 
           </div>
-        </div>
+        </div> --}}
       </div>
       {{-- デスクトップ版  --}}
       <div class="mt-[30px] hidden grid-cols-[10%,64%,14%,12%] sm:grid">

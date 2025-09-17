@@ -9,10 +9,10 @@
         </svg>
         <div class="text-sm font-bold text-[#3289FA]">一覧画面に戻る</div>
       </a>
-      <div class="h-[35px] border-l"></div>
+      <div class="h-[35px] border-l sm:hidden"></div>
     </div>
 
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between sm:hidden">
       <a class="flex items-center space-x-[10px]" href="{{ route('shiftManager.index') }}">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"

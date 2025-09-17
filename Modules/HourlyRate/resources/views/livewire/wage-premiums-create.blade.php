@@ -23,7 +23,7 @@
     <button class="pl-[30px] text-sm text-[#3289FA] hover:opacity-40" type="button"
       x-on:click="$dispatch('open-modal','edit-modal')">設定する</button>
   </div>
-  <x-modal name="edit-modal" title="割増料金設定" maxWidth="350">
+  <x-modal name="edit-modal" title="割増料金設定">
     <form class="px-5 py-[18px]" id="form-hourly-rate" wire:submit="save">
 
       @if ($errors->any())

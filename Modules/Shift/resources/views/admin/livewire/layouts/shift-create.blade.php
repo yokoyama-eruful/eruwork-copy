@@ -16,7 +16,7 @@
         {{ $content['date']->format('Y年m月d日') }}
       </div>
 
-      <div class="mt-4">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label for="user" value="ユーザー名" />
         <select class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
           wire:model="form.userId">
@@ -30,7 +30,7 @@
         @enderror
       </div>
 
-      <div class="mt-4">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label for="start_time" value="開始時間" />
 
         <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time"
@@ -41,7 +41,7 @@
         @enderror
       </div>
 
-      <div class="mt-2">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label for="end_time" value="終了時間" />
 
         <x-text-input class="mt-1 block w-full" id="end_time" name="end_time" type="time" wire:model="form.endTime"

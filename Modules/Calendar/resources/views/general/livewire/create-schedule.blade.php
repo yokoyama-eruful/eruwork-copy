@@ -1,4 +1,4 @@
-<x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="予定登録" maxWidth="lg">
+<x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="予定登録">
   <form class="px-[15px] py-5" id="create-form-{{ $date->format('Y-m-d') }}" method="post" wire:submit="add">
     @csrf
 

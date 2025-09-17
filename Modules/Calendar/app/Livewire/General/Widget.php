@@ -33,12 +33,21 @@ class Widget extends Component
 
     public array $pullDownMenu = [];
 
+    // モバイル用
+    public $selectDate;
+
+    public $mobileSchedules;
+
+    public $mobileShiftSchedules;
+
     public function mount()
     {
         $this->setToday();
         $this->updateDays();
 
         $this->reloadCalendar();
+
+        $this->selectedDate(now()->format('Y-m-d'));
     }
 
     public function setPeriod($startDate)
@@ -200,6 +209,16 @@ class Widget extends Component
             'month' => range(1, 12),
             'day' => range(1, $daysInCurrentMonth),
         ];
+    }
+
+    // モバイル用
+    public function selectedDate($date)
+    {
+        $this->selectDate = CarbonImmutable::parse($date);
+
+        $this->mobileShiftSchedules = ShiftSchedule::where('date', $date)->get();
+
+        $this->mobileSchedules = Schedule::where('date', $date)->get();
     }
 
     public function render()

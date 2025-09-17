@@ -8,10 +8,13 @@ use App\Models\User;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Collection;
 use Livewire\Component;
+use Modules\Shift\Models\Manager;
 use Modules\Shift\Models\Schedule;
 
 class DaySchedule extends Component
 {
+    public Manager $manager;
+
     public $date;
 
     public Collection $users;
@@ -30,6 +33,16 @@ class DaySchedule extends Component
 
     public function mount()
     {
+        $today = now();
+        $this->manager = Manager::all()
+            ->filter(function ($manager) {
+                return $manager->ReceptionStatus === '受付中';
+            })
+            ->sortBy(function ($manager) use ($today) {
+                return abs($manager->submission_end_date->diffInDays($today));
+            })
+            ->first();
+
         $this->getToday();
 
         $this->updateDays();

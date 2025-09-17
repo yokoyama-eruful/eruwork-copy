@@ -1,6 +1,6 @@
-<x-modal name="create-break-time-modal-{{ $user->id }}">
-  <form class="px-4 pb-4" id="form-break-time-{{ $user->id }}" wire:submit="storeBreakTime">
-    <div class="">
+<x-modal name="create-break-time-modal-{{ $user->id }}" :title="'休憩時間作成'">
+  <form class="p-4" id="form-break-time-{{ $user->id }}" wire:submit="storeBreakTime">
+    <div class="grid grid-cols-[20%,80%] items-center">
       <x-input-label for="title" value="開始時間" />
 
       <x-text-input class="mt-1 block w-full" name="in-time" type="time" wire:model="form.in_time" required />
@@ -8,7 +8,7 @@
       <x-input-error class="mt-2" :messages="$errors->get('form.in_time')" />
     </div>
 
-    <div class="mt-4">
+    <div class="mt-4 grid grid-cols-[20%,80%] items-center">
       <x-input-label for="title" value="終了時間" />
 
       <x-text-input class="mt-1 block w-full" name="out-time" type="time" wire:model="form.out_time" required />

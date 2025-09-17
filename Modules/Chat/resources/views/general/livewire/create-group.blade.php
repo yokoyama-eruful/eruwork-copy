@@ -1,10 +1,10 @@
 <x-modal name="view-group-create-modal">
-  <form wire:submit="store" enctype="multipart/form-data">
+  <form class="p-4" id="chat-group-create" wire:submit="store" enctype="multipart/form-data">
     <x-slot:title>
       グループ作成
     </x-slot:title>
 
-    <div class="mt-4">
+    <div>
       <x-input-label for="icon" value="アイコン" />
 
       <x-text-input class="mt-1 block w-full" id="icon" name="icon" type="file" wire:model="form.icon" />
@@ -27,7 +27,7 @@
 
     <div class="mt-4">
       <div class="flex flex-col gap-2 text-black">
-        <span class="font-semibold">メンバーの選択</span>
+        <span class="text-xs font-semibold">メンバーの選択</span>
         <div class="grid grid-cols-4 gap-3">
           @foreach ($this->users as $user)
             <label class="block cursor-pointer rounded border p-2 transition" x-data="{ checked: false }"
@@ -40,14 +40,14 @@
       </div>
     </div>
 
-    <div class="mt-6 flex justify-end">
+    <x-slot:footer>
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3">
+      <x-primary-button class="ms-3" form="chat-group-create">
         登録
       </x-primary-button>
-    </div>
+    </x-slot:footer>
   </form>
 </x-modal>

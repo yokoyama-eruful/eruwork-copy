@@ -42,9 +42,9 @@
       @endif
     </div>
 
-    <form class="px-[15px] py-5" id="form-shift-{{ $schedule->id }}" wire:submit="update">
-      <div class="mt-4">
+    <form class="p-4" id="form-shift-{{ $schedule->id }}" wire:submit="update">
 
+      <div class="grid grid-cols-[20%,80%] items-center">
         @if ($schedule->shift_draft_schedule_id)
           <x-input-label value="ユーザー名" />
           <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
@@ -66,13 +66,13 @@
       </div>
 
       @if ($schedule->shift_draft_schedule_id)
-        <div class="mt-4">
+        <div class="mt-4 grid grid-cols-[20%,80%] items-center">
           <x-input-label value="希望開始時間" />
           <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
             {{ $schedule->draftSchedule->start_time->format('H:i') }}
           </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 grid grid-cols-[20%,80%] items-center">
           <x-input-label value="希望終了時間" />
           <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
             {{ $schedule->draftSchedule->end_time->format('H:i') }}
@@ -80,7 +80,7 @@
         </div>
       @endif
 
-      <div class="mt-4">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label for="start_time" value="開始時間" />
 
         <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time"
@@ -91,7 +91,7 @@
         @enderror
       </div>
 
-      <div class="mt-2">
+      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label for="end_time" value="終了時間" />
 
         <x-text-input class="mt-1 block w-full" id="end_time" name="end_time" type="time" wire:model="form.endTime"

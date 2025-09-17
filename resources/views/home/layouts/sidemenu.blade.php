@@ -119,9 +119,9 @@
                 <li><a href="{{ route('account.index') }}" @class([
                     'bg-blue-500 rounded' => request()->routeIs('account.*'),
                 ])>アカウント管理</a></li>
-                <li><a href="{{ route('public_holiday.index') }}" @class([
+                {{-- <li><a href="{{ route('public_holiday.index') }}" @class([
                     'bg-blue-500 rounded' => request()->routeIs('public_holiday.*'),
-                ])>公休日登録</a></li>
+                ])>公休日登録</a></li> --}}
                 <li><a href="{{ route('hourlyRate.index') }}" @class([
                     'bg-blue-500 rounded' => request()->routeIs('hourlyRate.*'),
                 ])>時給管理</a></li>
