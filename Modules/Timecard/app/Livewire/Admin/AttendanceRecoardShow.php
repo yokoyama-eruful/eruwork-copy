@@ -10,6 +10,7 @@ use Carbon\CarbonPeriodImmutable;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Modules\HourlyRate\Models\WagePremium;
 use Modules\Shift\Models\Schedule;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
@@ -114,6 +115,12 @@ class AttendanceRecoardShow extends Component
     public function getTotalPay(int $userId): string
     {
         $user = User::find($userId);
+        if (! $user) {
+            return '0';
+        }
+
+        $wagePremium = WagePremium::where('name', '深夜')->first();
+        $premiumRate = $wagePremium ? 1 + ($wagePremium->rate / 100) : 1; // 割増率
 
         $startDate = CarbonImmutable::parse($this->startDate);
         $endDate = CarbonImmutable::parse($this->endDate)->addDay()->subSecond();
@@ -123,13 +130,13 @@ class AttendanceRecoardShow extends Component
             ->whereBetween('effective_date', [$startDate, $endDate])
             ->get();
 
-        if ($user->hourlyRate->isEmpty()) {
+        if ($hourlyRateList->isEmpty()) {
             return '--';
         }
 
+        // 時給テーブル作成
         $hourlyRateTable = [];
-
-        if ($startDate < $user->hourlyRate->first()->effective_date) {
+        if ($startDate < $hourlyRateList->first()->effective_date) {
             $hourlyRateTable[] = (object) [
                 'rate' => 0,
                 'start_date' => $startDate,
@@ -147,49 +154,78 @@ class AttendanceRecoardShow extends Component
         $totalPay = 0;
 
         foreach ($hourlyRateTable as $rateInfo) {
-            $minutes = $this->calcTotalMinutes(
-                $user, CarbonPeriodImmutable::create($rateInfo->start_date, $rateInfo->end_date)
-            );
+            $workTimes = WorkTime::with('breakTimes')
+                ->where('user_id', $user->id)
+                ->whereBetween('in_time', [$rateInfo->start_date, $rateInfo->end_date])
+                ->whereNotNull('in_time')
+                ->whereNotNull('out_time')
+                ->get();
 
-            $totalPay += ($minutes / 60 * $rateInfo->rate);
+            foreach ($workTimes as $workTime) {
+                $in = $workTime->in_time;
+                $out = $workTime->out_time;
+
+                $workMinutes = $in->diffInMinutes($out);
+                $breakMinutes = $workTime->breakTimes->sum(fn ($b) => $b->in_time->diffInMinutes($b->out_time));
+                $netMinutes = max($workMinutes - $breakMinutes, 0);
+
+                $midnightMinutes = 0;
+
+                // 深夜割増計算（設定があれば）
+                if ($wagePremium) {
+                    $premiumStartForDay = $in->copy()->setTimeFrom($wagePremium->start_time);
+                    $premiumEndForDay = $in->copy()->setTimeFrom($wagePremium->end_time);
+
+                    if ($premiumEndForDay->lessThanOrEqualTo($premiumStartForDay)) {
+                        $premiumEndForDay = $premiumEndForDay->addDay();
+                    }
+
+                    $overlapStart = $in->greaterThan($premiumStartForDay) ? $in : $premiumStartForDay;
+                    $overlapEnd = $out->lessThan($premiumEndForDay) ? $out : $premiumEndForDay;
+
+                    if ($overlapEnd->greaterThan($overlapStart)) {
+                        $midnightMinutes = $overlapStart->diffInMinutes($overlapEnd);
+                    }
+                }
+
+                // 通常給与
+                $totalPay += ($netMinutes - $midnightMinutes) / 60 * $rateInfo->rate;
+
+                // 深夜割増給与
+                if ($wagePremium) {
+                    $totalPay += ($midnightMinutes / 60) * $rateInfo->rate * $premiumRate;
+                }
+            }
         }
 
-        return floor($totalPay) . '円';
+        return (string) floor($totalPay);
     }
 
     private function calcTotalMinutes(User $user, CarbonPeriodImmutable $period)
     {
+        // 既存のまま、休憩を引いた通常勤務分を返す
         $workTimes = WorkTime::query()
             ->where('user_id', $user->id)
-            ->whereBetween('date', [$period->first(), $period->last()])
+            ->whereBetween('in_time', [$period->first()->startOfDay(), $period->last()->endOfDay()])
             ->whereNotNull('in_time')
             ->whereNotNull('out_time')
-            ->orderBy('in_time', 'asc')
+            ->with('breakTimes')
             ->get();
 
-        $totalWorkMinutes = $workTimes->sum(function ($workTime) {
-            $inTime = $workTime->in_time;
-            $outTime = $workTime->out_time;
+        $totalMinutes = 0;
 
-            return $inTime->diffInMinutes($outTime);
-        });
+        foreach ($workTimes as $workTime) {
+            $in = $workTime->in_time;
+            $out = $workTime->out_time;
 
-        $breakTimes = BreakTime::query()
-            ->where('user_id', $user->id)
-            ->whereBetween('date', [$period->first(), $period->last()])
-            ->whereNotNull('in_time')
-            ->whereNotNull('out_time')
-            ->orderBy('in_time', 'asc')
-            ->get();
+            $workMinutes = $in->diffInMinutes($out);
 
-        $totalBreakMinutes = $breakTimes->sum(function ($breakTime) {
-            $inTime = $breakTime->in_time;
-            $outTime = $breakTime->out_time;
+            $breakMinutes = $workTime->breakTimes->sum(fn ($break) => $break->in_time->diffInMinutes($break->out_time));
 
-            return $inTime->diffInMinutes($outTime);
-        });
+            $totalMinutes += max($workMinutes - $breakMinutes, 0);
+        }
 
-        return $totalWorkMinutes - $totalBreakMinutes;
+        return $totalMinutes;
     }
 
     #[Computed]

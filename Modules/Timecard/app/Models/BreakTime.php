@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Timecard\Models;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Timecard\Database\Factories\BreakTimeFactory;
@@ -21,6 +22,7 @@ class BreakTime extends Model
         'date',
         'in_time',
         'out_time',
+        'timecard__work_time_id',
     ];
 
     protected $casts = [
@@ -29,9 +31,14 @@ class BreakTime extends Model
         'out_time' => 'immutable_datetime',
     ];
 
-    public function attendance()
+    public function user()
     {
-        return $this->hasOne(WorkTime::class, 'attendance_id');
+        return $this->belongsTo(User::class);
+    }
+
+    public function workTime()
+    {
+        return $this->belongsTo(WorkTime::class, 'timecard__work_time_id');
     }
 
     protected static function newFactory(): BreakTimeFactory

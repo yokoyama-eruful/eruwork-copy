@@ -48,7 +48,7 @@
     <div
       class="top-container mt-[20px] h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <h5 class="hidden text-xl font-bold sm:block">タイムカード管理</h5>
-      <div class="block px-5 font-bold sm:hidden">{{ $this->selectDate->format('Y年m月d日') }}出勤者</div>
+      <div class="block px-5 font-bold sm:hidden">{{ $this->selectDate?->format('Y年m月d日') }}出勤者</div>
       <div
         class="mb-[9px] mt-4 grid grid-cols-[10%,30%,30%,30%] sm:mb-0 sm:mt-[30px] sm:grid-cols-[10%,40%,20%,20%,10%]">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
@@ -84,7 +84,7 @@
             <div class="truncate text-[15px]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
                 <div>
-                  {{ $attendance->in_time->isoFormat('HH:mm') }} - {{ $attendance->out_time->isoFormat('HH:mm') }}
+                  {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
                 </div>
               @endforeach
             </div>
@@ -92,7 +92,7 @@
             <div class="truncate text-[15px]">
               @foreach ($this->getBreakTimeList($user) as $attendance)
                 <div>
-                  {{ $attendance->in_time->isoFormat('HH:mm') }} - {{ $attendance->out_time->isoFormat('HH:mm') }}
+                  {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
                 </div>
               @endforeach
             </div>
@@ -106,7 +106,7 @@
 
           </div>
 
-          <a href="{{ route('timecardManager.show', ['id' => $user->id, 'date' => $selectDate->format('Y-m-d')]) }}"
+          <a href="{{ route('timecardManager.show', ['id' => $user->id, 'date' => $selectDate?->format('Y-m-d')]) }}"
             @class([
                 'grid sm:grid-cols-[10%,40%,20%,20%,10%] grid-cols-[10%,30%,30%,30%] sm:py-[18px] sm:py-3 py-[15px] text-[15px] sm:px-0 px-5 cursor-pointer items-center sm:hidden',
                 'border-b' => !$loop->last,
@@ -132,7 +132,7 @@
             <div class="truncate text-[15px]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
                 <div>
-                  {{ $attendance->in_time->isoFormat('HH:mm') }} - {{ $attendance->out_time->isoFormat('HH:mm') }}
+                  {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
                 </div>
               @endforeach
             </div>
@@ -140,7 +140,7 @@
             <div class="truncate text-[15px]">
               @foreach ($this->getBreakTimeList($user) as $attendance)
                 <div>
-                  {{ $attendance->in_time->isoFormat('HH:mm') }} - {{ $attendance->out_time->isoFormat('HH:mm') }}
+                  {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
                 </div>
               @endforeach
             </div>
@@ -172,7 +172,7 @@
         <div class="text-2xl font-bold">{{ $this->totalWorkTime() }}</div>
       </div>
       <div class="mt-[30px] font-bold">
-        {{ $this->selectDate->isoFormat('YYYY年MM月DD日（ddd曜）') }}
+        {{ $this->selectDate?->isoFormat('YYYY年MM月DD日（ddd曜）') }}
       </div>
       <div class="mt-6">
         <div class="text-[11px] font-bold">本日の勤務時間</div>
@@ -182,7 +182,7 @@
           <div class="flex items-center justify-between rounded border border-[#DDDDDD] px-[10px] py-3"
             wire:key="work-time-edit-{{ $workTime->id }}">
             <div>
-              {{ $workTime->in_time->isoFormat('HH:mm') }} - {{ $workTime->out_time->isoFormat('HH:mm') }}
+              {{ $workTime->in_time?->isoFormat('HH:mm') }} - {{ $workTime?->out_time?->isoFormat('HH:mm') }}
             </div>
             <button class="hover:opacity-40" type="button"
               x-on:click="$dispatch('open-modal', 'edit-work-time-modal-{{ $workTime->id }}')">
@@ -224,7 +224,7 @@
           <div class="flex items-center justify-between rounded border border-[#DDDDDD] px-[10px] py-3"
             wire:key="break-time-edit-{{ $breakTime->id }}">
             <div>
-              {{ $breakTime->in_time->isoFormat('HH:mm') }} - {{ $breakTime->out_time->isoFormat('HH:mm') }}
+              {{ $breakTime->in_time?->isoFormat('HH:mm') }} - {{ $breakTime->out_time?->isoFormat('HH:mm') }}
             </div>
             <button class="hover:opacity-40" type="button"
               x-on:click="$dispatch('open-modal', 'edit-break-time-modal-{{ $breakTime->id }}')">

@@ -55,38 +55,46 @@ class Stamp extends Component
 
     public function buttonStatus()
     {
-        $workTime =
-            WorkTime::query()
-                ->where('user_id', Auth::id())
-                ->whereDate('date', now())
-                ->whereNull('out_time')
-                ->orderBy('in_time', 'desc')
-                ->first();
+        $workTime = WorkTime::where('user_id', Auth::id())
+            ->whereNull('out_time')
+            ->orderBy('in_time', 'desc')
+            ->first();
 
-        $breakTime =
-            BreakTime::query()
-                ->where('user_id', Auth::id())
-                ->whereDate('date', now())
+        $breakTime = null;
+        if ($workTime) {
+            $breakTime = BreakTime::where('user_id', Auth::id())
+                ->where('timecard__work_time_id', $workTime->id)
                 ->whereNull('out_time')
                 ->orderBy('in_time', 'desc')
                 ->first();
+        }
 
         return StampStatus::buttonStatus($workTime, $breakTime);
     }
 
     public function getTodayWorkTimes()
     {
-        return
-            WorkTime::where('user_id', Auth::id())
-                ->whereDate('date', now())
-                ->orderBy('in_time', 'desc')
-                ->first();
+        $todayStart = Carbon::today()->startOfDay();
+        $todayEnd = Carbon::today()->endOfDay();
+
+        return WorkTime::where('user_id', Auth::id())
+            ->where(function ($query) use ($todayStart, $todayEnd) {
+                $query->whereBetween('in_time', [$todayStart, $todayEnd])
+                    ->orWhereBetween('out_time', [$todayStart, $todayEnd])
+                    ->orWhere(function ($q) use ($todayStart, $todayEnd) {
+                        $q->where('in_time', '<', $todayStart)
+                            ->where('out_time', '>', $todayEnd);
+                    });
+            })
+            ->orderBy('in_time', 'asc')
+            ->get();
     }
 
     public function getTodayBreakTime()
     {
-        $breakTimes = BreakTime::where('user_id', Auth::id())
-            ->whereDate('date', now())
+        $workTimes = $this->getTodayWorkTimes();
+
+        $breakTimes = BreakTime::whereIn('timecard__work_time_id', $workTimes->pluck('id'))
             ->whereNotNull('in_time')
             ->whereNotNull('out_time')
             ->get();
@@ -99,7 +107,6 @@ class Stamp extends Component
         });
 
         $hours = floor($totalBreakMinutes / 60);
-
         $minutes = $totalBreakMinutes % 60;
 
         return sprintf('%d時間%d分', $hours, $minutes);

@@ -59,17 +59,17 @@
         <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
           {{ $totalYearWorkingTime }}</div>
       </div>
-      <div class="mt-5 text-sm font-bold">現在の進捗状況</div>
+      <div class="mt-5 text-sm font-bold">扶養控除ラインと現在の収入の比較</div>
       <div class="mt-[10px]">
         <div class="-mx-[15px] grid grid-cols-8 text-[10px] text-[#777777]">
           <div class="text-center">0</div>
-          <div class="text-center">200</div>
-          <div class="text-center">400</div>
-          <div class="text-center">600</div>
-          <div class="text-center">800</div>
-          <div class="text-center">1,000</div>
-          <div class="text-center">1,200</div>
-          <div class="text-center">時間</div>
+          <div class="text-center">25</div>
+          <div class="text-center">50</div>
+          <div class="text-center">75</div>
+          <div class="text-center">100</div>
+          <div class="text-center">125</div>
+          <div class="text-center">150</div>
+          <div class="text-center">万円</div>
         </div>
         <div class="relative grid h-[180px] grid-cols-7 overflow-hidden rounded border">
           <!-- グリッド背景 -->
@@ -77,56 +77,52 @@
           <div class="border-r"></div>
           <div class="border-r"></div>
           <div class="border-r"></div>
-          <div class="flex h-full w-full items-center justify-center border-r bg-[#FFECEF]">
-            <span class="origin-center -rotate-90 whitespace-nowrap text-xs font-bold text-[#FF4A62] text-opacity-30">
-              注意領域
-            </span>
-          </div>
+          <div class="border-r"></div>
           <div class="border-r"></div>
           <div></div>
 
-          <!-- 青バー -->
-          <div
-            class="animate-bar absolute left-0 top-[70px] h-9 w-0 rounded-r bg-[#6ed0f7] transition-[width] duration-1000 ease-out">
+          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7] transition-[width] duration-1000 ease-out"
+            style="width: {{ $this->barWidth() }};">
           </div>
 
-          <!-- 吹き出し -->
           <div
-            class="absolute left-[120px] top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240]">
-            820時間35分
+            class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240] transition-[left] duration-1000 ease-out"
+            style="left: {{ $this->barWidth() }}; transform: translateX(8px);">
+            {{ $totalYearPay }}円
           </div>
 
-          <!-- 縦破線 -->
           <hr
-            class="absolute left-[168px] top-0 z-[5] h-[calc(100%+10px)] border-r-[1.5px] border-dashed border-[#FF4A62]" />
+            class="absolute left-[58.86%] top-0 z-[5] h-[calc(100%+10px)] border-r-[1.5px] border-dashed border-[#FF4A62]" />
         </div>
-
-        <script>
-          document.addEventListener('DOMContentLoaded', () => {
-            const bar = document.querySelector('.animate-bar');
-            // 読み込み時に幅を伸ばす
-            bar.style.width = '140px';
-          });
-        </script>
 
       </div>
       <div class="mt-[56px]">
         <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
         <div class="mt-3 flex flex-col space-y-2">
-          <div class="grid grid-cols-[30%,70%] grid-rows-2 rounded bg-[#F7F7F7] px-[15px] py-[10px]">
-            <div class="text-xs font-bold">103万</div>
-            <div class="flex items-end justify-end space-x-[7px]">
-              <div class="-mt-[2px] text-[15px] font-bold">1030時間</div>
-              <div class="mb-[2px] text-xs">以上で超過</div>
-            </div>
-            <div></div>
-            <div class="flex items-end justify-end">
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+            <div class="text-sm font-bold">103万</div>
+            <div class="flex items-center space-x-[2px]">
               <div class="text-[11px]">残り：</div>
-              <div class="text-xs font-bold text-[#FF4A62]">209時間30分</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1030000 - $totalYearPay) }}</div>
+              <div class="text-xs">以上で超過</div>
             </div>
           </div>
-          <div></div>
-          <div></div>
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+            <div class="text-sm font-bold">130万</div>
+            <div class="flex items-center space-x-[2px]">
+              <div class="text-[11px]">残り：</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1300000 - $totalYearPay) }}</div>
+              <div class="text-xs">以上で超過</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+            <div class="text-sm font-bold">150万</div>
+            <div class="flex items-center space-x-[2px]">
+              <div class="text-[11px]">残り：</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1500000 - $totalYearPay) }}</div>
+              <div class="text-xs">以上で超過</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -157,8 +153,72 @@
         </div>
       </div>
 
-      <div class="mt-5 text-sm font-bold">現在の進捗状況</div>
-      {{-- 進捗状況に関しては後程作る --}}
+      <div class="mt-5 text-sm font-bold">扶養控除ラインと現在の収入の比較</div>
+      <div class="mt-[10px]">
+        <div class="-mx-[15px] grid grid-cols-8 text-[10px] text-[#777777]">
+          <div class="text-center">0</div>
+          <div class="text-center">25</div>
+          <div class="text-center">50</div>
+          <div class="text-center">75</div>
+          <div class="text-center">100</div>
+          <div class="text-center">125</div>
+          <div class="text-center">150</div>
+          <div class="text-center">万円</div>
+        </div>
+        <div class="relative grid h-[180px] grid-cols-7 overflow-hidden rounded border">
+          <!-- グリッド背景 -->
+          <div class="border-r"></div>
+          <div class="border-r"></div>
+          <div class="border-r"></div>
+          <div class="border-r"></div>
+          <div class="border-r"></div>
+          <div class="border-r"></div>
+          <div></div>
+
+          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7] transition-[width] duration-1000 ease-out"
+            style="width: {{ $this->barWidth() }};">
+          </div>
+
+          <div
+            class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240] transition-[left] duration-1000 ease-out"
+            style="left: {{ $this->barWidth() }}; transform: translateX(8px);">
+            {{ $totalYearPay }}円
+          </div>
+
+          <hr
+            class="absolute left-[58.86%] top-0 z-[5] h-[calc(100%+10px)] border-r-[1.5px] border-dashed border-[#FF4A62]" />
+        </div>
+
+      </div>
+      <div class="mt-[56px]">
+        <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
+        <div class="mt-3 flex flex-col space-y-2">
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+            <div class="text-sm font-bold">103万</div>
+            <div class="flex items-center space-x-[2px]">
+              <div class="text-[11px]">残り：</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1030000 - $totalYearPay) }}</div>
+              <div class="text-xs">以上で超過</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+            <div class="text-sm font-bold">130万</div>
+            <div class="flex items-center space-x-[2px]">
+              <div class="text-[11px]">残り：</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1300000 - $totalYearPay) }}</div>
+              <div class="text-xs">以上で超過</div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+            <div class="text-sm font-bold">150万</div>
+            <div class="flex items-center space-x-[2px]">
+              <div class="text-[11px]">残り：</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1500000 - $totalYearPay) }}</div>
+              <div class="text-xs">以上で超過</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>

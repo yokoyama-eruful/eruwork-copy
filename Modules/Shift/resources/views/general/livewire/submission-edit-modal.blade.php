@@ -37,11 +37,11 @@
         </div>
       </div>
 
-      <div class="mt-6 flex justify-end">
+      <x-slot:footer>
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
-      </div>
+      </x-slot:footer>
     </div>
   @endif
 

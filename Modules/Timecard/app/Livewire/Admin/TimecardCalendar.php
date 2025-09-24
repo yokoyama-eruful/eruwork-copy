@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Modules\Timecard\Livewire\General\Dto\totalWorkingTimeDto;
 
 class TimecardCalendar extends Component
 {
@@ -63,29 +64,61 @@ class TimecardCalendar extends Component
 
     public function getWorkTimeList($user)
     {
-        return $user->workTime()->whereDate('date', $this->selectDate)->get();
+        return $user->workTime()->whereDate('in_time', $this->selectDate)->get();
     }
 
     public function getBreakTimeList($user)
     {
-        return $user->breakTime()->whereDate('date', $this->selectDate)->get();
+        return $user->breakTime()->whereDate('in_time', $this->selectDate)->get();
     }
 
-    // 詳細
     public function totalWorkTime()
     {
-        $totalMinutes = (int) $this->user
-            ->workTime()
-            ->whereYear('date', $this->year)
-            ->whereMonth('date', $this->month)
-            ->selectRaw('SUM(EXTRACT(EPOCH FROM (out_time - in_time)) / 60) as total_minutes')
-            ->value('total_minutes');
+        // $workTimes = $this->user->workTime()->get();
+        // $breakTimes = $this->user->breakTime()->get();
+        // $totalMinutes = 0;
 
-        $hours = intdiv($totalMinutes, 60);
-        $minutes = $totalMinutes % 60;
+        // foreach ($workTimes as $workTime) {
+        //     $in = $workTime->in_time;
+        //     $out = $workTime->out_time ?? now();
 
-        return sprintf('%d:%02d', $hours, $minutes);
+        //     $startOfMonth = CarbonImmutable::create($this->year, $this->month, 1, 0, 0, 0);
+        //     $endOfMonth = $startOfMonth->endOfMonth()->setTime(23, 59, 59);
 
+        //     $periodStart = $in->greaterThan($startOfMonth) ? $in : $startOfMonth;
+        //     $periodEnd = $out->lessThan($endOfMonth) ? $out : $endOfMonth;
+
+        //     if ($periodEnd->greaterThan($periodStart)) {
+        //         $workMinutes = (int) round($periodStart->diffInSeconds($periodEnd) / 60);
+
+        //         // この勤務に重なる休憩時間を引く
+        //         foreach ($breakTimes as $breakTime) {
+        //             $bStart = $breakTime->in_time;
+        //             $bEnd = $breakTime->out_time ?? now();
+
+        //             // 休憩時間も月に収まるように調整
+        //             $bStart = $bStart->greaterThan($startOfMonth) ? $bStart : $startOfMonth;
+        //             $bEnd = $bEnd->lessThan($endOfMonth) ? $bEnd : $endOfMonth;
+
+        //             // 勤務時間と休憩時間の重なり
+        //             $overlapStart = $periodStart->greaterThan($bStart) ? $periodStart : $bStart;
+        //             $overlapEnd = $periodEnd->lessThan($bEnd) ? $periodEnd : $bEnd;
+
+        //             if ($overlapEnd->greaterThan($overlapStart)) {
+        //                 $workMinutes -= (int) round($overlapStart->diffInSeconds($overlapEnd) / 60);
+        //             }
+        //         }
+
+        //         $totalMinutes += max($workMinutes, 0); // 負の値にならないように
+        //     }
+        // }
+
+        // $hours = intdiv($totalMinutes, 60);
+        // $minutes = $totalMinutes % 60;
+
+        $totalMonthWorkingTime = totalWorkingTimeDto::month($this->user, $this->selectDate);
+
+        return $totalMonthWorkingTime;
     }
 
     public function render()

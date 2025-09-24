@@ -23,6 +23,8 @@ class TimecardWorkTimeCreate extends Component
         $this->date = CarbonImmutable::parse($selectDate);
         $this->form->user = $this->user;
         $this->form->date = $this->date;
+        $this->form->in_date = $this->date->format('Y-m-d');
+        $this->form->out_date = $this->date->format('Y-m-d');
     }
 
     public function storeWorkTime()

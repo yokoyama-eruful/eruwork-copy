@@ -197,7 +197,7 @@
       @if ($manager)
         <div class="mt-[30px]">
           <div class="text-[11px] font-bold">シフト提出依頼</div>
-          <div class="grid grid-cols-[80%,20%] bg-[#F7F7F7] px-5 py-2">
+          <div class="mt-2 grid grid-cols-[80%,20%] bg-[#F7F7F7] px-5 py-2">
             <div class="grid grid-rows-2">
               <div class="flex items-center">
                 <div @class([

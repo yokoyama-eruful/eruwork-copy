@@ -32,6 +32,8 @@ class Calendar extends Component
 
     public $totalYearWorkingTime;
 
+    public $totalYearPay;
+
     #[Url(as: 'startDate')]
     public $startDate;
 
@@ -59,37 +61,16 @@ class Calendar extends Component
     public function mount(): void
     {
         $this->users = User::get();
-
         $this->selectUserId = Auth::id();
 
-        $selectUser = User::find($this->selectUserId);
-
         $this->clickDate(CarbonImmutable::now());
-
-        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
-
-        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
-    }
-
-    public function changeSelectUser()
-    {
-
-        $selectUser = User::find($this->selectUserId);
-
-        $this->clickDate(CarbonImmutable::now());
-
-        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
-
-        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
-
-        $this->dispatch('refreshCalendar');
     }
 
     public function clickDate($date): void
     {
         $this->selectedDate = CarbonImmutable::parse($date);
-        $this->startDate = CarbonImmutable::parse($date)->startOfMonth();
-        $this->endDate = CarbonImmutable::parse($date)->endOfMonth();
+        $this->startDate = $this->selectedDate->startOfMonth();
+        $this->endDate = $this->selectedDate->endOfMonth();
 
         $this->year = $this->selectedDate->year;
         $this->month = $this->selectedDate->month;
@@ -100,112 +81,31 @@ class Calendar extends Component
         $selectUser = User::find($this->selectUserId);
 
         $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
-
         $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
+        $this->totalYearPay = totalWorkingTimeDto::yearPay($selectUser, $this->selectedDate);
     }
 
     public function setWorkTimeList(CarbonImmutable $date)
     {
         $this->workTimeList = WorkTime::where('user_id', $this->selectUserId)
-            ->where('date', $date)
+            ->whereDate('in_time', $date)
             ->orderBy('in_time', 'asc')
             ->get();
 
         $this->workTimeForm->setWorkTimes($this->workData, $this->workTimeList);
     }
 
-    public function setWorkTime(?int $id)
-    {
-        if (is_null($id)) {
-            $this->workData->reset(['inTime', 'outTime']);
-
-            return;
-        }
-
-        $workTime = WorkTime::find($id);
-
-        $this->workData->setData($workTime);
-    }
-
-    public function addWorkTime()
-    {
-        $this->workTimeForm->addWorkTime($this->workData, $this->selectedDate);
-    }
-
-    public function removeWorkTime($key)
-    {
-        $this->workTimeForm->removeWorkTime($key);
-    }
-
     public function setBreakTimeList(CarbonImmutable $date)
     {
+        // まず、その日の勤務IDを取得
+        $workTimeIds = $this->workTimeList->pluck('id');
+
         $this->breakTimeList = BreakTime::where('user_id', $this->selectUserId)
-            ->where('date', $date)
+            ->whereIn('timecard__work_time_id', $workTimeIds)
             ->orderBy('in_time', 'asc')
             ->get();
 
         $this->breakTimeForm->setBreakTimes($this->breakData, $this->breakTimeList);
-    }
-
-    public function setBreakTime(?int $id)
-    {
-        if (is_null($id)) {
-            $this->breakData->reset(['inTime', 'outTime']);
-
-            return;
-        }
-
-        $breakTime = BreakTime::find($id);
-
-        $this->breakData->setData($breakTime);
-    }
-
-    public function addBreakTime()
-    {
-        $this->breakTimeForm->addBreakTime($this->breakData, $this->selectedDate);
-    }
-
-    public function removeBreakTime($key)
-    {
-        $this->breakTimeForm->removeBreakTime($key);
-    }
-
-    public function storeWorkTime()
-    {
-        $this->workData->userId = $this->selectUserId;
-        $this->workData->date = $this->selectedDate;
-        $this->workData->save();
-
-        $this->workData->reset(['id', 'userId', 'date', 'inTime', 'outTime']);
-        $this->dispatch('close-modal', 'work-time-modal');
-
-        $this->setWorkTimeList($this->selectedDate);
-    }
-
-    public function storeBreakTime()
-    {
-        $this->breakData->userId = $this->selectUserId;
-        $this->breakData->date = $this->selectedDate;
-        $this->breakData->save();
-
-        $this->breakData->reset(['id', 'userId', 'date', 'inTime', 'outTime']);
-        $this->dispatch('close-modal', 'break-time-modal');
-
-        $this->setBreakTimeList($this->selectedDate);
-    }
-
-    public function deleteWorkTime()
-    {
-        $this->workData->delete();
-        $this->dispatch('close-modal', 'work-time-modal');
-        $this->setWorkTimeList($this->selectedDate);
-    }
-
-    public function deleteBreakTime()
-    {
-        $this->breakData->delete();
-        $this->dispatch('close-modal', 'break-time-modal');
-        $this->setBreakTimeList($this->selectedDate);
     }
 
     public function updateCalendar()
@@ -218,6 +118,8 @@ class Calendar extends Component
         $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
 
         $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
+
+        $this->totalYearPay = totalWorkingTimeDto::yearPay($selectUser, $this->selectedDate);
     }
 
     public function selectedMonth(string $date)
@@ -231,31 +133,30 @@ class Calendar extends Component
         $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
 
         $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
-    }
 
-    public function createBreakTime()
-    {
-        BreakTime::create([
-            'date' => $this->selectedDate,
-            'user_id' => $this->selectUserId,
-        ]);
+        $this->totalYearPay = totalWorkingTimeDto::yearPay($selectUser, $this->selectedDate);
     }
 
     #[Computed()] #[On('refreshCalendar')]
     public function calendar()
     {
         $workTimes = WorkTime::where('user_id', $this->selectUserId)
-            ->whereYear('date', $this->selectedDate->year)
-            ->whereMonth('date', $this->selectedDate->month)
+            ->where(function ($q) {
+                $q->whereBetween('in_time', [$this->startDate, $this->endDate])
+                    ->orWhereBetween('out_time', [$this->startDate, $this->endDate])
+                    ->orWhere(function ($q2) {
+                        $q2->where('in_time', '<', $this->startDate)
+                            ->where('out_time', '>', $this->endDate);
+                    });
+            })
             ->orderBy('in_time', 'asc')
-            ->get()
-            ->groupBy(fn ($attendance) => $attendance->date->toDateString());
+            ->get();
 
         $breakTimes = BreakTime::where('user_id', $this->selectUserId)
-            ->whereYear('date', $this->selectedDate->year)
-            ->whereMonth('date', $this->selectedDate->month)
-            ->get()
-            ->groupBy(fn ($breakTime) => $breakTime->date->toDateString());
+            ->whereNotNull('timecard__work_time_id') // 勤務に紐づくものだけ
+            ->whereIn('timecard__work_time_id', $workTimes->pluck('id'))
+            ->orderBy('in_time', 'asc')
+            ->get();
 
         $period = CarbonPeriodImmutable::create(
             $this->selectedDate->startOfMonth()->startOfWeek(CarbonImmutable::MONDAY),
@@ -265,8 +166,18 @@ class Calendar extends Component
         return iterator_to_array($period->map(function ($date) use ($workTimes, $breakTimes) {
             $type = $this->getDayType($date);
 
-            $workTimeRecords = $workTimes->get($date->toDateString(), collect());
-            $breakTimeRecords = $breakTimes->get($date->toDateString(), collect());
+            // 勤務は in_time の日付でのみ表示
+            $workTimeRecords = $workTimes->filter(function ($work) use ($date) {
+                return $work->in_time->toDateString() === $date->toDateString();
+            });
+
+            // その勤務に紐づく休憩だけ取得
+            $breakTimeRecords = collect();
+            foreach ($workTimeRecords as $work) {
+                $breakTimeRecords = $breakTimeRecords->merge(
+                    $breakTimes->where('timecard__work_time_id', $work->id)
+                );
+            }
 
             return [
                 'date' => $date,
@@ -283,15 +194,22 @@ class Calendar extends Component
             return '補助日';
         }
 
-        // if ($holidays->where('date', $date)->isNotEmpty()) {
-        //     return '公休日';
-        // }
-
         return match ($date->dayOfWeek) {
             CarbonImmutable::SATURDAY => '土曜日',
             CarbonImmutable::SUNDAY => '日曜日',
             default => '平日',
         };
+    }
+
+    public function barWidth()
+    {
+        $selectUser = User::find($this->selectUserId);
+
+        $totalPay = totalWorkingTimeDto::yearPay($selectUser, $this->selectedDate);
+
+        $barWidthLimit = 1750000;
+
+        return min($totalPay / $barWidthLimit, 1) * 100 . '%';
     }
 
     public function save()

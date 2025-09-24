@@ -94,7 +94,7 @@
                     <div class="form-area-general">
                       <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7]">{{ $step['content'] }}</textarea>
                       @if ($step['file'])
-                        <img class="h-auto max-w-full rounded-lg"
+                        <img class="max-h-[200px] w-auto rounded-lg object-contain"
                           src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $step['file']) }}" />
                       @endif
                     </div>

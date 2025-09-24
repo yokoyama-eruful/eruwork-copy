@@ -1,17 +1,18 @@
-<div class="flex min-h-[30px] w-full items-center justify-between pt-[30px] sm:max-h-[30px] sm:min-w-[1300px] sm:pt-0">
+<div class="flex min-h-[30px] w-full items-center justify-between pt-[30px] sm:max-h-[30px] sm:min-w-[1300px] sm:pt-0"
+  x-data="{ accountModal: false }">
   <div class="flex w-full items-center justify-between px-[20px] sm:w-auto sm:justify-normal sm:px-0">
     {{ $slot }}
   </div>
-  @vite(['resources/js/account.js'])
-  <button class="account-area hidden sm:flex">
+  {{-- @vite(['resources/js/account.js']) --}}
+  <button class="account-area hidden sm:flex" x-on:click="accountModal=!accountModal">
     <img class="account-img" src="{{ global_asset('img/icon/yokoyama.png') }}" />
     <p>{{ Auth::user()->name }}</p>
     <img class="account-arrow-down" src="{{ global_asset('img/icon/arrow-down.png') }}" />
   </button>
-  <div class="account-modal-box" id="accountModal" style="display: none">
+  <div class="account-modal-box" id="accountModal" x-show="accountModal" x-on:click.away="accountModal=false">
     <div class="modal-content">
       <a class="account-setting" href="{{ route('profile.edit') }}">
-        <img src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
+        <img class="h-5 w-5" src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
         アカウント
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path fill-rule="evenodd"

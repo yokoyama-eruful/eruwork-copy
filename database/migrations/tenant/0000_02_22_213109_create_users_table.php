@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('login_id')->unique();
             $table->string('password');
+            $table->boolean('notify_message')->default(false);
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
 

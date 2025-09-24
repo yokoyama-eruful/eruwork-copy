@@ -12,12 +12,10 @@ class Stamp
 {
     public static function push(CarbonImmutable $datetime, StampStatus $status): void
     {
-        $workTime =
-            WorkTime::where('user_id', Auth::id())
-                ->whereDate('date', $datetime)
-                ->whereNull('out_time')
-                ->orderBy('in_time', 'desc')
-                ->first();
+        $workTime = WorkTime::where('user_id', Auth::id())
+            ->whereNull('out_time')
+            ->orderBy('in_time', 'desc')
+            ->first();
 
         switch ($status) {
             case StampStatus::IN:
@@ -41,13 +39,10 @@ class Stamp
             abort(400, '出社中です。退勤ボタンを押してください。');
         }
 
-        $params = [
+        WorkTime::create([
             'user_id' => Auth::id(),
-            'date' => $datetime->format('Y-m-d'),
-            'in_time' => $datetime->format('H:i'),
-        ];
-
-        WorkTime::create($params);
+            'in_time' => $datetime->format('Y-m-d H:i'),
+        ]);
     }
 
     private static function out(CarbonImmutable $datetime, ?WorkTime $workTime): void
@@ -57,7 +52,7 @@ class Stamp
         }
 
         $workTime->update([
-            'out_time' => $datetime->format('H:i'),
+            'out_time' => $datetime->format('Y-m-d H:i'),
         ]);
     }
 
@@ -67,13 +62,11 @@ class Stamp
             abort(400, '出勤状態ではありません。');
         }
 
-        $breakTime =
-            BreakTime::query()
-                ->where('user_id', Auth::id())
-                ->whereDate('date', $datetime)
-                ->whereNull('out_time')
-                ->orderBy('in_time', 'desc')
-                ->first();
+        $breakTime = BreakTime::where('user_id', Auth::id())
+            ->where('timecard__work_time_id', $workTime->id)
+            ->whereNull('out_time')
+            ->orderBy('in_time', 'desc')
+            ->first();
 
         if ($breakTime) {
             abort(400, '休憩中です。');
@@ -81,8 +74,8 @@ class Stamp
 
         BreakTime::create([
             'user_id' => Auth::id(),
-            'date' => $workTime->date,
-            'in_time' => $datetime->format('H:i'),
+            'timecard__work_time_id' => $workTime->id,
+            'in_time' => $datetime->format('Y-m-d H:i'),
         ]);
     }
 
@@ -92,14 +85,12 @@ class Stamp
             abort(400, '出勤状態ではありません。');
         }
 
-        $breakTime =
-            BreakTime::query()
-                ->where('user_id', Auth::id())
-                ->whereDate('date', $datetime)
-                ->whereNotNull('in_time')
-                ->whereNull('out_time')
-                ->orderBy('in_time', 'desc')
-                ->first();
+        $breakTime = BreakTime::where('user_id', Auth::id())
+            ->where('timecard__work_time_id', $workTime->id)
+            ->whereNotNull('in_time')
+            ->whereNull('out_time')
+            ->orderBy('in_time', 'desc')
+            ->first();
 
         if (is_null($breakTime)) {
             abort(400, '休憩を開始してください。');

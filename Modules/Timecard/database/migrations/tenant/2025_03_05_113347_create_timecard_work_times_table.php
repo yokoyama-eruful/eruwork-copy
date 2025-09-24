@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('timecard__work_times', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->date('date');
-            $table->time('in_time');
-            $table->time('out_time')->nullable();
+            $table->dateTime('in_time');
+            $table->dateTime('out_time')->nullable();
 
             $table->dateTime('updated_at')->useCurrent();
         });

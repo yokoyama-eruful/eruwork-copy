@@ -25,16 +25,21 @@
 
   <div class="day-timerecord-area">
     <p class="day-timerecord-title">本日の打刻時間</p>
-    <div class="day-timerecord-box">
-      <p class="stamp-start">出 勤</p>
-      <input class="outline-none focus:border-transparent focus:outline-none focus:ring-0 focus:ring-transparent"
-        value="{{ $workTimes?->in_time->format('H:i') }}" placeholder="--:--" readonly />
-    </div>
-    <div class="day-timerecord-box">
-      <p class="stamp-end">退 勤</p>
-      <input class="outline-none focus:border-transparent focus:outline-none focus:ring-0 focus:ring-transparent"
-        value="{{ $workTimes?->out_time?->format('H:i') }}" placeholder="--:--" readonly />
-    </div>
+    @foreach ($workTimes as $workTime)
+      <div class="day-timerecord-box">
+        <p class="stamp-start">出 勤</p>
+        <input class="focus:border-gray-300 focus:outline-none focus:ring-0"
+          value="{{ $workTime->in_time ? \Carbon\Carbon::parse($workTime->in_time)->format('Y/m/d H:i') : '--:--' }}"
+          readonly />
+      </div>
+
+      <div class="day-timerecord-box">
+        <p class="stamp-end">退 勤</p>
+        <input class="focus:border-gray-300 focus:outline-none focus:ring-0"
+          value="{{ $workTime->out_time ? \Carbon\Carbon::parse($workTime->out_time)->format('Y/m/d H:i') : '--:--' }}"
+          readonly />
+      </div>
+    @endforeach
     <div class="day-timerecord-box">
       <p class="stamp-break">休 憩</p>
       <input class="outline-none focus:border-transparent focus:outline-none focus:ring-0 focus:ring-transparent"
