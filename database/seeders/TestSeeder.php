@@ -25,7 +25,7 @@ class TestSeeder extends Seeder
         $this->user();
         // $this->board();
         // $this->calendar();
-        // $this->chat();
+        $this->chat();
         // $this->timecard();
         // $this->shift();
     }

@@ -81,8 +81,8 @@
           <div class="border-r"></div>
           <div></div>
 
-          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7] transition-[width] duration-1000 ease-out"
-            style="width: {{ $this->barWidth() }};">
+          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7] transition-all duration-1000 ease-out"
+            x-data="{ width: '0%' }" x-init="setTimeout(() => { width = '{{ $this->barWidth() }}' }, 50)" :style="'width:' + width">
           </div>
 
           <div
