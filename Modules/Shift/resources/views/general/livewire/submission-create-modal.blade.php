@@ -1,41 +1,42 @@
 <x-modal name="create-modal-{{ $day->format('Y-m-d') }}" title="シフト希望登録">
-  <form class="p-4" wire:submit="save">
+  <form class="p-4" id="create-shift-{{ $day->format('Y-m-d') }}" wire:submit="save">
     @csrf
 
-    <div class="mt-4 text-lg font-bold">
+    @if ($errors->any())
+      <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+        <ul class="list-disc pl-5">
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
+
+    <div class="text-xl font-bold">
       {{ $day->format('Y年m月d日') }}
     </div>
 
-    <div class="mt-4">
-      <x-input-label for="start_time" value="開始時間" />
+    <div class="mt-4 grid w-full grid-cols-[20%,80%] items-center">
+      <x-input-label value="時間" />
 
-      <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time" wire:model="form.startTime"
-        required />
+      <div class="flex w-full items-center space-x-1">
+        <x-text-input class="flex-1" id="start_time" name="start_time" type="time" wire:model="form.startTime"
+          required />
 
-      @error('form.start_time')
-        <div class="font-normal text-red-500">{{ $message }}</div>
-      @enderror
+        <div class="px-[10px]">〜</div>
+
+        <x-text-input class="flex-1" id="end_time" name="end_time" type="time" wire:model="form.endTime" required />
+      </div>
     </div>
 
-    <div class="mt-2">
-      <x-input-label for="end_time" value="終了時間" />
-
-      <x-text-input class="mt-1 block w-full" id="end_time" name="end_time" type="time" wire:model="form.endTime"
-        required />
-
-      @error('form.endTime')
-        <div class="font-normal text-red-500">{{ $message }}</div>
-      @enderror
-    </div>
-
-    <div class="mt-6 flex justify-end">
+    <x-slot:footer>
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3">
+      <x-primary-button class="ms-3" form="create-shift-{{ $day->format('Y-m-d') }}">
         登録
       </x-primary-button>
-    </div>
+    </x-slot:footer>
   </form>
 </x-modal>

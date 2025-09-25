@@ -131,16 +131,6 @@
   color: #6f6c6c;
 }
 
-.day-timerecord-box input {
-  border: none;
-  color: #6f6c6c;
-  font-size: 16px;
-  font-weight: bold;
-  width: 70%;
-  text-align: end;
-  padding: 0;
-}
-
 .border-line {
   border-top: 1px solid #ddd;
   width: 98%;

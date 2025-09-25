@@ -27,6 +27,7 @@ class ManualFile extends Model
         'manual__folder_id',
         'details',
         'steps',
+        'status',
     ];
 
     protected $casts = [

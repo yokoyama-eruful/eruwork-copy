@@ -24,7 +24,10 @@ class Profile extends Component
     public function update()
     {
         $this->form->update();
-        $this->dispatch('close', 'profile');
+
+        if ($this->getErrorBag()->isEmpty()) {
+            $this->dispatch('close', 'profile');
+        }
     }
 
     public function render()

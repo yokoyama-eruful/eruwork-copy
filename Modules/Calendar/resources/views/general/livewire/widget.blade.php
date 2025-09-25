@@ -35,7 +35,7 @@
         </button>
         <button class="today-btn" wire:click="setToday">今日</button>
         {{-- シフト通知の読み込み --}}
-        <livewire:shift::general.widget />
+        {{-- <livewire:shift::general.widget /> --}}
       </div>
     </x-main.top>
     <x-main.container>
@@ -87,8 +87,8 @@
 
                       $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
                       $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
-                      if ($height <= 40) {
-                          $height = 40;
+                      if ($height <= 60) {
+                          $height = 60;
                       }
                     @endphp
 
@@ -96,10 +96,10 @@
                       class="card absolute cursor-pointer rounded-[10px] border border-[#00A1FF] bg-[#F2FBFF] p-2 text-[#00A1FF] transition-all"
                       x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')"
                       :style="'top: {{ $top }}px; height: {{ $height }}px;'">
-                      <p class="font-bold">{{ $schedule->title }}</p>
-                      @if ($height > 50)
-                        <p>{{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
-                      @endif
+                      <p class="truncate font-bold">{{ $schedule->title }}</p>
+                      {{-- @if ($height > 50) --}}
+                      <p>{{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
+                      {{-- @endif --}}
                     </div>
                     <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
                   @endforeach
@@ -113,8 +113,8 @@
 
                       $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
                       $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
-                      if ($height <= 40) {
-                          $height = 40;
+                      if ($height <= 60) {
+                          $height = 60;
                       }
 
                     @endphp
@@ -123,9 +123,9 @@
                       class="card absolute cursor-pointer rounded-[10px] border border-[#DE993A] bg-[#FFF7EC] p-2 text-[#DE993A] transition-all"
                       :style="'top: {{ $top }}px; height: {{ $height }}px;'">
                       <p class="font-bold">出勤日</p>
-                      @if ($height > 50)
-                        <p>{{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}</p>
-                      @endif
+                      {{-- @if ($height > 50) --}}
+                      <p>{{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}</p>
+                      {{-- @endif --}}
                     </div>
                   @endforeach
                 </div>

@@ -216,9 +216,13 @@ class Widget extends Component
     {
         $this->selectDate = CarbonImmutable::parse($date);
 
-        $this->mobileShiftSchedules = ShiftSchedule::where('date', $date)->get();
+        $this->mobileShiftSchedules = ShiftSchedule::where('date', $date)
+            ->where('user_id', Auth::id())
+            ->get();
 
-        $this->mobileSchedules = Schedule::where('date', $date)->get();
+        $this->mobileSchedules = Schedule::where('date', $date)
+            ->where('user_id', Auth::id())
+            ->get();
     }
 
     public function render()

@@ -14,18 +14,18 @@
           <div class="border-b border-[#DDDDDD] sm:mt-2 sm:rounded-lg sm:border">
             @foreach ($folders as $folder)
               <div @class([
-                  'grid grid-cols-[95%,5%]  px-[30px] text-[15px] sm:py-[30px] py-3',
+                  'grid grid-cols-[95%,5%]  px-[30px] text-[15px] sm:py-[30px] py-3 cursor-pointer',
                   'border-b' => !$loop->last,
-              ])>
+              ])
+                onclick="window.location='{{ route('manualFile.index', ['folder_id' => $folder->id]) }}'">
                 <div class="break-words font-bold">{{ $folder->title }}</div>
-                <a class="flex items-center justify-end hover:opacity-40"
-                  href="{{ route('manualFile.index', ['folder_id' => $folder->id]) }}">
+                <div class="flex items-center justify-end hover:opacity-40">
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                       stroke-linejoin="round" />
                   </svg>
-                </a>
+                </div>
               </div>
             @endforeach
           </div>

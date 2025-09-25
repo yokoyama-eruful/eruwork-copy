@@ -22,9 +22,9 @@
       </div>
       <div class="my-5 flex items-center justify-center space-x-[10px]">
         <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
-          @click="$dispatch('close-modal', 'manual-folder-delete-modal-{{ $folder->id }}')">キャンセル</div>
+          @click.stop="$dispatch('close-modal', 'manual-folder-delete-modal-{{ $folder->id }}')">キャンセル</div>
         <button class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
-          type="submit">削除する</button>
+          type="submit" @click.stop>削除する</button>
       </div>
     </form>
   </x-modal-alert>

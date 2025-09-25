@@ -282,7 +282,7 @@
       <table class="sticky -top-6 w-full min-w-full table-fixed border-separate border-spacing-0 bg-white">
         <thead>
           <tr>
-            <th class="w-[100px] text-xs font-normal text-[#3289FA] sm:w-32">順番入替</th>
+            <th class="w-[100px] text-xs font-normal text-[#3289FA] sm:w-32"></th>
             @foreach ($this->calendar as $content)
               <th
                 class="{{ $content['date']->format('Ymd') === now()->format('Ymd')

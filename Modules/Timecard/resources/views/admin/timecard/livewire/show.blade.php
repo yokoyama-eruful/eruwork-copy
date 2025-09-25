@@ -33,7 +33,7 @@
         <div class="text-2xl font-bold">{{ $this->totalWorkTime() }}</div>
       </div>
       <div class="mt-[30px] font-bold">
-        {{ $this->date->isoFormat('YYYY年MM月DD日（ddd曜）') }}
+        {{ $this->date?->isoFormat('YYYY年MM月DD日（ddd曜）') }}
       </div>
       <div class="mt-6">
         <div class="text-[11px] font-bold">本日の勤務時間</div>
@@ -43,7 +43,7 @@
           <div class="flex items-center justify-between rounded border border-[#DDDDDD] px-[10px] py-3"
             wire:key="work-time-edit-{{ $workTime->id }}">
             <div>
-              {{ $workTime->in_time->isoFormat('HH:mm') }} - {{ $workTime->out_time->isoFormat('HH:mm') }}
+              {{ $workTime->in_time?->isoFormat('HH:mm') }} - {{ $workTime->out_time?->isoFormat('HH:mm') }}
             </div>
             <button class="hover:opacity-40" type="button"
               x-on:click="$dispatch('open-modal', 'edit-work-time-modal-{{ $workTime->id }}')">
@@ -84,7 +84,7 @@
           <div class="flex items-center justify-between rounded border border-[#DDDDDD] px-[10px] py-3"
             wire:key="break-time-edit-{{ $breakTime->id }}">
             <div>
-              {{ $breakTime->in_time->isoFormat('HH:mm') }} - {{ $breakTime->out_time->isoFormat('HH:mm') }}
+              {{ $breakTime->in_time?->isoFormat('HH:mm') }} - {{ $breakTime->out_time?->isoFormat('HH:mm') }}
             </div>
             <button class="hover:opacity-40" type="button"
               x-on:click="$dispatch('open-modal', 'edit-break-time-modal-{{ $breakTime->id }}')">

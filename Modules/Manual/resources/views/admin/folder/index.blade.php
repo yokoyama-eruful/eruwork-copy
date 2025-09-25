@@ -22,14 +22,15 @@
         <div class="mt-[10px] border-b sm:rounded-xl sm:border">
           @foreach ($folders as $folder)
             <div @class([
-                'grid sm:grid-cols-[70%,10%,10%,5%,5%] grid-cols-[80%,10%,10%] sm:py-[30px] py-5 text-[15px] flex items-center',
+                'grid sm:grid-cols-[70%,10%,10%,5%,5%] grid-cols-[80%,10%,10%] sm:py-[30px] py-5 text-[15px] flex items-center cursor-pointer',
                 'border-b' => !$loop->last,
-            ])>
+            ])
+              onclick="window.location='{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}'">
               <div class="pl-[30px] font-bold">{{ $folder->title }}</div>
               <div class="hidden sm:block">{{ $folder->user->name }}</div>
               <div class="hidden sm:block">{{ $folder->updated_at?->format('Y年m月d日') }}</div>
               <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
-                <button type="button" @click="openDialog{{ $folder->id }} = !openDialog{{ $folder->id }};">
+                <button type="button" @click.stop="openDialog{{ $folder->id }} = !openDialog{{ $folder->id }};">
                   <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
                     <rect width="30" height="30" rx="4" fill="#F2F5F8" />
@@ -40,19 +41,19 @@
                 </button>
                 <div
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
-                  @click.away="openDialog{{ $folder->id }} = false" x-show="openDialog{{ $folder->id }}===true"
+                  @click.away.stop="openDialog{{ $folder->id }}=false" x-show="openDialog{{ $folder->id }}===true"
                   x-cloak>
                   <livewire:manual::admin.folder.edit-modal :folder="$folder" />
                   <livewire:manual::admin.folder.delete-modal :folder="$folder" />
                 </div>
               </div>
-              <a href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}">
+              <div>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
                 </svg>
-              </a>
+              </div>
             </div>
           @endforeach
         </div>

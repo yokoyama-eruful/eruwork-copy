@@ -25,10 +25,10 @@
             clip-rule="evenodd" />
         </svg>
       </button>
-      <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button class="account-logout" type="submit">
-          <img src="{{ global_asset('img/icon/logout.png') }}" />
+      <div>
+        <button class="flex items-center text-xs text-[#F76E80] hover:opacity-40" type="button"
+          x-on:click="$dispatch('open-modal','logout')">
+          <img class="h-5 w-5" src="{{ global_asset('img/icon/logout.png') }}" />
           ログアウト
           <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
             <path fill-rule="evenodd"
@@ -36,10 +36,27 @@
               clip-rule="evenodd" />
           </svg>
         </button>
-      </form>
+      </div>
     </div>
   </div>
 
   <livewire:profile />
+
+  <x-modal-alert name="logout" title="ログアウト">
+    <form method="POST" action="{{ route('logout') }}">
+      @csrf
+      <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
+        <div class="pt-[13px] text-[15px] font-bold">ログアウトしますか</div>
+      </div>
+      <div class="my-5 flex items-center justify-center space-x-[10px]">
+        <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+          @click="$dispatch('close-modal', 'logout')">キャンセル</div>
+        <button class="flex h-11 w-[150px] items-center justify-center rounded bg-[#FF4A62] text-white" type="submit">
+          ログアウト
+        </button>
+
+      </div>
+    </form>
+  </x-modal-alert>
 
 </div>

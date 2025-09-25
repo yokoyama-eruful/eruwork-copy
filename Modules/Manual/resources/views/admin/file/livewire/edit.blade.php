@@ -292,18 +292,18 @@
             キャンセル
           </p>
         </a>
-        <button class="h-[50px] w-[230px] rounded hover:opacity-40" type="submit">
+        <button class="h-[50px] w-[230px] rounded hover:opacity-40" id="draftButton" type="button">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
             下書きとして保存
           </p>
         </button>
-        <button class="h-[50px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
-          type="submit">投稿する</button>
+        <button class="h-[50px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
+          type="button">投稿する</button>
       </div>
 
       <div class="mx-5 mb-[80px] mt-[30px] sm:hidden">
-        <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
-          type="submit">投稿する</button>
+        <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
+          type="button">投稿する</button>
         <div class="mt-[30px] flex items-center space-x-5">
           <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
             href="{{ route('manualFileManager.index', ['folder_id' => $file->folder->id]) }}">
@@ -311,13 +311,26 @@
               キャンセル
             </p>
           </a>
-          <button class="h-[50px] w-[230px] rounded hover:opacity-40" type="submit">
+          <button class="h-[50px] w-[230px] rounded hover:opacity-40" id="draftButton" type="button">
             <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
               下書きとして保存
             </p>
           </button>
         </div>
       </div>
+
+      <script>
+        document.getElementById('postButton').addEventListener('click', function() {
+          Livewire.dispatch('edit-manual', {
+            branchStatus: '掲載'
+          });
+        });
+        document.getElementById('draftButton').addEventListener('click', function() {
+          Livewire.dispatch('edit-manual', {
+            branchStatus: '下書き'
+          });
+        });
+      </script>
 
     </div>
 

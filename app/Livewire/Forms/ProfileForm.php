@@ -64,5 +64,7 @@ class ProfileForm extends Form
             $user = Profile::where('user_id', $this->user->id)->first();
             $user->update(['icon' => $iconPath]);
         }
+
+        $this->reset(['currentPassword', 'newPassword', 'newPasswordConfirmation', 'icon']);
     }
 }

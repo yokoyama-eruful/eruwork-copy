@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('thumbnail_path');
             $table->string('movie_path')->nullable();
             $table->string('type');
+            $table->string('status');
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('manual__folder_id')->nullable()->constrained()->onDelete('cascade');
             $table->json('details')->nullable();

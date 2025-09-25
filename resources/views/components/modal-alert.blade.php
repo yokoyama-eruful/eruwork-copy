@@ -1,4 +1,4 @@
-@props(['name', 'show' => false, 'maxWidth' => '2xl', 'title' => ''])
+@props(['name', 'show' => false, 'maxWidth' => '350', 'title' => ''])
 
 @php
   $maxWidth = [
@@ -7,6 +7,8 @@
       'lg' => 'sm:max-w-lg',
       'xl' => 'sm:max-w-xl',
       '2xl' => 'sm:max-w-2xl',
+      '350' => 'sm:max-w-[350px]',
+      '440' => 'sm:max-w-[440px]',
   ][$maxWidth];
 @endphp
 

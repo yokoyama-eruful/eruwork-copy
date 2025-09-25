@@ -19,14 +19,6 @@
   <x-main.container>
     <div class="hidden items-center justify-between sm:flex">
       <h5 class="text-xl font-bold">シフト表提出</h5>
-      <div>
-        <div class="flex items-center">
-          <p class="text-xs">シフト提出依頼：</p>
-          <div class="ml-3 rounded bg-[#F7F7F7] px-5 py-[13px]">
-
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="mx-5 flex items-center space-x-1 rounded bg-[#F7F7F7] px-5 py-[14px] sm:hidden">
@@ -90,7 +82,7 @@
                   </button>
                 @endif
               </div>
-              <livewire:shift::general.submission-create-modal @added="$refresh" :key="$content['date']->format('Ymd')" :day="$content['date']"
+              <livewire:shift::general.submission-create-modal @added="$refresh" :key="'create-' . $content['date']->format('Ymd')" :day="$content['date']"
                 :manager="$manager" />
             @endif
           </div>
@@ -115,7 +107,7 @@
                   <div class="text-sm">{{ $schedule->ViewSubmissionTime }}</div>
                 </button>
               @endif
-              <livewire:shift::general.submission-edit-modal @edited="$refresh" :key="$schedule->id" :$schedule
+              <livewire:shift::general.submission-edit-modal @edited="$refresh" :key="'edit-' . $schedule->id" :$schedule
                 :$manager />
             @endforeach
           </div>

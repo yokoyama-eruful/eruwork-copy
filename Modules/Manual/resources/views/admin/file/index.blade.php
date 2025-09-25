@@ -39,9 +39,21 @@
         <div class="mt-[30px] border-b sm:mt-[10px] sm:rounded-xl sm:border">
           @foreach ($files as $file)
             <div @class([
-                'hidden sm:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5',
+                'hidden sm:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5 relative',
                 'border-b' => !$loop->last,
             ])>
+              @if ($file->status == '下書き')
+                <div class="absolute left-0 top-0 h-16 w-16 overflow-hidden">
+                  <div
+                    class="flex h-full w-full items-start justify-center bg-[#00A1FF] pr-4 pt-3 text-xs font-bold text-white"
+                    style="clip-path: polygon(0% 0%, 0% 100%, 100% 0%); border-top-left-radius: 4px;">
+                    <span style="display:inline-block; transform: rotate(-45deg);">
+                      下書き
+                    </span>
+                  </div>
+                </div>
+              @endif
+
               <img class="max-h-[80px] max-w-[145px] rounded"
                 src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $file->thumbnail_path) }}" />
 

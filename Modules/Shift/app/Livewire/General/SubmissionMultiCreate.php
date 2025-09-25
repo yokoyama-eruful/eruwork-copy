@@ -17,9 +17,10 @@ class SubmissionMultiCreate extends Component
     {
         $this->form->managerId = $this->manager->id;
         $this->form->multiSave();
+
         $this->dispatch('SubmissionCalendarAllRefresh');
         $this->dispatch('reset-property');
-        $this->dispatch('close-modal', 'submission-multi-create-modal');
+        $this->dispatch('close-modal', 'multi-create-modal');
     }
 
     public function render()

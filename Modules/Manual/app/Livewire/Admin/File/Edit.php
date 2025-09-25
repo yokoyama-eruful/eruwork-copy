@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Manual\Livewire\Admin\File;
 
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Livewire\WithFileUploads;
@@ -24,9 +25,10 @@ class Edit extends Component
         $this->form->setValue($file);
     }
 
-    public function edit()
+    #[On('edit-manual')]
+    public function edit($branchStatus = '下書き')
     {
-        $this->form->update();
+        $this->form->update($branchStatus);
 
         return to_route('manualFileManager.index', ['folder_id' => $this->file->folder->id]);
     }

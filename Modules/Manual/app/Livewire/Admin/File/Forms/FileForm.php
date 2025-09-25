@@ -64,7 +64,7 @@ class FileForm extends Form
         }
     }
 
-    public function create()
+    public function create($branchStatus)
     {
         $this->validate();
 
@@ -83,6 +83,7 @@ class FileForm extends Form
                 'manual__folder_id' => $this->folder->id,
                 'details' => $filteredDetails,
                 'steps' => $filteredSteps,
+                'status' => $branchStatus,
             ];
         }
 
@@ -97,6 +98,7 @@ class FileForm extends Form
                 'manual__folder_id' => $this->folder->id,
                 'details' => $filteredDetails,
                 'steps' => $filteredSteps,
+                'status' => $branchStatus,
             ];
         }
 
@@ -105,7 +107,7 @@ class FileForm extends Form
         }
     }
 
-    public function update()
+    public function update($branchStatus)
     {
         $this->validate();
 
@@ -139,6 +141,7 @@ class FileForm extends Form
         $data['title'] = $this->title;
         $data['details'] = $filteredDetails;
         $data['steps'] = $filteredSteps;
+        $data['status'] = $branchStatus;
 
         $this->file->update($data);
     }

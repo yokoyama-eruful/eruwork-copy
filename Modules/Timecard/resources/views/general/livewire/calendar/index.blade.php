@@ -88,7 +88,7 @@
           <div
             class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240] transition-[left] duration-1000 ease-out"
             style="left: {{ $this->barWidth() }}; transform: translateX(8px);">
-            {{ $totalYearPay }}円
+            {{ number_format($totalYearPay) }}円
           </div>
 
           <hr
@@ -182,7 +182,7 @@
           <div
             class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240] transition-[left] duration-1000 ease-out"
             style="left: {{ $this->barWidth() }}; transform: translateX(8px);">
-            {{ $totalYearPay }}円
+            {{ number_format($totalYearPay) }}円
           </div>
 
           <hr
