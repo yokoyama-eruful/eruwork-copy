@@ -20,8 +20,9 @@
             <div class="text-xs text-[#AAB0B6]">他{{ $selectGroup->CountUser }}名</div>
             <div class="flex -space-x-3">
               @foreach ($selectGroup->users->take(4) as $user)
-                @if ($user->IconImage)
-                  <img class="h-8 w-8 rounded-full border bg-white" src="{{ $user->IconImage }}" alt="アイコン">
+                @if ($user->icon)
+                  <img class="h-8 w-8 rounded-full border bg-white"
+                    src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
                 @else
                   <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white">
                     <i class="fa-solid fa-image"></i>
@@ -35,8 +36,9 @@
             <div class="my-2 h-auto max-h-96 overflow-y-auto rounded-md border p-2 shadow">
               @foreach ($selectGroup->users as $user)
                 <div class="flex w-full flex-row items-center border-b p-2">
-                  @if ($user->IconImage)
-                    <img class="h-8 w-8 rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
+                  @if ($user->icon)
+                    <img class="h-8 w-8 rounded-full border bg-white"
+                      src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
                   @else
                     <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white"><i
                         class="fa-solid fa-image"></i>
@@ -90,8 +92,9 @@
         <div class="flex items-center justify-end space-x-[10px]" @click="$dispatch('open-modal', 'view-member')">
           <div class="flex -space-x-3">
             @foreach ($selectGroup->users->take(4) as $user)
-              @if ($user->IconImage)
-                <img class="h-8 w-8 rounded-full border bg-white" src="{{ $user->IconImage }}" alt="アイコン">
+              @if ($user->icon)
+                <img class="h-8 w-8 rounded-full border bg-white"
+                  src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
               @else
                 <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white">
                   <i class="fa-solid fa-image"></i>
@@ -106,8 +109,9 @@
           <div class="my-2 h-auto max-h-96 overflow-y-auto rounded-md border p-2 shadow">
             @foreach ($selectGroup->users as $user)
               <div class="flex w-full flex-row items-center border-b p-2">
-                @if ($user->IconImage)
-                  <img class="h-8 w-8 rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
+                @if ($user->icon)
+                  <img class="h-8 w-8 rounded-full border bg-white"
+                    src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
                 @else
                   <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white"><i
                       class="fa-solid fa-image"></i>

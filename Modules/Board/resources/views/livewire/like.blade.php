@@ -98,8 +98,9 @@
                       <div class="flex flex-row items-center space-x-3 border-b px-2 py-2">
                         <div
                           class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-4xl text-gray-800">
-                          @if ($like->user->IconImage)
-                            <img class="h-full w-full" src="{{ $like->user->IconImage }}">
+                          @if ($like->user->icon)
+                            <img class="h-full w-full"
+                              src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $like->user->icon) }}">
                           @else
                             👤
                           @endif

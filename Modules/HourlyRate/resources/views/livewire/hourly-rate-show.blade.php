@@ -7,7 +7,8 @@
     <div
       class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
       @if ($user->icon)
-        <img class="h-full w-full object-cover" src="{{ $user->icon }}">
+        <img class="h-full w-full object-cover"
+          src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}">
       @else
         <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
             class="fa-solid fa-image"></i>

@@ -27,11 +27,11 @@
               'grid sm:grid-cols-[6%,15%,15%,15%,15%,27.2%,3.8%,3%] grid-cols-[10%,35%,35%,10%,10%] sm:py-[18px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
           ])>
-
             <div
               class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 sm:ml-[25px] sm:h-[45px] sm:w-[45px]">
               @if ($user->icon)
-                <img class="h-full w-full object-cover" src="{{ $user->icon }}">
+                <img class="h-full w-full object-cover"
+                  src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
                     class="fa-solid fa-image"></i>
