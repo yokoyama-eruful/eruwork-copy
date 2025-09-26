@@ -1,5 +1,5 @@
 <x-modal name="create-modal-{{ $day->format('Y-m-d') }}" title="シフト希望登録">
-  <form class="p-4" id="create-shift-{{ $day->format('Y-m-d') }}" wire:submit="save">
+  <form class="px-4 py-8" id="create-shift-{{ $day->format('Y-m-d') }}" wire:submit="save">
     @csrf
 
     @if ($errors->any())
@@ -20,12 +20,11 @@
       <x-input-label value="時間" />
 
       <div class="flex w-full items-center space-x-1">
-        <x-text-input class="flex-1" id="start_time" name="start_time" type="time" wire:model="form.startTime"
-          required />
+        <x-text-input class="flex-1" id="start_time" name="start_time" type="time" wire:model="form.startTime" />
 
         <div class="px-[10px]">〜</div>
 
-        <x-text-input class="flex-1" id="end_time" name="end_time" type="time" wire:model="form.endTime" required />
+        <x-text-input class="flex-1" id="end_time" name="end_time" type="time" wire:model="form.endTime" />
       </div>
     </div>
 

@@ -12,7 +12,7 @@
   ][$maxWidth];
 @endphp
 
-<div class="fixed inset-0 z-50 overflow-y-auto px-4 py-6 sm:flex sm:items-center sm:justify-center sm:px-0"
+<div class="fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto px-4 py-6 sm:px-0"
   style="display: {{ $show ? 'block' : 'none' }};" x-data="{
       show: @js($show),
       focusables() {
@@ -44,7 +44,7 @@
     <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
   </div>
 
-  <div class="{{ $maxWidth }} mb-6 transform overflow-hidden rounded-xl bg-white shadow-xl transition-all sm:w-full"
+  <div class="{{ $maxWidth }} mb-6 w-full transform overflow-hidden rounded-xl bg-white shadow-xl transition-all"
     x-show="show" x-transition:enter="ease-out duration-300"
     x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"

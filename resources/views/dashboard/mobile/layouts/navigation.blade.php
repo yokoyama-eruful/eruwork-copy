@@ -1,4 +1,4 @@
-<nav class="border-b border-ao-dark bg-ao-main shadow" x-data="{ open: false }">
+<nav class="border-b border-hai-dark bg-hai-main shadow" x-data="{ open: false }">
   @livewireScripts
   <!-- Primary Navigation Menu -->
   <div class="mx-auto px-4 lg:px-8 xl:px-6">
@@ -6,7 +6,7 @@
       <div class="flex">
         <!-- Logo -->
         <div class="flex w-14 shrink-0 items-center">
-          <a href="{{ route('home.index') }}">
+          <a href="{{ route('dashboard') }}">
             <x-application-logo />
           </a>
         </div>
@@ -52,7 +52,7 @@
       <!-- Hamburger -->
       <div class="-me-2 flex items-center xl:hidden">
         <button
-          class="inline-flex items-center justify-center rounded-md p-2 text-gray-400 transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
+          class="inline-flex items-center justify-center rounded-md p-2 text-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-gray-500 focus:bg-gray-100 focus:text-gray-500 focus:outline-none"
           @click="open = ! open">
           <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
             <path class="inline-flex" :class="{ 'hidden': open, 'inline-flex': !open }" stroke-linecap="round"
@@ -67,7 +67,7 @@
 
   <!-- Responsive Navigation Menu -->
   <div class="overflow-hidden transition-all duration-300 ease-in-out xl:hidden"
-    :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'" x-cloak>
+    :class="open ? 'max-h-screen opacity-100' : 'max-h-0 opacity-0'">
     <!-- Responsive Settings Options -->
     <div class="border-t border-gray-200 bg-white pb-1">
       <div class="px-4 py-2">
@@ -89,6 +89,6 @@
       </div>
     </div>
 
-    @include('home.layouts.sidemenu')
+    @include('dashboard.layouts.sidemenu')
   </div>
 </nav>

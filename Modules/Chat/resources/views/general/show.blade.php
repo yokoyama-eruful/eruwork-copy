@@ -124,7 +124,7 @@
         </x-modal-alert>
       @endif
     </div>
-    <div class="mt-3 h-[calc(100vh-210px)] overflow-y-auto">
+    <div class="mt-2 h-[calc(100vh-210px)] overflow-y-auto">
       @livewire('chat::general.talk-area', ['group' => $selectGroup])
     </div>
 

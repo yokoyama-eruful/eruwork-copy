@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WebPushController;
 use Illuminate\Support\Facades\Route;
@@ -28,9 +29,16 @@ Route::middleware([
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::middleware('auth')->group(function () {
-        Route::get('/', function () {
-            return view('home.index');
-        })->name('home');
+        Route::controller(HomeController::class)
+            ->prefix('home')
+            ->name('home.')
+            ->group(function (): void {
+                Route::get('/', 'index')->name('index');
+            });
+
+        // Route::get('/', function () {
+        //     return view('home.index');
+        // })->name('home');
 
         Route::controller(WebPushController::class)
             ->prefix('webPush')

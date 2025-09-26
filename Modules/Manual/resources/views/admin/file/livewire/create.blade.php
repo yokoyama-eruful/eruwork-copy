@@ -30,7 +30,7 @@
           handleDrop(e) {
               let files = e.dataTransfer.files;
               if (files.length > 0) {
-                  @this.upload('form.file', files[0]);
+                  @this.upload('form.uploadFile', files[0]);
               }
               this.isDragging = false;
           }
@@ -43,7 +43,7 @@
               <img class="h-full w-full rounded-lg" src="{{ $form->uploadFile->temporaryUrl() }}" />
               <button
                 class="absolute right-2 top-2 flex h-[30px] w-[30px] items-center justify-center rounded bg-[#272727] bg-opacity-40 hover:bg-opacity-70"
-                type="button" wire:click="deleteFile">
+                type="button" wire:click="deleteUploadFile">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M6.8457 18.8448L18.8457 6.84478M6.8457 6.84478L18.8457 18.8448" stroke="white"
@@ -59,7 +59,7 @@
               </video>
               <button
                 class="absolute right-2 top-2 flex h-[30px] w-[30px] items-center justify-center rounded bg-[#272727] bg-opacity-40 hover:bg-opacity-70"
-                type="button" wire:click="deleteFile">
+                type="button" wire:click="deleteUploadFile">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M6.8457 18.8448L18.8457 6.84478M6.8457 6.84478L18.8457 18.8448" stroke="white"

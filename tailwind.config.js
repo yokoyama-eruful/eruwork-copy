@@ -9,7 +9,7 @@ export default {
         './resources/views/**/*.blade.php',
         './Modules/**/resources/views/*.blade.php',
         './Modules/**/resources/views/**/*.blade.php',
-        
+        './*.html',
     ],
 
     theme: {

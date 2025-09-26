@@ -35,7 +35,7 @@ class ProfileController extends Controller
             $this->passwordUpdate($request);
         }
 
-        return to_route('home');
+        return to_route('home.index');
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

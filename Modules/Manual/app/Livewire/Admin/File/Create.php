@@ -41,6 +41,15 @@ class Create extends Component
         $this->form->file = null;
     }
 
+    public function deleteUploadFile()
+    {
+        if ($this->form->uploadFile) {
+            $this->form->uploadFile->delete();
+        }
+
+        $this->form->uploadFile = null;
+    }
+
     public function addDetail($index)
     {
         $newDetail = ['title' => '', 'content' => ''];

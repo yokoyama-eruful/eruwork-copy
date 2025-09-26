@@ -78,7 +78,7 @@
         <div class="flex h-20 flex-row items-center justify-center space-x-2 text-white">
           <button class="w-full rounded-md bg-ao-main py-3 hover:bg-sky-700 xl:w-1/6" type="submit">更新</button>
           <a class="w-full rounded-md border border-ao-main bg-white py-3 text-center text-ao-main hover:bg-sky-700 hover:text-white xl:w-1/6"
-            href="{{ route('home') }}">キャンセル</a>
+            href="{{ route('home.index') }}">キャンセル</a>
         </div>
       </form>
     </x-main.container>

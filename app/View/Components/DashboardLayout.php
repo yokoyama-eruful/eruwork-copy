@@ -6,6 +6,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;
+use Jenssegers\Agent\Agent;
 
 class DashboardLayout extends Component
 {
@@ -18,6 +19,12 @@ class DashboardLayout extends Component
 
     public function render(): View
     {
-        return view('dashboard.layouts.app');
+        $agent = new Agent;
+
+        if ($agent->isMobile()) {
+            return view('dashboard.mobile.layouts.app');
+        }
+
+        return view('dashboard.desktop.layouts.app');
     }
 }

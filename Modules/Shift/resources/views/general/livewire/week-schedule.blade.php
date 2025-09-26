@@ -211,10 +211,11 @@
                 <div class="ml-[8px] text-sm text-[#FF4A62]">
                   {{ $manager->submission_end_date->isoFormat('MM月DD日（ddd）まで') }}</div>
               </div>
-              <div class="text-[18px] font-bold">{{ $manager->start_date->isoFormat('YYYY年MM月DD日') }}～
+              <div class="mt-1 text-[16px] font-bold">{{ $manager->start_date->isoFormat('YYYY年MM月DD日') }}～
                 {{ $manager->end_date->isoFormat('MM月DD日') }}</div>
             </div>
-            <div class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40">入力する</div>
+            <a class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40"
+              href="{{ route('shift.submission.show', ['manager' => $manager->id]) }}">入力する</a>
           </div>
         </div>
       @endif

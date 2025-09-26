@@ -6,6 +6,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 use Illuminate\View\View;
+use Jenssegers\Agent\Agent;
 
 class AppLayout extends Component
 {
@@ -18,6 +19,12 @@ class AppLayout extends Component
 
     public function render(): View
     {
-        return view('home.layouts.app');
+        $agent = new Agent;
+
+        if ($agent->isMobile()) {
+            return view('home.mobile.layouts.app');
+        }
+
+        return view('home.desktop.layouts.app');
     }
 }
