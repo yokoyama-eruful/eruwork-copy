@@ -1,28 +1,7 @@
 <div>
-  {{-- <div class="flex flex-row items-center border-b hover:bg-slate-100 hover:text-blue-500"
-    wire:click="setSchedule({{ $schedule->id }})">
-    @if (is_null($schedule->draftSchedule))
-      <div>
-        ・{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time?->format('H:i') }}
-      </div>
-    @else
-      <div @class([
-          'text-black',
-          'text-red-500' =>
-              $schedule->draftSchedule->start_time > $schedule->start_time ||
-              $schedule->draftSchedule->end_time < $schedule->end_time,
-      ])>
-        ・{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time?->format('H:i') }}
-      </div>
-    @endif
-    <button class="pl-1">
-      <i class="fa-regular fa-pen-to-square"></i>
-    </button>
-  </div> --}}
-
   <x-modal name="edit-modal-{{ $schedule->id }}" title="確定シフト編集">
-    <div class="flex justify-between px-4 pt-4">
-      <div class="text-xl font-bold">
+    <div class="pb-20px flex justify-between px-2 pt-[30px]">
+      <div class="ps-2 font-bold">
         {{ $content['date']->isoFormat('YYYY年MM月DD日 (ddd)') }}
       </div>
       @if ($schedule->shift_draft_schedule_id)
@@ -42,39 +21,46 @@
       @endif
     </div>
 
-    <form class="p-4" id="form-shift-{{ $schedule->id }}" wire:submit="update">
+    <form class="p-4" wire:submit="update">
+      @csrf
+
+      @if ($errors->any())
+        <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+          <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 
       <div class="grid grid-cols-[20%,80%] items-center">
         @if ($schedule->shift_draft_schedule_id)
           <x-input-label value="ユーザー名" />
-          <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+          <div class="w-full rounded-md ps-3 focus:border-indigo-500 focus:ring-indigo-500">
             {{ $schedule->user->name }}
           </div>
         @else
           <x-input-label for="user" value="ユーザー名" />
-          <select class="w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-            wire:model="form.userId">
+          <select class="w-full rounded-md focus:border-indigo-500 focus:ring-indigo-500" wire:model="form.userId">
             <option value="">選択してください</option>
             @foreach ($users as $user)
               <option value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
           </select>
-          @error('form.user')
-            <div class="text-sm font-normal text-red-500">{{ $message }}</div>
-          @enderror
         @endif
       </div>
 
       @if ($schedule->shift_draft_schedule_id)
         <div class="mt-4 grid grid-cols-[20%,80%] items-center">
           <x-input-label value="希望開始時間" />
-          <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+          <div class="w-full rounded-md ps-3 focus:border-indigo-500 focus:ring-indigo-500">
             {{ $schedule->draftSchedule->start_time->format('H:i') }}
           </div>
         </div>
         <div class="mt-4 grid grid-cols-[20%,80%] items-center">
           <x-input-label value="希望終了時間" />
-          <div class="w-full rounded-md border-b-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+          <div class="w-full rounded-md ps-3 focus:border-indigo-500 focus:ring-indigo-500">
             {{ $schedule->draftSchedule->end_time->format('H:i') }}
           </div>
         </div>
@@ -85,32 +71,24 @@
 
         <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time"
           wire:model="form.startTime" required />
-
-        @error('form.start_time')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
-      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+      <div class="mb-[30px] mt-4 grid grid-cols-[20%,80%] items-center">
         <x-input-label for="end_time" value="終了時間" />
 
         <x-text-input class="mt-1 block w-full" id="end_time" name="end_time" type="time" wire:model="form.endTime"
           required />
-
-        @error('form.endTime')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
-      <x-slot:footer>
+      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3" form="form-shift-{{ $schedule->id }}">
+        <x-primary-button class="ms-3">
           登録
         </x-primary-button>
-      </x-slot:footer>
+      </div>
     </form>
   </x-modal>
 

@@ -7,15 +7,22 @@
   <x-modal name="edit-modal" title="シフト受付期間編集">
     <form class="p-4" wire:submit="update">
       @csrf
+
+      @if ($errors->any())
+        <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+          <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
       <div class="mt-4">
         <x-input-label for="submission_start_date" value="開始日" />
 
         <x-text-input class="mt-1 block w-full" id="submission_start_date" name="submission_start_date" type="date"
           wire:model="form.submissionStartDate" required />
-
-        @error('form.submissionStartDate')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="mt-2">
@@ -23,10 +30,6 @@
 
         <x-text-input class="mt-1 block w-full" id="submission_end_date" name="submission_end_date" type="date"
           wire:model="form.submissionEndDate" required />
-
-        @error('form.submissionEndDate')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="mt-6 flex justify-end">

@@ -7,7 +7,7 @@
       <x-danger-button>削除</x-danger-button>
     </form>
   </div>
-  <form class="px-4 pb-4" id="form-public-holiday-{{ $publicHoliday->id }}" wire:submit="update">
+  <form class="px-4 pb-4" wire:submit="update">
 
     <div class="mt-4">
       <x-input-label for="name" value="公休日名" />
@@ -18,14 +18,14 @@
       <x-input-error class="mt-2" :messages="$errors->userDeletion->get('name')" />
     </div>
 
-    <x-slot:footer>
+    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3" form="form-public-holiday-{{ $publicHoliday->id }}">
+      <x-primary-button class="ms-3">
         更新
       </x-primary-button>
-    </x-slot:footer>
+    </div>
   </form>
 </x-modal>

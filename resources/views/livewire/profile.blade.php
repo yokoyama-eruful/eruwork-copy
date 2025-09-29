@@ -1,5 +1,5 @@
 <x-modal name="profile" title="プロフィール設定" maxWidth="440">
-  <form class="px-[30px] py-5" id="update-profile" wire:submit="update" enctype="multipart/form-data">
+  <form class="px-[30px] py-5" wire:submit="update" enctype="multipart/form-data">
     @if ($errors->any())
       <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
         <ul class="list-disc pl-5">
@@ -155,14 +155,14 @@
       setupPasswordToggle('new_password_confirmation', 'confirm_togglePassword', 'confirm_icon-hide', 'confirm_icon-show');
     </script>
 
-    <x-slot:footer>
+    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3" form="update-profile">
+      <x-primary-button class="ms-3">
         更新する
       </x-primary-button>
-    </x-slot:footer>
+    </div>
   </form>
 </x-modal>

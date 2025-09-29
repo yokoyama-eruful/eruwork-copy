@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        return view('dashboard.index');
+        return to_route('shiftManager.index');
     }
 }

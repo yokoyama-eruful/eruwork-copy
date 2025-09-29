@@ -8,9 +8,18 @@
     </svg>
   </button>
   <x-modal name="create-modal-{{ $content['date']->format('Y-m-d') }}" title="確定シフト登録">
-    <form class="px-[15px] py-5" id="form-shift-{{ $content['date']->format('Y-m-d') }}"
-      wire:submit="save('{{ $content['date'] }}')">
+    <form class="px-[15px] py-5" wire:submit="save('{{ $content['date'] }}')">
       @csrf
+
+      @if ($errors->any())
+        <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+          <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 
       <div class="text-lg font-bold">
         {{ $content['date']->format('Y年m月d日') }}
@@ -25,9 +34,6 @@
             <option value="{{ $user->id }}">{{ $user->name }}</option>
           @endforeach
         </select>
-        @error('form.user')
-          <div class="text-sm font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="mt-4 grid grid-cols-[20%,80%] items-center">
@@ -35,10 +41,6 @@
 
         <x-text-input class="mt-1 block w-full" id="start_time" name="start_time" type="time"
           wire:model="form.startTime" required />
-
-        @error('form.start_time')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="mt-4 grid grid-cols-[20%,80%] items-center">
@@ -46,21 +48,17 @@
 
         <x-text-input class="mt-1 block w-full" id="end_time" name="end_time" type="time" wire:model="form.endTime"
           required />
-
-        @error('form.endTime')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
-      <x-slot:footer>
+      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3" form="form-shift-{{ $content['date']->format('Y-m-d') }}">
+        <x-primary-button class="ms-3">
           登録
         </x-primary-button>
-      </x-slot:footer>
+      </div>
     </form>
   </x-modal>
 </div>

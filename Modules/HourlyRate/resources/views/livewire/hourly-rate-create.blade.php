@@ -8,18 +8,23 @@
     <div class="text-sm font-bold text-[#3289FA]">時給を追加</div>
   </button>
   <x-modal name="create-modal" title="時給情報の追加">
-    <form class="p-4" id="form-hourly-rate-{{ $user->id }}" wire:submit="save" x-data="Datepickr()"
-      x-init="initDatepickr">
+    <form class="p-4" wire:submit="save" x-data="Datepickr()" x-init="initDatepickr">
+      @csrf
+      @if ($errors->any())
+        <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+          <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 
       <div class="grid grid-cols-[20%,80%] items-center">
         <x-input-label for="rate" value="時給" />
 
         <x-text-input class="mt-1 block w-full" id="rate" name="rate" type="number" min="0"
           wire:model="rate" required />
-
-        @error('rate')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="mt-4 grid grid-cols-[20%,80%] items-center">
@@ -27,21 +32,17 @@
 
         <x-text-input class="js-datepicker mt-1 block w-full" id="date" name="date" type="text"
           wire:model="date" required />
-
-        @error('date')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
-      <x-slot:footer>
+      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3" form="form-hourly-rate-{{ $user->id }}">
+        <x-primary-button class="ms-3">
           登録
         </x-primary-button>
-      </x-slot:footer>
+      </div>
     </form>
   </x-modal>
 </div>

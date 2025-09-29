@@ -21,10 +21,8 @@ class AppLayout extends Component
     {
         $agent = new Agent;
 
-        if ($agent->isMobile()) {
-            return view('home.mobile.layouts.app');
-        }
-
-        return view('home.desktop.layouts.app');
+        return $agent->isMobile()
+               ? view('home.mobile.layouts.app')
+               : view('home.desktop.layouts.app');
     }
 }

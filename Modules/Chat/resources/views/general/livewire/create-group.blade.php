@@ -1,17 +1,24 @@
 <x-modal name="view-group-create-modal">
-  <form class="p-4" id="chat-group-create" wire:submit="store" enctype="multipart/form-data">
+  <form class="p-4" wire:submit="store" enctype="multipart/form-data">
+    @csrf
     <x-slot:title>
       グループ作成
     </x-slot:title>
+
+    @if ($errors->any())
+      <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+        <ul class="list-disc pl-5">
+          @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+          @endforeach
+        </ul>
+      </div>
+    @endif
 
     <div>
       <x-input-label for="icon" value="アイコン" />
 
       <x-text-input class="mt-1 block w-full" id="icon" name="icon" type="file" wire:model="form.icon" />
-
-      @error('form.icon')
-        <div class="text-sm font-normal text-red-500">{{ $message }}</div>
-      @enderror
     </div>
 
     <div class="mt-2">
@@ -19,10 +26,6 @@
 
       <x-text-input class="mt-1 block w-full" id="name" name="name" type="text" placeholder="グループ名"
         wire:model="form.name" required />
-
-      @error('form.name')
-        <div class="text-sm font-normal text-red-500">{{ $message }}</div>
-      @enderror
     </div>
 
     <div class="mt-4">
@@ -40,14 +43,14 @@
       </div>
     </div>
 
-    <x-slot:footer>
+    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3" form="chat-group-create">
+      <x-primary-button class="ms-3">
         登録
       </x-primary-button>
-    </x-slot:footer>
+    </div>
   </form>
 </x-modal>

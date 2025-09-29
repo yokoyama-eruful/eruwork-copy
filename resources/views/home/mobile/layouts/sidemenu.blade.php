@@ -1,10 +1,12 @@
-<header class="flex items-center justify-between bg-[#363b46] px-5 text-white">
+<header class="flex items-center justify-between bg-[#363b46] px-5 text-white" x-data="{ accountModal: false }">
   <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
     @if (Auth::user()->icon)
       <img class="h-full w-full object-cover"
-        src="{{ global_asset('tenants/' . tenant()->id . '/app/' . Auth::user()->icon) }}" />
+        src="{{ global_asset('tenants/' . tenant()->id . '/app/' . Auth::user()->icon) }}"
+        x-on:click="accountModal=!accountModal" />
     @else
-      <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}" />
+      <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}"
+        x-on:click="accountModal=!accountModal" />
     @endif
   </div>
 
@@ -25,6 +27,32 @@
     <span class="block h-[2px] w-full origin-center transform rounded bg-white transition-all duration-300"
       :class="sideMenu ? '-rotate-45 -translate-y-[7px]' : ''"></span>
   </button>
+
+  <div class="account-modal-box absolute" id="accountModal" x-show="accountModal" x-on:click.away="accountModal=false">
+    <div class="modal-content">
+      <button class="flex items-center text-xs hover:opacity-40" type="button"
+        x-on:click="$dispatch('open-modal','profile'); accountModal=false">
+        <img class="h-5 w-5" src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
+        アカウント
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+            clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div>
+        <button class="flex items-center text-xs text-[#F76E80] hover:opacity-40" type="button"
+          x-on:click="$dispatch('open-modal','logout')">
+          <img class="h-5 w-5" src="{{ global_asset('img/icon/logout.png') }}" />
+          ログアウト
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
+            <path fill-rule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
 
 </header>
 

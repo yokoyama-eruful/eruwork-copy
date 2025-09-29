@@ -300,7 +300,6 @@
                 @if ($content['type'] != '補助日')
                   <div @class([
                       'relative flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#00A1FF] bg-[#F2FBFF] pb-[15px] pl-5 pr-[13px] pt-3 text-[#00A1FF]',
-                      'mb-[23px]' => $loop->last,
                   ]) x-data="{ openModalSchedule{{ $schedule->id }}: false }"
                     @click="openModalSchedule{{ $schedule->id }}=true"
                     @click.away="openModalSchedule{{ $schedule->id }}=false"

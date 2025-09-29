@@ -12,7 +12,7 @@
         <livewire:manual::admin.folder.create-modal />
       </div>
       @if ($folders->isNotEmpty())
-        <div class="mt-[30px] hidden grid-cols-[70%,10%,10%,5%,5%] sm:grid">
+        <div class="mt-[30px] hidden grid-cols-[60%,15%,15%,5%,5%] sm:grid">
           <div class="pl-[30px] text-xs text-[#AAB0B6]">表題</div>
           <div class="text-xs text-[#AAB0B6]">メンバー</div>
           <div class="text-xs text-[#AAB0B6]">更新日</div>
@@ -22,7 +22,7 @@
         <div class="mt-[10px] border-b sm:rounded-xl sm:border">
           @foreach ($folders as $folder)
             <div @class([
-                'grid sm:grid-cols-[70%,10%,10%,5%,5%] grid-cols-[80%,10%,10%] sm:py-[30px] py-5 text-[15px] flex items-center cursor-pointer',
+                'grid sm:grid-cols-[60%,15%,15%,5%,5%] grid-cols-[80%,10%,10%] sm:py-[30px] py-5 text-[15px] flex items-center cursor-pointer',
                 'border-b' => !$loop->last,
             ])
               onclick="window.location='{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}'">

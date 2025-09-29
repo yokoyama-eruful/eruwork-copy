@@ -25,7 +25,7 @@
   </x-dashboard.top>
   <x-dashboard.container>
     <h5 class="hidden text-xl font-bold sm:block">シフト管理</h5>
-    <div class="mt-[30px] flex items-center space-x-2 px-5 sm:mt-[20px] sm:px-0">
+    <div class="mt-[30px] flex items-center space-x-2 border-b px-5 pb-[10px] sm:mt-[20px] sm:px-0">
       <div class="text-xs text-[#AAB0B6]">期間:</div>
       <div class="text-[15px] font-semibold sm:text-[20px]">
         {{ $manager->submission_start_date->isoFormat('M月D日（ddd）') }}　～　{{ $manager->submission_end_date->isoFormat('M月D日（ddd）') }}

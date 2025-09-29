@@ -1,24 +1,48 @@
-<x-guest-layout>
-  <form method="POST" action="{{ route('login') }}">
-    @csrf
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-    <div>
-      <x-input-label for="login_id" :value="__('login_id')" />
-      <x-text-input class="mt-1 block w-full" id="login_id" name="login_id" type="text" :value="old('name')" required />
-      <x-input-error class="mt-2" :messages="$errors->get('login_id')" />
-    </div>
-    <div class="mt-4">
-      <x-input-label for="password" :value="__('Password')" />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-      <x-text-input class="mt-1 block w-full" id="password" name="password" type="password" required
-        autocomplete="current-password" />
+  <title>{{ config('app.name', 'Laravel') }}</title>
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
 
-      <x-input-error class="mt-2" :messages="$errors->get('password')" />
+<body class="font-sans text-gray-900 antialiased">
+  <div class="flex min-h-screen flex-col items-center justify-center bg-[#F7F7F7] pt-6 sm:pt-0">
+
+    <div
+      class="mt-6 w-[400px] overflow-hidden rounded-xl bg-white py-4 shadow-[0px_4px_13px_rgba(93,95,98,0.15)] sm:max-w-md">
+      <div class="flex items-center justify-center pb-12 pt-10">
+        <a href="/login">
+          <img class="w-[68px] fill-current text-gray-500" src="{{ url('images/logo/eruwork_blue_logo.png') }}"
+            alt="eruworkロゴ">
+        </a>
+      </div>
+      <form class="flex w-full flex-col items-center" method="POST" action="{{ route('login') }}">
+        @csrf
+
+        <div class="grid w-full grid-cols-[22%,78%] items-center px-[30px]">
+          <x-input-label for="login_id" :value="__('login_id')" />
+          <x-text-input class="mt-1 block w-full" id="login_id" name="login_id" type="text" :value="old('name')"
+            placeholder="IDを入力してください" required />
+          <x-input-error class="mt-2" :messages="$errors->get('login_id')" />
+        </div>
+        <div class="mt-5 grid w-full grid-cols-[22%,78%] items-center px-[30px]">
+          <x-input-label for="password" :value="__('Password')" />
+
+          <x-text-input class="mt-1 block w-full" id="password" name="password" type="password" required
+            autocomplete="current-password" placeholder="パスワードを入力してください" />
+
+          <x-input-error class="mt-2" :messages="$errors->get('password')" />
+        </div>
+        <button class="my-10 h-[45px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+          type="submit">ログイン</button>
+      </form>
     </div>
-    <div class="mt-4 flex items-center justify-end">
-      <x-primary-button class="ms-3">
-        {{ __('Log in') }}
-      </x-primary-button>
-    </div>
-  </form>
-</x-guest-layout>
+  </div>
+</body>
+
+</html>

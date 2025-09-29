@@ -6,7 +6,7 @@
     複数日登録
   </button>
   <x-modal name="multi-create-modal" title="予定複数登録">
-    <form class="p-4" id="multi-create-form" method="post" wire:submit="save">
+    <form class="p-4" method="post" wire:submit="save">
       @csrf
 
       @if ($errors->any())
@@ -66,16 +66,15 @@
             required />
         </div>
       </div>
+      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+        <x-secondary-button x-on:click="$dispatch('close')">
+          {{ __('Cancel') }}
+        </x-secondary-button>
 
+        <x-primary-button class="ms-3">
+          登録
+        </x-primary-button>
+      </div>
     </form>
-    <x-slot:footer>
-      <x-secondary-button x-on:click="$dispatch('close')">
-        {{ __('Cancel') }}
-      </x-secondary-button>
-
-      <x-primary-button class="ms-3" form="multi-create-form">
-        登録
-      </x-primary-button>
-    </x-slot:footer>
   </x-modal>
 </div>

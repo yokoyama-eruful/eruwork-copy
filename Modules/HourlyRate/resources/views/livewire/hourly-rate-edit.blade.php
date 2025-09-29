@@ -7,7 +7,8 @@
     </svg>
   </button>
   <x-modal name="edit-modal-{{ $hourlyRate->id }}" title="時給情報の編集">
-    <form class="flex justify-end" wire:submit="delete">
+
+    <form class="flex justify-end pr-[20px] pt-[30px]" wire:submit="delete">
       <button class="rounded px-2 py-1 text-red-600 hover:bg-red-600 hover:text-white" type="submit"
         onclick='return confirm("本当に削除しますか")'>
         <i class="fa-solid fa-trash me-1"></i>
@@ -15,18 +16,23 @@
       </button>
     </form>
 
-    <form class="p-4" id="form-hourly-rate-{{ $hourlyRate->id }}" wire:submit="update" x-data="Datepickr()"
-      x-init="initDatepickr">
+    <form class="p-4" wire:submit="update" x-data="Datepickr()" x-init="initDatepickr">
+      @csrf
+      @if ($errors->any())
+        <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+          <ul class="list-disc pl-5">
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
 
       <div class="grid grid-cols-[20%,80%] items-center">
         <x-input-label for="rate" value="時給" />
 
         <x-text-input class="mt-1 block w-full" id="rate" name="rate" type="number" min="0"
           wire:model="rate" required />
-
-        @error('rate')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
       <div class="mt-4 grid grid-cols-[20%,80%] items-center">
@@ -34,21 +40,17 @@
 
         <x-text-input class="js-datepicker mt-1 block w-full" id="date" name="date" type="text"
           wire:model="date" required />
-
-        @error('date')
-          <div class="font-normal text-red-500">{{ $message }}</div>
-        @enderror
       </div>
 
-      <x-slot:footer>
+      <div class="-mx-4 -mb-4 mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3" form="form-hourly-rate-{{ $hourlyRate->id }}">
-          更新
+        <x-primary-button class="ms-3">
+          更 新
         </x-primary-button>
-      </x-slot:footer>
+      </div>
     </form>
   </x-modal>
 </div>

@@ -1,5 +1,5 @@
 <x-modal name="create-modal-{{ $day->format('Y-m-d') }}" title="シフト希望登録">
-  <form class="px-4 py-8" id="create-shift-{{ $day->format('Y-m-d') }}" wire:submit="save">
+  <form class="px-4 py-8" wire:submit="save">
     @csrf
 
     @if ($errors->any())
@@ -28,14 +28,14 @@
       </div>
     </div>
 
-    <x-slot:footer>
+    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3" form="create-shift-{{ $day->format('Y-m-d') }}">
+      <x-primary-button class="ms-3">
         登録
       </x-primary-button>
-    </x-slot:footer>
+    </div>
   </form>
 </x-modal>
