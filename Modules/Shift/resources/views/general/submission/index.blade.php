@@ -60,9 +60,10 @@
                 {{ $manager->start_date->isoFormat('YYYY年MM月DD日（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
               </div>
 
-              <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日') }}</div>
+              <div class="hidden text-[15px] sm:block">{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日') }}
+              </div>
 
-              <a class="text-center text-[#3289FA] hover:opacity-40"
+              <a class="hidden text-center text-[#3289FA] hover:opacity-40 sm:block"
                 href="{{ route('shift.submission.show', ['manager' => $manager]) }}">表示する</a>
             </div>
           @endforeach
