@@ -6,6 +6,7 @@ namespace Modules\Account\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Jenssegers\Agent\Agent;
 use Modules\Account\Http\Requests\AccountStoreRequest;
 use Modules\Account\Http\Requests\AccountUpdateRequest;
 use Modules\Chat\Models\Group;
@@ -61,7 +62,11 @@ class AccountController extends Controller
     {
         $user = User::where('login_id', $id)->first();
 
-        return view('account::edit', ['user' => $user]);
+        $agent = new Agent;
+
+        return $agent->isMobile()
+               ? view('account::mobile-edit', ['user' => $user])
+               : view('account::desktop-edit', ['user' => $user]);
     }
 
     /**

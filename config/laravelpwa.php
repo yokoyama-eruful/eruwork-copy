@@ -7,7 +7,7 @@ return [
     'manifest' => [
         'name' => env('APP_NAME', 'My PWA App'),
         'short_name' => 'EW',
-        'start_url' => '/',
+        'start_url' => '/login',
         'background_color' => '#ffffff',
         'theme_color' => '#000000',
         'display' => 'standalone',

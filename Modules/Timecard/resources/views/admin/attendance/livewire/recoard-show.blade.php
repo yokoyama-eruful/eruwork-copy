@@ -38,7 +38,7 @@
       </x-dashboard.top>
       <x-dashboard.container>
         <h5 class="hidden text-xl font-bold sm:block">勤怠管理</h5>
-        <div class="mt-[30px] hidden grid-cols-[5%,4.5%,35.5%,18%,20%,18%] sm:grid">
+        <div class="mt-[30px] hidden grid-cols-[5%,4.5%,35.5%,18%,20%,18%] items-end sm:grid">
           <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
             @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); $wire.set('selectUsers', Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => checkbox.value));">
             全選択</button>

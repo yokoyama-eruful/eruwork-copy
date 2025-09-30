@@ -16,7 +16,7 @@
     </div>
 
     <div class="mb-[50px] mt-5">
-      <div class="font-bold">{{ $selectedDate->isoFormat('Y年M月D日（ddd曜日）') }}</div>
+      <div class="font-bold">{{ $selectedDate->isoFormat('Y年M月D日（ddd曜）') }}</div>
       <div class="mt-5 text-[11px] font-bold">本日の勤務時間</div>
       @if ($workTimeList->isEmpty())
         <div
@@ -361,7 +361,7 @@
                 'text-[#FF0000]' =>
                     $content['date']->format('Y-m-d') !== $selectedDate->format('Y-m-d') &&
                     $content['date']->isoFormat('ddd') === '日',
-            ])>{{ $content['date']->isoFormat('D日（ddd曜日）') }}</div>
+            ])>{{ $content['date']->isoFormat('D日（ddd曜）') }}</div>
 
             @if ($content['workTimes']->isNotEmpty())
               <div class="my-2 min-w-[256px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] p-[9px] text-[#DE993A]">
