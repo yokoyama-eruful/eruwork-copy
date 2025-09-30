@@ -122,7 +122,7 @@
     </div>
     <div class="w-full">
       @foreach ($managers as $manager)
-        @if ($manager->ReceptionStatus == '受付中' || $manager->ReceptionStatus == '受付終了')
+        @if ($manager->ReceptionStatus == '受付中' || $manager->ReceptionStatus == '終了')
           <a class="mb-2 flex flex-wrap items-center justify-between rounded-md border px-4 py-2 shadow hover:bg-sky-50"
             href="{{ route('submission.show', ['manager' => $manager->id]) }}">
             <div class="flex flex-col">
@@ -134,7 +134,7 @@
                 <div @class([
                     'inline-block rounded px-4 text-white xl:hidden block',
                     'bg-sky-400' => $manager->ReceptionStatus == '受付中',
-                    'bg-rose-400' => $manager->ReceptionStatus == '受付終了',
+                    'bg-rose-400' => $manager->ReceptionStatus == '終了',
                 ])>
                   {{ $manager->ReceptionStatus }}
                 </div>
@@ -144,7 +144,7 @@
             <div @class([
                 'inline-block rounded p-2 px-4 text-white xl:block hidden',
                 'bg-sky-400' => $manager->ReceptionStatus == '受付中',
-                'bg-rose-400' => $manager->ReceptionStatus == '受付終了',
+                'bg-rose-400' => $manager->ReceptionStatus == '終了',
             ])>
               {{ $manager->ReceptionStatus }}
             </div>

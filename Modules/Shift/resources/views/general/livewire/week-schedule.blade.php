@@ -203,7 +203,7 @@
                 <div @class([
                     'truncate px-[10px] w-fit font-bold text-xs text-white rounded-full py-[3px]',
                     'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
-                    'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+                    'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                     'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
                 ])>
                   {{ $manager->ReceptionStatus }}
@@ -231,7 +231,7 @@
             <div @class([
                 'hidden truncate px-[10px] w-fit font-bold sm:block text-xs text-white rounded-full py-[3px]',
                 'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
-                'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+                'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                 'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
             ])>
               {{ $manager->ReceptionStatus }}
@@ -241,7 +241,7 @@
             <a class="ml-[10px] text-xs text-[#3289FA] hover:opacity-40"
               href="{{ route('shift.submission.show', ['manager' => $manager]) }}">シフトを入力する</a>
             <hr class="mx-5 h-5 border-r" />
-            
+
             <p class="text-xs">期限：</p>
             <div class="ml-[8px] font-semibold text-[#FF4A62]">
               {{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）まで') }}</div>
@@ -249,7 +249,6 @@
         </div>
       @endif
     </div>
-
 
     <div class="mb-[12px] mt-[35px] flex items-center justify-between px-5 sm:mb-[14px] sm:mt-[17px] sm:px-0">
       <div class="flex items-center">

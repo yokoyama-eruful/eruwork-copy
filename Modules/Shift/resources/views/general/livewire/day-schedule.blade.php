@@ -50,7 +50,7 @@
             <div @class([
                 'hidden truncate px-[10px] w-fit font-bold sm:block text-xs text-white rounded-full py-[3px]',
                 'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
-                'bg-[#F76E80]' => $manager->ReceptionStatus === '受付終了',
+                'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                 'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
             ])>
               {{ $manager->ReceptionStatus }}
