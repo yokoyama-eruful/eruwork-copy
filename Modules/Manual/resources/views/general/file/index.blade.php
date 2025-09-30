@@ -30,7 +30,7 @@
                 'border-b' => !$loop->last,
             ])>
               <img class="max-h-[80px] max-w-[145px] rounded"
-                src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $file->thumbnail_path) }}" />
+                src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
 
               <div class="flex justify-end pr-1">
                 @if (str_contains($file->type, 'video'))
@@ -64,7 +64,7 @@
                 'border-b' => !$loop->last,
             ])>
               <img class="max-h-[55px] max-w-[100px] rounded"
-                src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $file->thumbnail_path) }}" />
+                src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
 
               <div>
                 <div class="flex items-center space-x-1">

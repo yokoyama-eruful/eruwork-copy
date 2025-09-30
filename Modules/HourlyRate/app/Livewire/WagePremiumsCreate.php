@@ -27,11 +27,11 @@ class WagePremiumsCreate extends Component
 
         $nightValue = WagePremium::where('name', '深夜')->first();
 
-        $this->morningPremium = optional($morningValue)->rate;
+        $this->morningPremium = (int) optional($morningValue)->rate;
         $this->morningStartTime = optional($morningValue)->start_time;
         $this->morningEndTime = optional($morningValue)->end_time;
 
-        $this->nightPremium = optional($nightValue)->rate;
+        $this->nightPremium = (int) optional($nightValue)->rate;
         $this->nightStartTime = optional($nightValue)->start_time;
         $this->nightEndTime = optional($nightValue)->end_time;
     }

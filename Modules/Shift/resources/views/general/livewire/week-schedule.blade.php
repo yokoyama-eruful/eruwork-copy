@@ -241,6 +241,7 @@
             <a class="ml-[10px] text-xs text-[#3289FA] hover:opacity-40"
               href="{{ route('shift.submission.show', ['manager' => $manager]) }}">シフトを入力する</a>
             <hr class="mx-5 h-5 border-r" />
+            
             <p class="text-xs">期限：</p>
             <div class="ml-[8px] font-semibold text-[#FF4A62]">
               {{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）まで') }}</div>
@@ -248,6 +249,8 @@
         </div>
       @endif
     </div>
+
+
     <div class="mb-[12px] mt-[35px] flex items-center justify-between px-5 sm:mb-[14px] sm:mt-[17px] sm:px-0">
       <div class="flex items-center">
         <p class="text-xs text-[#AAB0B6]">期間：</p>

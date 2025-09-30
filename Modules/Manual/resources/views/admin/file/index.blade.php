@@ -55,7 +55,7 @@
               @endif
 
               <img class="max-h-[80px] max-w-[145px] rounded"
-                src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $file->thumbnail_path) }}" />
+                src="{{ route('manualFileManager.thumbnail', ['id' => $file->id]) }}" />
 
               <div class="flex justify-end pr-1">
                 @if (str_contains($file->type, 'video'))
@@ -104,7 +104,7 @@
                           stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
                     </a>
-                    <livewire:manual::admin.file.delete-modal :file="$file" :folder="$folder" />
+                    <livewire:manual::admin.file.delete-modal :file="$file" :folderId="$folder->id" />
                   </div>
                 </div>
               </div>
@@ -115,7 +115,7 @@
                 'border-b' => !$loop->last,
             ])>
               <img class="max-h-[55px] max-w-[100px] rounded"
-                src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $file->thumbnail_path) }}" />
+                src="{{ route('manualFileManager.thumbnail', ['id' => $file->id]) }}" />
 
               <div>
                 <div class="flex items-center space-x-1">
@@ -161,7 +161,7 @@
                           stroke-linecap="round" stroke-linejoin="round" />
                       </svg>
                     </a>
-                    <livewire:manual::admin.file.delete-modal :file="$file" :folder="$folder" />
+                    <livewire:manual::admin.file.delete-modal :file="$file" :folderId="$folder->id" />
                   </div>
                 </div>
               </div>

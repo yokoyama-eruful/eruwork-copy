@@ -8,8 +8,9 @@
 
     <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
       <div class="flex flex-col items-start">
-        <div class="flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('M月度') }}</div>
-        <div class="flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
+        <div class="mt-2 flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('M月度') }}
+        </div>
+        <div class="mb-2 flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
       </div>
       <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
         {{ $totalMonthWorkingTime }}</div>
@@ -20,13 +21,13 @@
       <div class="mt-5 text-[11px] font-bold">本日の勤務時間</div>
       @if ($workTimeList->isEmpty())
         <div
-          class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-3 focus:border-[#DDDDDD] focus:ring-0">
+          class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-2 focus:border-[#DDDDDD] focus:ring-0">
           --:--
         </div>
       @else
         @foreach ($workTimeList as $workTime)
           <div
-            class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-3 focus:border-[#DDDDDD] focus:ring-0">
+            class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-2 focus:border-[#DDDDDD] focus:ring-0">
             {{ $workTime->in_time?->format('H:i') }} ～ {{ $workTime->out_time?->format('H:i') }}
           </div>
         @endforeach
@@ -34,13 +35,13 @@
       <div class="mt-5 text-[11px] font-bold">本日の休憩時間</div>
       @if ($breakTimeList->isEmpty())
         <div
-          class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-3 focus:border-[#DDDDDD] focus:ring-0">
+          class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-2 focus:border-[#DDDDDD] focus:ring-0">
           --:--
         </div>
       @else
         @foreach ($breakTimeList as $breakTime)
           <div
-            class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-3 focus:border-[#DDDDDD] focus:ring-0">
+            class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-2 focus:border-[#DDDDDD] focus:ring-0">
             {{ $breakTime->in_time?->format('H:i') }} ～ {{ $breakTime->out_time?->format('H:i') }}
           </div>
         @endforeach
@@ -53,8 +54,9 @@
       <div class="mt-5 text-base font-bold">扶養控除目安</div>
       <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
         <div class="flex flex-col items-start">
-          <div class="flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('Y年度') }}</div>
-          <div class="flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
+          <div class="mt-2 flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('Y年度') }}
+          </div>
+          <div class="mb-2 flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
         </div>
         <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
           {{ $totalYearWorkingTime }}</div>
@@ -99,28 +101,25 @@
       <div class="mt-[56px]">
         <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
         <div class="mt-3 flex flex-col space-y-2">
-          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[20px]">
             <div class="text-sm font-bold">103万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-[11px]">残り：</div>
               <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1030000 - $totalYearPay) }}</div>
-              <div class="text-xs">以上で超過</div>
+              <div class="text-xs">円以上で超過</div>
             </div>
           </div>
-          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[20px]">
             <div class="text-sm font-bold">130万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-[11px]">残り：</div>
               <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1300000 - $totalYearPay) }}</div>
-              <div class="text-xs">以上で超過</div>
+              <div class="text-xs">円以上で超過</div>
             </div>
           </div>
-          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
+          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[20px]">
             <div class="text-sm font-bold">150万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-[11px]">残り：</div>
               <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1500000 - $totalYearPay) }}</div>
-              <div class="text-xs">以上で超過</div>
+              <div class="text-xs">円以上で超過</div>
             </div>
           </div>
         </div>
@@ -196,25 +195,22 @@
           <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
             <div class="text-sm font-bold">103万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-[11px]">残り：</div>
               <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1030000 - $totalYearPay) }}</div>
-              <div class="text-xs">以上で超過</div>
+              <div class="text-xs">円以上で超過</div>
             </div>
           </div>
           <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
             <div class="text-sm font-bold">130万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-[11px]">残り：</div>
               <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1300000 - $totalYearPay) }}</div>
-              <div class="text-xs">以上で超過</div>
+              <div class="text-xs">円以上で超過</div>
             </div>
           </div>
           <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
             <div class="text-sm font-bold">150万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-[11px]">残り：</div>
               <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1500000 - $totalYearPay) }}</div>
-              <div class="text-xs">以上で超過</div>
+              <div class="text-xs">円以上で超過</div>
             </div>
           </div>
         </div>

@@ -1,8 +1,7 @@
 <header class="flex items-center justify-between bg-[#363b46] px-5 text-white" x-data="{ accountModal: false }">
   <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
     @if (Auth::user()->icon)
-      <img class="h-full w-full object-cover"
-        src="{{ global_asset('tenants/' . tenant()->id . '/app/' . Auth::user()->icon) }}"
+      <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
         x-on:click="accountModal=!accountModal" />
     @else
       <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}"
@@ -30,7 +29,7 @@
 
   <div class="account-modal-box absolute" id="accountModal" x-show="accountModal" x-on:click.away="accountModal=false">
     <div class="modal-content">
-      <button class="flex items-center text-xs hover:opacity-40" type="button"
+      <button class="flex items-center text-xs text-[#777777] hover:opacity-40" type="button"
         x-on:click="$dispatch('open-modal','profile'); accountModal=false">
         <img class="h-5 w-5" src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
         アカウント

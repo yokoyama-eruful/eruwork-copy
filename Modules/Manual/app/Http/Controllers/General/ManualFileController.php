@@ -29,4 +29,25 @@ class ManualFileController extends Controller
 
         return view('manual::general.file.show', ['folder' => $folder, 'file' => $file]);
     }
+
+    public function thumbnail($id)
+    {
+        $file = ManualFile::find($id);
+
+        return response()->file(storage_path('app/' . $file->thumbnail_path));
+    }
+
+    public function movie($id)
+    {
+        $file = ManualFile::find($id);
+
+        return response()->file(storage_path('app/' . $file->movie_path));
+    }
+
+    public function step($id, $index)
+    {
+        $file = ManualFile::find($id);
+
+        return response()->file(storage_path('app/' . $file->steps[$index]['file']));
+    }
 }

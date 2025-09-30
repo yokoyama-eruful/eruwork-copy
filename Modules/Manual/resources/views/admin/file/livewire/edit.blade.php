@@ -76,7 +76,7 @@
               <div
                 class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full">
                 <img class="h-full w-full rounded-lg"
-                  src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $form->file->thumbnail_path) }}" />
+                  src="{{ route('manualFileManager.thumbnail', ['id' => $file->id]) }}" />
                 <button
                   class="absolute right-2 top-2 flex h-[30px] w-[30px] items-center justify-center rounded bg-[#272727] bg-opacity-40 hover:bg-opacity-70"
                   type="button" wire:click="deleteFile">
@@ -91,7 +91,7 @@
               <div
                 class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full">
                 <video class="h-full w-full rounded-lg" controls>
-                  <source src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $form->file->movie_path) }}"
+                  <source src="{{ route('manualFileManager.movie', ['id' => $form->file->id]) }}"
                     type="{{ $form->file->type }}">
                   Your browser does not support the video tag.
                 </video>
@@ -250,7 +250,7 @@
                             <img class="h-[200px] w-full" src="{{ $form->steps[$index]['file']->temporaryUrl() }}" />
                           @else
                             <img class="h-[200px] w-full"
-                              src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $form->steps[$index]['file']) }}" />
+                              src="{{ route('manualFileManager.step', ['id' => $form->file->id, 'index' => $index]) }}" />
                           @endif
                           <button
                             class="absolute right-2 top-2 flex h-[30px] w-[30px] items-center justify-center rounded bg-[#272727] bg-opacity-40 hover:bg-opacity-70"
@@ -385,7 +385,7 @@
                           <img class="h-[200px] w-full" src="{{ $form->steps[$index]['file']->temporaryUrl() }}" />
                         @else
                           <img class="h-[200px] w-full"
-                            src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $form->steps[$index]['file']) }}" />
+                            src="{{ route('manualFileManager.step', ['id' => $form->file->id, 'index' => $index]) }}" />
                         @endif
                         <button
                           class="absolute right-2 top-2 flex h-[30px] w-[30px] items-center justify-center rounded bg-[#272727] bg-opacity-40 hover:bg-opacity-70"

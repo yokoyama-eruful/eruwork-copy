@@ -16,7 +16,7 @@ class ManualFileManagerController extends Controller
     public function index($id)
     {
         $folder = ManualFolder::find($id);
-        $files = $folder->files;
+        $files = $folder->files->where('status', '掲載');
 
         return view('manual::admin.file.index', ['folder' => $folder, 'files' => $files]);
     }
@@ -34,5 +34,33 @@ class ManualFileManagerController extends Controller
         $file = ManualFile::find($fileId);
 
         return view('manual::admin.file.edit', ['file' => $file]);
+    }
+
+    public function draft()
+    {
+        $files = ManualFile::where('status', '下書き')->get();
+
+        return view('manual::admin.file.draft', ['files' => $files]);
+    }
+
+    public function thumbnail($id)
+    {
+        $file = ManualFile::find($id);
+
+        return response()->file(storage_path('app/' . $file->thumbnail_path));
+    }
+
+    public function movie($id)
+    {
+        $file = ManualFile::find($id);
+
+        return response()->file(storage_path('app/' . $file->movie_path));
+    }
+
+    public function step($id, $index)
+    {
+        $file = ManualFile::find($id);
+
+        return response()->file(storage_path('app/' . $file->steps[$index]['file']));
     }
 }

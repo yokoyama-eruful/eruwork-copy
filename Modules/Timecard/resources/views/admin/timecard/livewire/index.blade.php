@@ -54,7 +54,7 @@
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">勤務時間</div>
-        <div class="text-left text-xs font-normal text-[#AAB0B6]">休憩時間</div>
+        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] sm:block">休憩時間</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] sm:block"></div>
       </div>
       <div class="rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
@@ -71,8 +71,7 @@
             <div
               class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 sm:ml-[25px] sm:mr-[20px] sm:h-[45px] sm:w-[45px]">
               @if ($user->icon)
-                <img class="h-full w-full object-cover"
-                  src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}">
+                <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
                     class="fa-solid fa-image"></i>
@@ -90,7 +89,7 @@
               @endforeach
             </div>
 
-            <div class="truncate text-[15px]">
+            <div class="hidden truncate text-[15px] sm:block">
               @foreach ($this->getBreakTimeList($user) as $attendance)
                 <div>
                   {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
@@ -120,8 +119,7 @@
             <div
               class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 sm:ml-[25px] sm:mr-[20px] sm:h-[45px] sm:w-[45px]">
               @if ($user->icon)
-                <img class="h-full w-full object-cover"
-                  src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}">
+                <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
                     class="fa-solid fa-image"></i>

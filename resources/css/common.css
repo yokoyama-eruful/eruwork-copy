@@ -118,17 +118,22 @@ body.fixed {
 /* ========== PC: 左固定サイドメニュー（幅80px） ========== */
 .side-menu,
 .side-menu-d-board {
-  width: 80px;
-  background: #363b46;
-  color: #fff;
+ width: 80px;
   height: 100vh;
   position: fixed;
-  inset: 0 auto 0 0;
-  display: flex;
-  flex-direction: column;
+  top: 0;
+  left: 0;
+  background: #363b46;
+  color: #fff;
   padding-top: 20px;
   z-index: 10;
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-menu-scroll {
+  flex: 1;           /* 親の高さに合わせる */
+  overflow-y: auto;  /* スクロール可能にする */
 }
 
 .side-menu-logo {

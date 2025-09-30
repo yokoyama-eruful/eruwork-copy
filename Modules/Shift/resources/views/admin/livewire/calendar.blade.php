@@ -127,11 +127,11 @@
     <div class="block sm:hidden">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'flex min-h-[60px] items-center justify-between space-x-6 border-b px-5 py-[10px] w-full',
+            'grid grid-cols-[15%,75%,10%] min-h-[60px]  border-b py-[10px]',
             'bg-[#F9FAFF]' => $content['date']->format('Ymd') === now()->format('Ymd'),
-        ]) wire:key="calendar-{{ $content['date']->format('Y-m-d') }}">
+        ]) wire:key="calendar-box-mobile-{{ $content['date']->format('Y-m-d') }}">
           <div @class([
-              'text-xs w-2/6',
+              'text-xs flex flex-col items-center justify-center',
               'font-bold text-[#3289FA]' =>
                   $content['date']->format('Ymd') === now()->format('Ymd'),
               'text-[#48CBFF]' =>
@@ -140,8 +140,12 @@
               'text-[#FF0000]' =>
                   $content['date']->format('Ymd') !== now()->format('Ymd') &&
                   $content['date']->isoFormat('ddd') === '日',
-          ])>{{ $content['date']->isoFormat('D日（ddd曜）') }}</div>
-          <div class="flex w-4/6 flex-col space-y-2">
+          ])>
+            <div>{{ $content['date']->isoFormat('D日') }}</div>
+
+            <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
+          </div>
+          <div class="flex flex-col space-y-1">
             @foreach ($content['shifts'] as $shift)
               <div
                 class="flex cursor-pointer items-center justify-between space-x-[6px] rounded-lg border border-[#39A338] bg-[#F6FFF6] px-[10px] py-[7px] text-xs text-[#39A338]"
@@ -178,6 +182,9 @@
               </div>
             @endforeach
 
+          </div>
+          <div class="flex items-center justify-center">
+            @include('shift::admin.livewire.layouts.shift-create')
           </div>
         </div>
       @endforeach

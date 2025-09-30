@@ -29,20 +29,28 @@
     </div>
 
     {{-- モバイル版 --}}
-    <div class="mt-[14px] block sm:hidden">
+    <div class="my-[14px] block sm:hidden">
       <div class="mx-5 rounded-lg border">
         @foreach ($this->calendar as $key => $content)
           @if ($content['type'] !== '期間外')
             <div @class([
-                'p-[10px] flex items-center justify-between',
-                'border-b' => !$loop->last,
+                'grid grid-cols-[15%,75%,10%] min-h-[60px]  border-b py-[10px]',
+                'bg-[#F9FAFF]' => $content['date']->format('Ymd') === now()->format('Ymd'),
             ]) wire:key="calendar-box-mobile-{{ $content['date']->format('Y-m-d') }}">
               <div @class([
-                  'text-xs',
-                  'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
-                  'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
+                  'text-xs flex flex-col items-center justify-center',
+                  'font-bold text-[#3289FA]' =>
+                      $content['date']->format('Ymd') === now()->format('Ymd'),
+                  'text-[#48CBFF]' =>
+                      $content['date']->format('Ymd') !== now()->format('Ymd') &&
+                      $content['date']->isoFormat('ddd') === '土',
+                  'text-[#FF0000]' =>
+                      $content['date']->format('Ymd') !== now()->format('Ymd') &&
+                      $content['date']->isoFormat('ddd') === '日',
               ])>
-                {{ $content['date']->isoFormat('D日（ddd）') }}
+                <div>{{ $content['date']->isoFormat('D日') }}</div>
+
+                <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
               </div>
 
               <div class="flex flex-col space-y-1">
@@ -71,7 +79,7 @@
                 @endforeach
               </div>
 
-              <div class="flex items-center">
+              <div class="flex items-center justify-center">
                 @if ($manager->OverSubmissionPeriod)
                   <button class="hover:opacity-40" type="button"
                     x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">

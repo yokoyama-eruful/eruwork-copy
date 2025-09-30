@@ -37,5 +37,11 @@ Route::middleware([
         ->group(function () {
             Route::get('folder/{folder_id}', 'index')->name('index');
             Route::get('folder/{folder_id}/file/{file_id}', 'show')->name('show');
+
+            Route::get('/thumbnail/{id}', 'thumbnail')->name('thumbnail');
+            Route::get('/movie/{id}', 'movie')->name('movie');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::get('/step/{id}/{index}', 'step')->name('step');
         });
+
 });

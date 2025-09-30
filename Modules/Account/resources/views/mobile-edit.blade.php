@@ -1,206 +1,3 @@
-{{-- <x-dashboard-layout>
-  <x-dashboard.index>
-    <x-dashboard.top>
-      <x-return-button href="{{ route('account.index') }}">
-        一覧に戻る
-      </x-return-button>
-    </x-dashboard.top>
-    <x-dashboard.container>
-      <form class="flex flex-col p-6" action="{{ route('account.update', ['account' => $user->login_id]) }}"
-        method="POST">
-        @csrf
-        @method('PUT')
-        <div class="text-xl font-bold">
-          アカウント編集
-        </div>
-        <hr class="mb-2 w-11/12">
-        <div class="grid gap-4 p-2">
-          <label class="flex flex-col gap-2">
-            ログインID（社員番号も可）
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="login_id" type="text"
-              value="{{ old('login_id', $user->login_id) }}" required>
-            @error('login_id')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-
-          <div x-data="{ showPassword: false }">
-            <label class="mb-2 block">パスワード</label>
-            <div class="relative">
-              <input
-                class="block w-full rounded-lg border border-slate-300 py-3 pe-10 ps-4 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                name="password" :type="showPassword ? 'text' : 'password'">
-              <button
-                class="absolute inset-y-0 end-0 z-20 flex cursor-pointer items-center rounded-e-md px-3 text-gray-400"
-                type="button" @click="showPassword = !showPassword">
-                <i :class="showPassword ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
-              </button>
-            </div>
-          </div>
-          @error('password')
-            <div class="font-normal text-red-500">{{ $message }}</div>
-          @enderror
-
-          <div x-data="{ showPasswordConfirmation: false }">
-            <label class="mb-2 block">パスワード確認</label>
-            <div class="relative">
-              <input
-                class="block w-full rounded-lg border border-slate-300 py-3 pe-10 ps-4 focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50"
-                name="password_confirmation" :type="showPasswordConfirmation ? 'text' : 'password'">
-              <button
-                class="absolute inset-y-0 end-0 z-20 flex cursor-pointer items-center rounded-e-md px-3 text-gray-400"
-                type="button" @click="showPasswordConfirmation = !showPasswordConfirmation">
-                <i :class="showPasswordConfirmation ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
-              </button>
-            </div>
-          </div>
-          @error('password_confirmation')
-            <div class="font-normal text-red-500">{{ $message }}</div>
-          @enderror
-
-          <div class="flex flex-col">
-            契約区分
-            <div class="ms-4 mt-1 grid w-52 grid-cols-2 items-center">
-              <label class="flex items-center">
-                <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="正社員"
-                  {{ old('contract_type', $user->profile?->contract_type) == '正社員' ? 'checked' : '' }}>
-                <span class="ml-1">正社員</span>
-              </label>
-              <label class="flex items-center">
-                <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="契約社員"
-                  {{ old('contract_type', $user->profile?->contract_type) == '契約社員' ? 'checked' : '' }}>
-                <span class="ml-1">契約社員</span>
-              </label>
-              <label class="flex items-center">
-                <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="パート"
-                  {{ old('contract_type', $user->profile?->contract_type) == 'パート' ? 'checked' : '' }}>
-                <span class="ml-1">パート</span>
-              </label>
-              <label class="flex items-center">
-                <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="アルバイト"
-                  {{ old('contract_type', $user->profile?->contract_type) == 'アルバイト' ? 'checked' : '' }}>
-                <span class="ml-1">アルバイト</span>
-              </label>
-            </div>
-            @error('contract_type')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </div>
-          <div class="flex flex-col">
-            管理者権限
-            <div class="ms-4 mt-1 grid w-52 grid-cols-2 items-center">
-              <label class="flex items-center">
-                <input class="form-radio text-indigo-600" name="role" type="radio" value="1"
-                  {{ old('role', optional($user?->roles->first())->id) == '1' ? 'checked' : '' }}>
-                <span class="ml-1">管理者</span>
-              </label>
-              <label class="flex items-center">
-                <input class="form-radio text-indigo-600" name="role" type="radio" value="2"
-                  {{ old('role', optional($user?->roles->first())->id) == '2' ? 'checked' : '' }}>
-                <span class="ml-1">一般</span>
-              </label>
-            </div>
-            @error('role')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </div>
-        </div>
-        <hr class="my-2 w-11/12">
-        <div class="grid gap-4 p-2">
-          <label class="flex flex-col gap-2">
-            名前
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name" type="text"
-              value="{{ old('name', $user->profile?->name) }}" required>
-            @error('name')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            名前（フリガナ）
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name_kana" type="text"
-              value="{{ old('name_kana', $user->profile?->name_kana) }}">
-            @error('name_kana')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            郵便番号
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="post_code" type="text"
-              value="{{ old('post_code', $user->profile?->post_code) }}">
-            @error('post_code')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            住所
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="address" type="text"
-              value="{{ old('address', $user->profile?->address) }}">
-            @error('address')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            電話番号
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="phone_number"
-              type="text" value="{{ old('phone_number', $user->profile?->phone_number) }}">
-            @error('phone_number')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            生年月日
-            <input class="js-datepicker rounded-lg border border-slate-300 px-3 py-2 font-normal" name="birthday"
-              type="text" value="{{ old('birthday', $user->profile?->birthday) }}">
-            @error('birthday')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            入社日
-            <input class="js-datepicker rounded-lg border border-slate-300 px-3 py-2 font-normal" name="hire_date"
-              type="text" value="{{ old('hire_date', $user->profile?->hire_date) }}">
-            @error('hire_date')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-        </div>
-        <hr class="my-2 w-11/12">
-        <div class="grid gap-4 p-2">
-          <label class="flex flex-col gap-2">
-            緊急連絡先　氏名
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="emergency_name"
-              type="text" value="{{ old('emergency_name', $user->profile?->emergency_name) }}">
-            @error('emergency_name')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            緊急連絡先
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="emergency_phone_number"
-              type="text" value="{{ old('emergency_phone_number', $user->profile?->emergency_phone_number) }}">
-            @error('emergency_phone_number')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-          <label class="flex flex-col gap-2">
-            緊急連絡先の続柄
-            <input class="rounded-lg border border-slate-300 px-3 py-2 font-normal" name="emergency_relationship"
-              type="text" value="{{ old('emergency_relationship', $user->profile?->emergency_relationship) }}">
-            @error('emergency_relationship')
-              <div class="font-normal text-red-500">{{ $message }}</div>
-            @enderror
-          </label>
-        </div>
-        <button
-          class="mx-auto mt-4 max-w-48 rounded-md bg-blue-600 px-6 py-2 text-center font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
-          type="submit">
-          更新する
-        </button>
-      </form>
-    </x-dashboard.container>
-  </x-dashboard.index>
-</x-dashboard-layout> --}}
-
 <x-dashboard-layout :url="route('account.index')">
   <x-dashboard.index>
     <x-dashboard.top>
@@ -236,8 +33,7 @@
               <div
                 class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 sm:h-[45px] sm:w-[45px]">
                 @if ($user->icon)
-                  <img class="h-full w-full object-cover"
-                    src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}">
+                  <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
                 @else
                   <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
                       class="fa-solid fa-image"></i>
@@ -248,35 +44,8 @@
             </div>
 
             <div class="flex items-center space-x-10">
-              <div class="hidden items-center space-x-1 sm:flex">
-                <div class="text-xs text-[#AAB0B6]">最終ログイン日：</div>
-                <div class="text-[15px]">{{ $user->last_login_at?->format('Y年m月d日') }}</div>
-              </div>
-              <div class="hidden items-center space-x-1 sm:flex">
-                <div class="text-xs text-[#AAB0B6]">最終更新日：</div>
-                <div class="text-[15px]">{{ $user->updated_at?->format('Y年m月d日') }}</div>
-              </div>
-              <div class="relative block cursor-pointer" x-data="{ openDialog{{ $user->id }}: false }">
-                <div onclick="event.stopPropagation();"
-                  @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};">…</div>
-                <div
-                  class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
-                  @click.away="openDialog{{ $user->id }} = false" x-show="openDialog{{ $user->id }}===true"
-                  x-cloak>
-                  <a class="flex items-center" href="{{ route('account.edit', ['account' => $user->login_id]) }}">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M1.875 15.6248V6.87476C1.87505 6.21179 2.13863 5.57597 2.60742 5.10718C3.07625 4.6384 3.71201 4.37476 4.375 4.37476H8.33333C8.67844 4.37476 8.95822 4.65467 8.95833 4.99976C8.95833 5.34493 8.67851 5.62476 8.33333 5.62476H4.375C4.04353 5.62476 3.72562 5.75661 3.49121 5.99097C3.25684 6.22534 3.12505 6.54331 3.125 6.87476V15.6248C3.125 15.9562 3.25686 16.2741 3.49121 16.5085C3.72563 16.743 4.04348 16.8748 4.375 16.8748H13.125C13.4565 16.8748 13.7744 16.743 14.0088 16.5085C14.2431 16.2741 14.375 15.9562 14.375 15.6248V11.6664C14.3751 11.3213 14.6549 11.0414 15 11.0414C15.3451 11.0414 15.6249 11.3213 15.625 11.6664V15.6248C15.625 16.2877 15.3614 16.9235 14.8926 17.3923C14.4237 17.8612 13.788 18.1248 13.125 18.1248H4.375C3.71196 18.1248 3.07626 17.8612 2.60742 17.3923C2.13865 16.9235 1.875 16.2877 1.875 15.6248ZM17.5 3.43726C17.4999 3.18864 17.4016 2.94981 17.2257 2.77401C17.0499 2.59822 16.8111 2.49976 16.5625 2.49976C16.3139 2.49976 16.0751 2.59822 15.8993 2.77401L14.9349 3.73836L16.2614 5.06486L17.2257 4.1005C17.4015 3.92466 17.5 3.6859 17.5 3.43726ZM14.0511 4.62215L7.05078 11.6233C6.72977 11.9445 6.48236 12.3312 6.3265 12.7561L6.26546 12.9408L5.92855 14.0704L7.05892 13.7343L7.24365 13.6733C7.66852 13.5174 8.05526 13.2708 8.37646 12.9498L15.3776 5.94865L14.0511 4.62215ZM18.75 3.43726C18.75 4.01742 18.5197 4.57403 18.1095 4.98429L9.26025 13.8336C8.74635 14.3472 8.11251 14.7248 7.41618 14.9322L5.17822 15.5987C4.95832 15.6642 4.72035 15.6039 4.55811 15.4417C4.39591 15.2794 4.33554 15.0414 4.40104 14.8215L5.06755 12.5844C5.2749 11.8879 5.65249 11.2535 6.16618 10.7395L15.0155 1.89103C15.4257 1.48082 15.9823 1.24976 16.5625 1.24976C17.1427 1.24976 17.6993 1.48001 18.1095 1.89022C18.5198 2.30044 18.7499 2.85711 18.75 3.43726Z"
-                        fill="#777777" />
-                    </svg>
-                    <p class="mt-[1px] pl-[4px] pr-[5px] text-sm font-bold text-[#777777]">編集</p>
-                    <svg width="14" height="14" viewBox="0 0 11 11" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#777777" stroke-width="1.1"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                  </a>
+              <div class="relative block cursor-pointer" x-data="">
+                <div>
                   <button class="flex items-center" type="button" onclick="event.stopPropagation();"
                     x-on:click="$dispatch('open-modal', 'delete-modal-{{ $user->id }}')">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -292,53 +61,45 @@
                         stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   </button>
-
-                  <x-modal-alert name="delete-modal-{{ $user->id }}" title="削除" maxWidth="sm">
-                    <form method="POST" action="{{ route('account.destroy', ['account' => $user->login_id]) }}">
-                      @csrf
-                      @method('delete')
-                      <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-                        <p class="text-xs">以下のユーザーを削除いたします</p>
-                        <div class="pt-[13px] text-[15px] font-bold">{{ $user->name }}</div>
-                      </div>
-                      <div class="my-5 flex items-center justify-center space-x-[10px]">
-                        <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
-                          @click="$dispatch('close-modal', 'delete-modal-{{ $user->id }}')">キャンセル</div>
-                        <button
-                          class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
-                          type="submit">削除する</button>
-                      </div>
-                    </form>
-                  </x-modal-alert>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="mt-10 hidden flex-col gap-[50px] border-b pb-[50px] sm:flex">
-            <div class="grid grid-cols-[10%,40%,10%,40%]">
+          @if ($errors->any())
+            <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+              <ul class="list-disc pl-5">
+                @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+          @endif
+
+          {{-- モバイル --}}
+          <div class="mt-10 flex flex-col gap-[50px] pb-[50px] sm:hidden">
+            <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">名前</div>
-              <div class="mr-10 flex items-center"><input
-                  class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name"
-                  type="text" value="{{ old('name', $user->profile?->name) }}" required></div>
+              <div class="flex items-center"><input
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name" type="text"
+                  value="{{ old('name', $user->profile?->name) }}" required></div>
+            </div>
+            <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">フリガナ</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="flex items-center"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name_kana"
                   type="text" value="{{ old('name_kana', $user->profile?->name_kana) }}"></div>
             </div>
-
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">ログインID</div>
-              <div class="mr-10 flex items-center"><input
-                  class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="login_id"
-                  type="text" value="{{ old('login_id', $user->login_id) }}" required></div>
+              <div class="flex items-center"><input
+                  class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="login_id" type="text"
+                  value="{{ old('login_id', $user->login_id) }}" required></div>
             </div>
-
-            <!-- 4行目: 1列 -->
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">契約区分</div>
               <div class="flex items-center">
-                <div class="ms-4 mt-1 flex items-center space-x-[50px]">
+                <div class="ms-4 mt-1 grid grid-cols-2">
                   <label class="flex items-center">
                     <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="正社員"
                       {{ old('contract_type', $user->profile?->contract_type) == '正社員' ? 'checked' : '' }}>
@@ -362,8 +123,7 @@
                 </div>
               </div>
             </div>
-
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] border-b pb-[40px]">
               <div class="flex items-center text-[11px] font-bold">管理者権限</div>
               <div class="flex items-center">
                 <div class="ms-4 mt-1 flex items-center space-x-[50px]">
@@ -378,79 +138,56 @@
                     <span class="ml-1">一般</span>
                   </label>
                 </div>
-                @error('role')
-                  <div class="font-normal text-red-500">{{ $message }}</div>
-                @enderror
               </div>
             </div>
-          </div>
 
-          <div class="mt-10 hidden flex-col gap-[50px] pb-[50px] sm:flex">
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">住所</div>
-              <div class="mr-10 flex items-center"> <input
+              <div class="flex items-center"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="address"
                   type="text" value="{{ old('address', $user->profile?->address) }}"></div>
             </div>
-
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">電話番号</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="flex items-center"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="phone_number"
                   type="text" value="{{ old('phone_number', $user->profile?->phone_number) }}"></div>
             </div>
-
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
-              <div class="mr-10 flex items-center"> <input
+              <div class="flex items-center"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal"
                   name="emergency_phone_number" type="text"
-                  value="{{ old('emergency_phone_number', $user->profile?->emergency_phone_number) }}">
-              </div>
+                  value="{{ old('emergency_phone_number', $user->profile?->emergency_phone_number) }}"></div>
             </div>
           </div>
 
-          {{-- モバイル --}}
-          <div class="mt-10 flex flex-col gap-[50px] pb-[50px] sm:hidden">
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">名前</div>
-              <div class="flex items-center"><input
-                  class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name"
-                  type="text" value="{{ old('name', $user->profile?->name) }}" required></div>
-            </div>
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">フリガナ</div>
-              <div class="flex items-center">{{ $user->profile->name_kana ?? '-' }}</div>
-            </div>
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">ログインID</div>
-              <div class="flex items-center">{{ $user->login_id }}</div>
-            </div>
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">契約区分</div>
-              <div class="flex items-center">{{ $user->profile->contract_type }}</div>
-            </div>
-            <div class="grid grid-cols-[30%,70%] border-b pb-[40px]">
-              <div class="flex items-center text-[11px] font-bold">管理者権限</div>
-              <div class="flex items-center">{{ $user->roles->first()->name == 'admin' ? '管理者' : '一般' }}</div>
-            </div>
-
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">住所</div>
-              <div class="flex items-center">{{ $user->profile->address ?? '-' }}</div>
-            </div>
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">電話番号</div>
-              <div class="flex items-center">{{ $user->profile->phone_number ?? '-' }}</div>
-            </div>
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
-              <div class="flex items-center">{{ $user->profile->emergency_phone_number ?? '-' }}</div>
-            </div>
+          <div class="mb-10 flex items-center justify-center space-x-[10px]">
+            <a class="flex h-[45px] w-[150px] items-center justify-center rounded border hover:opacity-40"
+              href="{{ route('account.index') }}">キャンセル</a>
+            <button
+              class="flex h-[45px] w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+              type="submit">更新する</button>
           </div>
-
-        </div>
       </form>
+
+      <x-modal-alert name="delete-modal-{{ $user->id }}" title="削除" maxWidth="sm">
+        <form method="POST" action="{{ route('account.destroy', ['account' => $user->login_id]) }}">
+          @csrf
+          @method('delete')
+          <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
+            <p class="text-xs">以下のユーザーを削除いたします</p>
+            <div class="pt-[13px] text-[15px] font-bold">{{ $user->name }}</div>
+          </div>
+          <div class="my-5 flex items-center justify-center space-x-[10px]">
+            <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+              @click="$dispatch('close-modal', 'delete-modal-{{ $user->id }}')">キャンセル</div>
+            <button
+              class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+              type="submit">削除する</button>
+          </div>
+        </form>
+      </x-modal-alert>
     </x-dashboard.container>
   </x-dashboard.index>
 </x-dashboard-layout>

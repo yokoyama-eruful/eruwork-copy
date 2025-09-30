@@ -10,6 +10,8 @@
         enctype="multipart/form-data">
         @csrf
         @method('PUT')
+
+        <input name="id" type="hidden" value="{{ $group->id }}">
         <div class="text-xl font-bold">
           グループ編集
         </div>

@@ -21,8 +21,8 @@
             <div class="flex -space-x-3">
               @foreach ($selectGroup->users->take(4) as $user)
                 @if ($user->icon)
-                  <img class="h-8 w-8 rounded-full border bg-white"
-                    src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
+                  <img class="h-8 w-8 rounded-full border bg-white" src="{{ route('profile.icon', ['id' => $user->id]) }}"
+                    alt="アイコン">
                 @else
                   <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white">
                     <i class="fa-solid fa-image"></i>
@@ -31,6 +31,7 @@
               @endforeach
             </div>
           </div>
+
           <x-modal-alert name="view-member">
             <div class="text-center text-lg font-bold">グループメンバー</div>
             <div class="my-2 h-auto max-h-96 overflow-y-auto rounded-md border p-2 shadow">
@@ -38,16 +39,24 @@
                 <div class="flex w-full flex-row items-center border-b p-2">
                   @if ($user->icon)
                     <img class="h-8 w-8 rounded-full border bg-white"
-                      src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
+                      src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
                   @else
-                    <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white"><i
-                        class="fa-solid fa-image"></i>
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white">
+                      <i class="fa-solid fa-image"></i>
                     </div>
                   @endif
                   <div>{{ $user->name }}</div>
                 </div>
               @endforeach
             </div>
+
+            <div class="flex justify-center">
+              <button class="my-4 flex items-center justify-center rounded bg-[#3289FA] px-20 py-2 text-white"
+                x-on:click="$dispatch('close-modal', 'view-member')">
+                閉じる
+              </button>
+            </div>
+
           </x-modal-alert>
         @endif
       </div>
@@ -93,8 +102,8 @@
           <div class="flex -space-x-3">
             @foreach ($selectGroup->users->take(4) as $user)
               @if ($user->icon)
-                <img class="h-8 w-8 rounded-full border bg-white"
-                  src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
+                <img class="h-8 w-8 rounded-full border bg-white" src="{{ route('profile.icon', ['id' => $user->id]) }}"
+                  alt="アイコン">
               @else
                 <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white">
                   <i class="fa-solid fa-image"></i>
@@ -111,7 +120,7 @@
               <div class="flex w-full flex-row items-center border-b p-2">
                 @if ($user->icon)
                   <img class="h-8 w-8 rounded-full border bg-white"
-                    src="{{ global_asset('tenants/' . tenant()->id . '/app/' . $user->icon) }}" alt="アイコン">
+                    src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
                 @else
                   <div class="flex h-8 w-8 items-center justify-center rounded-full border bg-white"><i
                       class="fa-solid fa-image"></i>
@@ -121,6 +130,14 @@
               </div>
             @endforeach
           </div>
+
+          <div class="flex justify-center">
+            <button class="my-4 flex h-11 w-[150px] items-center justify-center rounded bg-[#3289FA] text-white"
+              x-on:click="$dispatch('close-modal', 'view-member')">
+              閉じる
+            </button>
+          </div>
+
         </x-modal-alert>
       @endif
     </div>

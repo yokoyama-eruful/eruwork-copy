@@ -18,8 +18,7 @@
           <img class="h-full w-full rounded-full object-cover" src="{{ $form->icon->temporaryUrl() }}">
         @elseif (Auth::user()->icon)
           <!-- 既存のアイコン -->
-          <img class="h-full w-full rounded-full object-cover"
-            src="{{ global_asset('tenants/' . tenant()->id . '/app/' . Auth::user()->icon) }}">
+          <img class="h-full w-full rounded-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}">
         @else
         @endif
         <div class="absolute">

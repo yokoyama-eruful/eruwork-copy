@@ -92,18 +92,21 @@
                       }
                     @endphp
 
+                    {{-- スケジュール --}}
                     <div
                       class="card absolute cursor-pointer rounded-[10px] border border-[#00A1FF] bg-[#F2FBFF] p-2 text-[#00A1FF] transition-all"
                       x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')"
                       :style="'top: {{ $top }}px; height: {{ $height }}px;'">
-                      <p class="truncate font-bold">{{ $schedule->title }}</p>
+                      <p class="truncate text-[14px] font-bold">{{ $schedule->title }}</p>
                       {{-- @if ($height > 50) --}}
-                      <p>{{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
+                      <p class="text-[14px]">
+                        {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
                       {{-- @endif --}}
                     </div>
                     <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
                   @endforeach
 
+                  {{-- シフト --}}
                   @foreach ($content['shifts'] as $shift)
                     @php
                       $hourStart = (int) $shift->start_time->format('H');
@@ -119,12 +122,14 @@
 
                     @endphp
 
+                    {{-- 確定シフト --}}
                     <div
-                      class="card absolute cursor-pointer rounded-[10px] border border-[#DE993A] bg-[#FFF7EC] p-2 text-[#DE993A] transition-all"
+                      class="card absolute cursor-pointer rounded-[10px] border border-[#39A338] bg-[#F6FFF6] p-2 text-[#39A338] transition-all"
                       :style="'top: {{ $top }}px; height: {{ $height }}px;'">
-                      <p class="font-bold">出勤日</p>
+                      <p class="text-[14px] font-bold">出勤日</p>
                       {{-- @if ($height > 50) --}}
-                      <p>{{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}</p>
+                      <p class="text-[14px]">
+                        {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}</p>
                       {{-- @endif --}}
                     </div>
                   @endforeach

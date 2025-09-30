@@ -13,5 +13,8 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::get('hourlyRate', HourlyRateController::class)->name('hourlyRate.index');
+    Route::controller(HourlyRateController::class)->group(function () {
+        Route::get('hourlyRate', 'index')->name('hourlyRate.index');
+        Route::get('hourlyRate/{id}', 'show')->name('hourlyRate.show');
+    });
 });

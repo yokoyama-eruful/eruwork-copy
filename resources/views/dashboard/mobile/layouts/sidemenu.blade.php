@@ -1,8 +1,7 @@
 <header class="flex items-center justify-between bg-[#363b46] px-5 text-white">
   <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
     @if (Auth::user()->icon)
-      <img class="h-full w-full object-cover"
-        src="{{ global_asset('tenants/' . tenant()->id . '/app/' . Auth::user()->icon) }}" />
+      <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}" />
     @else
       <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}" />
     @endif

@@ -18,8 +18,9 @@ class Create extends Component
 
     public ManualFolder $folder;
 
-    public function mount($folder)
+    public function mount($folderId)
     {
+        $folder = ManualFolder::find($folderId);
         $this->folder = $folder;
         $this->form->folder = $folder;
     }

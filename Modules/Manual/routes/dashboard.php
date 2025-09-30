@@ -47,5 +47,11 @@ Route::middleware([
             Route::get('folder/{folder_id}/file/{file_id}/edit', 'edit')->name('edit');
             Route::put('/{file_id}', 'update')->name('update');
             Route::delete('/{file_id}', 'destroy')->name('destroy');
+            Route::get('/draft', 'draft')->name('draft');
+
+            Route::get('/thumbnail/{id}', 'thumbnail')->name('thumbnail');
+            Route::get('/movie/{id}', 'movie')->name('movie');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::get('/step/{id}/{index}', 'step')->name('step');
         });
 });

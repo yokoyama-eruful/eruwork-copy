@@ -36,6 +36,13 @@ Route::middleware([
                 Route::get('/', 'index')->name('index');
             });
 
+        Route::controller(ProfileController::class)
+            ->prefix('profile')
+            ->name('profile.')
+            ->group(function (): void {
+                Route::get('/icon/{id}', 'icon')->name('icon');
+            });
+
         // Route::get('/', function () {
         //     return view('home.index');
         // })->name('home');

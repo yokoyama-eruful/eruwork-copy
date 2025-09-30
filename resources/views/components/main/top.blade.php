@@ -5,8 +5,7 @@
   </div>
   <button class="account-area hidden sm:flex" x-on:click="accountModal=!accountModal">
     @if (Auth::user()->icon)
-      <img class="h-[30px] w-[30px] rounded-full"
-        src="{{ global_asset('tenants/' . tenant()->id . '/app/' . Auth::user()->icon) }}" />
+      <img class="h-[30px] w-[30px] rounded-full" src="{{ route('profile.icon', ['id' => Auth::id()]) }}" />
     @else
       <div class="h-[30px] w-[30px] rounded-full border border-[#DDDDDD]"></div>
     @endif
