@@ -1,13 +1,17 @@
 <header class="flex items-center justify-between bg-[#363b46] px-5 text-white" x-data="{ accountModal: false }">
-  <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
-    @if (Auth::user()->icon)
-      <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
-        x-on:click="accountModal=!accountModal" />
-    @else
-      <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}"
-        x-on:click="accountModal=!accountModal" />
-    @endif
-  </div>
+  @if ($url)
+    <a href="{{ $url }}"><img class="h-6 w-6" src="{{ global_asset('img/icon/arrow-l.png') }}" /></a>
+  @else
+    <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
+      @if (Auth::user()->icon)
+        <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
+          x-on:click="accountModal=!accountModal" />
+      @else
+        <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}"
+          x-on:click="accountModal=!accountModal" />
+      @endif
+    </div>
+  @endif
 
   <a class="h-[28px] w-[35px]" href="{{ route('home.index') }}">
     <img src="{{ global_asset('img/eruwork_white_logo.png') }}" />

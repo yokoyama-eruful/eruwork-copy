@@ -99,7 +99,9 @@
 
               <div class="text-[15px]">{{ $this->workingTime($user->id) }}</div>
 
-              <div class="text-[15px]">{{ $this->getTotalPay($user->id) }}</div>
+              <div class="text-[15px]">
+                {{ $this->getTotalPay($user->id) == 0 ? '--' : $this->getTotalPay($user->id) . '円' }}
+              </div>
 
               <div class="text-[15px]">{{ $this->prospectHourlyRate($user->id) }}</div>
             </div>

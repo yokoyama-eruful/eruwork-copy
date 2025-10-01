@@ -1,21 +1,25 @@
-<x-dashboard-layout>
+<x-dashboard-layout :url="route('chatManager.index')">
   <x-dashboard.index>
     <x-dashboard.top>
-      <x-return-button href="{{ route('chatManager.index') }}">
+      <x-return-button class="hidden sm:block" href="{{ route('chatManager.index') }}">
         一覧に戻る
       </x-return-button>
+
+      <div class="block text-xl font-bold sm:hidden">
+        グループ編集
+      </div>
     </x-dashboard.top>
     <x-dashboard.container>
-      <form class="flex flex-col p-6" action="{{ route('chatManager.update', ['group' => $group]) }}" method="POST"
-        enctype="multipart/form-data">
+      <form class="mb-5 flex flex-col px-5 sm:mb-0 sm:px-6"
+        action="{{ route('chatManager.update', ['group' => $group]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <input name="id" type="hidden" value="{{ $group->id }}">
-        <div class="text-xl font-bold">
+        <div class="hidden text-xl font-bold sm:block">
           グループ編集
         </div>
-        <hr class="mb-2 w-11/12">
+        <hr class="mb-2 hidden w-11/12 sm:block">
         <div class="grid gap-4 p-2">
           <label class="flex flex-col gap-2">
             グループアイコン

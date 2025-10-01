@@ -1,4 +1,4 @@
-<div class="mt-[30px]">
+<div class="mb-5 px-5 sm:mb-0 sm:mt-[30px] sm:px-0">
   @if ($this->judgeLike())
     <div>
       <div class="flex flex-col items-start space-x-1">

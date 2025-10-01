@@ -12,5 +12,11 @@ Route::middleware([
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
-    Route::resource('timecard', TimecardController::class)->names('timecard');
+    Route::controller(TimecardController::class)
+        ->prefix('timecard')
+        ->name('timecard.')
+        ->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('show/{date}', 'show')->name('show');
+        });
 });

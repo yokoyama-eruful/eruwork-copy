@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Modules\Timecard\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
+use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
-use Modules\Timecard\Http\Requests\AttendanceRequest;
-use Modules\Timecard\Models\WorkTime;
+use Modules\Timecard\Livewire\General\Dto\totalWorkingTimeDto;
 
 class TimecardController extends Controller
 {
@@ -19,45 +19,25 @@ class TimecardController extends Controller
         return view('timecard::general.index');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(AttendanceRequest $request)
+    public function show($date)
     {
-        WorkTime::create([
-            'user_id' => Auth::id(),
-            'date' => $request->date,
-            'in_time' => $request->in_time,
-            'out_time' => $request->out_time,
-        ]);
+        $selectedDate = CarbonImmutable::parse($date);
 
-        return to_route('timecard.index');
+        $totalYearWorkingTime = totalWorkingTimeDto::year(Auth::user(), $selectedDate);
+
+        $totalYearPay = totalWorkingTimeDto::yearPay(Auth::user(), $selectedDate);
+
+        $barWidth = $this->barWidth($selectedDate);
+
+        return view('timecard::general.show', ['selectedDate' => $selectedDate, 'totalYearWorkingTime' => $totalYearWorkingTime, 'barWidth' => $barWidth, 'totalYearPay' => $totalYearPay]);
     }
 
-    public function update(AttendanceRequest $request, $id)
+    private function barWidth($selectedDate)
     {
-        $attendance = WorkTime::findOrFail($id);
+        $totalPay = totalWorkingTimeDto::yearPay(Auth::user(), $selectedDate);
 
-        $attendance->update(
-            [
-                'user_id' => Auth::id(),
-                'date' => $request->date,
-                'in_time' => $request->in_time,
-                'out_time' => $request->out_time,
-            ]
-        );
+        $barWidthLimit = 1750000;
 
-        return to_route('timecard.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        $attendance = WorkTime::findOrFail($id);
-        $attendance->delete();
-
-        return to_route('attendance.index');
+        return min($totalPay / $barWidthLimit, 1) * 100 . '%';
     }
 }

@@ -12,6 +12,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Modules\HourlyRate\Models\WagePremium;
 use Modules\Shift\Models\Schedule;
+use Modules\Timecard\Livewire\General\Dto\totalWorkingTimeDto;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -114,91 +115,108 @@ class AttendanceRecoardShow extends Component
     #[Computed]
     public function getTotalPay(int $userId): string
     {
-        $user = User::find($userId);
-        if (! $user) {
-            return '0';
-        }
+        // // userを取得
+        // $user = User::find($userId);
 
-        $wagePremium = WagePremium::where('name', '深夜')->first();
-        $premiumRate = $wagePremium ? 1 + ($wagePremium->rate / 100) : 1; // 割増率
+        // // 深夜割増を取得
+        // $nightPremium = WagePremium::where('name', '深夜')->first();
 
-        $startDate = CarbonImmutable::parse($this->startDate);
-        $endDate = CarbonImmutable::parse($this->endDate)->addDay()->subSecond();
+        // // 早朝割増を取得
+        // $morningPremium = WagePremium::where('name', '早朝')->first();
 
-        $hourlyRateList = $user
-            ->hourlyRate()
-            ->whereBetween('effective_date', [$startDate, $endDate])
-            ->get();
+        // // 時給を取得
+        // $hourlyRate = $user->hourlyRate()->where('effective_date', '<=', $this->endDate)->orderBy('effective_date', 'desc')->get();
 
-        if ($hourlyRateList->isEmpty()) {
-            return '--';
-        }
+        // $user = User::find($userId);
 
-        // 時給テーブル作成
-        $hourlyRateTable = [];
-        if ($startDate < $hourlyRateList->first()->effective_date) {
-            $hourlyRateTable[] = (object) [
-                'rate' => 0,
-                'start_date' => $startDate,
-                'end_date' => $hourlyRateList->has(0) ? $hourlyRateList[0]->effective_date->subSecond() : $endDate,
-            ];
-        }
-        foreach ($hourlyRateList as $key => $hourlyRate) {
-            $hourlyRateTable[] = (object) [
-                'rate' => $hourlyRate->rate,
-                'start_date' => $hourlyRate->effective_date,
-                'end_date' => $hourlyRateList->has($key + 1) ? $hourlyRateList[$key + 1]->effective_date->subSecond() : $endDate,
-            ];
-        }
+        // $wagePremium = WagePremium::where('name', '深夜')->first();
+        // $premiumRate = $wagePremium ? 1 + ($wagePremium->rate / 100) : 1;
 
-        $totalPay = 0;
+        // $startDate = CarbonImmutable::parse($this->startDate);
+        // $endDate = CarbonImmutable::parse($this->endDate)->addDay()->subSecond();
 
-        foreach ($hourlyRateTable as $rateInfo) {
-            $workTimes = WorkTime::with('breakTimes')
-                ->where('user_id', $user->id)
-                ->whereBetween('in_time', [$rateInfo->start_date, $rateInfo->end_date])
-                ->whereNotNull('in_time')
-                ->whereNotNull('out_time')
-                ->get();
+        // $hourlyRateList = $user
+        //     ->hourlyRate()
+        //     ->whereBetween('effective_date', [$startDate, $endDate])
+        //     ->get();
 
-            foreach ($workTimes as $workTime) {
-                $in = $workTime->in_time;
-                $out = $workTime->out_time;
+        // if ($hourlyRateList->isEmpty()) {
+        //     return '--';
+        // }
 
-                $workMinutes = $in->diffInMinutes($out);
-                $breakMinutes = $workTime->breakTimes->sum(fn ($b) => $b->in_time->diffInMinutes($b->out_time));
-                $netMinutes = max($workMinutes - $breakMinutes, 0);
+        // // 時給テーブル作成
+        // $hourlyRateTable = [];
+        // if ($startDate < $hourlyRateList->first()->effective_date) {
+        //     $hourlyRateTable[] = (object) [
+        //         'rate' => 0,
+        //         'start_date' => $startDate,
+        //         'end_date' => $hourlyRateList->has(0) ? $hourlyRateList[0]->effective_date->subSecond() : $endDate,
+        //     ];
+        // }
+        // foreach ($hourlyRateList as $key => $hourlyRate) {
+        //     $hourlyRateTable[] = (object) [
+        //         'rate' => $hourlyRate->rate,
+        //         'start_date' => $hourlyRate->effective_date,
+        //         'end_date' => $hourlyRateList->has($key + 1) ? $hourlyRateList[$key + 1]->effective_date->subSecond() : $endDate,
+        //     ];
+        // }
 
-                $midnightMinutes = 0;
+        // $totalPay = 0;
 
-                // 深夜割増計算（設定があれば）
-                if ($wagePremium) {
-                    $premiumStartForDay = $in->copy()->setTimeFrom($wagePremium->start_time);
-                    $premiumEndForDay = $in->copy()->setTimeFrom($wagePremium->end_time);
+        // foreach ($hourlyRateTable as $rateInfo) {
+        //     $workTimes = WorkTime::with('breakTimes')
+        //         ->where('user_id', $user->id)
+        //         ->whereBetween('in_time', [$rateInfo->start_date, $rateInfo->end_date])
+        //         ->whereNotNull('in_time')
+        //         ->whereNotNull('out_time')
+        //         ->get();
 
-                    if ($premiumEndForDay->lessThanOrEqualTo($premiumStartForDay)) {
-                        $premiumEndForDay = $premiumEndForDay->addDay();
-                    }
+        //     foreach ($workTimes as $workTime) {
+        //         $in = $workTime->in_time;
+        //         $out = $workTime->out_time;
 
-                    $overlapStart = $in->greaterThan($premiumStartForDay) ? $in : $premiumStartForDay;
-                    $overlapEnd = $out->lessThan($premiumEndForDay) ? $out : $premiumEndForDay;
+        //         $workMinutes = $in->diffInMinutes($out);
+        //         $breakMinutes = $workTime->breakTimes->sum(fn ($b) => $b->in_time->diffInMinutes($b->out_time));
+        //         $netMinutes = max($workMinutes - $breakMinutes, 0);
 
-                    if ($overlapEnd->greaterThan($overlapStart)) {
-                        $midnightMinutes = $overlapStart->diffInMinutes($overlapEnd);
-                    }
-                }
+        //         $midnightMinutes = 0;
 
-                // 通常給与
-                $totalPay += ($netMinutes - $midnightMinutes) / 60 * $rateInfo->rate;
+        //         // 深夜割増計算（設定があれば）
+        //         if ($wagePremium) {
+        //             $premiumStartForDay = $in->copy()->setTimeFrom($wagePremium->start_time);
+        //             $premiumEndForDay = $in->copy()->setTimeFrom($wagePremium->end_time);
 
-                // 深夜割増給与
-                if ($wagePremium) {
-                    $totalPay += ($midnightMinutes / 60) * $rateInfo->rate * $premiumRate;
-                }
-            }
-        }
+        //             if ($premiumEndForDay->lessThanOrEqualTo($premiumStartForDay)) {
+        //                 $premiumEndForDay = $premiumEndForDay->addDay();
+        //             }
 
-        return (string) floor($totalPay);
+        //             $overlapStart = $in->greaterThan($premiumStartForDay) ? $in : $premiumStartForDay;
+        //             $overlapEnd = $out->lessThan($premiumEndForDay) ? $out : $premiumEndForDay;
+
+        //             if ($overlapEnd->greaterThan($overlapStart)) {
+        //                 $midnightMinutes = $overlapStart->diffInMinutes($overlapEnd);
+        //             }
+        //         }
+
+        //         // 通常給与
+        //         $totalPay += ($netMinutes - $midnightMinutes) / 60 * $rateInfo->rate;
+
+        //         // 深夜割増給与
+        //         if ($wagePremium) {
+        //             $totalPay += ($midnightMinutes / 60) * $rateInfo->rate * $premiumRate;
+        //         }
+        //     }
+        // }
+
+        // return (string) floor($totalPay);
+
+        $totalPay = totalWorkingTimeDto::selectDatePay(
+            User::find($userId),
+            CarbonImmutable::parse($this->startDate),
+            CarbonImmutable::parse($this->endDate)->addDay()->subSecond()
+        );
+
+        return $totalPay;
     }
 
     private function calcTotalMinutes(User $user, CarbonPeriodImmutable $period)

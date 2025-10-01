@@ -2,8 +2,9 @@
   <div class="w-full shrink-0 overflow-y-auto bg-white px-[15px] sm:w-[280px] sm:py-[30px]" x-data="{ koujyoScreen: false }">
     <div class="mt-[30px] flex items-center justify-between sm:mt-0">
       <h1 class="text-xl font-bold">タイムカード</h1>
-      <button class="block text-xs text-[#3289FA] focus:opacity-40 sm:hidden" type="button"
-        x-on:click="koujyoScreen = true">扶養控除目安を確認する</button>
+      <a class="block text-xs text-[#3289FA] focus:opacity-40 sm:hidden"
+        href="{{ route('timecard.show', ['date' => $selectedDate->format('Y-m-d')]) }}"
+        wire:key="{{ $selectedDate->isoFormat('Ymd') }}">扶養控除目安を確認する</a>
     </div>
 
     <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
@@ -127,7 +128,7 @@
     </div>
 
     {{-- モバイル版 --}}
-    <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] sm:hidden"
+    {{-- <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] sm:hidden"
       x-show="koujyoScreen===true" x-transition:enter="transition ease-out duration-300"
       x-transition:enter-start="opacity-0 translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
       x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-x-0"
@@ -215,7 +216,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> --}}
 
   </div>
 

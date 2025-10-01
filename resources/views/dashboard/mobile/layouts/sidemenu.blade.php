@@ -1,13 +1,17 @@
 <header class="flex items-center justify-between bg-[#363b46] px-5 text-white" x-data="{ accountModal: false }">
-  <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
-    @if (Auth::user()->icon)
-      <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
-        x-on:click="accountModal=!accountModal" />
-    @else
-      <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}"
-        x-on:click="accountModal=!accountModal" />
-    @endif
-  </div>
+  @if ($url)
+    <a href="{{ $url }}"><img class="h-6 w-6" src="{{ global_asset('img/icon/arrow-l.png') }}" /></a>
+  @else
+    <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
+      @if (Auth::user()->icon)
+        <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
+          x-on:click="accountModal=!accountModal" />
+      @else
+        <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}"
+          x-on:click="accountModal=!accountModal" />
+      @endif
+    </div>
+  @endif
 
   <a class="h-[28px] w-[35px]" href="{{ route('home.index') }}">
     <img src="{{ global_asset('img/eruwork_white_logo.png') }}" />
@@ -54,63 +58,6 @@
     </div>
 
 </header>
-
-<div class="flex h-[45px] w-full flex-row items-center space-x-2 overflow-x-auto bg-[#3D475D] px-5 py-[5px]">
-  <a href="{{ route('shiftManager.index') }}" @class([
-      'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
-      'bg-[#3289FA]' => request()->routeIs('shiftManager.*'),
-      ' bg-[#FFFFFF1A] bg-opacity-10' => !request()->routeIs('shiftManager.*'),
-  ])>
-    シフト表管理</a>
-
-  <a href="{{ route('timecardManager.index') }}" @class([
-      'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
-      'bg-[#3289FA]' => request()->routeIs('timecardManager.*'),
-      ' bg-[#FFFFFF1A] bg-opacity-10' => !request()->routeIs('timecardManager.*'),
-  ])>
-    タイムカード管理</a>
-
-  <a href="{{ route('account.index') }}" @class([
-      'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
-      'bg-[#3289FA]' => request()->routeIs('account.*'),
-      ' bg-[#FFFFFF1A] bg-opacity-10' => !request()->routeIs('account.*'),
-  ])>
-    アカウント管理</a>
-
-  <a href="{{ route('hourlyRate.index') }}" @class([
-      'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
-      'bg-[#3289FA]' => request()->routeIs('hourlyRate.*'),
-      ' bg-[#FFFFFF1A] bg-opacity-10' => !request()->routeIs('hourlyRate.*'),
-  ])>
-    時給管理</a>
-
-  <a href="{{ route('attendanceManager.index') }}" @class([
-      'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
-      'bg-[#3289FA]' => request()->routeIs('attendanceManager.*'),
-      ' bg-[#FFFFFF1A] bg-opacity-10' => !request()->routeIs(
-          'attendanceManager.*'),
-  ])>
-    勤怠管理</a>
-
-  <a href="{{ route('chatManager.index') }}" @class([
-      'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
-      'bg-[#3289FA]' => request()->routeIs('chatManager.*'),
-      ' bg-[#FFFFFF1A] bg-opacity-10' => !request()->routeIs('chatManager.*'),
-  ])>
-    チャット管理</a>
-
-  <a href="{{ route('manualFolderManager.index') }}" @class([
-      'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
-      'bg-[#3289FA]' =>
-          request()->routeIs('manualFolderManager.*') |
-          request()->routeIs('manualFileManager.*'),
-      ' bg-[#FFFFFF1A] bg-opacity-10' =>
-          !request()->routeIs('manualFolderManager.*') &&
-          !request()->routeIs('manualFileManager.*'),
-  ])>
-    マニュアル管理</a>
-
-</div>
 
 <div
   class="duration-50 fixed top-[50px] z-10 h-[calc(100vh-50px)] w-full bg-[#363B464D] bg-opacity-30 backdrop-blur-[6px] transition-opacity"

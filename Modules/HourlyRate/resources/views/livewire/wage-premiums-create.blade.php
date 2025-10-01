@@ -60,7 +60,7 @@
               'relative rounded border-[#DDDDDD] bg-[#FFFFFF] pr-9 text-sm focus:bg-white',
               'border-red-600' => $errors->has('morningPremium'),
           ]) wire:model="morningPremium"
-            step="5" min="100">
+            step="5">
           <div class="absolute right-9">%</div>
           </input>
         </div>
@@ -102,7 +102,7 @@
               'relative rounded border-[#DDDDDD] bg-[#FFFFFF] pr-9 text-sm focus:bg-white',
               'border-red-600' => $errors->has('nightPremium'),
           ]) wire:model="nightPremium"
-            step="5" min="100">
+            step="5">
           <div class="absolute right-9">%</div>
           </input>
         </div>

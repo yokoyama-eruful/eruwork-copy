@@ -172,7 +172,7 @@
           </x-modal-alert>
         @endforeach
       </div>
-      <div>
+      <div class="mb-5 sm:mb-0">
         {{ $posts->links('vendor.pagination.tailwind') }}
       </div>
     @endif

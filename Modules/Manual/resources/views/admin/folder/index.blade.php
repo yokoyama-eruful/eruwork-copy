@@ -4,7 +4,12 @@
       <div class="hidden sm:block">
         <livewire:manual::admin.folder.create-modal />
       </div>
-      <h5 class="text-xl font-bold sm:hidden">マニュアル管理</h5>
+      <div class="flex w-full items-center justify-between sm:hidden">
+        <h5 class="text-xl font-bold sm:hidden">マニュアル管理</h5>
+        <div class="sm:hidden">
+          <livewire:manual::admin.folder.create-modal />
+        </div>
+      </div>
     </x-dashboard.top>
     <x-dashboard.container>
       <div class="flex items-center justify-between">
@@ -20,9 +25,6 @@
         </a>
       </div>
 
-      <div class="mx-5 sm:hidden">
-        <livewire:manual::admin.folder.create-modal />
-      </div>
       @if ($folders->isNotEmpty())
         <div class="mt-[30px] hidden grid-cols-[60%,15%,15%,5%,5%] sm:grid">
           <div class="pl-[30px] text-xs text-[#AAB0B6]">表題</div>

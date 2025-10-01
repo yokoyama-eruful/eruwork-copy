@@ -70,6 +70,11 @@ class totalWorkingTimeDto
         return self::calcPay($user, $start, $end);
     }
 
+    public static function selectDatePay(User $user, CarbonImmutable $startDate, CarbonImmutable $endDate): string
+    {
+        return self::calcPay($user, $startDate, $endDate);
+    }
+
     private static function calcPay(User $user, CarbonImmutable $startDate, CarbonImmutable $endDate): string
     {
         $workTimes = WorkTime::with('breakTimes')

@@ -16,17 +16,20 @@
         <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
         新規作成
       </a>
-      <h5 class="text-xl font-bold sm:hidden">{{ $folder->title }}</h5>
+
+      <div class="flex w-full items-center justify-between sm:hidden">
+        <h5 class="text-xl font-bold sm:hidden">{{ $folder->title }}</h5>
+        <div class="sm:hidden">
+          <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
+            href="{{ route('manualFileManager.create', ['folder_id' => $folder->id]) }}">
+            <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
+            新規作成
+          </a>
+        </div>
+      </div>
     </x-dashboard.top>
     <x-dashboard.container>
       <h5 class="hidden text-xl font-bold sm:block">{{ $folder->title }}</h5>
-      <div class="mx-5 sm:hidden">
-        <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
-          href="{{ route('manualFileManager.create', ['folder_id' => $folder->id]) }}">
-          <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
-          新規作成
-        </a>
-      </div>
       @if ($files->isNotEmpty())
         <div class="mt-[30px] hidden grid-cols-[10%,5%,41%,21%,21%,2%] px-5 sm:grid">
           <div class="text-xs text-[#AAB0B6]">サムネイル</div>

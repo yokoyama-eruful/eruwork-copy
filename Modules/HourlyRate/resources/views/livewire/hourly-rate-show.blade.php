@@ -3,7 +3,7 @@
     <h5 class="hidden text-xl font-bold sm:block">時給詳細</h5>
     <div class="hidden sm:block"><livewire:hourlyrate::hourly-rate-create :$user :key="$user->id" /></div>
   </div>
-  <div class="mx-5 mt-[10px] flex items-center space-x-[20px] border-b py-[20px] sm:mx-0">
+  <div class="mx-5 flex items-center space-x-[20px] border-b pb-[20px] sm:mx-0 sm:mt-[10px] sm:pt-[20px]">
     <div
       class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
       @if ($user->icon)

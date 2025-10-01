@@ -22,6 +22,7 @@
 
 <body class="m-0 grid h-screen w-screen grid-rows-[50px,1fr] p-0" x-data="{ sideMenu: false }" x-cloak>
   @include('dashboard.mobile.layouts.sidemenu')
+
   <main class="overflow-y-auto">
     {{ $slot }}
   </main>

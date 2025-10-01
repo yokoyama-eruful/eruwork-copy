@@ -1,4 +1,4 @@
-<x-dashboard-layout>
+<x-dashboard-layout :url="route('hourlyRate.index')">
   <x-dashboard.index>
     <x-dashboard.container>
       <livewire:hourlyrate::hourly-rate-show :$selectedUser />
