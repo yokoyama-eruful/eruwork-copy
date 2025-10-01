@@ -76,6 +76,8 @@
             </div>
           @endif
 
+          <input name="id" type="hidden" value="{{ $user->id }}">
+
           <div class="mt-10 hidden flex-col gap-[50px] border-b pb-[50px] sm:flex">
             <div class="grid grid-cols-[10%,40%,10%,40%]">
               <div class="flex items-center text-[11px] font-bold">名前</div>

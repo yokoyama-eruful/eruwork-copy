@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\Account\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class AccountUpdateRequest extends FormRequest
@@ -21,7 +20,7 @@ class AccountUpdateRequest extends FormRequest
             'login_id' => [
                 'required',
                 'string',
-                Rule::unique('users', 'login_id')->ignore(Auth::id()),
+                Rule::unique('users', 'login_id')->ignore($this->id),
             ],
             'name' => ['required', 'string',  'max:15'],
             'password' => ['nullable', 'confirmed', 'min:4'],

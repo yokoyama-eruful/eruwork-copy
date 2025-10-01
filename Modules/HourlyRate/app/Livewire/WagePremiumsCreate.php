@@ -27,11 +27,11 @@ class WagePremiumsCreate extends Component
 
         $nightValue = WagePremium::where('name', '深夜')->first();
 
-        $this->morningPremium = (int) optional($morningValue)->rate;
+        $this->morningPremium = $morningValue?->rate ?? null;
         $this->morningStartTime = optional($morningValue)->start_time;
         $this->morningEndTime = optional($morningValue)->end_time;
 
-        $this->nightPremium = (int) optional($nightValue)->rate;
+        $this->nightPremium = $nightValue?->rate ?? null;
         $this->nightStartTime = optional($nightValue)->start_time;
         $this->nightEndTime = optional($nightValue)->end_time;
     }
@@ -98,6 +98,28 @@ class WagePremiumsCreate extends Component
         }
 
         return to_route('hourlyRate.index');
+    }
+
+    public function deleteMorning()
+    {
+        WagePremium::where('name', '早朝')->delete();
+
+        $this->morningPremium = null;
+        $this->morningStartTime = null;
+        $this->morningEndTime = null;
+
+        $this->dispatch('close-modal', 'morning-delete-modal');
+    }
+
+    public function deleteNight()
+    {
+        WagePremium::where('name', '深夜')->delete();
+
+        $this->nightPremium = null;
+        $this->nightStartTime = null;
+        $this->nightEndTime = null;
+
+        $this->dispatch('close-modal', 'night-delete-modal');
     }
 
     public function render()

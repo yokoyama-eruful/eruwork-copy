@@ -10,7 +10,9 @@
       </svg>
     </div>
     <div class="ps-1 text-[#AAB0B6]">早朝</div>
-    <div class="ps-[10px] font-semibold">{{ $morningPremium ?? '-' }}%</div>
+    <div class="ps-[10px] font-semibold">
+      {{ $morningPremium === null ? '-' : (fmod($morningPremium, 1) == 0 ? (int) $morningPremium : $morningPremium) }}%
+    </div>
     <hr class="mx-5 h-5 border-r" />
     <div>
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,7 +22,8 @@
       </svg>
     </div>
     <div class="ps-1 text-[#AAB0B6]">深夜</div>
-    <div class="ps-[10px] font-semibold">{{ $nightPremium ?? '-' }}%</div>
+    <div class="ps-[10px] font-semibold">
+      {{ $nightPremium === null ? '-' : (fmod($nightPremium, 1) == 0 ? (int) $nightPremium : $nightPremium) }}%</div>
     <button class="pl-[30px] text-sm text-[#3289FA] hover:opacity-40" type="button"
       x-on:click="$dispatch('open-modal','edit-modal')">設定する</button>
   </div>
@@ -37,7 +40,18 @@
         </div>
       @endif
 
-      <h5 class="text-[15px] font-bold">早朝料金</h5>
+      <div class="flex items-center justify-between">
+        <h5 class="text-[15px] font-bold">早朝料金</h5>
+        <button class="flex items-center space-x-1 hover:opacity-40" type="button"
+          x-on:click="$dispatch('open-modal','morning-delete-modal')">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11.055 6.75002L10.7955 13.5M7.2045 13.5L6.945 6.75002M14.421 4.34252C14.6775 4.38152 14.9325 4.42277 15.1875 4.46702M14.421 4.34252L13.62 14.7548C13.5873 15.1787 13.3958 15.5746 13.0838 15.8635C12.7717 16.1523 12.3622 16.3126 11.937 16.3125H6.063C5.63782 16.3126 5.22827 16.1523 4.91623 15.8635C4.6042 15.5746 4.41269 15.1787 4.38 14.7548L3.579 4.34252M14.421 4.34252C13.5554 4.21166 12.6853 4.11235 11.8125 4.04477M3.579 4.34252C3.3225 4.38077 3.0675 4.42202 2.8125 4.46627M3.579 4.34252C4.4446 4.21166 5.31468 4.11235 6.1875 4.04477M11.8125 4.04477V3.35777C11.8125 2.47277 11.13 1.73477 10.245 1.70702C9.41521 1.6805 8.58479 1.6805 7.755 1.70702C6.87 1.73477 6.1875 2.47352 6.1875 3.35777V4.04477M11.8125 4.04477C9.94029 3.90008 8.05971 3.90008 6.1875 4.04477"
+              stroke="#F76E80" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div class="text-sm font-bold text-[#FF4A62]">削除する</div>
+        </button>
+      </div>
 
       <div class="mt-5 space-y-[6px]">
         <div class="grid grid-cols-[30%,70%] items-center">
@@ -46,7 +60,7 @@
               'relative rounded border-[#DDDDDD] bg-[#FFFFFF] pr-9 text-sm focus:bg-white',
               'border-red-600' => $errors->has('morningPremium'),
           ]) wire:model="morningPremium"
-            step="5">
+            step="5" min="100">
           <div class="absolute right-9">%</div>
           </input>
         </div>
@@ -68,7 +82,18 @@
 
       <hr class="my-5 border-b">
 
-      <h5 class="text-[15px] font-bold">深夜料金</h5>
+      <div class="flex items-center justify-between">
+        <h5 class="text-[15px] font-bold">深夜料金</h5>
+        <button class="flex items-center space-x-1 hover:opacity-40" type="button"
+          x-on:click="$dispatch('open-modal','night-delete-modal')">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11.055 6.75002L10.7955 13.5M7.2045 13.5L6.945 6.75002M14.421 4.34252C14.6775 4.38152 14.9325 4.42277 15.1875 4.46702M14.421 4.34252L13.62 14.7548C13.5873 15.1787 13.3958 15.5746 13.0838 15.8635C12.7717 16.1523 12.3622 16.3126 11.937 16.3125H6.063C5.63782 16.3126 5.22827 16.1523 4.91623 15.8635C4.6042 15.5746 4.41269 15.1787 4.38 14.7548L3.579 4.34252M14.421 4.34252C13.5554 4.21166 12.6853 4.11235 11.8125 4.04477M3.579 4.34252C3.3225 4.38077 3.0675 4.42202 2.8125 4.46627M3.579 4.34252C4.4446 4.21166 5.31468 4.11235 6.1875 4.04477M11.8125 4.04477V3.35777C11.8125 2.47277 11.13 1.73477 10.245 1.70702C9.41521 1.6805 8.58479 1.6805 7.755 1.70702C6.87 1.73477 6.1875 2.47352 6.1875 3.35777V4.04477M11.8125 4.04477C9.94029 3.90008 8.05971 3.90008 6.1875 4.04477"
+              stroke="#F76E80" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div class="text-sm font-bold text-[#FF4A62]">削除する</div>
+        </button>
+      </div>
 
       <div class="mt-5 space-y-[6px]">
         <div class="grid grid-cols-[30%,70%] items-center">
@@ -77,7 +102,7 @@
               'relative rounded border-[#DDDDDD] bg-[#FFFFFF] pr-9 text-sm focus:bg-white',
               'border-red-600' => $errors->has('nightPremium'),
           ]) wire:model="nightPremium"
-            step="5">
+            step="5" min="100">
           <div class="absolute right-9">%</div>
           </input>
         </div>
@@ -108,4 +133,37 @@
       </div>
     </form>
   </x-modal>
+
+  <x-modal-alert name="morning-delete-modal" title="早朝料金設定の削除" maxWidth="sm">
+    <form method="POST" wire:submit="deleteMorning">
+      @csrf
+      @method('delete')
+      <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
+        <div class="pt-[13px] text-[15px] font-bold">早朝料金設定を削除します</div>
+      </div>
+      <div class="my-5 flex items-center justify-center space-x-[10px]">
+        <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+          @click="$dispatch('close-modal', 'morning-delete-modal')">キャンセル</div>
+        <button class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+          type="submit">削除する</button>
+      </div>
+    </form>
+  </x-modal-alert>
+
+  <x-modal-alert name="night-delete-modal" title="深夜料金設定の削除" maxWidth="sm">
+    <form method="POST" wire:submit="deleteNight">
+      @csrf
+      @method('delete')
+      <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
+        <div class="pt-[13px] text-[15px] font-bold">深夜料金設定を削除します</div>
+      </div>
+      <div class="my-5 flex items-center justify-center space-x-[10px]">
+        <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+          @click="$dispatch('close-modal', 'night-delete-modal')">キャンセル</div>
+        <button class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+          type="submit">削除する</button>
+      </div>
+    </form>
+  </x-modal-alert>
+
 </div>

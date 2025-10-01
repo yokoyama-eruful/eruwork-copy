@@ -60,6 +60,13 @@ class Group extends Model
         return $this->icon ?? '';
     }
 
+    public function getPartnerUserAttribute()
+    {
+        if ($this->is_dm) {
+            return $this->users->firstWhere('id', '!=', Auth::id());
+        }
+    }
+
     public function getLastMessageAttribute()
     {
         return $this->messages->sortByDesc('created_at')->first();

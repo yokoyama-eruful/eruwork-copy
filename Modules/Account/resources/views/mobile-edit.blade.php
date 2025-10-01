@@ -76,6 +76,8 @@
             </div>
           @endif
 
+          <input name="id" type="hidden" value="{{ $user->id }}">
+
           {{-- モバイル --}}
           <div class="mt-10 flex flex-col gap-[50px] pb-[50px] sm:hidden">
             <div class="grid grid-cols-[30%,70%]">

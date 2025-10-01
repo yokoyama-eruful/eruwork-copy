@@ -31,7 +31,8 @@
       <!-- 左側（1エリア固定） -->
       <div class="flex justify-center">
         @if ($message->user->icon)
-          <img class="h-[45px] w-[45px] rounded-full border bg-white" src="{{ $message->user->icon }}" alt="アイコン">
+          <img class="h-[45px] w-[45px] rounded-full border bg-white"
+            src="{{ route('profile.icon', ['id' => $message->user->id]) }}" alt="アイコン">
         @else
           <div class="flex h-[45px] w-[45px] items-center justify-center rounded-full border bg-white">
             <i class="fa-solid fa-image"></i>
