@@ -23,7 +23,7 @@ class BreakTimeForm extends Form
 
     public ?CarbonImmutable $date;
 
-    public ?BreakTime $breakTime;
+    public ?BreakTime $breakTime = null;
 
     public function setValues($breakTime)
     {
