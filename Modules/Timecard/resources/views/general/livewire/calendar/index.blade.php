@@ -96,6 +96,7 @@
 
           <hr
             class="absolute left-[58.86%] top-0 z-[5] h-[calc(100%+10px)] border-r-[1.5px] border-dashed border-[#FF4A62]" />
+          
         </div>
 
       </div>

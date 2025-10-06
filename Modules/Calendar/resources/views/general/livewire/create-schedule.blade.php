@@ -31,12 +31,12 @@
     <div class="mb-[20px] flex items-center">
       <x-input-label class="w-1/5" value="時間" />
 
-      <x-text-input class="w-[30%]" id="start_time" name="start_time" type="time" wire:model="form.startTime"
+      <x-text-input class="w-[35%]" id="start_time" name="start_time" type="time" wire:model="form.startTime"
         required />
 
-      <div class="px-[10px]">〜</div>
+      <div class="px-[8px]">〜</div>
 
-      <x-text-input class="w-[30%]" id="end_time" name="end_time" type="time" wire:model="form.endTime" required />
+      <x-text-input class="w-[35%]" id="end_time" name="end_time" type="time" wire:model="form.endTime" required />
     </div>
 
     <div class="flex items-center">

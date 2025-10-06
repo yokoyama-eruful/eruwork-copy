@@ -14,7 +14,7 @@
   <div class="flex min-h-screen flex-col items-center justify-center bg-[#F7F7F7] pt-6 sm:pt-0">
 
     <div
-      class="mt-6 w-[400px] overflow-hidden rounded-xl bg-white py-4 shadow-[0px_4px_13px_rgba(93,95,98,0.15)] sm:max-w-md">
+      class="mt-6 w-[90%] overflow-hidden rounded-xl bg-white py-4 shadow-[0px_4px_13px_rgba(93,95,98,0.15)] sm:w-[400px] sm:max-w-md">
       <div class="flex items-center justify-center pb-12 pt-10">
         <a href="/login">
           <img class="w-[68px] fill-current text-gray-500" src="{{ url('images/logo/eruwork_blue_logo.png') }}"
@@ -24,17 +24,17 @@
       <form class="flex w-full flex-col items-center" method="POST" action="{{ route('login') }}">
         @csrf
 
-        <div class="grid w-full grid-cols-[22%,78%] items-center px-[30px]">
+        <div class="grid w-full grid-cols-[25%,75%] items-center px-[20px] sm:grid-cols-[22%,78%] sm:px-[30px]">
           <x-input-label for="login_id" :value="__('login_id')" />
-          <x-text-input class="mt-1 block w-full" id="login_id" name="login_id" type="text" :value="old('name')"
-            placeholder="IDを入力してください" required />
+          <x-text-input class="mt-1 block w-full placeholder:text-[14px]" id="login_id" name="login_id" type="text"
+            :value="old('name')" placeholder="IDを入力してください" required />
           <x-input-error class="mt-2" :messages="$errors->get('login_id')" />
         </div>
-        <div class="mt-5 grid w-full grid-cols-[22%,78%] items-center px-[30px]">
+        <div class="mt-5 grid w-full grid-cols-[25%,75%] items-center px-[20px] sm:grid-cols-[22%,78%] sm:px-[30px]">
           <x-input-label for="password" :value="__('Password')" />
 
-          <x-text-input class="mt-1 block w-full" id="password" name="password" type="password" required
-            autocomplete="current-password" placeholder="パスワードを入力してください" />
+          <x-text-input class="mt-1 block w-full placeholder:text-[14px]" id="password" name="password" type="password"
+            required autocomplete="current-password" placeholder="パスワードを入力してください" />
 
           <x-input-error class="mt-2" :messages="$errors->get('password')" />
         </div>

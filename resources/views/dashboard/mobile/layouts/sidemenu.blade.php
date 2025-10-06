@@ -1,6 +1,6 @@
 <header class="flex items-center justify-between bg-[#363b46] px-5 text-white" x-data="{ accountModal: false }">
   @if ($url)
-    <a href="{{ $url }}"><img class="h-6 w-6" src="{{ global_asset('img/icon/arrow-l.png') }}" /></a>
+    <a href="{{ $url }}"><img class="h-6 w-6" src="{{ global_asset('img/icon/arrow-l-w.png') }}" /></a>
   @else
     <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
       @if (Auth::user()->icon)
@@ -31,13 +31,14 @@
       :class="sideMenu ? '-rotate-45 -translate-y-[7px]' : ''"></span>
   </button>
 
-  <div class="account-modal-box absolute" id="accountModal" x-show="accountModal" x-on:click.away="accountModal=false">
+  <div class="sm:account-modal-box account-mobile-modal-box absolute" id="accountModal" x-show="accountModal"
+    x-on:click.away="accountModal=false">
     <div class="modal-content">
       <button class="flex items-center text-xs text-[#777777] hover:opacity-40" type="button"
         x-on:click="$dispatch('open-modal','profile'); accountModal=false">
-        <img class="h-5 w-5" src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
+        <img class="h-6 w-6" src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
         アカウント
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path fill-rule="evenodd"
             d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
             clip-rule="evenodd" />
@@ -46,9 +47,9 @@
       <div>
         <button class="flex items-center text-xs text-[#F76E80] hover:opacity-40" type="button"
           x-on:click="$dispatch('open-modal','logout')">
-          <img class="h-5 w-5" src="{{ global_asset('img/icon/logout.png') }}" />
+          <img class="h-6 w-6" src="{{ global_asset('img/icon/logout.png') }}" />
           ログアウト
-          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
             <path fill-rule="evenodd"
               d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
               clip-rule="evenodd" />

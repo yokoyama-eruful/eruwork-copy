@@ -113,6 +113,7 @@ body.fixed {
   .sidebar {
     display: none;
   }
+
 }
 
 /* ========== PC: 左固定サイドメニュー（幅80px） ========== */
@@ -479,6 +480,17 @@ body.fixed {
   z-index: 100;
 }
 
+.account-mobile-modal-box {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 10px 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 13, 0.13);
+  z-index: 100;
+}
+
 .account-setting {
   color: #777;
 }
@@ -523,8 +535,8 @@ ount-setting img {
 }
 
 .modal-content svg {
-  width: 15px;
-  height: 15px;
+  width: 24px;
+  height: 24px;
 }
 
 .pc {
@@ -747,6 +759,12 @@ ount-setting img {
   .menuicon_bg {
     margin-right: 15px;
   }
+
+  .account-modal-box {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+}
 
 
 /*ダッシュボード用メニュー*/

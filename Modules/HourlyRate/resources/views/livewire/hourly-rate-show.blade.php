@@ -1,4 +1,4 @@
-<div>
+<div class="pt-[60px] sm:pt-0">
   <div class="flex items-center justify-between">
     <h5 class="hidden text-xl font-bold sm:block">時給詳細</h5>
     <div class="hidden sm:block"><livewire:hourlyrate::hourly-rate-create :$user :key="$user->id" /></div>

@@ -28,6 +28,13 @@ class TimecardWorkTimeEdit extends Component
         $this->dispatch('updated');
     }
 
+    public function deleteWorkTime()
+    {
+        $this->form->delete();
+        $this->dispatch('close-modal', 'delete-work-time-modal-' . $this->workTime->id);
+        $this->dispatch('updated');
+    }
+
     public function render()
     {
         return view('timecard::admin.timecard.livewire.work-time.edit');

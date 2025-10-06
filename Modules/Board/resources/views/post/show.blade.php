@@ -23,18 +23,22 @@
       </div>
     </x-main.top>
     <x-main.container>
-      <h5 class="hidden text-[15px] text-[#AAB0B6] sm:block">{{ $post->created_at?->format('Y年m月d日') }}</h5>
-      <div class="mt-2 hidden items-center justify-between sm:flex">
-        <div class="break-words text-[22px] font-bold">{{ $post->title }}</div>
-        <div class="flex items-center">
-          <div class="text-xs text-[#AAB0B6]">作成者:</div>
-          <div class="pl-[6px] text-[15px]">{{ $post->user->name }}</div>
+      <div class="mx-auto flex flex-col sm:max-w-[70%]">
+        <h5 class="hidden text-[15px] text-[#AAB0B6] sm:block">{{ $post->created_at?->format('Y年m月d日') }}</h5>
+        <div class="mt-2 hidden grid-cols-[90%,10%] items-end justify-between sm:grid">
+          <div class="break-words text-[22px] font-bold">{{ $post->title }}</div>
+          <div class="flex items-center justify-end">
+            <div class="text-xs text-[#AAB0B6]">作成者:</div>
+            <div class="pl-[6px] text-[15px]">{{ $post->user->name }}</div>
+          </div>
         </div>
+        <div class="mt-[19px] border-t"></div>
+        <div class="p-5 text-[15px] leading-8 sm:p-0 sm:pb-[10px] sm:pt-5" x-ref="element" readonly>
+          {!! $post->contents !!}
+        </div>
+        <livewire:board::download :post="$post" :canBeDeleted="false" />
+        <livewire:board::like :postId="$post->id" />
       </div>
-      <div class="mt-[19px] border-t"></div>
-      <div class="p-5 text-[15px] sm:p-0 sm:pb-[10px] sm:pt-5" x-ref="element" readonly>{!! $post->contents !!}</div>
-      <livewire:board::download :post="$post" :canBeDeleted="false" />
-      <livewire:board::like :postId="$post->id" />
     </x-main.container>
   </x-main.index>
 

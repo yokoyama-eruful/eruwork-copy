@@ -6,7 +6,7 @@ namespace Modules\Timecard\Livewire\General\Dto;
 
 use App\Models\User;
 use Carbon\CarbonImmutable;
-use Modules\HourlyRate\Models\WagePremium;
+use Modules\Timecard\Models\WagePremium;
 use Modules\Timecard\Models\WorkTime;
 
 class totalWorkingTimeDto
@@ -75,64 +75,194 @@ class totalWorkingTimeDto
         return self::calcPay($user, $startDate, $endDate);
     }
 
+    // private static function calcPay(User $user, CarbonImmutable $startDate, CarbonImmutable $endDate): string
+    // {
+    //     $wagePremium = WagePremium::first();
+    //     $baseHourlyWage = 1000;
+
+    //     $overtimePremiumRate = $wagePremium?->overtime_rate / 100 ?? 0.25;
+    //     $nightPremiumRate = $wagePremium?->night_rate / 100 ?? 0.25;
+
+    //     $minuteWage = $baseHourlyWage / 60;
+
+    //     $workTimes = WorkTime::with('breakTimes')
+    //         ->where('user_id', $user->id)
+    //         ->whereBetween('in_time', [$startDate, $endDate])
+    //         ->get()
+    //         ->filter(fn ($work) => $work->in_time && $work->out_time)
+    //         ->groupBy(fn ($item) => CarbonImmutable::parse($item->in_time)->toDateString())
+    //         ->sortKeys();
+
+    //     $totalPay = 0;
+
+    //     foreach ($workTimes as $date => $dayWorks) {
+    //         $categorizedMinutes = [
+    //             'regular' => 0,
+    //             'night' => 0,
+    //             'overtime' => 0,
+    //             'night_overtime' => 0,
+    //         ];
+    //         $totalWorkMinutesToday = 0;
+
+    //         $sortedWorks = $dayWorks->sortBy('in_time');
+
+    //         foreach ($sortedWorks as $work) {
+    //             $workStart = CarbonImmutable::parse($work->in_time);
+    //             $workEnd = CarbonImmutable::parse($work->out_time);
+
+    //             $durationMinutes = $workStart->diffInMinutes($workEnd);
+
+    //             $breaks = $work->breakTimes->map(fn ($bt) => [
+    //                 'start' => CarbonImmutable::parse($bt->in_time),
+    //                 'end' => CarbonImmutable::parse($bt->out_time),
+    //             ])->all();
+
+    //             for ($i = 0; $i < $durationMinutes; $i++) {
+    //                 $currentTime = $workStart->addMinutes($i);
+
+    //                 $isBreaking = false;
+    //                 foreach ($breaks as $break) {
+    //                     $breakStart = $break['start']->second(0);
+    //                     $breakEnd = $break['end']->second(0);
+    //                     $currentTimeForCheck = $currentTime->second(0);
+    //                     if ($currentTimeForCheck->gte($breakStart) && $currentTimeForCheck->lt($breakEnd)) {
+    //                         $isBreaking = true;
+    //                         break;
+    //                     }
+    //                 }
+    //                 if ($isBreaking) {
+    //                     continue;
+    //                 }
+
+    //                 $totalWorkMinutesToday++;
+
+    //                 $isNight = $currentTime->hour >= 22 || $currentTime->hour < 5;
+    //                 $isOvertime = $totalWorkMinutesToday > 8 * 60;
+
+    //                 if ($isNight && $isOvertime) {
+    //                     $categorizedMinutes['night_overtime']++;
+    //                 } elseif ($isOvertime) {
+    //                     $categorizedMinutes['overtime']++;
+    //                 } elseif ($isNight) {
+    //                     $categorizedMinutes['night']++;
+    //                 } else {
+    //                     $categorizedMinutes['regular']++;
+    //                 }
+    //             }
+    //         }
+
+    //         $dailyPay = 0;
+    //         $dailyPay += $categorizedMinutes['regular'] * $minuteWage;
+    //         $dailyPay += $categorizedMinutes['night'] * ($minuteWage * (1 + $nightPremiumRate));
+    //         $dailyPay += $categorizedMinutes['overtime'] * ($minuteWage * (1 + $overtimePremiumRate));
+    //         $dailyPay += $categorizedMinutes['night_overtime'] * ($minuteWage * (1 + $nightPremiumRate + $overtimePremiumRate));
+
+    //         $totalPay += $dailyPay;
+    //     }
+
+    //     return (string) ceil($totalPay);
+    // }
+
     private static function calcPay(User $user, CarbonImmutable $startDate, CarbonImmutable $endDate): string
     {
+        // --- 基本設定 ---
+        $wagePremium = WagePremium::first();
+
+        // --- ユーザーの時給履歴を取得し、適用日の降順にソート ---
+        $sortedHourlyRates = $user->hourlyRate->sortByDesc('effective_date');
+
+        // --- 割増率 ---
+        $overtimePremiumRate = $wagePremium?->overtime_rate / 100 ?? 0.0;
+        $nightPremiumRate = $wagePremium?->night_rate / 100 ?? 0.0;
+
+        // --- 勤務データを取得・整形 ---
         $workTimes = WorkTime::with('breakTimes')
             ->where('user_id', $user->id)
             ->whereBetween('in_time', [$startDate, $endDate])
-            ->get();
+            ->get()
+            ->filter(fn ($work) => $work->in_time && $work->out_time)
+            ->groupBy(fn ($item) => CarbonImmutable::parse($item->in_time)->toDateString())
+            ->sortKeys();
 
         $totalPay = 0;
 
-        $wagePremium = WagePremium::where('name', '深夜')->first();
+        // 1日ごとにループ
+        foreach ($workTimes as $date => $dayWorks) {
 
-        foreach ($workTimes as $work) {
-            $in = $work->in_time;
-            $out = $work->out_time;
+            // ▼▼▼【修正点】日付比較を厳密に行う ▼▼▼
+            $currentWorkDate = CarbonImmutable::parse($date); // 勤務日をCarbonオブジェクトに
 
-            // out が null（退勤打刻なし）の場合はスキップ
-            if (! $in || ! $out) {
+            $applicableRate = $sortedHourlyRates->first(function ($rate) use ($currentWorkDate) {
+                // 適用日もCarbonオブジェクトに変換して、lte() (less than or equal)で比較
+                return CarbonImmutable::parse($rate->effective_date)->lte($currentWorkDate);
+            });
+
+            if (! $applicableRate) {
                 continue;
             }
 
-            $workMinutes = $in->diffInMinutes($out);
-            $breakMinutes = $work->breakTimes->sum(fn ($b) => ($b->in_time && $b->out_time) ? $b->in_time->diffInMinutes($b->out_time) : 0
-            );
-            $netMinutes = max($workMinutes - $breakMinutes, 0);
+            $baseHourlyWage = $applicableRate->rate;
+            $minuteWage = $baseHourlyWage / 60;
 
-            $hourlyRate = $user->hourlyRate()
-                ->where('effective_date', '<=', $in)
-                ->orderByDesc('effective_date')
-                ->first()?->rate ?? 0;
+            $categorizedMinutes = [
+                'regular' => 0, 'night' => 0, 'overtime' => 0, 'night_overtime' => 0,
+            ];
+            $totalWorkMinutesToday = 0;
+            $sortedWorks = $dayWorks->sortBy('in_time');
 
-            $premiumMinutes = 0;
+            foreach ($sortedWorks as $work) {
+                // タイムゾーンを指定
+                $workStart = CarbonImmutable::parse($work->in_time);
+                $workEnd = CarbonImmutable::parse($work->out_time);
+                $durationMinutes = $workStart->diffInMinutes($workEnd);
+                $breaks = $work->breakTimes->map(fn ($bt) => [
+                    'start' => CarbonImmutable::parse($bt->in_time),
+                    'end' => CarbonImmutable::parse($bt->out_time),
+                ])->all();
 
-            if ($wagePremium) {
-                $premiumStart = $in->copy()->setTimeFrom($wagePremium->start_time);
-                $premiumEnd = $in->copy()->setTimeFrom($wagePremium->end_time);
+                for ($i = 0; $i < $durationMinutes; $i++) {
+                    $currentTime = $workStart->addMinutes($i);
+                    $isBreaking = false;
+                    foreach ($breaks as $break) {
+                        $breakStart = $break['start']->second(0);
+                        $breakEnd = $break['end']->second(0);
+                        $currentTimeForCheck = $currentTime->second(0);
+                        if ($currentTimeForCheck->gte($breakStart) && $currentTimeForCheck->lt($breakEnd)) {
+                            $isBreaking = true;
+                            break;
+                        }
+                    }
+                    if ($isBreaking) {
+                        continue;
+                    }
 
-                // 日跨ぎ対応
-                if ($premiumEnd->lessThanOrEqualTo($premiumStart)) {
-                    $premiumEnd = $premiumEnd->addDay();
-                }
+                    $totalWorkMinutesToday++;
+                    $isNight = $currentTime->hour >= 22 || $currentTime->hour < 5;
+                    $isOvertime = $totalWorkMinutesToday > 8 * 60;
 
-                $overlapStart = max($in->timestamp, $premiumStart->timestamp);
-                $overlapEnd = min($out->timestamp, $premiumEnd->timestamp);
-
-                if ($overlapEnd > $overlapStart) {
-                    $premiumMinutes = ($overlapEnd - $overlapStart) / 60;
+                    if ($isNight && $isOvertime) {
+                        $categorizedMinutes['night_overtime']++;
+                    } elseif ($isOvertime) {
+                        $categorizedMinutes['overtime']++;
+                    } elseif ($isNight) {
+                        $categorizedMinutes['night']++;
+                    } else {
+                        $categorizedMinutes['regular']++;
+                    }
                 }
             }
 
-            $pay = ($netMinutes / 60) * $hourlyRate;
+            // --- カテゴリごとの単価で給与を計算 ---
+            $dailyPay = 0;
+            $dailyPay += $categorizedMinutes['regular'] * $minuteWage;
+            $dailyPay += $categorizedMinutes['night'] * ($minuteWage * (1 + $nightPremiumRate));
+            $dailyPay += $categorizedMinutes['overtime'] * ($minuteWage * (1 + $overtimePremiumRate));
+            $dailyPay += $categorizedMinutes['night_overtime'] * ($minuteWage * (1 + $nightPremiumRate + $overtimePremiumRate));
 
-            if ($wagePremium) {
-                $pay += ($premiumMinutes / 60) * $hourlyRate * ($wagePremium->rate / 100);
-            }
-
-            $totalPay += $pay;
+            $totalPay += $dailyPay;
         }
 
-        return (string) floor($totalPay);
+        // --- 最終的な端数処理 ---
+        return (string) ceil($totalPay);
     }
 }

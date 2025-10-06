@@ -144,9 +144,9 @@
   </div>
 
   <div class="calender-area-sp sm:hidden">
-    <h3 class="calender-sp-title">シフト</h3>
+    <h3 class="calender-sp-title">今週の予定</h3>
     <div class="calendar-sp-month-day">
-      <h4>9月</h4>
+      <h4>10月</h4>
       <div class="calendar-sp-day">
         <ul>
           @foreach ($this->calendar as $key => $content)

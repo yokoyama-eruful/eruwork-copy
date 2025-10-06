@@ -112,4 +112,9 @@ class WorkTimeForm extends Form
             'out_time' => $out_time,
         ]);
     }
+
+    public function delete()
+    {
+        $this->workTime->delete();
+    }
 }

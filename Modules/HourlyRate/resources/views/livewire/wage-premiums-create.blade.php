@@ -1,5 +1,5 @@
 <div>
-  <div class="mx-5 mb-2 text-[11px] font-bold sm:hidden">割増料金率</div>
+  {{-- <div class="mx-5 mb-2 text-[11px] font-bold sm:hidden">割増料金率</div>
   <div class="mx-5 flex items-center rounded-lg bg-[#F7F7F7] px-5 py-3 text-[13px] font-bold sm:rounded-none sm:px-5">
     <div class="hidden text-[#AAB0B6] sm:block">割増料金率：</div>
     <div class="sm:ps-[10px]">
@@ -26,7 +26,12 @@
       {{ $nightPremium === null ? '-' : (fmod($nightPremium, 1) == 0 ? (int) $nightPremium : $nightPremium) }}%</div>
     <button class="pl-[30px] text-sm text-[#3289FA] hover:opacity-40" type="button"
       x-on:click="$dispatch('open-modal','edit-modal')">設定する</button>
+  </div> --}}
+
+  <div class="flex items-center space">
+
   </div>
+
   <x-modal name="edit-modal" title="割増料金設定">
     <form class="px-5 py-[18px]" wire:submit="save">
 

@@ -1,67 +1,79 @@
-<div class="w-full">
-  <div class="rounded border border-gray-300 shadow" x-data="setupEditor(@entangle('message'))" x-init="() => init($refs.editor)">
-    <div class="menu flex flex-row items-center border-b border-gray-300 px-2">
-      <div class="flex items-center">
-        <button class="h-7 w-7 rounded" type="button" @click="toggleBold()" :class="{ 'bg-gray-200': isActive('bold') }">
-          <i class="fa-solid fa-bold text-gray-600"></i>
-        </button>
-        <button class="h-7 w-7 rounded" type="button" @click="toggleItalic()">
-          <i class="fa-solid fa-italic text-gray-600"></i>
-        </button>
-        <button class="h-7 w-7 rounded" type="button" @click="toggleStrike()">
-          <i class="fa-solid fa-strikethrough text-gray-600"></i>
-        </button>
-        <button class="h-7 w-7 rounded" type="button" @click="toggleUnderline()">
-          <i class="fa-solid fa-underline text-gray-600"></i>
-        </button>
-      </div>
-      <div class="mx-2 h-6 border-l border-gray-300"></div>
-      <div class="flex items-center">
-        <button class="h-7 w-7 rounded" type="button" @click="toggleLink()">
-          <i class="fa-solid fa-link text-gray-600"></i>
-        </button>
-      </div>
-      <div class="mx-2 h-6 border-l border-gray-300"></div>
-      <div class="flex items-center">
-        <button class="h-7 w-7 rounded" type="button" @click="toggleOrderedList()">
-          <i class="fa-solid fa-list-ol text-gray-600"></i>
-        </button>
-        <button class="h-7 w-7 rounded" type="button" @click="toggleBulletList()">
-          <i class="fa-solid fa-list text-gray-600"></i>
-        </button>
-      </div>
+<div class="flex h-full flex-col">
+  <!-- ===== 入力フォーム ===== -->
+  <!-- スマホ版（画面下固定） -->
+  <div class="fixed bottom-0 left-0 flex w-full items-center gap-2 bg-white p-3 shadow-md sm:hidden">
+    <!-- ファイル追加ボタン -->
+    <button
+      class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+      type="button" onclick="document.getElementById('fileInput').click()">
+      <i class="fa-solid fa-plus text-gray-600"></i>
+    </button>
+    <input id="fileInput" type="file" wire:model="files" multiple accept="image/*" hidden>
+
+    <!-- 入力欄 -->
+    <div class="relative flex flex-1 items-center">
+      <textarea
+        class="flex h-[50px] w-full resize-none items-center rounded-lg border border-[#dddddd] bg-gray-50 p-3 text-sm text-gray-800 placeholder-gray-400"
+        x-data x-ref="editor" wire:model="message" placeholder="文字を入力ください"></textarea>
     </div>
 
-    <div class="h-auto max-h-40 min-h-10 overflow-y-auto p-2" x-ref="editor" wire:ignore></div>
-
-    @if ($files)
-      <div class="flex w-full flex-row space-x-2 overflow-x-auto">
-        @foreach ($files as $key => $file)
-          <div class="relative m-1 h-16 w-16 rounded-md border" wire:click="deleteUploadFile({{ $key }})">
-            <img class="h-full w-full object-cover" src="{{ $file->temporaryUrl() }}">
-            <button
-              class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border bg-white text-gray-500 hover:bg-gray-300 hover:text-gray-700">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-        @endforeach
-      </div>
-    @endif
-
-    <div class="flex h-7 w-full flex-wrap items-center justify-between border-t px-2">
-      <button class="h-7 w-7 rounded-full hover:bg-gray-200" type="button"
-        onclick="document.getElementById('fileInput').click()">
-        <i class="fa-solid fa-plus text-gray-600"></i>
-      </button>
-      <input id="fileInput" type="file" wire:model="files" multiple accept="image/*" hidden>
-      <button class="flex h-7 w-7 items-center justify-center rounded bg-[#3289FA]" type="button" wire:click="store">
-        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M4.00004 10L1.26904 1.125C7.80191 3.025 13.9624 6.02646 19.485 10C13.9627 13.9735 7.80257 16.9749 1.27004 18.875L4.00004 10ZM4.00004 10H11.5"
-            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        {{-- <i @class(['fa-solid fa-paper-plane text-gray-600'])></i> --}}
-      </button>
-    </div>
+    <!-- 送信ボタン -->
+    <button
+      class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#3289FA] shadow-md hover:bg-[#2870c0]"
+      type="button" wire:click="store">
+      <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M4 10L1.269 1.125C7.802 3.025 13.962 6.026 19.485 10C13.963 13.974 7.803 16.975 1.27 18.875L4 10ZM4 10H11.5"
+          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
   </div>
+
+  <!-- PC版（チャット幅に沿って下から20px上に配置） -->
+  <div
+    class="mx-auto hidden w-full max-w-2xl items-center gap-2 rounded-lg border border-[#dddddd] bg-white p-3 shadow-md sm:flex">
+    <!-- ファイル追加ボタン -->
+    <button
+      class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+      type="button" onclick="document.getElementById('fileInputPc').click()">
+      <i class="fa-solid fa-plus text-gray-600"></i>
+    </button>
+    <input id="fileInputPc" type="file" wire:model="files" multiple accept="image/*" hidden>
+
+    <!-- 入力欄 -->
+    <div class="relative flex flex-1 items-center">
+      <textarea
+        class="flex h-[44px] w-full resize-none items-center rounded-lg border border-[#dddddd] bg-gray-50 p-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3289FA]"
+        x-data x-ref="editor" wire:model="message"></textarea>
+    </div>
+
+    <!-- 送信ボタン -->
+    <button
+      class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#3289FA] shadow-md hover:bg-[#2870c0]"
+      type="button" wire:click="store">
+      <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M4 10L1.269 1.125C7.802 3.025 13.962 6.026 19.485 10C13.963 13.974 7.803 16.975 1.27 18.875L4 10ZM4 10H11.5"
+          stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- 添付ファイル（横スクロール対応） -->
+  @if ($files)
+    <div class="mt-2 flex flex-row items-center gap-2 overflow-x-auto p-3 md:mx-auto md:max-w-2xl">
+      @foreach ($files as $key => $file)
+        <div
+          class="relative flex h-16 w-16 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-200"
+          wire:key="file-{{ $key }}">
+          <img class="h-full w-full object-cover" src="{{ $file->temporaryUrl() }}">
+          <button
+            class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border bg-white text-gray-500 hover:bg-gray-300"
+            wire:click="deleteUploadFile({{ $key }})">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+      @endforeach
+    </div>
+  @endif
 </div>

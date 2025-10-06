@@ -32,28 +32,26 @@
 
           <div class="flex items-center gap-2">
             <!-- 開始日 -->
-            <div class="relative">
+            <div class="relative flex items-center">
               <input class="js-datepicker w-[150px] rounded border border-gray-300 py-1 pl-3 pr-8" type="text"
-                wire:model="startDate">
-              <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
+                wire:model.live="startDate" placeholder="開始日">
+              <svg class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
-        002-2V7a2 2 0 00-2-2H5a2 2 0
-        00-2 2v12a2 2 0 002 2z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
 
-            <div>～</div>
+            <span>～</span>
 
             <!-- 終了日 -->
-            <div class="relative">
+            <div class="relative flex items-center">
               <input class="js-datepicker w-[150px] rounded border border-gray-300 py-1 pl-3 pr-8" type="text"
-                wire:model="endDate">
-              <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
+                wire:model.live="endDate" placeholder="終了日">
+              <svg class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
-        002-2V7a2 2 0 00-2-2H5a2 2 0
-        00-2 2v12a2 2 0 002 2z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
             </div>
           </div>
@@ -63,7 +61,10 @@
         <h5 class="block text-xl font-bold sm:hidden">勤怠管理</h5>
       </x-dashboard.top>
       <x-dashboard.container>
-        <h5 class="hidden text-xl font-bold sm:block">勤怠管理</h5>
+        <div class="flex items-center justify-between">
+          <h5 class="hidden text-xl font-bold sm:block">勤怠管理</h5>
+          <livewire:timecard::admin.calculate-salary :$startDate :$endDate key="{{ $startDate . $endDate }}" />
+        </div>
         <div class="mt-[30px] hidden grid-cols-[5%,4.5%,35.5%,18%,20%,18%] items-end sm:grid">
           <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
             @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); $wire.set('selectUsers', Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => checkbox.value));">

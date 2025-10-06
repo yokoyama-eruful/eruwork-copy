@@ -81,7 +81,12 @@ class BreakTimeForm extends Form
                                     $q->where('in_time', '<=', $inDateTime)
                                         ->where('out_time', '>=', $outDateTime);
                                 });
-                        })->exists();
+                        })
+                        ->when($this->breakTime?->id, function ($query, $id) {
+                            // 更新時は自分自身を除外
+                            $query->where('id', '<>', $id);
+                        })
+                        ->exists();
 
                     if ($conflict) {
                         $fail('この時間帯には既に休憩が設定されています。');
@@ -130,5 +135,10 @@ class BreakTimeForm extends Form
             'out_time' => $out_time,
             'timecard__work_time_id' => $workTime->id,
         ]);
+    }
+
+    public function delete()
+    {
+        $this->breakTime->delete();
     }
 }

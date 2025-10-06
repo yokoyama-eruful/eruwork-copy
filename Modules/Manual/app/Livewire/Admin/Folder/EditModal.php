@@ -14,10 +14,10 @@ class EditModal extends Component
 
     public ManualFolder $folder;
 
-    public function openModal(int $folderId)
+    public function mount($folder)
     {
-        $this->form->setValue($folderId);
-        $this->dispatch('open-modal', 'manual-folder-edit-modal-' . $folderId);
+        $this->folder = $folder;
+        $this->form->setValue($folder->id);
     }
 
     public function edit()

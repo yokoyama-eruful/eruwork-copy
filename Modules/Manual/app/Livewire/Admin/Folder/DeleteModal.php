@@ -14,6 +14,11 @@ class DeleteModal extends Component
 
     public ManualFolder $folder;
 
+    public function mount($folder)
+    {
+        $this->folder = $folder;
+    }
+
     public function delete()
     {
         $this->form->folder = $this->folder;

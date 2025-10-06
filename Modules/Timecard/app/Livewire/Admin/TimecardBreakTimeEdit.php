@@ -28,6 +28,13 @@ class TimecardBreakTimeEdit extends Component
         $this->dispatch('updated');
     }
 
+    public function deleteBreakTime()
+    {
+        $this->form->delete();
+        $this->dispatch('close-modal', 'delete-break-time-modal-' . $this->breakTime->id);
+        $this->dispatch('updated');
+    }
+
     public function render()
     {
         return view('timecard::admin.timecard.livewire.break-time.edit');

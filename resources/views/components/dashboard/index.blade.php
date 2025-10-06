@@ -1,6 +1,6 @@
 <main {{ $attributes->class('h-[calc(100vh-50px)] sm:h-screen flex-1 overflow-auto sm:bg-[#f4f4f4] bg-white sm:p-6') }}>
   <div
-    class="fixed flex h-[45px] w-full flex-row items-center space-x-2 overflow-x-auto bg-[#3D475D] px-5 py-[5px] sm:hidden">
+    class="fixed z-10 flex h-[45px] w-full flex-row items-center space-x-2 overflow-x-auto bg-[#3D475D] px-5 py-[5px] sm:hidden">
     <a href="{{ route('shiftManager.index') }}" @class([
         'flex h-full min-w-fit items-center justify-center rounded px-2 py-3 text-xs text-white',
         'bg-[#3289FA]' => request()->routeIs('shiftManager.*'),

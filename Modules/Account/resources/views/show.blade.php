@@ -2,7 +2,7 @@
   <x-dashboard.index>
     <x-dashboard.top>
       <div class="flex w-full items-center justify-between sm:hidden">
-        <div class="flex items-center space-x-1 text-xs">
+        <div class="flex hidden items-center space-x-1 text-xs sm:block">
           <div class="text-[#AAB0B6]">最終更新日：</div>
           <div>{{ $user->updated_at?->format('Y年m月d日') }}</div>
         </div>
@@ -150,7 +150,7 @@
         </div>
 
         {{-- モバイル --}}
-        <div class="mt-10 flex flex-col gap-[50px] pb-[50px] sm:hidden">
+        <div class="mt-10 flex flex-col gap-[40px] pb-[100px] sm:hidden">
           <div class="grid grid-cols-[30%,70%]">
             <div class="flex items-center text-[11px] font-bold">名前</div>
             <div class="flex items-center">{{ $user->name }}</div>
@@ -163,6 +163,12 @@
             <div class="flex items-center text-[11px] font-bold">ログインID</div>
             <div class="flex items-center">{{ $user->login_id }}</div>
           </div>
+
+          <div class="block grid grid-cols-[30%,70%] sm:hidden">
+            <div class="flex items-center text-[11px] font-bold">最終更新日</div>
+            <div class="flex items-center">{{ $user->updated_at?->format('Y年m月d日') }}</div>
+          </div>
+
           <div class="grid grid-cols-[30%,70%]">
             <div class="flex items-center text-[11px] font-bold">契約区分</div>
             <div class="flex items-center">{{ $user->profile->contract_type }}</div>

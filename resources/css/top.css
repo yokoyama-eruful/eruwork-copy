@@ -559,6 +559,9 @@ dialog::backdrop {
     font-size: 20px;
     width: 90%;
     margin: auto;
+    font-weight: bold;
+    margin-top:20px;
+
   }
 
   .calendar-sp-month-day {
@@ -567,6 +570,11 @@ dialog::backdrop {
     margin-left: 6%;
     justify-content: left;
     align-items: center;
+    margin-top:20px;
+    margin-bottom:30px;
+  }
+  .calendar-sp-month-day h4{
+    font-weight: bold;
   }
 
   .calendar-sp-day {
@@ -584,7 +592,7 @@ dialog::backdrop {
 
   .calendar-sp-month-day h4 {
     font-size: 20px;
-    width: 60px;
+    width: 77px;
     border-right: solid 1px #ddd;
     padding-right: 15px;
     line-height: 2.5;
@@ -638,7 +646,6 @@ dialog::backdrop {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 5px;
   }
 
   .calendar-sp-day-box span {
