@@ -1,7 +1,7 @@
-<div class="flex h-full flex-col">
+<div class="flex h-full flex-col sm:justify-center">
   <!-- ===== 入力フォーム ===== -->
   <!-- スマホ版（画面下固定） -->
-  <div class="fixed bottom-0 left-0 flex w-full items-center gap-2 bg-white p-3 shadow-md sm:hidden">
+  <div class="fixed bottom-0 left-0 flex w-full items-center gap-2 bg-white p-3 pb-8 shadow-md sm:hidden">
     <!-- ファイル追加ボタン -->
     <button
       class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
@@ -31,25 +31,28 @@
 
   <!-- PC版（チャット幅に沿って下から20px上に配置） -->
   <div
-    class="mx-auto hidden w-full max-w-2xl items-center gap-2 rounded-lg border border-[#dddddd] bg-white p-3 shadow-md sm:flex">
+    class="mx-auto hidden w-full max-w-[740px] items-center rounded-lg border border-[#dddddd] bg-white p-3 shadow-sm sm:flex">
     <!-- ファイル追加ボタン -->
     <button
-      class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+      class="mr-3 flex flex-shrink-0 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
       type="button" onclick="document.getElementById('fileInputPc').click()">
-      <i class="fa-solid fa-plus text-gray-600"></i>
+      <svg class="size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+      </svg>
     </button>
     <input id="fileInputPc" type="file" wire:model="files" multiple accept="image/*" hidden>
 
     <!-- 入力欄 -->
     <div class="relative flex flex-1 items-center">
       <textarea
-        class="flex h-[44px] w-full resize-none items-center rounded-lg border border-[#dddddd] bg-gray-50 p-3 text-sm text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#3289FA]"
-        x-data x-ref="editor" wire:model="message"></textarea>
+        class="flex h-[44px] w-full resize-none items-center rounded-l-lg border border-[#dddddd] bg-gray-50 p-3 text-sm text-gray-800 placeholder-gray-400 [scrollbar-width:none] focus:outline-none focus:ring-2 focus:ring-[#3289FA] [&::-webkit-scrollbar]:hidden"
+        x-data x-ref="editor" wire:model="message" placeholder="テキストを入力してください"></textarea>
     </div>
 
     <!-- 送信ボタン -->
     <button
-      class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#3289FA] shadow-md hover:bg-[#2870c0]"
+      class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-r-lg bg-[#3289FA] shadow-md hover:bg-[#2870c0]"
       type="button" wire:click="store">
       <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path

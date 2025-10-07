@@ -166,7 +166,7 @@
                     !is_null($this->getYesterday($userId)) &&
                         $this->getYesterday($userId)->end_time->lt($this->getYesterday($userId)->start_time))
                   <div
-                    class="{{ $this->getYesterdayColSpan($userId) }} col-start-1 flex flex-col justify-center rounded-md border border-[#DE993A] bg-[#FFF7EC] px-5 text-[#DE993A]">
+                    class="{{ $this->getYesterdayColSpan($userId) }} col-start-1 flex flex-col justify-center rounded-md border border-[#39A338] bg-[#F6FFF6] px-5 text-[#39A338]">
                     <div class="text-sm font-bold">出勤</div>
                     <div class="text-sm">
                       前日

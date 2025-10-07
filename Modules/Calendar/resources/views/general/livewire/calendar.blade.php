@@ -109,7 +109,7 @@
           {{-- 確定シフト表示 --}}
           @if (!empty($content['shifts']))
             <div
-              class="mb-1 mr-1 min-h-[50px] min-w-[135px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] p-[9px] text-[#DE993A]"
+              class="mb-1 mr-1 min-h-[50px] min-w-[135px] rounded-lg border border-[#39A338] bg-[#F6FFF6] p-[9px] text-[#39A338]"
               x-cloak>
               <div class="text-[13px] font-bold">出勤</div>
               @foreach ($content['shifts'] as $shift)
@@ -259,7 +259,7 @@
             <div class="flex flex-col space-y-1">
               @if (!empty($content['shifts']))
                 <div
-                  class="my-1 flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#DE993A] bg-[#FFF7EC] pb-[15px] pl-5 pr-[13px] pt-3 text-[#DE993A]">
+                  class="my-1 flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#39A338] bg-[#F6FFF6] pb-[15px] pl-5 pr-[13px] pt-3 text-[#39A338]">
                   <div class="flex items-start text-sm font-bold">勤務時間</div>
                   @foreach ($content['shifts'] as $shift)
                     <div class="relative text-xs" x-data="{ openModalShift{{ $shift->id }}: false }"

@@ -1,7 +1,7 @@
 <div class="pt-[60px] sm:pt-0">
   <div class="flex items-center justify-between">
     <h5 class="hidden text-xl font-bold sm:block">時給詳細</h5>
-    <div class="hidden sm:block"><livewire:hourlyrate::hourly-rate-create :$user :key="$user->id" /></div>
+    <div class="hidden sm:block"><livewire:hourlyrate::hourly-rate-create :$user :key="'desktop-rate-create-' . $user->id" /></div>
   </div>
   <div class="mx-5 flex items-center space-x-[20px] border-b pb-[20px] sm:mx-0 sm:mt-[10px] sm:pt-[20px]">
     <div
@@ -31,12 +31,16 @@
       ])>
         <div class="pl-[20px] pr-[30px] text-[15px] font-bold">{{ $hourlyRate->rate }}円</div>
         <div class="text-left text-[12px]">{{ $hourlyRate->effective_date->format('Y年m月d日') }}</div>
-        <div class="w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-xs font-bold text-[#3289FA]">
-          適用中
-        </div>
+        @if ($this->getApplyRate()?->id == $hourlyRate->id)
+          <div class="w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-xs font-bold text-[#3289FA]">
+            適用中
+          </div>
+        @else
+          <div></div>
+        @endif
 
         <div class="text-left">
-          <livewire:hourlyrate::hourly-rate-edit :$hourlyRate :key="$hourlyRate->id" />
+          <livewire:hourlyrate::hourly-rate-edit :$hourlyRate :key="'desktop-rate-edit-' . $hourlyRate->id" />
 
           <script>
             function Datepickr() {
@@ -60,5 +64,5 @@
     @endforeach
   </div>
   <div class="my-[13px] flex items-center justify-center sm:hidden"><livewire:hourlyrate::hourly-rate-create :$user
-      :key="$user->id" /></div>
+      :key="'mobile-rate-create-' . $user->id" /></div>
 </div>

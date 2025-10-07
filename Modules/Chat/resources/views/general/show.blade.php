@@ -69,7 +69,7 @@
     </div>
 
     <!-- 下のエリア -->
-    <div class="min-h-[100px]">
+    <div class="min-h-[80px]">
       @vite(['Modules/Chat/resources/js/tiptap.js', 'resources/css/tiptap.css'])
       @livewire('chat::general.editor', ['group' => $selectGroup])
     </div>

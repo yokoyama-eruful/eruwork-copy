@@ -322,7 +322,7 @@
                     class="min-w-[100px] max-w-[100px] border-b border-r border-gray-300 py-[10px] align-top sm:min-w-32 sm:max-w-32 sm:py-[15px]">
                     @foreach ($daySchedules as $schedule)
                       <div
-                        class="mr-[10px] truncate rounded-lg border border-[#DE993A] bg-[#FFF7EC] px-2 py-1 text-[#DE993A] sm:px-[10px] sm:py-2">
+                        class="mr-[10px] truncate rounded-lg border border-[#39A338] bg-[#F6FFF6] px-2 py-1 text-[#39A338] sm:px-[10px] sm:py-2">
                         <div class="text-sm font-bold">出勤</div>
                         <div class="hidden text-sm sm:block">
                           {{ $schedule->start_time->isoFormat('aHH:mm') . '～' . $schedule->end_time->isoFormat('HH:mm') }}

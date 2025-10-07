@@ -96,7 +96,7 @@
 
           <hr
             class="absolute left-[58.86%] top-0 z-[5] h-[calc(100%+10px)] border-r-[1.5px] border-dashed border-[#FF4A62]" />
-          
+
         </div>
 
       </div>
@@ -285,14 +285,14 @@
 
             @if ($content['workTimes']->isNotEmpty())
               <div
-                class="mb-[19px] mr-1 min-h-[108px] min-w-[135px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] p-[9px] text-[#DE993A]">
+                class="mb-[19px] mr-1 min-h-[108px] min-w-[135px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF]">
                 <div class="text-[13px] font-bold">勤務時間</div>
                 @foreach ($content['workTimes'] as $key => $time)
                   <div class="pt-[4px] text-xs">
                     {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('aH:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('aH:mm')) }}
                   </div>
                 @endforeach
-                <div class="my-[10px] border-t border-[#DE993A]"></div>
+                <div class="my-[10px] border-t border-[#00A1FF]"></div>
                 <div class="text-[13px] font-bold">休憩時間</div>
                 @if ($content['breakTimes']->isEmpty())
                   <div class="pt-[4px] text-xs">休憩なし</div>

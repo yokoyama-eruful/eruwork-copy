@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\HourlyRate\Livewire;
 
 use App\Models\User;
+use Carbon\CarbonImmutable;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -36,6 +37,14 @@ class HourlyRateShow extends Component
            HourlyRate::where('user_id', $this->user->id)
                ->orderBy('effective_date')
                ->get();
+    }
+
+    public function getApplyRate()
+    {
+        return HourlyRate::where('user_id', $this->user->id)
+            ->where('effective_date', '<=', CarbonImmutable::today())
+            ->orderBy('effective_date', 'desc')
+            ->first();
     }
 
     public function render()

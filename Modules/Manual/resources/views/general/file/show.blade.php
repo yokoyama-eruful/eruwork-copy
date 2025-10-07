@@ -20,12 +20,11 @@
 
         @if (str_contains($file->type, 'image'))
           <div
-            class="sticky top-0 z-10 mt-5 h-[220px] w-full border-dashed bg-[#F7F9FA] sm:static sm:h-[450px] sm:rounded-lg sm:border">
-            <img class="h-full w-full sm:rounded-lg" src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
+            class="mt-5 flex h-[220px] w-full justify-center bg-black sm:static sm:h-[450px] sm:rounded-lg sm:border">
+            <img class="h-full sm:rounded-lg" src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
           </div>
         @elseif(str_contains($file->type, 'video'))
-          <div
-            class="sticky top-0 z-10 mt-5 h-[220px] w-full border-dashed bg-[#F7F9FA] sm:static sm:h-[450px] sm:rounded-lg sm:border">
+          <div class="sticky top-0 z-10 mt-5 h-[220px] w-full bg-black sm:static sm:h-[450px] sm:rounded-lg sm:border">
             <video class="h-full w-full sm:rounded-lg" controls playsinline>
               <source src="{{ route('manualFile.movie', ['id' => $file->id]) }}" type="{{ $file->type }}">
               Your browser does not support the video tag.

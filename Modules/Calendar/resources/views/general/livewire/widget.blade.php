@@ -162,7 +162,7 @@
   <div class="calender-area-sp sm:hidden">
     <h3 class="calender-sp-title">今週の予定</h3>
     <div class="calendar-sp-month-day">
-      <h4>10月</h4>
+      <h4 class="min-w-[70px]">{{ $selectDate->format('m月') }}</h4>
       <div class="calendar-sp-day">
         <ul>
           @foreach ($this->calendar as $key => $content)
@@ -185,7 +185,7 @@
       <div class="schedule-detail-box">
         @if ($mobileSchedules->isNotEmpty() || $mobileShiftSchedules->isNotEmpty())
           @foreach ($mobileShiftSchedules as $shift)
-            <div class="rounded-[10px] border border-[#DE993A] bg-[#FFF7EC] px-[10px] py-4 text-[#DE993A]">
+            <div class="rounded-[10px] border border-[#39A338] bg-[#F6FFF6] px-[10px] py-4 text-[#39A338]">
               <div class="text-[15px] font-bold">出勤</div>
               <div class="text-sm font-bold">
                 {{ $shift->start_time->isoFormat('aHH:mm') }}時～
