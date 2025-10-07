@@ -17,7 +17,7 @@
       class="top-container mt-[30px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <h5 class="hidden text-xl font-bold sm:block">新規作成</h5>
       <div class="mx-5 flex flex-col sm:mx-0 sm:mt-[30px]">
-        <x-input-label class="hidden sm:block" for="title" value="マニュアルタイトル" />
+        <x-input-label class="mb-[9px] hidden sm:block" for="title" value="マニュアルタイトル" />
         <x-text-input id="title" name="title" type="text" placeholder="タイトルを入力してください"
           wire:model="form.title" />
         @error('form.title')

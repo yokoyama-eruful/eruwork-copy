@@ -85,7 +85,7 @@
     <hr class="border-t">
 
     <div class="mt-6">
-      <div class="sticky -top-6 z-10 flex w-full flex-row bg-white text-xs text-[#6F6C6C]">
+      <div class="sticky -top-6 z-[5] flex w-full flex-row bg-white text-xs text-[#6F6C6C]">
         <div class="flex w-32 items-center justify-center">ユーザー名</div>
         <div class="grid h-10 w-full grid-cols-1440">
           @foreach (range(0, 1380, 60) as $start)
@@ -121,7 +121,7 @@
           @endforeach
         </div>
       </div>
-      @foreach ($userShiftSchedules as $shiftSchedules)
+      @foreach ($userShiftSchedules as $userId => $shiftSchedules)
         <div class="flex w-full flex-row">
           <div @class([
               'flex w-32 items-center justify-start border px-[25px] text-[15px] font-bold',
@@ -162,6 +162,16 @@
 
             <div class="absolute h-[60px] w-full">
               <div class="col grid h-full grid-cols-1440 py-1">
+                @if (!is_null($this->getYesterday($userId)))
+                  <div
+                    class="{{ $this->getYesterdayColSpan($userId) }} col-start-1 flex flex-col justify-center rounded-md border border-[#DE993A] bg-[#FFF7EC] px-5 text-[#DE993A]">
+                    <div class="text-sm font-bold">出勤</div>
+                    <div class="text-sm">
+                      前日
+                      {{ $this->getYesterday($userId)->start_time->isoFormat('aH:mm') . '～' . $this->getYesterday($userId)->end_time->format('H:i') }}
+                    </div>
+                  </div>
+                @endif
                 @foreach ($shiftSchedules['schedules'] as $shiftSchedule)
                   @include('shift::general.layouts.time', ['shiftSchedule' => $shiftSchedule])
                 @endforeach

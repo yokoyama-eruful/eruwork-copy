@@ -26,7 +26,7 @@
         @elseif(str_contains($file->type, 'video'))
           <div
             class="sticky top-0 z-10 mt-5 h-[220px] w-full border-dashed bg-[#F7F9FA] sm:static sm:h-[450px] sm:rounded-lg sm:border">
-            <video class="h-full w-full sm:rounded-lg" controls>
+            <video class="h-full w-full sm:rounded-lg" controls playsinline>
               <source src="{{ route('manualFile.movie', ['id' => $file->id]) }}" type="{{ $file->type }}">
               Your browser does not support the video tag.
             </video>
@@ -41,7 +41,7 @@
                   'border-t' => !$loop->first,
                   'border-b' => !$loop->last,
               ])>{{ $detail['title'] }}</div>
-              <textarea class="auto-resize w-full resize-none border-none p-5 text-[15px]">{{ $detail['content'] }}</textarea>
+              <div class="whitespace-pre-wrap p-5 text-[15px]">{{ $detail['content'] }}</div>
             @endforeach
           </div>
         @endif
@@ -60,7 +60,8 @@
                         <h4>{{ $step['title'] }}</h4>
                       </div>
                       <div class="form-area-general">
-                        <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7]">{{ $step['content'] }}</textarea>
+                        {{-- <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7]">{{ $step['content'] }}</textarea> --}}
+                        <div class="whitespace-pre-wrap text-[15px]">{{ $step['content'] }}</div>
                         @if ($step['file'])
                           <img class="h-auto max-w-full rounded-lg"
                             src="{{ route('manualFile.step', ['id' => $file->id, 'index' => $index]) }}" />

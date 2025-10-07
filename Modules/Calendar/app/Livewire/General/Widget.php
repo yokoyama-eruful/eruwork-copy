@@ -211,6 +211,31 @@ class Widget extends Component
         ];
     }
 
+    public function getYesterday($day)
+    {
+        $previousDate = CarbonImmutable::parse($day)->subDay()->toDateString();
+
+        return ShiftSchedule::where('user_id', Auth::id())
+            ->where('date', $previousDate)
+            ->orderBy('start_time', 'desc')
+            ->first();
+    }
+
+    public function getYesterdayHeight($day)
+    {
+        $yesterdayShift = $this->getYesterday($day);
+        $minuteStart = (int) $yesterdayShift->start_time->format('i');
+        $hourEnd = (int) $yesterdayShift->end_time->format('H');
+        $minuteEnd = (int) $yesterdayShift->end_time->format('i');
+
+        $height = ($hourEnd) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
+        if ($height <= 60) {
+            $height = 60;
+        }
+
+        return $height;
+    }
+
     // モバイル用
     public function selectedDate($date)
     {

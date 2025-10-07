@@ -158,6 +158,32 @@ class DaySchedule extends Component
         return $userSchedules;
     }
 
+    public function getYesterday($userId)
+    {
+        $previousDate = CarbonImmutable::parse($this->date)->subDay()->toDateString();
+
+        return Schedule::where('user_id', $userId)
+            ->where('date', $previousDate)
+            ->orderBy('start_time', 'desc')
+            ->first();
+    }
+
+    public function getYesterdayColSpan($userId)
+    {
+        $yesterDayShift = $this->getYesterday($userId);
+
+        if (! is_null($yesterDayShift)) {
+            $start = $yesterDayShift->start_time;
+            $end = $yesterDayShift->end_time;
+
+            if ($start > $end) {
+                return 'col-span-' . (int) CarbonImmutable::parse('00:00')->diffInMinutes($end, true);
+            } else {
+                return 0;
+            }
+        }
+    }
+
     public function render()
     {
         $this->getUserShiftSchedules();

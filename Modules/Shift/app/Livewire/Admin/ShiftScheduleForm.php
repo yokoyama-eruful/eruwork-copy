@@ -39,7 +39,6 @@ final class ShiftScheduleForm extends Form
             'endTime' => [
                 'required',
                 'date_format:H:i',
-                'after:startTime',
             ],
         ];
     }

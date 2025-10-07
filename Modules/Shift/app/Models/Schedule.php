@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Shift\Models;
 
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -57,10 +58,11 @@ class Schedule extends Model
 
     public function getColSpanAttribute()
     {
-        $start_minutes = $this->start_time->hour * 60 + $this->start_time->minute;
-        $end_minutes = $this->end_time->hour * 60 + $this->end_time->minute;
-
-        return intval($end_minutes - $start_minutes);
+        if ($this->start_time->gt($this->end_time)) {
+            return (int) $this->start_time->diffInMinutes(Carbon::parse('23:59'), true);
+        } else {
+            return (int) $this->start_time->diffInMinutes($this->end_time, true);
+        }
     }
 
     public function getViewScheduleAttribute()

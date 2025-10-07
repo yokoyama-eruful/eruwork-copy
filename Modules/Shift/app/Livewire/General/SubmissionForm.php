@@ -42,7 +42,6 @@ class SubmissionForm extends Form
             'endTime' => [
                 'nullable',
                 'date_format:H:i',
-                'after:startTime',
             ],
         ];
     }

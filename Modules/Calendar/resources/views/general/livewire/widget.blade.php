@@ -106,6 +106,19 @@
                     <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
                   @endforeach
 
+                  @if ($this->getYesterday($content['date']->format('Y-m-d')))
+                    <div
+                      class="card absolute cursor-pointer rounded-[10px] border border-[#39A338] bg-[#F6FFF6] p-2 text-[#39A338] transition-all"
+                      :style="'top: 0px; height: {{ $this->getYesterdayHeight($content['date']->format('Y-m-d')) }}px;'">
+                      <p class="text-[14px] font-bold">出勤日</p>
+                      {{-- @if ($height > 50) --}}
+                      <p class="text-[14px]">
+                        {{ $this->getYesterday($content['date']->format('Y-m-d'))->start_time->format('H:i') . '～' . $this->getYesterday($content['date']->format('Y-m-d'))->end_time?->format('H:i') }}
+                      </p>
+                      {{-- @endif --}}
+                    </div>
+                  @endif
+
                   {{-- シフト --}}
                   @foreach ($content['shifts'] as $shift)
                     @php
