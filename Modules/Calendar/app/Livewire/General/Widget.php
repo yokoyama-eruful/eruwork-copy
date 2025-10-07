@@ -228,9 +228,13 @@ class Widget extends Component
         $hourEnd = (int) $yesterdayShift->end_time->format('H');
         $minuteEnd = (int) $yesterdayShift->end_time->format('i');
 
-        $height = ($hourEnd) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
-        if ($height <= 60) {
-            $height = 60;
+        $height = 0;
+
+        if ($yesterdayShift->end_time->lt($yesterdayShift->start_time)) {
+            $height = ($hourEnd) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
+            if ($height <= 60) {
+                $height = 60;
+            }
         }
 
         return $height;

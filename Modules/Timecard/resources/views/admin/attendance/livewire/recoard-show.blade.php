@@ -14,7 +14,7 @@
           }
       }
   }">
-    <form class="flex items-center" @submit.prevent="submitForm">
+    <form @submit.prevent="submitForm">
       <x-dashboard.top>
         <div class="hidden items-center sm:flex">
           <button

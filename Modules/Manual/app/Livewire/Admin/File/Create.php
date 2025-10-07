@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Manual\Livewire\Admin\File;
 
-use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Modules\Manual\Livewire\Admin\File\Forms\FileForm;
@@ -25,7 +24,6 @@ class Create extends Component
         $this->form->folder = $folder;
     }
 
-    #[On('submit-manual')]
     public function create($branchStatus = '下書き')
     {
         $this->form->create($branchStatus);

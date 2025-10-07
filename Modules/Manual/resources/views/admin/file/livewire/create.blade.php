@@ -12,7 +12,7 @@
     </a>
     <h5 class="text-xl font-bold sm:hidden">新規作成</h5>
   </x-dashboard.top>
-  <form class="flex h-auto min-h-[calc(100vh-100px)] space-x-5" wire:submit="create">
+  <form class="flex h-auto min-h-[calc(100vh-100px)] space-x-5">
     <div
       class="top-container mt-[30px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <h5 class="hidden text-xl font-bold sm:block">新規作成</h5>
@@ -248,18 +248,19 @@
             キャンセル
           </p>
         </a>
-        <button class="h-[50px] w-[230px] rounded hover:opacity-40" id="draftButton" type="button">
+        <button class="h-[50px] w-[230px] rounded hover:opacity-40" type="button" wire:click="create('下書き')"
+          wire:loading.attr="disabled" wire:target="create">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
             下書きとして保存
           </p>
         </button>
-        <button class="h-[50px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
-          type="button">投稿する</button>
+        <button class="h-[50px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40" type="button"
+          wire:click="create('掲載')" wire:loading.attr="disabled" wire:target="create">投稿する</button>
       </div>
 
       <div class="mx-5 mb-[80px] mt-[30px] sm:hidden">
-        <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
-          type="button">投稿する</button>
+        <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40" type="button"
+          wire:click="create('掲載')" wire:loading.attr="disabled" wire:target="create">投稿する</button>
         <div class="mt-[30px] flex items-center space-x-5">
           <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
             href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}">
@@ -267,28 +268,24 @@
               キャンセル
             </p>
           </a>
-          <button class="h-[50px] w-[230px] rounded hover:opacity-40" id="draftButton" type="button">
+          <button class="h-[50px] w-[230px] rounded hover:opacity-40" type="button" wire:click="create('下書き')"
+            wire:loading.attr="disabled" wire:target="create">
             <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
               下書きとして保存
             </p>
           </button>
         </div>
       </div>
-
-      <script>
-        document.getElementById('postButton').addEventListener('click', function() {
-          Livewire.dispatch('submit-manual', {
-            branchStatus: '掲載'
-          });
-        });
-        document.getElementById('draftButton').addEventListener('click', function() {
-          Livewire.dispatch('submit-manual', {
-            branchStatus: '下書き'
-          });
-        });
-      </script>
-
     </div>
+
+    {{-- <div
+      class="fixed right-0 top-0 z-50 flex h-full w-full items-center justify-center space-x-5 bg-white bg-opacity-80"
+      wire:loading wire:target="create('下書き')">
+      <img class="h-10 animate-bounce" src="{{ global_asset('img/icon/fukuro_pc.png') }}" />
+      <div class="text-3xl font-bold">
+        保存中
+      </div>
+    </div> --}}
 
     <div
       class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:block sm:min-w-[320px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">

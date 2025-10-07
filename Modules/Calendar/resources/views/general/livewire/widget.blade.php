@@ -106,7 +106,10 @@
                     <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />
                   @endforeach
 
-                  @if ($this->getYesterday($content['date']->format('Y-m-d')))
+                  @if (
+                      $this->getYesterday($content['date']->format('Y-m-d')) &&
+                          $this->getYesterday($content['date']->format('Y-m-d'))->end_time->lt(
+                              $this->getYesterday($content['date']->format('Y-m-d'))->start_time))
                     <div
                       class="card absolute cursor-pointer rounded-[10px] border border-[#39A338] bg-[#F6FFF6] p-2 text-[#39A338] transition-all"
                       :style="'top: 0px; height: {{ $this->getYesterdayHeight($content['date']->format('Y-m-d')) }}px;'">

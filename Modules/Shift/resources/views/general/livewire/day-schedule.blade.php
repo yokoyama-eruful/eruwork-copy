@@ -162,7 +162,9 @@
 
             <div class="absolute h-[60px] w-full">
               <div class="col grid h-full grid-cols-1440 py-1">
-                @if (!is_null($this->getYesterday($userId)))
+                @if (
+                    !is_null($this->getYesterday($userId)) &&
+                        $this->getYesterday($userId)->end_time->lt($this->getYesterday($userId)->start_time))
                   <div
                     class="{{ $this->getYesterdayColSpan($userId) }} col-start-1 flex flex-col justify-center rounded-md border border-[#DE993A] bg-[#FFF7EC] px-5 text-[#DE993A]">
                     <div class="text-sm font-bold">出勤</div>
