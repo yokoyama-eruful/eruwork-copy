@@ -23,6 +23,25 @@
 <body class="m-0 grid h-screen w-screen grid-rows-[50px,1fr] p-0" x-data="{ sideMenu: false }" x-cloak>
   @include('dashboard.mobile.layouts.sidemenu')
 
+  <livewire:profile />
+
+  <x-modal-alert name="logout" title="ログアウト">
+    <form method="POST" action="{{ route('logout') }}">
+      @csrf
+      <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
+        <div class="pt-[13px] text-[15px] font-bold">ログアウトしますか</div>
+      </div>
+      <div class="my-5 flex items-center justify-center space-x-[10px]">
+        <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+          @click="$dispatch('close-modal', 'logout')">キャンセル</div>
+        <button class="flex h-11 w-[150px] items-center justify-center rounded bg-[#FF4A62] text-white" type="submit">
+          ログアウト
+        </button>
+
+      </div>
+    </form>
+  </x-modal-alert>
+
   <main class="overflow-y-auto">
     {{ $slot }}
   </main>

@@ -8,7 +8,7 @@
       },
       submitForm() {
           if (this.selectUsers.length === 0) {
-              alert('選択してください');
+              {{-- alert('選択してください'); --}}
           } else {
               @this.call('downloadExcel');
           }

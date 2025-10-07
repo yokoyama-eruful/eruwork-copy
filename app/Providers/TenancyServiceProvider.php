@@ -126,7 +126,7 @@ class TenancyServiceProvider extends ServiceProvider
                     ->group([
                         base_path('routes/tenant/tenant.php'),
                         base_path('routes/tenant/auth.php'),
-                        base_path('routes/tenant/dashboard.php'),
+                        // base_path('routes/tenant/dashboard.php'),
                     ]);
             }
         });
