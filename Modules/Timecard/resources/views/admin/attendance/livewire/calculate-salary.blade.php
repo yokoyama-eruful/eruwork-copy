@@ -27,8 +27,9 @@
     </button>
   </div>
   <x-modal name="wage-premium-modal" title="給与計算設定" wire:submit="create">
-    <form class="p-4" method="post" wire:submit="create">
+    <form class="m-4" method="post" wire:submit="create">
       @csrf
+
       {{-- <div class="mt-[18px] grid grid-cols-[30%,70%] items-center">
         <x-input-label for="fraction" value="端数処理方法" />
 
@@ -71,7 +72,7 @@
         </div>
       </div> --}}
 
-      <div class="mt-[18px] grid grid-cols-[30%,15%,55%] items-center">
+      <div class="grid grid-cols-[30%,15%,55%] items-center px-4 pt-[18px]">
         <div class="flex flex-col">
           <x-input-label for="overtimeRate" value="残業料金設定" />
           <div class="text-[10px] text-[#000000] text-opacity-30">※勤務8時間超で適用</div>
@@ -82,7 +83,7 @@
         <div class="text-sm">%割増</div>
       </div>
 
-      <div class="mb-[30px] mt-[30px] grid grid-cols-[30%,15%,55%] items-center">
+      <div class="grid grid-cols-[30%,15%,55%] items-center px-4 pb-[30px] pt-[30px]">
         <x-input-label for="nightRate" value="深夜割増料金" />
 
         <x-text-input class="w-[55px]" wire:model="form.nightRate" />
@@ -90,7 +91,7 @@
         <div class="text-sm">%割増</div>
       </div>
 
-      <div class="-mx-4 -mb-4 flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

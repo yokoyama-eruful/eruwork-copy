@@ -4,7 +4,7 @@
   <div class="flex w-full items-center justify-between px-[20px] sm:w-auto sm:justify-normal sm:px-0">
     {{ $slot }}
   </div>
-  <button class="account-area hidden sm:flex" x-on:click="accountModal=!accountModal">
+  <button class="account-area hidden sm:flex" type="button" x-on:click="accountModal=!accountModal">
     @if (Auth::user()->icon)
       <img class="h-[30px] w-[30px] rounded-full" src="{{ route('profile.icon', ['id' => Auth::id()]) }}" />
     @else

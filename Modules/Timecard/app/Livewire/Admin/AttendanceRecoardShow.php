@@ -44,15 +44,14 @@ class AttendanceRecoardShow extends Component
 
         $selectedUsers = User::whereIn('id', $this->selectUsers)->get();
         $workTimes = WorkTime::query()
-            ->whereBetween('date', [$this->startDate, $this->endDate])
+            ->whereBetween('in_time', [$this->startDate, $this->endDate])
             ->whereNotNull('in_time')
             ->whereNotNull('out_time')
-            ->orderBy('date', 'asc')
             ->orderBy('in_time', 'asc')
             ->get();
 
         $breakTimes = BreakTime::query()
-            ->whereBetween('date', [$this->startDate, $this->endDate])
+            ->whereBetween('in_time', [$this->startDate, $this->endDate])
             ->whereNotNull('in_time')
             ->whereNotNull('out_time')
             ->orderBy('in_time', 'asc')
@@ -78,14 +77,14 @@ class AttendanceRecoardShow extends Component
                 $hours = floor($totalBreakMinutes / 60);
                 $minutes = $totalBreakMinutes % 60;
 
-                array_push($userWorkTimes, $workTime->date->isoFormat('YYYY/MM/DD(ddd)'), $workTime->in_time->format('H:i'), $workTime->out_time->format('H:i'), "{$hours}時間{$minutes}分");
+                array_push($userWorkTimes, $workTime->in_time->isoFormat('YYYY/MM/DD(ddd) HH:mm'), $workTime->out_time->isoFormat('YYYY/MM/DD(ddd) HH:mm'), "{$hours}時間{$minutes}分");
 
                 return $userWorkTimes;
             })->toArray();
 
             $spreadsheet->addSheet($clonedWorksheet);
             $worksheet = $spreadsheet->getSheetByName($user->name);
-            $worksheet->fromArray([['日時', '出勤', '退勤', '合計休憩時間']], null, 'A1');
+            $worksheet->fromArray([['出勤', '退勤', '合計休憩時間']], null, 'A1');
             $worksheet->fromArray($userWorkTimes, null, 'A2');
         }
 

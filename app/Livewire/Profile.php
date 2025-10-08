@@ -25,6 +25,12 @@ class Profile extends Component
     {
         $this->form->update();
 
+        if ($this->form->notifyMessage) {
+            $this->dispatch('enablePush');
+        } else {
+            $this->dispatch('disablePush');
+        }
+
         if ($this->getErrorBag()->isEmpty()) {
             $this->dispatch('close', 'profile');
         }

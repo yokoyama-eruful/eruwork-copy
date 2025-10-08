@@ -126,6 +126,18 @@ const setupEventListeners = () => {
     document.getElementById('disable-push').addEventListener('click', disablePushNotifications);
 };
 
+document.addEventListener('DOMContentLoaded', () => {
+    registerServiceWorker();
+
+    Livewire.on('enablePush', () => {
+        subscribePush();
+    });
+
+    Livewire.on('disablePush', () => {
+        unsubscribePush();
+    });
+});
+
 // 初期化関数
 const init = () => {
     registerServiceWorker();

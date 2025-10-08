@@ -63,7 +63,9 @@
               <h1 class="mb-2 text-lg font-semibold xl:text-xl">通知設定変更</h1>
 
               <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
-                {{-- @vite('resources/js/notification.js') --}}
+
+
+                
                 <button class="w-full border bg-ao-main px-2 py-2 hover:bg-sky-700 sm:w-auto xl:px-10 xl:py-4"
                   id="enable-push" type="button">
                   <i class="fa-solid fa-bell"></i>　通知オン

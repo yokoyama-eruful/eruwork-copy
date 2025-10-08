@@ -117,7 +117,7 @@
       </div>
     </div>
 
-    <div class="mt-[24px] grid grid-cols-[30%,70%] items-center">
+    <div class="mt-[24px] grid hidden grid-cols-[30%,70%] items-center">
       <x-input-label name="new_password">通知</x-input-label>
       <div class="flex items-center space-x-[30px] text-xs">
         <div class="flex items-center space-x-2">
@@ -154,7 +154,7 @@
       setupPasswordToggle('new_password_confirmation', 'confirm_togglePassword', 'confirm_icon-hide', 'confirm_icon-show');
     </script>
 
-    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+    <div class="-mx-7 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
