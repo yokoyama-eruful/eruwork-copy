@@ -41,17 +41,11 @@
             ])>
               <div class="pl-[30px] font-bold">{{ $folder->title }}</div>
               <div class="hidden sm:block">{{ $folder->user->name }}</div>
-              <div class="hidden sm:block">{{ $folder->updated_at?->format('Y年m月d日') }}</div>
+              <div class="hidden sm:block">{{ $folder->updated_at?->format('Y.m.d') }}</div>
               <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
-                <button type="button"
+                <button class="flex items-center" type="button"
                   @click.prevent.stop="openDialog{{ $folder->id }} = !openDialog{{ $folder->id }};">
-                  <svg width="30" height="30" viewBox="0 0 30 30" fill="none"
-                    xmlns="http://www.w3.org/2000/svg">
-                    <rect width="30" height="30" rx="4" fill="#F2F5F8" />
-                    <path fill-rule="evenodd" clip-rule="evenodd"
-                      d="M6.3457 15.0013C6.3457 14.5422 6.52805 14.102 6.85263 13.7774C7.17722 13.4529 7.61744 13.2705 8.07647 13.2705C8.5355 13.2705 8.97573 13.4529 9.30031 13.7774C9.62489 14.102 9.80724 14.5422 9.80724 15.0013C9.80724 15.4603 9.62489 15.9005 9.30031 16.2251C8.97573 16.5497 8.5355 16.732 8.07647 16.732C7.61744 16.732 7.17722 16.5497 6.85263 16.2251C6.52805 15.9005 6.3457 15.4603 6.3457 15.0013ZM13.2688 15.0013C13.2688 14.5422 13.4511 14.102 13.7757 13.7774C14.1003 13.4529 14.5405 13.2705 14.9995 13.2705C15.4586 13.2705 15.8988 13.4529 16.2234 13.7774C16.548 14.102 16.7303 14.5422 16.7303 15.0013C16.7303 15.4603 16.548 15.9005 16.2234 16.2251C15.8988 16.5497 15.4586 16.732 14.9995 16.732C14.5405 16.732 14.1003 16.5497 13.7757 16.2251C13.4511 15.9005 13.2688 15.4603 13.2688 15.0013ZM20.1919 15.0013C20.1919 14.5422 20.3742 14.102 20.6988 13.7774C21.0234 13.4529 21.4636 13.2705 21.9226 13.2705C22.3817 13.2705 22.8219 13.4529 23.1465 13.7774C23.471 14.102 23.6534 14.5422 23.6534 15.0013C23.6534 15.4603 23.471 15.9005 23.1465 16.2251C22.8219 16.5497 22.3817 16.732 21.9226 16.732C21.4636 16.732 21.0234 16.5497 20.6988 16.2251C20.3742 15.9005 20.1919 15.4603 20.1919 15.0013Z"
-                      fill="#AAB0B6" />
-                  </svg>
+                  <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
                 </button>
                 <div
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"

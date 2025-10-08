@@ -124,24 +124,10 @@
 
                   {{-- シフト --}}
                   @foreach ($content['shifts'] as $shift)
-                    @php
-                      $hourStart = (int) $shift->start_time->format('H');
-                      $minuteStart = (int) $shift->start_time->format('i');
-                      $hourEnd = (int) $shift->end_time->format('H');
-                      $minuteEnd = (int) $shift->end_time->format('i');
-
-                      $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
-                      $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
-                      if ($height <= 60) {
-                          $height = 60;
-                      }
-
-                    @endphp
-
                     {{-- 確定シフト --}}
                     <div
                       class="card absolute cursor-pointer rounded-[10px] border border-[#39A338] bg-[#F6FFF6] p-2 text-[#39A338] transition-all"
-                      :style="'top: {{ $top }}px; height: {{ $height }}px;'">
+                      :style="'top: {{ $this->getShiftHeight($shift)['top'] }}px; height: {{ $this->getShiftHeight($shift)['height'] }}px;'">
                       <p class="text-[14px] font-bold">出勤日</p>
                       {{-- @if ($height > 50) --}}
                       <p class="text-[14px]">
@@ -181,15 +167,15 @@
       </div>
     </div>
     <div class="schedule-box-area">
-      <h4>{{ $selectDate->format('m月d日') }}の予定</h4>
+      <h4>{{ $selectDate->format('m.d') }}の予定</h4>
       <div class="schedule-detail-box">
         @if ($mobileSchedules->isNotEmpty() || $mobileShiftSchedules->isNotEmpty())
           @foreach ($mobileShiftSchedules as $shift)
             <div class="rounded-[10px] border border-[#39A338] bg-[#F6FFF6] px-[10px] py-4 text-[#39A338]">
               <div class="text-[15px] font-bold">出勤</div>
               <div class="text-sm font-bold">
-                {{ $shift->start_time->isoFormat('aHH:mm') }}時～
-                {{ $shift->end_time->isoFormat('HH:mm') }}
+                {{ $shift->start_time->isoFormat('H:mm') }}～
+                {{ $shift->end_time->isoFormat('H:mm') }}
               </div>
             </div>
           @endforeach
@@ -198,8 +184,8 @@
               x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')">
               <div class="text-[15px] font-bold">{{ $schedule->title }}</div>
               <div class="text-sm font-bold">
-                {{ $schedule->start_time->isoFormat('aHH:mm') }}時～
-                {{ $schedule->end_time->isoFormat('HH:mm') }}
+                {{ $schedule->start_time->isoFormat('H:mm') }}～
+                {{ $schedule->end_time->isoFormat('H:mm') }}
               </div>
             </div>
             <livewire:calendar::general.edit-schedule @updated="$refresh" :$schedule :key="$schedule->id . $content['date']->format('Ymd')" />

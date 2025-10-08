@@ -1,6 +1,6 @@
 <x-modal name="work-time-modal" title="{{ $workData->id ? '勤怠修正' : '勤怠登録' }}">
   <div class="flex items-center justify-between px-4 pt-4">
-    <div class="text-xl font-bold">{{ $selectedDate->isoFormat('Y年M月D日(ddd)') }}</div>
+    <div class="text-xl font-bold">{{ $selectedDate->isoFormat('YYYY.MM.DD(ddd)') }}</div>
     @if ($workData->id)
       <form wire:submit="deleteWorkTime">
         <x-danger-button>削除</x-danger-button>

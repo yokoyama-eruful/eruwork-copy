@@ -117,7 +117,7 @@
                   @click="openModalShift{{ $shift->id }}=true"
                   @click.away="openModalShift{{ $shift->id }}=false" wire:key="shift-{{ $shift->id }}">
                   <div>
-                    {{ (is_null($shift->start_time) ? ' -- : -- ' : $shift->start_time->isoFormat('aH:mm')) . ' ～ ' . (is_null($shift->end_time) ? ' -- : -- ' : $shift->end_time->isoFormat('aH:mm')) }}
+                    {{ (is_null($shift->start_time) ? ' -- : -- ' : $shift->start_time->isoFormat('H:mm')) . ' ～ ' . (is_null($shift->end_time) ? ' -- : -- ' : $shift->end_time->isoFormat('H:mm')) }}
                   </div>
                   <div
                     class="absolute -left-4 z-10 min-w-[300px] max-w-[300px] rounded-xl bg-white py-[15px] pl-[30px] pr-[15px] shadow-[0_4px_13px_rgba(93,95,98,0.25)]"
@@ -130,7 +130,7 @@
                     x-transition:leave-end="opacity-0 translate-y-2">
 
                     <div class="flex items-center justify-between space-x-7">
-                      <div class="text-xs text-[#777777]">{{ $shift->date->format('Y年m月d日') }}</div>
+                      <div class="text-xs text-[#777777]">{{ $shift->date->format('Y.m.d') }}</div>
                       <div class="flex items-center space-x-[15px]">
                         <div class="cursor-pointer" @click.stop="openModalShift{{ $shift->id }}=false">
                           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -143,7 +143,7 @@
                     </div>
                     <div class="mt-[9px] truncate text-[15px] font-bold text-black">出勤</div>
                     <div class="mt-[9px] truncate text-xs text-black">
-                      {{ $shift->start_time->isoFormat('aH:mm') . '～' . $shift->end_time?->isoFormat('aH:mm') }}
+                      {{ $shift->start_time->isoFormat('H:mm') . '～' . $shift->end_time?->isoFormat('H:mm') }}
                     </div>
                   </div>
                 </div>
@@ -165,7 +165,7 @@
                   {{ $schedule->title }}
                 </div>
                 <div class="pt-[4px] text-xs">
-                  {{ $schedule->start_time->isoFormat('aH:mm') . '～' . $schedule->end_time?->isoFormat('aH:mm') }}
+                  {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                 </div>
                 <div
                   class="absolute right-0 z-10 min-w-[300px] max-w-[300px] rounded-xl bg-white py-[15px] pl-[30px] pr-[15px] shadow-[0_4px_13px_rgba(93,95,98,0.25)]"
@@ -178,7 +178,7 @@
                   x-transition:leave-end="opacity-0 translate-y-2">
 
                   <div class="flex items-center justify-between space-x-7">
-                    <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y年m月d日') }}</div>
+                    <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y.m.d') }}</div>
                     <div class="flex items-center space-x-[15px]">
                       <div class="cursor-pointer"
                         x-on:click="$dispatch('open-modal','schedule-delete-modal-{{ $schedule->id }}')"><svg
@@ -209,7 +209,7 @@
                   </div>
                   <div class="mt-[9px] truncate text-[15px] font-bold text-black">{{ $schedule->title }}</div>
                   <div class="mt-[9px] truncate text-xs text-black">
-                    {{ $schedule->start_time->isoFormat('aH:mm') . '～' . $schedule->end_time?->isoFormat('aH:mm') }}
+                    {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                   </div>
                   @if ($schedule->description)
                     <div class="mt-[17px] break-words text-sm text-black">
@@ -266,7 +266,7 @@
                       @click="openModalShift{{ $shift->id }}=true"
                       @click.away="openModalShift{{ $shift->id }}=false" wire:key="shift-{{ $shift->id }}">
                       <div>
-                        {{ (is_null($shift->start_time) ? ' -- : -- ' : $shift->start_time->isoFormat('aH:mm')) . ' ～ ' . (is_null($shift->end_time) ? ' -- : -- ' : $shift->end_time->isoFormat('H:mm')) }}
+                        {{ (is_null($shift->start_time) ? ' -- : -- ' : $shift->start_time->isoFormat('H:mm')) . ' ～ ' . (is_null($shift->end_time) ? ' -- : -- ' : $shift->end_time->isoFormat('H:mm')) }}
                       </div>
                       <div
                         class="absolute right-0 z-10 min-w-[300px] max-w-[300px] rounded-xl bg-white py-[15px] pl-[30px] pr-[15px] shadow-[0_4px_13px_rgba(93,95,98,0.25)]"
@@ -279,7 +279,7 @@
                         x-transition:leave-end="opacity-0 translate-y-2">
 
                         <div class="flex items-center justify-between space-x-7">
-                          <div class="text-xs text-[#777777]">{{ $shift->date->format('Y年m月d日') }}</div>
+                          <div class="text-xs text-[#777777]">{{ $shift->date->format('Y.m.d') }}</div>
                           <div class="flex items-center space-x-[15px]">
                             <div class="cursor-pointer" @click.stop="openModalShift{{ $shift->id }}=false">
                               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -292,7 +292,7 @@
                         </div>
                         <div class="mt-[9px] truncate text-[15px] font-bold text-black">出勤</div>
                         <div class="mt-[9px] truncate text-xs text-black">
-                          {{ $shift->start_time->isoFormat('aH:mm') . '～' . $shift->end_time?->isoFormat('aH:mm') }}
+                          {{ $shift->start_time->isoFormat('H:mm') . '～' . $shift->end_time?->isoFormat('H:mm') }}
                         </div>
                       </div>
                     </div>
@@ -312,7 +312,7 @@
                       {{ $schedule->title }}
                     </div>
                     <div class="pt-[4px] text-xs">
-                      {{ $schedule->start_time->isoFormat('aH:mm') . '～' . $schedule->end_time?->isoFormat('aH:mm') }}
+                      {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                     </div>
                     <div
                       class="absolute -left-10 z-10 min-w-[300px] max-w-[300px] rounded-xl bg-white py-[15px] pl-[30px] pr-[15px] shadow-[0_4px_13px_rgba(93,95,98,0.25)]"
@@ -325,7 +325,7 @@
                       x-transition:leave-end="opacity-0 translate-y-2">
 
                       <div class="flex items-center justify-between space-x-7">
-                        <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y年m月d日') }}</div>
+                        <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y.m.d') }}</div>
                         <div class="flex items-center space-x-[15px]">
                           <div class="cursor-pointer"
                             x-on:click="$dispatch('open-modal','schedule-delete-modal-{{ $schedule->id }}')"><svg
@@ -357,7 +357,7 @@
                       </div>
                       <div class="mt-[9px] truncate text-[15px] font-bold text-black">{{ $schedule->title }}</div>
                       <div class="mt-[9px] truncate text-xs text-black">
-                        {{ $schedule->start_time->isoFormat('aH:mm') . '～' . $schedule->end_time?->isoFormat('aH:mm') }}
+                        {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                       </div>
                       @if ($schedule->description)
                         <div class="mt-[17px] break-words text-sm text-black">

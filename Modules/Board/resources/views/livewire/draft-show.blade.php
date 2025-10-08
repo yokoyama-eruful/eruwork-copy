@@ -43,7 +43,7 @@
           ])>
             <div class="hidden truncate px-[30px] font-bold sm:block">{!! nl2br(e($post->title)) !!}</div>
             <div class="hidden truncate sm:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
-            <div class="hidden truncate sm:block">{{ $post->updated_at?->format('Y年m月d日') }}</div>
+            <div class="hidden truncate sm:block">{{ $post->updated_at?->format('Y.m.d') }}</div>
             <div class="hidden items-center justify-center sm:flex">
               @if ($post->attachments->isNotEmpty())
                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
@@ -56,7 +56,9 @@
             </div>
             <div class="relative hidden sm:block" x-data="{ openDialog{{ $post->id }}: false }">
               <div onclick="event.stopPropagation();"
-                @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">…</div>
+                @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};"><img
+                  class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+              </div>
               <div class="absolute -left-16 top-7 z-10 rounded-xl bg-white px-4 py-2 shadow-md"
                 @click.away="openDialog{{ $post->id }} = false" x-show="openDialog{{ $post->id }}===true"
                 x-cloak>
@@ -93,7 +95,7 @@
             </div>
             <div class="mb-[7px] flex items-center justify-between sm:hidden">
               <div class="flex items-center space-x-2">
-                <div class="truncate text-xs">{{ $post->updated_at?->format('Y年m月d日') }}</div>
+                <div class="truncate text-xs">{{ $post->updated_at?->format('Y.m.d') }}</div>
                 <div class="h-4 border-l border-gray-300"></div>
                 <div class="truncate text-xs">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
               </div>
@@ -111,7 +113,9 @@
                 @if ($post->canEdit())
                   <div class="relative block" x-data="{ openDialog{{ $post->id }}: false }">
                     <div onclick="event.stopPropagation();"
-                      @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">…</div>
+                      @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">
+                      <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+                    </div>
                     <div class="absolute -left-20 top-7 z-10 rounded-xl bg-white px-4 py-2 shadow-md"
                       @click.away="openDialog{{ $post->id }} = false"
                       x-show="openDialog{{ $post->id }}===true" x-cloak>

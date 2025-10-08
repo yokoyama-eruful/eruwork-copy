@@ -1,7 +1,7 @@
 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
   <div class="mx-4 w-full rounded-lg bg-white p-6 shadow-md" @click.away="openModal = false">
     <div class="mb-6 flex flex-wrap justify-between">
-      <p class="text-xl font-semibold">{{ $selectedDate->format('Y年m月d日') }}</p>
+      <p class="text-xl font-semibold">{{ $selectedDate->format('Y.m.d') }}</p>
       <div class="bg-white">
         <button @click="openModal = false">閉じる</button>
       </div>

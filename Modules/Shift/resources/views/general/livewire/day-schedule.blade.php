@@ -170,7 +170,7 @@
                     <div class="text-sm font-bold">出勤</div>
                     <div class="text-sm">
                       前日
-                      {{ $this->getYesterday($userId)->start_time->isoFormat('aH:mm') . '～' . $this->getYesterday($userId)->end_time->format('H:i') }}
+                      {{ $this->getYesterday($userId)->start_time->isoFormat('H:mm') . '～' . $this->getYesterday($userId)->end_time->isoFormat('H:mm') }}
                     </div>
                   </div>
                 @endif

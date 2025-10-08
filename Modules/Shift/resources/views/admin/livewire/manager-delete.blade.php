@@ -11,7 +11,7 @@
     <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
       <p class="text-xs">以下の期間のシフト表を削除いたします</p>
       <div class="pt-[13px] text-[15px] font-bold">
-        {{ $manager->start_date?->isoFormat('YYYY年MM月DD日（ddd）') }}～{{ $manager->end_date?->isoFormat('YYYY年MM月DD日（ddd）') }}
+        {{ $manager->start_date?->isoFormat('YYYY.MM.DD（ddd）') }}～{{ $manager->end_date?->isoFormat('YYYY.MM.DD（ddd）') }}
       </div>
     </div>
     <div class="my-5 flex items-center justify-center space-x-[10px]">

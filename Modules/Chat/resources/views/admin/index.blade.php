@@ -48,11 +48,12 @@
               </div>
               <div class="truncate pr-[20px] text-[15px] font-bold">{{ $group->name }}</div>
               <div class="break-words pr-[87px] text-[15px]">{{ $group->users->implode('name', '　') }}</div>
-              <div class="text-[15px]">{{ $group->updated_at->format('Y年m月d日') }}</div>
+              <div class="text-[15px]">{{ $group->updated_at->format('Y.m.d') }}</div>
 
               <div class="relative block" x-data="{ openDialog{{ $group->id }}: false }">
                 <div onclick="event.stopPropagation();"
-                  @click="openDialog{{ $group->id }} = !openDialog{{ $group->id }};">…</div>
+                  @click="openDialog{{ $group->id }} = !openDialog{{ $group->id }};"><img
+                    class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" /></div>
                 <div
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
                   @click.away="openDialog{{ $group->id }} = false" x-show="openDialog{{ $group->id }}===true"
@@ -132,7 +133,8 @@
               </div>
               <div class="relative block" x-data="{ openDialog{{ $group->id }}: false }">
                 <div onclick="event.stopPropagation();"
-                  @click="openDialog{{ $group->id }} = !openDialog{{ $group->id }};">…</div>
+                  @click="openDialog{{ $group->id }} = !openDialog{{ $group->id }};"><img
+                    class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" /></div>
                 <div
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
                   @click.away="openDialog{{ $group->id }} = false" x-show="openDialog{{ $group->id }}===true"

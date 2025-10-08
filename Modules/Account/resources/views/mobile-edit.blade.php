@@ -4,11 +4,11 @@
       <div class="flex w-full items-center justify-between sm:hidden">
         <div class="flex items-center space-x-1 text-xs">
           <div class="text-[#AAB0B6]">最終更新日：</div>
-          <div>{{ $user->updated_at?->format('Y年m月d日') }}</div>
+          <div>{{ $user->updated_at?->format('Y.m.d') }}</div>
         </div>
         <div class="flex items-center space-x-1 text-xs">
           <div class="text-[#AAB0B6]">最終ログイン日：</div>
-          <div>{{ $user->last_login_at?->format('Y年m月d日') }}</div>
+          <div>{{ $user->last_login_at?->format('Y.m.d') }}</div>
         </div>
       </div>
       <a class="hidden items-center text-sm font-bold text-[#3289FA] hover:opacity-40 sm:flex"

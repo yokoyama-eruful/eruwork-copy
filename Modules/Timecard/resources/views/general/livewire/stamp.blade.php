@@ -29,14 +29,14 @@
       <div class="day-timerecord-box">
         <p class="stamp-start">出 勤</p>
         <input class="w-[70%] border-none text-end text-sm focus:border-gray-300 focus:outline-none focus:ring-0"
-          value="{{ $workTime->in_time ? \Carbon\Carbon::parse($workTime->in_time)->format('Y/m/d H:i') : '--:--' }}"
+          value="{{ $workTime->in_time ? \Carbon\Carbon::parse($workTime->in_time)->format('Y.m.d H:i') : '--:--' }}"
           readonly />
       </div>
 
       <div class="day-timerecord-box">
         <p class="stamp-end">退 勤</p>
         <input class="w-[70%] border-none text-end text-sm focus:border-gray-300 focus:outline-none focus:ring-0"
-          value="{{ $workTime->out_time ? \Carbon\Carbon::parse($workTime->out_time)->format('Y/m/d H:i') : '--:--' }}"
+          value="{{ $workTime->out_time ? \Carbon\Carbon::parse($workTime->out_time)->format('Y.m.d H:i') : '--:--' }}"
           readonly />
       </div>
     @endforeach

@@ -19,7 +19,7 @@
           'bg-[#3289FA1A] bg-opacity-10 text-[#3289FA] w-fit' =>
               $message->created_at->format('Ymd') == now()->format('Ymd'),
       ])>
-        <div class="">{{ $message->created_at->isoFormat('M月D日（ddd）') }}</div>
+        <div class="">{{ $message->created_at->isoFormat('M.D（ddd）') }}</div>
         @if ($message->created_at->format('Ymd') != now()->format('Ymd'))
           <div class="flex-1 border-t border-gray-300"></div>
         @endif

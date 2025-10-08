@@ -21,7 +21,7 @@
     <div class="mt-[30px] flex items-center space-x-2 border-b px-5 pb-[10px] sm:mt-[20px] sm:px-0">
       <div class="text-xs text-[#AAB0B6]">期間:</div>
       <div class="text-[15px] font-semibold sm:text-[20px]">
-        {{ $manager->submission_start_date->isoFormat('M月D日（ddd）') }}　～　{{ $manager->submission_end_date->isoFormat('M月D日（ddd）') }}
+        {{ $manager->submission_start_date->isoFormat('M.D（ddd）') }}　～　{{ $manager->submission_end_date->isoFormat('M.D（ddd）') }}
       </div>
     </div>
 
@@ -64,7 +64,7 @@
                 </div>
                 <div class="flex flex-col space-y-[3px] text-xs text-[#39A338]">
                   <div class="font-bold">
-                    {{ $shift->start_time->isoFormat('aH時mm分') }}～{{ $shift->end_time->isoFormat('HH:mm') }}
+                    {{ $shift->start_time->isoFormat('H:mm') }}～{{ $shift->end_time->isoFormat('H:mm') }}
                   </div>
                   <div>{{ $shift->user->name }}</div>
                 </div>
@@ -81,7 +81,7 @@
                 </div>
                 <div class="flex flex-col space-y-[3px] text-xs text-[#DE993A]">
                   <div class="font-bold">
-                    {{ $draft->start_time->isoFormat('aH時mm分') }}～{{ $draft->end_time->isoFormat('HH:mm') }}
+                    {{ $draft->start_time->isoFormat('H時mm分') }}～{{ $draft->end_time->isoFormat('H:mm') }}
                   </div>
                   <div>{{ $draft->user->name }}</div>
                 </div>
@@ -150,7 +150,7 @@
                     確
                   </div>
                   <div class="font-semibold">
-                    {{ $shift->start_time->isoFormat('aH時mm分') }}～{{ $shift->end_time->isoFormat('HH:mm') }}
+                    {{ $shift->start_time->isoFormat('H:mm') }}～{{ $shift->end_time->isoFormat('H:mm') }}
                   </div>
                 </div>
                 <div class="">{{ $shift->user->name }}</div>
@@ -168,7 +168,7 @@
                     希
                   </div>
                   <div class="font-semibold">
-                    {{ $draft->start_time->isoFormat('aH時mm分') }}～{{ $draft->end_time->isoFormat('HH:mm') }}
+                    {{ $draft->start_time->isoFormat('H:mm') }}～{{ $draft->end_time->isoFormat('H:mm') }}
                   </div>
                 </div>
                 <div>{{ $draft->user->name }}</div>

@@ -36,12 +36,12 @@ class Manager extends Model
 
     public function getViewScheduleAttribute()
     {
-        return $this->start_date->format('Y年m月d日') . '~' . $this->end_date->format('Y年m月d日');
+        return $this->start_date->format('Y.m.d') . '~' . $this->end_date->format('Y.m.d');
     }
 
     public function getViewSubmissionScheduleAttribute()
     {
-        return $this->submission_start_date->format('Y年m月d日') . '~' . $this->submission_end_date->format('Y年m月d日');
+        return $this->submission_start_date->format('Y.m.d') . '~' . $this->submission_end_date->format('Y.m.d');
     }
 
     public function getOverSubmissionPeriodAttribute()

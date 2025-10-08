@@ -48,7 +48,7 @@
     <div
       class="top-container mt-[20px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <h5 class="hidden text-xl font-bold sm:block">タイムカード管理</h5>
-      <div class="block px-5 font-bold sm:hidden">{{ $selectDate?->format('Y年m月d日') }}出勤者</div>
+      <div class="block px-5 font-bold sm:hidden">{{ $selectDate?->format('Y.m.d') }}出勤者</div>
       <div
         class="mb-[9px] mt-4 grid grid-cols-[15%,44%,36%,5%] sm:mb-0 sm:mt-[30px] sm:grid-cols-[10%,40%,20%,20%,10%]">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
@@ -84,7 +84,7 @@
             <div class="truncate text-[15px]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
                 <div>
-                  {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
+                  {{ $attendance->in_time?->isoFormat('H:mm') }} - {{ $attendance->out_time?->isoFormat('H:mm') }}
                 </div>
               @endforeach
             </div>
@@ -92,7 +92,7 @@
             <div class="hidden truncate text-[15px] sm:block">
               @foreach ($this->getBreakTimeList($user) as $attendance)
                 <div>
-                  {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
+                  {{ $attendance->in_time?->isoFormat('H:mm') }} - {{ $attendance->out_time?->isoFormat('H:mm') }}
                 </div>
               @endforeach
             </div>
@@ -133,7 +133,7 @@
             <div class="truncate text-[12px] sm:text-[15px]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
                 <div>
-                  {{ $attendance->in_time?->isoFormat('HH:mm') }} - {{ $attendance->out_time?->isoFormat('HH:mm') }}
+                  {{ $attendance->in_time?->isoFormat('H:mm') }} - {{ $attendance->out_time?->isoFormat('H:mm') }}
                 </div>
               @endforeach
             </div>
@@ -175,7 +175,7 @@
         <div class="text-2xl font-bold">{{ $this->totalWorkTime() }}</div>
       </div>
       <div class="mt-[30px] font-bold">
-        {{ $selectDate?->isoFormat('YYYY年MM月DD日（ddd曜）') }}
+        {{ $selectDate?->isoFormat('YYYY.MM.DD（ddd曜）') }}
       </div>
       <div class="mt-6">
         <div class="text-[11px] font-bold">本日の勤務時間</div>
@@ -185,7 +185,7 @@
           <div class="flex items-center justify-between rounded border border-[#DDDDDD] px-[10px] py-3"
             wire:key="work-time-edit-{{ $workTime->id }}">
             <div>
-              {{ $workTime->in_time?->isoFormat('HH:mm') }} - {{ $workTime?->out_time?->isoFormat('HH:mm') }}
+              {{ $workTime->in_time?->isoFormat('H:mm') }} - {{ $workTime?->out_time?->isoFormat('H:mm') }}
             </div>
 
             <livewire:timecard::admin.timecard-work-time-edit :workTime="$workTime" @updated="$refresh" :key="'work-time-edit' . $workTime->id . $selectDate->format('Y-m-d')" />
@@ -207,7 +207,7 @@
           <div class="flex items-center justify-between rounded border border-[#DDDDDD] px-[10px] py-3"
             wire:key="break-time-edit-{{ $breakTime->id }}">
             <div>
-              {{ $breakTime->in_time?->isoFormat('HH:mm') }} - {{ $breakTime->out_time?->isoFormat('HH:mm') }}
+              {{ $breakTime->in_time?->isoFormat('H:mm') }} - {{ $breakTime->out_time?->isoFormat('H:mm') }}
             </div>
 
             <livewire:timecard::admin.timecard-break-time-edit :breakTime="$breakTime" @updated="$refresh"

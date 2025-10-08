@@ -57,7 +57,7 @@
 
           <div class="flex items-center justify-between pl-[15px] pr-[10px]">
             @if ($content['date']->isoFormat('D') === '1' || $loop->first)
-              <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('M月D日') }}</div>
+              <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('M.D日') }}</div>
             @else
               <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('D日') }}</div>
             @endif

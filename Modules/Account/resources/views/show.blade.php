@@ -4,11 +4,11 @@
       <div class="flex w-full items-center justify-between sm:hidden">
         <div class="flex hidden items-center space-x-1 text-xs sm:block">
           <div class="text-[#AAB0B6]">最終更新日：</div>
-          <div>{{ $user->updated_at?->format('Y年m月d日') }}</div>
+          <div>{{ $user->updated_at?->format('Y.m.d') }}</div>
         </div>
         <div class="flex items-center space-x-1 text-xs">
           <div class="text-[#AAB0B6]">最終ログイン日：</div>
-          <div>{{ $user->last_login_at?->format('Y年m月d日') }}</div>
+          <div>{{ $user->last_login_at?->format('Y.m.d') }}</div>
         </div>
       </div>
       <a class="hidden items-center text-sm font-bold text-[#3289FA] hover:opacity-40 sm:flex"
@@ -42,15 +42,16 @@
           <div class="flex items-center space-x-10">
             <div class="hidden items-center space-x-1 sm:flex">
               <div class="text-xs text-[#AAB0B6]">最終ログイン日：</div>
-              <div class="text-[15px]">{{ $user->last_login_at?->format('Y年m月d日') }}</div>
+              <div class="text-[15px]">{{ $user->last_login_at?->format('Y.m.d') }}</div>
             </div>
             <div class="hidden items-center space-x-1 sm:flex">
               <div class="text-xs text-[#AAB0B6]">最終更新日：</div>
-              <div class="text-[15px]">{{ $user->updated_at?->format('Y年m月d日') }}</div>
+              <div class="text-[15px]">{{ $user->updated_at?->format('Y.m.d') }}</div>
             </div>
             <div class="relative block cursor-pointer" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
-                @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};">…</div>
+                @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};"><img
+                  class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" /></div>
               <div
                 class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
                 @click.away="openDialog{{ $user->id }} = false" x-show="openDialog{{ $user->id }}===true"
@@ -166,7 +167,7 @@
 
           <div class="block grid grid-cols-[30%,70%] sm:hidden">
             <div class="flex items-center text-[11px] font-bold">最終更新日</div>
-            <div class="flex items-center">{{ $user->updated_at?->format('Y年m月d日') }}</div>
+            <div class="flex items-center">{{ $user->updated_at?->format('Y.m.d') }}</div>
           </div>
 
           <div class="grid grid-cols-[30%,70%]">

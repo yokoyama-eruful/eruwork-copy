@@ -30,7 +30,7 @@
           'border-b' => !$loop->last,
       ])>
         <div class="pl-[20px] pr-[30px] text-[15px] font-bold">{{ $hourlyRate->rate }}円</div>
-        <div class="text-left text-[12px]">{{ $hourlyRate->effective_date->format('Y年m月d日') }}</div>
+        <div class="text-left text-[12px]">{{ $hourlyRate->effective_date->format('Y.m.d') }}</div>
         @if ($this->getApplyRate()?->id == $hourlyRate->id)
           <div class="w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-xs font-bold text-[#3289FA]">
             適用中

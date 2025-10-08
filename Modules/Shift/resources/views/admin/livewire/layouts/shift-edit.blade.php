@@ -2,7 +2,7 @@
   <x-modal name="edit-modal-{{ $schedule->id }}" title="確定シフト編集">
     <div class="pb-20px flex justify-between px-2 pt-[30px]">
       <div class="ps-2 font-bold">
-        {{ $content['date']->isoFormat('YYYY年MM月DD日 (ddd)') }}
+        {{ $content['date']->isoFormat('YYYY.MM.DD (ddd)') }}
       </div>
       @if ($schedule->shift_draft_schedule_id)
         <form class="flex justify-end" wire:submit="downShift('{{ $content['date'] }}')">

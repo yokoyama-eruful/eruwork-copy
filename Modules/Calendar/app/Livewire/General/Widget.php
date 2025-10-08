@@ -211,6 +211,31 @@ class Widget extends Component
         ];
     }
 
+    public function getShiftHeight($shift)
+    {
+        $hourStart = (int) $shift->start_time->format('H');
+        $minuteStart = (int) $shift->start_time->format('i');
+        $hourEnd = (int) $shift->end_time->format('H');
+        $minuteEnd = (int) $shift->end_time->format('i');
+
+        if ($shift->end_time->lt($shift->start_time)) {
+            $hourEnd = 23;
+            $minuteEnd = 59;
+        }
+
+        $top = $hourStart * 50 + ($minuteStart >= 30 ? 25 : 0);
+        $height = ($hourEnd - $hourStart) * 50 + ($minuteEnd - $minuteStart >= 30 ? 25 : 0);
+        if ($height <= 60) {
+            $height = 60;
+        }
+
+        return
+        [
+            'top' => $top,
+            'height' => $height,
+        ];
+    }
+
     public function getYesterday($day)
     {
         $previousDate = CarbonImmutable::parse($day)->subDay()->toDateString();

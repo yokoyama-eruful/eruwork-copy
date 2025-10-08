@@ -1,6 +1,6 @@
 <x-modal-alert name="shift-view-modal-{{ $shift->id }}">
   <div class="flex items-center justify-between px-4 pt-4">
-    <div class="text-xl font-bold">{{ $content['date']->format('Y年m月d日') }}</div>
+    <div class="text-xl font-bold">{{ $content['date']->format('Y.m.d') }}</div>
   </div>
   <div class="px-4 pb-4">
     @if ($this->overlappingSchedules($shift) || $this->overlappingShifts($shift))

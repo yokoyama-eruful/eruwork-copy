@@ -42,10 +42,10 @@
               </div>
 
               <div class="text-[15px] font-bold">
-                {{ $manager->start_date->isoFormat('YYYY年MM月DD日（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
+                {{ $manager->start_date->isoFormat('YYYY.MM.DD（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY.MM.DD（ddd）') }}
               </div>
 
-              <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日') }}</div>
+              <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD') }}</div>
 
               <a class="text-[#3289FA] hover:opacity-40"
                 href="{{ route('shiftManager.show', ['manager' => $manager]) }}">表示する</a>
@@ -70,11 +70,11 @@
                 ])>{{ $manager->ReceptionStatus }}</div>
                 <div class="flex items-center space-x-[10px] text-xs">
                   <div class="text-[#AAB0B6]">受付終了日:</div>
-                  <div>{{ $manager->submission_end_date->isoFormat('YYYY年MM月DD日') }}</div>
+                  <div>{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD') }}</div>
                 </div>
               </div>
               <div class="mt-3 text-sm font-bold">
-                {{ $manager->start_date->isoFormat('YYYY年MM月DD日（ddd）') }}　～　{{ $manager->end_date->isoFormat('YYYY年MM月DD日（ddd）') }}
+                {{ $manager->start_date->isoFormat('YYYY.MM.DD（ddd）') }}　～　{{ $manager->end_date->isoFormat('YYYY.MM.DD（ddd）') }}
               </div>
             </div>
           @endforeach

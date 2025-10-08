@@ -44,13 +44,15 @@
 
             <div class="text-[12px] sm:text-[15px]">{{ $user->profile?->contract_type }}</div>
 
-            <div class="hidden text-[15px] sm:block">{{ $user->profile?->updated_at?->format('Y年m月d日') }}</div>
+            <div class="hidden text-[15px] sm:block">{{ $user->profile?->updated_at?->format('Y.m.d') }}</div>
 
-            <div class="hidden text-[15px] sm:block">{{ $user->last_login_at?->format('Y年m月d日') }}</div>
+            <div class="hidden text-[15px] sm:block">{{ $user->last_login_at?->format('Y.m.d') }}</div>
 
             <div class="relative hidden sm:block" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
-                @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};">…</div>
+                @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};">
+                <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+              </div>
               <div
                 class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
                 @click.away="openDialog{{ $user->id }} = false" x-show="openDialog{{ $user->id }}===true"

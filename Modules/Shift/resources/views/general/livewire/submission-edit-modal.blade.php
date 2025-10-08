@@ -3,7 +3,7 @@
     @if ($schedule->shiftStatus || !$manager->OverSubmissionPeriod)
       <div class="p-4">
         <div class="mt-4 text-start text-lg font-bold">
-          {{ $schedule->date->format('Y年m月d日') }}
+          {{ $schedule->date->format('Y.m.d') }}
         </div>
 
         <div class="mt-4">
@@ -59,7 +59,7 @@
         @endif
         <div class="flex items-center justify-between">
           <div class="text-start text-xl font-bold">
-            {{ $schedule->date->format('Y年m月d日') }}
+            {{ $schedule->date->format('Y.m.d') }}
           </div>
           <button class="flex items-center space-x-1 text-[#F76E80] hover:opacity-40"
             x-on:click="$dispatch('open-modal','delete-alert-{{ $schedule->id }}')">
@@ -107,7 +107,7 @@
       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
         <p class="text-xs">以下のシフトを削除いたします</p>
         <div class="pt-[13px] text-[15px] font-bold">
-          {{ $schedule->date->format('Y年m月d日') }}<br>{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time->format('H:i') }}
+          {{ $schedule->date->format('Y.m.d') }}<br>{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time->format('H:i') }}
         </div>
       </div>
       <div class="my-5 flex items-center justify-center space-x-[10px]">

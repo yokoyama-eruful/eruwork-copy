@@ -1,6 +1,6 @@
  <div class="relative" x-data="{ workTimeModal{{ $workTime->id }}: false }">
    <button class="flex items-center hover:opacity-40" type="button" x-on:click="workTimeModal{{ $workTime->id }}=true">
-     <img class="h-[24px] w-[24px]" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+     <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
    </button>
 
    <div class="absolute right-0 top-7 z-10 w-[95px] rounded-xl bg-white px-4 py-2 shadow-md"

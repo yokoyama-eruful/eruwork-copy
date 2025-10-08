@@ -7,7 +7,8 @@
     <div class="h-[40px]">
       <div class="grid grid-cols-[50px,auto,200px]" x-data="{ showMemberList: false }">
         @if ($selectGroup->IconImage)
-          <img class="h-10 w-10 rounded-full border bg-white" src="{{ $selectGroup->IconImage }}" alt="アイコン">
+          <img class="h-10 w-10 rounded-full border bg-white"
+            src="{{ route('profile.icon', ['id' => $selectGroup->partnerUser->id]) }}" alt="アイコン">
         @else
           <div class="flex h-10 w-10 items-center justify-center rounded-full border bg-white">
             <i class="fa-solid fa-image"></i>
@@ -89,7 +90,8 @@
             fill="#3289FA" />
         </svg>
         @if ($selectGroup->IconImage)
-          <img class="h-[30px] w-[30px] rounded-full border bg-white" src="{{ $selectGroup->IconImage }}" alt="アイコン">
+          <img class="h-[30px] w-[30px] rounded-full border bg-white"
+            src="{{ route('profile.icon', ['id' => $selectGroup->partnerUser->id]) }}" alt="アイコン">
         @else
           <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white">
             <i class="fa-solid fa-image"></i>

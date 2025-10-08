@@ -12,7 +12,7 @@
       </div>
     @endif
 
-    <div class="text-xl font-bold"> {{ $date->format('Y年m月d日') }}</div>
+    <div class="text-xl font-bold"> {{ $date->format('Y.m.d') }}</div>
 
     <div class="mt-4">
       <x-input-label for="name" value="公休日名" />

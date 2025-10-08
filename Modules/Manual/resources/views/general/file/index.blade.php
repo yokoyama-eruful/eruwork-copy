@@ -47,7 +47,7 @@
 
               <div>{{ $file->user->name ?? '' }}</div>
 
-              <div>{{ $file->updated_at->format('Y年m月d日') ?? '' }}</div>
+              <div>{{ $file->updated_at->format('Y.m.d') ?? '' }}</div>
 
               <a class="flex items-center justify-end hover:opacity-40"
                 href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}">
@@ -78,7 +78,7 @@
                   @endif
                   <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
                 </div>
-                <div class="text-xs">更新日：{{ $file->updated_at->format('Y年m月d日') ?? '' }}</div>
+                <div class="text-xs">更新日：{{ $file->updated_at->format('Y.m.d') ?? '' }}</div>
               </div>
               <a class="flex items-center justify-end hover:opacity-40"
                 href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}">

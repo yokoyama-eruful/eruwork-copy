@@ -18,7 +18,7 @@
     </div>
 
     <div class="mb-[50px] mt-5">
-      <div class="font-bold">{{ $selectedDate->isoFormat('Y年M月D日（ddd曜）') }}</div>
+      <div class="font-bold">{{ $selectedDate->isoFormat('YYYY.MM.DD（ddd曜）') }}</div>
       <div class="mt-5 text-[11px] font-bold">本日の勤務時間</div>
       @if ($workTimeList->isEmpty())
         <div
@@ -289,7 +289,7 @@
                 <div class="text-[13px] font-bold">勤務時間</div>
                 @foreach ($content['workTimes'] as $key => $time)
                   <div class="pt-[4px] text-xs">
-                    {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('aH:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('aH:mm')) }}
+                    {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                   </div>
                 @endforeach
                 <div class="my-[10px] border-t border-[#00A1FF]"></div>
@@ -299,7 +299,7 @@
                 @else
                   @foreach ($content['breakTimes'] as $key => $time)
                     <div class="pt-[4px] text-xs">
-                      {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('aH:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('aH:mm')) }}
+                      {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                     </div>
                   @endforeach
                 @endif
@@ -368,7 +368,7 @@
                   <div class="flex flex-col">
                     @foreach ($content['workTimes'] as $key => $time)
                       <div class="text-xs font-bold">
-                        {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('aH:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('aH:mm')) }}
+                        {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                       </div>
                     @endforeach
                   </div>
@@ -381,7 +381,7 @@
                     @else
                       @foreach ($content['breakTimes'] as $key => $time)
                         <div class="text-xs font-bold">
-                          {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('aH:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('aH:mm')) }}
+                          {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                         </div>
                       @endforeach
                     @endif

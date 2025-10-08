@@ -9,7 +9,7 @@
     <div class="flex min-h-20 w-1/2 cursor-pointer flex-col px-4 text-base">
       <div class="flex flex-row items-center space-x-2 text-xl">
         <div class="bg-sky-300 px-4 py-1">今日</div>
-        <div>{{ now()->isoFormat('M月D日(ddd)') }}</div>
+        <div>{{ now()->isoFormat('M.D(ddd)') }}</div>
       </div>
       <div class="text-lg">
         @foreach ($todayShiftList as $name => $schedules)
@@ -32,7 +32,7 @@
     <div class="flex min-h-20 w-1/2 cursor-pointer flex-col px-4 text-base">
       <div class="flex flex-row items-center space-x-2 text-xl">
         <div class="bg-sky-200 px-4 py-1">明日</div>
-        <div>{{ now()->addDay()->isoFormat('M月D日(ddd)') }}</div>
+        <div>{{ now()->addDay()->isoFormat('M.D(ddd)') }}</div>
       </div>
       <div class="text-lg">
         @foreach ($tomorrowShiftList as $name => $schedules)

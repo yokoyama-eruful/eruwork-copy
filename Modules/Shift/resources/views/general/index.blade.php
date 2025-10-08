@@ -130,7 +130,7 @@
                 <div class="font-semibold">{{ $manager->viewSchedule }}</div>
               </div>
               <div class="flex flex-wrap justify-between space-x-1 font-medium xl:flex-row">
-                <div>締め切り:{{ $manager->submission_end_date->format('Y年m月d日') }}</div>
+                <div>締め切り:{{ $manager->submission_end_date->format('Y.m.d') }}</div>
                 <div @class([
                     'inline-block rounded px-4 text-white xl:hidden block',
                     'bg-sky-400' => $manager->ReceptionStatus == '受付中',

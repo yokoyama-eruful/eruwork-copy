@@ -209,10 +209,10 @@
                   {{ $manager->ReceptionStatus }}
                 </div>
                 <div class="ml-[8px] text-sm text-[#FF4A62]">
-                  {{ $manager->submission_end_date->isoFormat('MM月DD日（ddd）まで') }}</div>
+                  {{ $manager->submission_end_date->isoFormat('MM.DD（ddd）まで') }}</div>
               </div>
-              <div class="mt-1 text-[16px] font-bold">{{ $manager->start_date->isoFormat('YYYY年MM月DD日') }}～
-                {{ $manager->end_date->isoFormat('MM月DD日') }}</div>
+              <div class="mt-1 text-[16px] font-bold">{{ $manager->start_date->isoFormat('YYYY.MM.DD') }}～
+                {{ $manager->end_date->isoFormat('MM.DD') }}</div>
             </div>
             <a class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40"
               href="{{ route('shift.submission.show', ['manager' => $manager->id]) }}">入力する</a>
@@ -325,11 +325,11 @@
                         class="mr-[10px] truncate rounded-lg border border-[#39A338] bg-[#F6FFF6] px-2 py-1 text-[#39A338] sm:px-[10px] sm:py-2">
                         <div class="text-sm font-bold">出勤</div>
                         <div class="hidden text-sm sm:block">
-                          {{ $schedule->start_time->isoFormat('aHH:mm') . '～' . $schedule->end_time->isoFormat('HH:mm') }}
+                          {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time->isoFormat('H:mm') }}
                         </div>
                         <div class="block text-sm sm:hidden">
-                          {{ $schedule->start_time->isoFormat('aHH:mm') }}<br>
-                          {{ '～' . $schedule->end_time->isoFormat('HH:mm') }}
+                          {{ $schedule->start_time->isoFormat('H:mm') }}<br>
+                          {{ '～' . $schedule->end_time->isoFormat('H:mm') }}
                         </div>
                       </div>
                     @endforeach

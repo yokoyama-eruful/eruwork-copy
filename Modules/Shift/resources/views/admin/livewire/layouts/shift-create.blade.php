@@ -22,7 +22,7 @@
       @endif
 
       <div class="text-lg font-bold">
-        {{ $content['date']->format('Y年m月d日') }}
+        {{ $content['date']->format('Y.m.d') }}
       </div>
 
       <div class="mt-4 grid grid-cols-[20%,80%] items-center">

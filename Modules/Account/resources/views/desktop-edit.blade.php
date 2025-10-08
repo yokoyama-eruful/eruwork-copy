@@ -36,11 +36,11 @@
             <div class="flex items-center space-x-10">
               <div class="hidden items-center space-x-1 sm:flex">
                 <div class="text-xs text-[#AAB0B6]">最終ログイン日：</div>
-                <div class="text-[15px]">{{ $user->last_login_at?->format('Y年m月d日') }}</div>
+                <div class="text-[15px]">{{ $user->last_login_at?->format('Y.m.d') }}</div>
               </div>
               <div class="hidden items-center space-x-1 sm:flex">
                 <div class="text-xs text-[#AAB0B6]">最終更新日：</div>
-                <div class="text-[15px]">{{ $user->updated_at?->format('Y年m月d日') }}</div>
+                <div class="text-[15px]">{{ $user->updated_at?->format('Y.m.d') }}</div>
               </div>
               <div class="relative block cursor-pointer" x-data="">
                 <div>

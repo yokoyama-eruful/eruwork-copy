@@ -11,7 +11,7 @@
       </a>
       <div class="w-full sm:hidden">
         <div class="flex items-center justify-between">
-          <h5 class="text-[15px] text-[#AAB0B6]">{{ $post->created_at?->format('Y年m月d日') }}</h5>
+          <h5 class="text-[15px] text-[#AAB0B6]">{{ $post->created_at?->format('Y.m.d') }}</h5>
           <div class="flex items-center">
             <div class="text-xs text-[#AAB0B6]">作成者:</div>
             <div class="pl-[6px] text-[15px]">{{ $post->user->name }}</div>
@@ -24,7 +24,7 @@
     </x-main.top>
     <x-main.container>
       <div class="mx-auto flex flex-col sm:max-w-[70%]">
-        <h5 class="hidden text-[15px] text-[#AAB0B6] sm:block">{{ $post->created_at?->format('Y年m月d日') }}</h5>
+        <h5 class="hidden text-[15px] text-[#AAB0B6] sm:block">{{ $post->created_at?->format('Y.m.d') }}</h5>
         <div class="mt-2 hidden grid-cols-[90%,10%] items-end justify-between sm:grid">
           <div class="break-words text-[22px] font-bold">{{ $post->title }}</div>
           <div class="flex items-center justify-end">

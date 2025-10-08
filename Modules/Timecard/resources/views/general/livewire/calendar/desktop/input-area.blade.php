@@ -1,5 +1,5 @@
 <div class="hidden w-3/12 flex-col px-3 py-4 sm:block">
-  <div>{{ $selectedDate->isoFormat('Y年M月D日(ddd)') }}</div>
+  <div>{{ $selectedDate->isoFormat('YYYY.MM.DD(ddd)') }}</div>
   <div class="mb-2 flex flex-col space-y-5 border-t-8 border-hai-main bg-ao-sub p-5" wire:key="view-area">
     <div>
       <div class="flex justify-between">
