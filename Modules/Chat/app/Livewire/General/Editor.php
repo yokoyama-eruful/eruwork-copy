@@ -72,7 +72,7 @@ class Editor extends Component
         $formatMessage = Auth::user()->name . ':';
 
         if ($message) {
-            $formatMessage = $formatMessage . preg_replace('/<[^>]+>/', '', $message->message);
+            $formatMessage = $formatMessage . preg_replace('/<[^>]+>/', '', $message->message ?? '');
         }
 
         if ($files) {
