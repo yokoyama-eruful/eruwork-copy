@@ -23,7 +23,7 @@
               </div>
             @else
               <div class="flex aspect-square w-full items-center justify-center bg-ao-sub" x-show="!iconPreview">
-                <div class="text-9xl">👤</div>
+                <div class="text-9xl"><i class="fa-solid fa-image scale-50"></i></div>
               </div>
             @endif
 

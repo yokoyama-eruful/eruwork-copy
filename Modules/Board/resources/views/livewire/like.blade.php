@@ -39,9 +39,10 @@
                             ?
                           @else
                             @if ($like->user->icon)
-                              <img class="h-full w-full" src="{{ $like->user->icon }}">
+                              <img class="h-full w-full" src="{{ route('profile.icon', ['id' => $like->user->id]) }}"
+                                alt="アイコン">
                             @else
-                              👤
+                              <i class="fa-solid fa-image scale-50"></i>
                             @endif
                           @endif
                         </div>
@@ -53,7 +54,7 @@
                   @endif
                 </div>
 
-                <div class="mt-6 flex justify-end">
+                <div class="m-2 flex justify-end">
                   <x-secondary-button x-on:click="$dispatch('close')">
                     閉じる
                   </x-secondary-button>
@@ -99,9 +100,10 @@
                         <div
                           class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-full bg-gray-200 text-4xl text-gray-800">
                           @if ($like->user->icon)
-                            <img class="h-full w-full" src="{{ route('profile.icon', ['id' => $like->user->id]) }}">
+                            <img class="h-full w-full" src="{{ route('profile.icon', ['id' => $like->user->id]) }}"
+                              alt="アイコン">
                           @else
-                            👤
+                            <i class="fa-solid fa-image scale-50"></i>
                           @endif
                         </div>
                         <p class="truncate">{{ $like->user->name }}</p>
