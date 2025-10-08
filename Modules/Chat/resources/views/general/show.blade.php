@@ -6,13 +6,17 @@
     <!-- 上のエリア -->
     <div class="h-[40px]">
       <div class="grid grid-cols-[50px,auto,200px]" x-data="{ showMemberList: false }">
-        @if ($selectGroup->IconImage)
+        @if ($selectGroup->is_dm)
           <img class="h-10 w-10 rounded-full border bg-white"
             src="{{ route('profile.icon', ['id' => $selectGroup->partnerUser->id]) }}" alt="アイコン">
         @else
-          <div class="flex h-10 w-10 items-center justify-center rounded-full border bg-white">
-            <i class="fa-solid fa-image"></i>
-          </div>
+          @if ($selectGroup->IconImage)
+            <img class="h-10 w-10 rounded-full border bg-white" src="{{ $selectGroup->IconImage }}" alt="アイコン">
+          @else
+            <div class="flex h-10 w-10 items-center justify-center rounded-full border bg-white">
+              <i class="fa-solid fa-image"></i>
+            </div>
+          @endif
         @endif
         <div class="flex items-center truncate text-xl font-bold">{{ $selectGroup->NameLabel }}</div>
         @if (!$selectGroup->is_dm)
@@ -89,13 +93,18 @@
             d="M6.43337 10.4417C6.31633 10.3245 6.25058 10.1657 6.25058 10C6.25058 9.83441 6.31633 9.67556 6.43337 9.55837L12.6834 3.30837C12.8018 3.19797 12.9586 3.13787 13.1205 3.14072C13.2824 3.14358 13.4369 3.20917 13.5514 3.32368C13.6659 3.43819 13.7315 3.59268 13.7343 3.7546C13.7372 3.91652 13.6771 4.07322 13.5667 4.1917L7.75837 10L13.5667 15.8084C13.6281 15.8656 13.6774 15.9346 13.7115 16.0113C13.7457 16.0879 13.764 16.1707 13.7655 16.2546C13.767 16.3385 13.7516 16.4219 13.7201 16.4997C13.6887 16.5775 13.6419 16.6482 13.5826 16.7076C13.5232 16.7669 13.4525 16.8137 13.3747 16.8451C13.2969 16.8766 13.2135 16.892 13.1296 16.8905C13.0457 16.889 12.9629 16.8707 12.8863 16.8365C12.8096 16.8024 12.7406 16.7531 12.6834 16.6917L6.43337 10.4417Z"
             fill="#3289FA" />
         </svg>
-        @if ($selectGroup->IconImage)
+        @if ($selectGroup->is_dm)
           <img class="h-[30px] w-[30px] rounded-full border bg-white"
             src="{{ route('profile.icon', ['id' => $selectGroup->partnerUser->id]) }}" alt="アイコン">
         @else
-          <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white">
-            <i class="fa-solid fa-image"></i>
-          </div>
+          @if ($selectGroup->IconImage)
+            <img class="h-[30px] w-[30px] rounded-full border bg-white" src="{{ $selectGroup->IconImage }}"
+              alt="アイコン">
+          @else
+            <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white">
+              <i class="fa-solid fa-image"></i>
+            </div>
+          @endif
         @endif
         <div class="flex items-center truncate pl-2 text-[15px] font-bold">{{ $selectGroup->NameLabel }}</div>
       </div>
