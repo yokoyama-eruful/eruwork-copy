@@ -26,8 +26,8 @@
       <p class="text-sm font-bold text-[#3289FA]">給与算出設定</p>
     </button>
   </div>
-  <x-modal name="wage-premium-modal" title="給与計算設定" wire:submit="create">
-    <form class="m-4" method="post" wire:submit="create">
+  <x-modal name="wage-premium-modal" title="給与計算設定">
+    <form class="m-4" method="POST" wire:submit.prevent>
       @csrf
 
       {{-- <div class="mt-[18px] grid grid-cols-[30%,70%] items-center">
@@ -96,7 +96,7 @@
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="ms-3" wire:click="create">
           登録
         </x-primary-button>
       </div>
