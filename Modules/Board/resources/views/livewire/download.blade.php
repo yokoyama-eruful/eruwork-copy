@@ -1,4 +1,4 @@
-<div class="flex flex-col px-5 pb-3 sm:px-0 sm:pb-0">
+<div class="flex flex-col px-5 pb-3 lg:px-0 lg:pb-0">
   @foreach ($this->files as $file)
     <div class="flex flex-row items-center space-x-1">
       <a class="flex w-auto flex-row rounded-lg bg-[#F7F7F7] px-3 py-[11px] hover:opacity-50"

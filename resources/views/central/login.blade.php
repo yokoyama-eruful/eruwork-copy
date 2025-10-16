@@ -10,7 +10,7 @@
 </head>
 
 <body class="flex h-screen w-full bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white">
-  <div class="mx-auto flex flex-col items-center justify-center p-6 sm:w-96">
+  <div class="mx-auto flex flex-col items-center justify-center p-6 lg:w-96">
     <a class="mb-6 flex items-center text-2xl font-semibold text-gray-900 dark:text-white" href="#">
       EruWork
     </a>

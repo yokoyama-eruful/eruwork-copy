@@ -1,7 +1,7 @@
 <x-dashboard-layout :url="route('account.index')">
   <x-dashboard.index>
     <x-dashboard.top>
-      <div class="flex w-full items-center justify-between sm:hidden">
+      <div class="flex w-full items-center justify-between lg:hidden">
         <div class="flex items-center space-x-1 text-xs">
           <div class="text-[#AAB0B6]">最終更新日：</div>
           <div>{{ $user->updated_at?->format('Y.m.d') }}</div>
@@ -11,7 +11,7 @@
           <div>{{ $user->last_login_at?->format('Y.m.d') }}</div>
         </div>
       </div>
-      <a class="hidden items-center text-sm font-bold text-[#3289FA] hover:opacity-40 sm:flex"
+      <a class="hidden items-center text-sm font-bold text-[#3289FA] hover:opacity-40 lg:flex"
         href="{{ route('account.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -26,12 +26,12 @@
         method="POST">
         @csrf
         @method('PUT')
-        <h5 class="hidden text-xl font-bold sm:block">アカウント管理</h5>
-        <div class="rounded-lg border-[#DDDDDD] px-[25px] sm:mt-[30px] sm:border sm:py-[30px]">
+        <h5 class="hidden text-xl font-bold lg:block">アカウント管理</h5>
+        <div class="rounded-lg border-[#DDDDDD] px-[25px] lg:mt-[30px] lg:border lg:py-[30px]">
           <div class="flex items-center justify-between border-b pb-5">
             <div class="flex items-center space-x-5">
               <div
-                class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 sm:h-[45px] sm:w-[45px]">
+                class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:h-[45px] lg:w-[45px]">
                 @if ($user->icon)
                   <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
                 @else
@@ -79,7 +79,7 @@
           <input name="id" type="hidden" value="{{ $user->id }}">
 
           {{-- モバイル --}}
-          <div class="mt-10 flex flex-col gap-[50px] pb-[50px] sm:hidden">
+          <div class="mt-10 flex flex-col gap-[50px] pb-[50px] lg:hidden">
             <div class="grid grid-cols-[30%,70%]">
               <div class="flex items-center text-[11px] font-bold">名前</div>
               <div class="flex items-center"><input

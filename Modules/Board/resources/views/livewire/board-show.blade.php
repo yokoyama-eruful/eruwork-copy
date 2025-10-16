@@ -1,12 +1,12 @@
 <x-main.index>
   <x-main.top>
-    <h5 class="block text-xl font-bold sm:hidden">掲示板</h5>
+    <h5 class="block text-xl font-bold lg:hidden">掲示板</h5>
     <x-main.add-a href="{{ route('board.create') }}">新規投稿</x-main.add-a>
   </x-main.top>
   <x-main.container>
     <div class="flex items-center justify-between">
-      <h5 class="hidden text-xl font-bold sm:block">掲示板</h5>
-      <a class="flex items-center px-5 text-sm text-[#3289FA] hover:opacity-40 sm:px-0" href="{{ route('draft.index') }}">
+      <h5 class="hidden text-xl font-bold lg:block">掲示板</h5>
+      <a class="flex items-center px-5 text-sm text-[#3289FA] hover:opacity-40 lg:px-0" href="{{ route('draft.index') }}">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M1.875 15.6248V6.87476C1.87505 6.21179 2.13863 5.57597 2.60742 5.10718C3.07625 4.6384 3.71201 4.37476 4.375 4.37476H8.33333C8.67844 4.37476 8.95822 4.65467 8.95833 4.99976C8.95833 5.34493 8.67851 5.62476 8.33333 5.62476H4.375C4.04353 5.62476 3.72562 5.75661 3.49121 5.99097C3.25684 6.22534 3.12505 6.54331 3.125 6.87476V15.6248C3.125 15.9562 3.25686 16.2741 3.49121 16.5085C3.72563 16.743 4.04348 16.8748 4.375 16.8748H13.125C13.4565 16.8748 13.7744 16.743 14.0088 16.5085C14.2431 16.2741 14.375 15.9562 14.375 15.6248V11.6664C14.3751 11.3213 14.6549 11.0414 15 11.0414C15.3451 11.0414 15.6249 11.3213 15.625 11.6664V15.6248C15.625 16.2877 15.3614 16.9235 14.8926 17.3923C14.4237 17.8612 13.788 18.1248 13.125 18.1248H4.375C3.71196 18.1248 3.07626 17.8612 2.60742 17.3923C2.13865 16.9235 1.875 16.2877 1.875 15.6248ZM17.5 3.43726C17.4999 3.18864 17.4016 2.94981 17.2257 2.77401C17.0499 2.59822 16.8111 2.49976 16.5625 2.49976C16.3139 2.49976 16.0751 2.59822 15.8993 2.77401L14.9349 3.73836L16.2614 5.06486L17.2257 4.1005C17.4015 3.92466 17.5 3.6859 17.5 3.43726ZM14.0511 4.62215L7.05078 11.6233C6.72977 11.9445 6.48236 12.3312 6.3265 12.7561L6.26546 12.9408L5.92855 14.0704L7.05892 13.7343L7.24365 13.6733C7.66852 13.5174 8.05526 13.2708 8.37646 12.9498L15.3776 5.94865L14.0511 4.62215ZM18.75 3.43726C18.75 4.01742 18.5197 4.57403 18.1095 4.98429L9.26025 13.8336C8.74635 14.3472 8.11251 14.7248 7.41618 14.9322L5.17822 15.5987C4.95832 15.6642 4.72035 15.6039 4.55811 15.4417C4.39591 15.2794 4.33554 15.0414 4.40104 14.8215L5.06755 12.5844C5.2749 11.8879 5.65249 11.2535 6.16618 10.7395L15.0155 1.89103C15.4257 1.48082 15.9823 1.24976 16.5625 1.24976C17.1427 1.24976 17.6993 1.48001 18.1095 1.89022C18.5198 2.30044 18.7499 2.85711 18.75 3.43726Z"
@@ -17,7 +17,7 @@
     </div>
 
     @if ($posts->isEmpty())
-      <div class="mt-[30px] flex h-[calc(100vh-190px)] flex-col items-center justify-center rounded-xl border">
+      <div class="mt-[30px] flex h-[calc(100dvh-190px)] flex-col items-center justify-center rounded-xl border">
         <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path opacity="0.1" fill-rule="evenodd" clip-rule="evenodd"
             d="M43.75 12.5C42.0927 12.5011 40.5037 13.1599 39.3318 14.3318C38.1599 15.5037 37.5011 17.0927 37.5 18.75H62.5C62.5 17.0924 61.8415 15.5027 60.6694 14.3306C59.4973 13.1585 57.9076 12.5 56.25 12.5H43.75ZM32.5292 13.2417C33.559 11.1439 35.1562 9.3768 37.1396 8.14096C39.123 6.90511 41.4131 6.25001 43.75 6.25H56.25C58.5876 6.24923 60.8786 6.90397 62.8628 8.13986C64.847 9.37574 66.4449 11.1433 67.475 13.2417C69.5458 13.4167 71.6083 13.625 73.6667 13.8667C79.9042 14.5875 84.375 19.95 84.375 26.0708V81.25C84.375 84.5652 83.058 87.7446 80.7138 90.0888C78.3696 92.433 75.1902 93.75 71.875 93.75H28.125C24.8098 93.75 21.6304 92.433 19.2862 90.0888C16.942 87.7446 15.625 84.5652 15.625 81.25V26.0708C15.625 19.9458 20.0958 14.5875 26.3333 13.8625C28.3875 13.625 30.4542 13.4208 32.5292 13.2417Z"
@@ -26,7 +26,7 @@
         <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">掲示物がありません</div>
       </div>
     @else
-      <div class="mt-[30px] hidden grid-cols-[66%,10%,8%,14%,2%] sm:grid">
+      <div class="mt-[30px] hidden grid-cols-[66%,10%,8%,14%,2%] lg:grid">
         <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">表題</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">作成者</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">作成日時</div>
@@ -34,16 +34,16 @@
         <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
       </div>
 
-      <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+      <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($posts as $post)
           <div onclick="window.location='{{ route('board.show', ['id' => $post->id]) }}'" @class([
-              'sm:grid sm:grid-cols-[66%,10%,10%,10%,4%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer',
+              'lg:grid lg:grid-cols-[66%,10%,10%,10%,4%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',
               'border-b' => !$loop->last,
           ])>
-            <div class="hidden truncate px-[30px] font-bold sm:block">{!! nl2br(e($post->title)) !!}</div>
-            <div class="hidden truncate sm:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
-            <div class="hidden truncate sm:block">{{ $post->updated_at?->format('Y.m.d') }}</div>
-            <div class="hidden items-center justify-center sm:flex">
+            <div class="hidden truncate px-[30px] font-bold lg:block">{!! nl2br(e($post->title)) !!}</div>
+            <div class="hidden truncate lg:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
+            <div class="hidden truncate lg:block">{{ $post->updated_at?->format('Y.m.d') }}</div>
+            <div class="hidden items-center justify-center lg:flex">
               @if ($post->attachments->isNotEmpty())
                 <svg width="15" height="16" viewBox="0 0 19 20" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@
               @endif
             </div>
             @if ($post->canEdit())
-              <div class="relative hidden sm:block" x-data="{ openDialog{{ $post->id }}: false }">
+              <div class="relative hidden lg:block" x-data="{ openDialog{{ $post->id }}: false }">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">
                   <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
@@ -96,7 +96,7 @@
               </div>
             @endif
 
-            <div class="mb-[7px] flex items-center justify-between sm:hidden">
+            <div class="mb-[7px] flex items-center justify-between lg:hidden">
               <div class="flex items-center space-x-2">
                 <div class="truncate text-xs">{{ $post->updated_at?->format('Y.m.d') }}</div>
                 <div class="h-4 border-l border-gray-300"></div>
@@ -158,7 +158,7 @@
               </div>
             </div>
 
-            <div class="block break-words font-bold sm:hidden">{!! nl2br(e($post->title)) !!}</div>
+            <div class="block break-words font-bold lg:hidden">{!! nl2br(e($post->title)) !!}</div>
           </div>
 
           <x-modal-alert name="delete-modal-{{ $post->id }}" title="削除" maxWidth="sm">
@@ -176,7 +176,7 @@
           </x-modal-alert>
         @endforeach
       </div>
-      <div class="mb-5 sm:mb-0">
+      <div class="mb-5 lg:mb-0">
         {{ $posts->links('vendor.pagination.tailwind') }}
       </div>
     @endif

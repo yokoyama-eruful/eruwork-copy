@@ -1,6 +1,6 @@
 <x-app-layout>
   <div class="flex w-full justify-between" x-data="{ viewGroupCreateDialog: false, mobileMemberArea: false }" x-cloak>
-    <div class="w-full shrink-0 overflow-y-auto bg-white px-[15px] py-[30px] sm:w-[280px]">
+    <div class="w-full shrink-0 overflow-y-auto bg-white px-[15px] py-[30px] lg:w-[280px]">
       <div class="flex items-center justify-between">
         <h1 class="text-xl font-bold">チャット</h1>
         <button class="flex items-center hover:opacity-40"

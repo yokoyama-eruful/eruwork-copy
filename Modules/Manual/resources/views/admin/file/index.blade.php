@@ -1,7 +1,7 @@
 <x-dashboard-layout :url="route('manualFolderManager.index')">
   <x-dashboard.index>
     <x-dashboard.top>
-      <a class="hidden items-center space-x-[2px] text-[#3289FA] hover:opacity-40 sm:flex"
+      <a class="hidden items-center space-x-[2px] text-[#3289FA] hover:opacity-40 lg:flex"
         href="{{ route('manualFolderManager.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -10,16 +10,16 @@
         </svg>
         <p class="text-sm font-bold">一覧画面に戻る</p>
       </a>
-      <div class="mx-[30px] hidden h-[35px] border-r sm:block"></div>
-      <a class='hidden h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d] sm:flex'
+      <div class="mx-[30px] hidden h-[35px] border-r lg:block"></div>
+      <a class='hidden h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d] lg:flex'
         href="{{ route('manualFileManager.create', ['folder_id' => $folder->id]) }}">
         <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
         新規作成
       </a>
 
-      <div class="flex w-full items-center justify-between sm:hidden">
-        <h5 class="text-xl font-bold sm:hidden">{{ $folder->title }}</h5>
-        <div class="sm:hidden">
+      <div class="flex w-full items-center justify-between lg:hidden">
+        <h5 class="text-xl font-bold lg:hidden">{{ $folder->title }}</h5>
+        <div class="lg:hidden">
           <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
             href="{{ route('manualFileManager.create', ['folder_id' => $folder->id]) }}">
             <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
@@ -29,9 +29,9 @@
       </div>
     </x-dashboard.top>
     <x-dashboard.container>
-      <h5 class="hidden text-xl font-bold sm:block">{{ $folder->title }}</h5>
+      <h5 class="hidden text-xl font-bold lg:block">{{ $folder->title }}</h5>
       @if ($files->isNotEmpty())
-        <div class="mt-[30px] hidden grid-cols-[10%,5%,41%,21%,21%,2%] px-5 sm:grid">
+        <div class="mt-[30px] hidden grid-cols-[10%,5%,41%,21%,21%,2%] px-5 lg:grid">
           <div class="text-xs text-[#AAB0B6]">サムネイル</div>
           <div class="text-xs text-[#AAB0B6]"></div>
           <div class="text-xs text-[#AAB0B6]">表題</div>
@@ -39,10 +39,10 @@
           <div class="text-xs text-[#AAB0B6]">更新日</div>
           <div class="text-xs text-[#AAB0B6]"></div>
         </div>
-        <div class="mt-[30px] border-b sm:mt-[10px] sm:rounded-xl sm:border">
+        <div class="mt-[30px] border-b lg:mt-[10px] lg:rounded-xl lg:border">
           @foreach ($files as $file)
             <div @class([
-                'hidden sm:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5 relative',
+                'hidden lg:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5 relative',
                 'border-b' => !$loop->last,
             ])>
               @if ($file->status == '下書き')
@@ -109,7 +109,7 @@
             </div>
 
             <div @class([
-                'grid grid-cols-[30%,60%,10%] items-center px-[20px] py-[15px] sm:hidden',
+                'grid grid-cols-[30%,60%,10%] items-center px-[20px] py-[15px] lg:hidden',
                 'border-b' => !$loop->last,
             ])>
               <img class="max-h-[55px] max-w-[100px] rounded"
@@ -162,7 +162,7 @@
           @endforeach
         </div>
       @else
-        <div class="mt-[30px] flex h-[calc(100vh-190px)] items-center justify-center rounded-xl border">
+        <div class="mt-[30px] flex h-[calc(100dvh-190px)] items-center justify-center rounded-xl border">
           <svg width="200" height="200" viewBox="0 0 300 150" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path opacity="0.1"

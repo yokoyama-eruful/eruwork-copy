@@ -75,7 +75,7 @@ class SubmissionCalendar extends Component
     {
         $agent = new Agent;
 
-        if ($agent->isMobile()) {
+        if ($agent->isMobile() || $agent->isTablet()) {
             return view('shift::general.livewire.submission-calendar-mobile');
         }
 

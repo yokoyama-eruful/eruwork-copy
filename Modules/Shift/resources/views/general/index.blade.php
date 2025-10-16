@@ -126,7 +126,7 @@
           <a class="mb-2 flex flex-wrap items-center justify-between rounded-md border px-4 py-2 shadow hover:bg-sky-50"
             href="{{ route('submission.show', ['manager' => $manager->id]) }}">
             <div class="flex flex-col">
-              <div class="flex flex-col sm:flex-row sm:space-x-1">
+              <div class="flex flex-col lg:flex-row lg:space-x-1">
                 <div class="font-semibold">{{ $manager->viewSchedule }}</div>
               </div>
               <div class="flex flex-wrap justify-between space-x-1 font-medium xl:flex-row">

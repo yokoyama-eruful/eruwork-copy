@@ -1,6 +1,6 @@
 <div class="side-menu-d-board">
   <div class="side-menu-scroll">
-    <div class="sm:hidden">
+    <div class="lg:hidden">
       @if ($url)
         <a href="{{ $url }}">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +161,7 @@
   </div>
 
   @can('register')
-    <div class="d-board-menu block sm:hidden">
+    <div class="d-board-menu block lg:hidden">
       <ul>
         <li class="acc-title">管理者設定</li>
         <li class="sub-title">メニュー</li>

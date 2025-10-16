@@ -1,9 +1,9 @@
-<div class="pt-[60px] sm:pt-0">
+<div class="pt-[60px] lg:pt-0">
   <div class="flex items-center justify-between">
-    <h5 class="hidden text-xl font-bold sm:block">時給詳細</h5>
-    <div class="hidden sm:block"><livewire:hourlyrate::hourly-rate-create :$user :key="'desktop-rate-create-' . $user->id" /></div>
+    <h5 class="hidden text-xl font-bold lg:block">時給詳細</h5>
+    <div class="hidden lg:block"><livewire:hourlyrate::hourly-rate-create :$user :key="'desktop-rate-create-' . $user->id" /></div>
   </div>
-  <div class="mx-5 flex items-center space-x-[20px] border-b pb-[20px] sm:mx-0 sm:mt-[10px] sm:pt-[20px]">
+  <div class="mx-5 flex items-center space-x-[20px] border-b pb-[20px] lg:mx-0 lg:mt-[10px] lg:pt-[20px]">
     <div
       class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
       @if ($user->icon)
@@ -17,13 +17,13 @@
     <div class="truncate text-[20px] font-bold">{{ $user->profile?->name }}</div>
   </div>
 
-  <div class="mx-5 mt-[30px] grid grid-cols-[30%,35%,25%,10%] sm:mx-0">
+  <div class="mx-5 mt-[30px] grid grid-cols-[30%,35%,25%,10%] lg:mx-0">
     <div class="pl-[20px] pr-[30px] text-left text-xs font-normal text-[#AAB0B6]">時給</div>
     <div class="text-left text-xs font-normal text-[#AAB0B6]">適用開始日</div>
     <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
     <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
   </div>
-  <div class="mx-5 mt-[24px] rounded-lg border border-b sm:mx-0 sm:mt-[8px]">
+  <div class="mx-5 mt-[24px] rounded-lg border border-b lg:mx-0 lg:mt-[8px]">
     @foreach ($this->rateTable as $hourlyRate)
       <div @class([
           'grid-cols-[30%,35%,25%,10%] py-[30px] grid items-center',
@@ -63,6 +63,6 @@
       </div>
     @endforeach
   </div>
-  <div class="my-[13px] flex items-center justify-center sm:hidden"><livewire:hourlyrate::hourly-rate-create :$user
+  <div class="my-[13px] flex items-center justify-center lg:hidden"><livewire:hourlyrate::hourly-rate-create :$user
       :key="'mobile-rate-create-' . $user->id" /></div>
 </div>

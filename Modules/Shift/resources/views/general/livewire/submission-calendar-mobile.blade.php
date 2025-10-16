@@ -1,27 +1,27 @@
 <x-main.index>
 
   <x-main.top>
-    <div class="flex w-full items-center justify-between space-x-[30px] sm:justify-normal">
-      <h5 class="block text-xl font-bold sm:hidden">シフト希望表提出</h5>
+    <div class="flex w-full items-center justify-between space-x-[30px] lg:justify-normal">
+      <h5 class="block text-xl font-bold lg:hidden">シフト希望表提出</h5>
       @if ($manager->OverSubmissionPeriod)
         <livewire:shift::general.submission-multi-create :$manager />
       @endif
     </div>
   </x-main.top>
   <x-main.container>
-    <div class="mx-5 flex items-center space-x-1 rounded bg-[#F7F7F7] px-5 py-[14px] sm:hidden">
+    <div class="mx-5 flex items-center space-x-1 rounded bg-[#F7F7F7] px-5 py-[14px] lg:hidden">
       <div class="text-[10px] text-[#AAB0B6]">シフト提出期限：</div>
       <div class="font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）') }}まで</div>
     </div>
 
-    <div class="mt-[19px] flex items-center space-x-[5px] px-5 sm:space-x-2 sm:px-0">
-      <div class="block text-[10px] text-[#AAB0B6] sm:hidden">募集期限：</div>
-      <div class="text-normal font-semibold sm:text-xl">
+    <div class="mt-[19px] flex items-center space-x-[5px] px-5 lg:space-x-2 lg:px-0">
+      <div class="block text-[10px] text-[#AAB0B6] lg:hidden">募集期限：</div>
+      <div class="text-normal font-semibold lg:text-xl">
         {{ $manager->start_date->isoFormat('MM/DD（ddd）') }}　～　{{ $manager->end_date->isoFormat('MM/DD（ddd）') }}</div>
     </div>
 
     {{-- モバイル版 --}}
-    <div class="my-[14px] block sm:hidden">
+    <div class="my-[14px] block lg:hidden">
       <div class="mx-5 rounded-lg border">
         @foreach ($this->calendar as $key => $content)
           @if ($content['type'] !== '期間外')

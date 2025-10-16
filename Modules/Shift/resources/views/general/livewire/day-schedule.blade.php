@@ -10,7 +10,7 @@
       <div class="flex items-center md:ml-0">
         <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-2" wire:click="setPreviousDay">
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="先週">
-          <p class="hidden sm:block">前日</p>
+          <p class="hidden lg:block">前日</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
           <select class="rounded border border-[#DDDDDD]" wire:model.change="viewYear" wire:change="pullDownDateMenu">
@@ -30,7 +30,7 @@
           </select>
         </div>
         <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-2" wire:click="setNextDay">
-          <p class="hidden sm:block">翌日</p>
+          <p class="hidden lg:block">翌日</p>
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌週">
         </button>
         <div class="">
@@ -48,7 +48,7 @@
           <p class="text-xs">シフト提出依頼：</p>
           <div class="ml-3 flex h-[45px] items-center rounded bg-[#F7F7F7] px-5">
             <div @class([
-                'hidden truncate px-[10px] w-fit font-bold sm:block text-xs text-white rounded-full py-[3px]',
+                'hidden truncate px-[10px] w-fit font-bold lg:block text-xs text-white rounded-full py-[3px]',
                 'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                 'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                 'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',

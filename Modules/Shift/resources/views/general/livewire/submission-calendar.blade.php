@@ -1,14 +1,14 @@
 <x-main.index>
 
   <x-main.top>
-    <div class="flex w-full items-center justify-between space-x-[30px] sm:justify-normal">
+    <div class="flex w-full items-center justify-between space-x-[30px] lg:justify-normal">
       <a class="flex items-center hover:opacity-40" href="{{ route('shift.submission.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M5.78988 9.39751C5.68455 9.29204 5.62538 9.14907 5.62538 9.00001C5.62538 8.85094 5.68455 8.70798 5.78988 8.60251L11.4149 2.97751C11.5215 2.87815 11.6626 2.82405 11.8083 2.82663C11.954 2.8292 12.093 2.88823 12.1961 2.99129C12.2992 3.09435 12.3582 3.23339 12.3608 3.37911C12.3633 3.52484 12.3092 3.66588 12.2099 3.77251L6.98238 9.00001L12.2099 14.2275C12.2651 14.279 12.3095 14.3411 12.3402 14.4101C12.371 14.4791 12.3875 14.5536 12.3888 14.6291C12.3902 14.7046 12.3763 14.7797 12.348 14.8497C12.3197 14.9197 12.2776 14.9834 12.2242 15.0368C12.1707 15.0902 12.1071 15.1323 12.0371 15.1606C11.967 15.1889 11.892 15.2028 11.8165 15.2015C11.741 15.2001 11.6665 15.1836 11.5975 15.1528C11.5285 15.1221 11.4664 15.0778 11.4149 15.0225L5.78988 9.39751Z"
             fill="#3289FA" />
         </svg>
-        <p class="hidden ps-[2px] text-sm font-bold text-[#3289FA] sm:block">シフト画面に戻る</p>
+        <p class="hidden ps-[2px] text-sm font-bold text-[#3289FA] lg:block">シフト画面に戻る</p>
       </a>
       @if ($manager->OverSubmissionPeriod)
         <livewire:shift::general.submission-multi-create :$manager />
@@ -16,24 +16,24 @@
     </div>
   </x-main.top>
   <x-main.container>
-    <div class="hidden items-center justify-between sm:flex">
+    <div class="hidden items-center justify-between lg:flex">
       <h5 class="text-xl font-bold">シフト表提出</h5>
     </div>
 
-    <div class="mt-[19px] flex items-center space-x-[5px] px-5 sm:space-x-2 sm:px-0">
-      <div class="block text-[10px] text-[#AAB0B6] sm:hidden">募集期限：</div>
+    <div class="mt-[19px] flex items-center space-x-[5px] px-5 lg:space-x-2 lg:px-0">
+      <div class="block text-[10px] text-[#AAB0B6] lg:hidden">募集期限：</div>
       <div @class([
-          'text-[12px] text-white w-[60px] py-1 mr-[10px] text-center rounded-full sm:block hidden',
+          'text-[12px] text-white w-[60px] py-1 mr-[10px] text-center rounded-full lg:block hidden',
           'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
           'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
           'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
       ])>{{ $manager->ReceptionStatus }}</div>
-      <div class="text-normal font-semibold sm:text-xl">
+      <div class="text-normal font-semibold lg:text-xl">
         {{ $manager->start_date->isoFormat('MM/DD（ddd）') }}　～　{{ $manager->end_date->isoFormat('MM/DD（ddd）') }}</div>
     </div>
-    <hr class="mt-3 hidden border-t sm:block" />
+    <hr class="mt-3 hidden border-t lg:block" />
 
-    <div class="mt-[30px] hidden grid-cols-7 sm:grid">
+    <div class="mt-[30px] hidden grid-cols-7 lg:grid">
       <div class="flex items-center justify-between">
         {{-- <div class="text-xl font-bold">{{ $content['date']->isoFormat('M月') }}</div> --}}
         <div class="text-xl font-bold">9月</div>
@@ -48,11 +48,11 @@
       <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
-    <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border sm:grid">
+    <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
             'min-h-[170px] min-w-[140px]',
-            'bg-[#E6E6E6] hidden sm:block' => $content['type'] === '期間外',
+            'bg-[#E6E6E6] hidden lg:block' => $content['type'] === '期間外',
         ]) wire:key="calendar-box-desktop-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="flex items-center justify-between pl-[15px] pr-[10px]">
@@ -80,7 +80,7 @@
                 :manager="$manager" />
             @endif
           </div>
-          <div class="mb-1 flex flex-col space-y-1 pr-1 sm:text-sm">
+          <div class="mb-1 flex flex-col space-y-1 pr-1 lg:text-sm">
             @foreach ($content['draftShifts'] as $key => $schedule)
               @if (!$schedule->shiftStatus)
                 <button

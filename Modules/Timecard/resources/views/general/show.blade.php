@@ -3,7 +3,7 @@
     <x-main.top>
     </x-main.top>
     <x-main.container>
-      <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] sm:hidden">
+      <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] lg:hidden">
         <div class="flex items-center hover:opacity-40">
           <div class="ml-2 text-lg font-bold">扶養控除目安</div>
         </div>

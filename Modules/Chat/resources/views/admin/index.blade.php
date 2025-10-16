@@ -1,7 +1,7 @@
 <x-dashboard-layout>
   <x-dashboard.index>
     <x-dashboard.top>
-      <h5 class="block text-xl font-bold sm:hidden">チャット管理</h5>
+      <h5 class="block text-xl font-bold lg:hidden">チャット管理</h5>
       <a class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
         href="{{ route('chatManager.create') }}">
         <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
@@ -9,10 +9,10 @@
       </a>
     </x-dashboard.top>
     <x-dashboard.container>
-      <h5 class="hidden text-xl font-bold sm:block">チャット管理</h5>
+      <h5 class="hidden text-xl font-bold lg:block">チャット管理</h5>
 
       @if ($groups->total() === 0)
-        <div class="mt-[30px] flex h-[calc(100vh-190px)] flex-col items-center justify-center rounded-xl border">
+        <div class="mt-[30px] flex h-[calc(100dvh-190px)] flex-col items-center justify-center rounded-xl border">
           <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g opacity="0.1">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -23,17 +23,17 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">ルームがありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[8%,29%,45%,14%,4%] sm:grid">
+        <div class="mt-[30px] hidden grid-cols-[8%,29%,45%,14%,4%] lg:grid">
           <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
           <div class="pr-[20px] text-left text-xs font-normal text-[#AAB0B6]">グループ名</div>
           <div class="pr-[87px] text-left text-xs font-normal text-[#AAB0B6]">メンバー</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">更新日</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
         </div>
-        <div class="mt-[24px] border border-b sm:-mx-0 sm:mt-[8px] sm:rounded-lg">
+        <div class="mt-[24px] border border-b lg:-mx-0 lg:mt-[8px] lg:rounded-lg">
           @foreach ($groups as $group)
             <div @class([
-                'sm:grid sm:grid-cols-[8%,29%,45%,14%,4%] sm:py-[18px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid lg:grid-cols-[8%,29%,45%,14%,4%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
               <div
@@ -111,7 +111,7 @@
           @endforeach
 
           @foreach ($groups as $group)
-            <div class="flex items-center justify-between border-b px-5 py-[15px] sm:hidden">
+            <div class="flex items-center justify-between border-b px-5 py-[15px] lg:hidden">
               <div class="flex items-center space-x-[10px]">
                 <div
                   class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">

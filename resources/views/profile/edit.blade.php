@@ -3,7 +3,7 @@
     <x-main.top>
     </x-main.top>
     <x-main.container>
-      <h5 class="hidden text-xl font-bold sm:block">プロフィール設定</h5>
+      <h5 class="hidden text-xl font-bold lg:block">プロフィール設定</h5>
       <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" x-data="{ iconPreview: null }">
         @csrf
 
@@ -62,15 +62,13 @@
             <div class="h-1/3">
               <h1 class="mb-2 text-lg font-semibold xl:text-xl">通知設定変更</h1>
 
-              <div class="flex flex-col space-y-2 sm:flex-row sm:space-x-2 sm:space-y-0">
+              <div class="flex flex-col space-y-2 lg:flex-row lg:space-x-2 lg:space-y-0">
 
-
-                
-                <button class="w-full border bg-ao-main px-2 py-2 hover:bg-sky-700 sm:w-auto xl:px-10 xl:py-4"
+                <button class="w-full border bg-ao-main px-2 py-2 hover:bg-sky-700 lg:w-auto xl:px-10 xl:py-4"
                   id="enable-push" type="button">
                   <i class="fa-solid fa-bell"></i>　通知オン
                 </button>
-                <button class="w-full border bg-ao-main px-2 py-2 hover:bg-sky-700 sm:w-auto xl:px-10 xl:py-4"
+                <button class="w-full border bg-ao-main px-2 py-2 hover:bg-sky-700 lg:w-auto xl:px-10 xl:py-4"
                   id="disable-push" type="button"><i class="fa-solid fa-bell-slash"></i>　通知オフ</button>
               </div>
             </div>

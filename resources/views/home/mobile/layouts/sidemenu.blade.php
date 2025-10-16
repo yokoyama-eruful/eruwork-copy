@@ -31,7 +31,7 @@
       :class="sideMenu ? '-rotate-45 -translate-y-[7px]' : ''"></span>
   </button>
 
-  <div class="sm:account-modal-box account-mobile-modal-box absolute" id="accountModal" x-show="accountModal"
+  <div class="lg:account-modal-box account-mobile-modal-box absolute" id="accountModal" x-show="accountModal"
     x-on:click.away="accountModal=false">
     <div class="modal-content">
       <button class="flex items-center text-[14px] text-[#777777] hover:opacity-40" type="button"
@@ -61,10 +61,10 @@
 </header>
 
 <div
-  class="duration-50 fixed top-[50px] z-10 h-[calc(100vh-50px)] w-full bg-[#363B464D] bg-opacity-30 backdrop-blur-[6px] transition-opacity"
+  class="duration-50 fixed top-[50px] z-10 h-[calc(100dvh-50px)] w-full bg-[#363B464D] bg-opacity-30 backdrop-blur-[6px] transition-opacity"
   :class="{ 'opacity-100': sideMenu, 'opacity-0 pointer-events-none': !sideMenu }"></div>
 <div
-  class="fixed right-0 top-[50px] z-20 h-[calc(100vh-50px)] w-[85%] transform space-y-3 overflow-y-auto bg-[#363b46] py-[30px] pl-[30px] pr-[18px] transition-transform duration-300"
+  class="fixed right-0 top-[50px] z-20 h-[calc(100dvh-50px)] w-[85%] transform space-y-3 overflow-y-auto bg-[#363b46] py-[30px] pl-[30px] pr-[18px] transition-transform duration-300"
   x-data="{ adminMenu: false }" :class="{ 'translate-x-0': sideMenu, 'translate-x-full': !sideMenu }">
 
   <a class="flex h-10 items-center space-x-[10px]" href="{{ route('home.index') }}">

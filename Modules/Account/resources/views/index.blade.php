@@ -1,7 +1,7 @@
 <x-dashboard-layout>
   <x-dashboard.index>
     <x-dashboard.top>
-      <h5 class="block text-xl font-bold sm:hidden">アカウント管理</h5>
+      <h5 class="block text-xl font-bold lg:hidden">アカウント管理</h5>
       <a class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
         href="{{ route('account.create') }}">
         <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
@@ -9,26 +9,26 @@
       </a>
     </x-dashboard.top>
     <x-dashboard.container>
-      <h5 class="hidden text-xl font-bold sm:block">アカウント管理</h5>
+      <h5 class="hidden text-xl font-bold lg:block">アカウント管理</h5>
       <div
-        class="mt-[30px] grid grid-cols-[15%,60%,20%,5%] border-b px-5 pb-2 sm:grid-cols-[6%,15%,15%,15%,15%,27.2%,3.8%,3%] sm:border-none sm:px-0 sm:pb-0">
-        <div class="text-left text-xs font-normal text-[#AAB0B6] sm:pl-[25px]"></div>
+        class="mt-[30px] grid grid-cols-[15%,60%,20%,5%] border-b px-5 pb-2 lg:grid-cols-[6%,15%,15%,15%,15%,27.2%,3.8%,3%] lg:border-none lg:px-0 lg:pb-0">
+        <div class="text-left text-xs font-normal text-[#AAB0B6] lg:pl-[25px]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
-        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] sm:block">ログインID</div>
+        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">ログインID</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">契約区分</div>
-        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] sm:block">更新日</div>
-        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] sm:block">最終ログイン日</div>
-        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] sm:block"></div>
+        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">更新日</div>
+        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">最終ログイン日</div>
+        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
       </div>
-      <div class="rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+      <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($users as $user)
           <div @class([
-              'grid sm:grid-cols-[6%,15%,15%,15%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] sm:py-[18px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer items-center',
+              'grid lg:grid-cols-[6%,15%,15%,15%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
           ])>
             <div
-              class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 sm:ml-[25px] sm:h-[45px] sm:w-[45px]">
+              class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[45px] lg:w-[45px]">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
@@ -40,15 +40,15 @@
 
             <div class="text-[15px] font-bold">{{ $user->profile?->name }}</div>
 
-            <div class="hidden text-[15px] sm:block">{{ $user->login_id }}</div>
+            <div class="hidden text-[15px] lg:block">{{ $user->login_id }}</div>
 
-            <div class="text-[12px] sm:text-[15px]">{{ $user->profile?->contract_type }}</div>
+            <div class="text-[12px] lg:text-[15px]">{{ $user->profile?->contract_type }}</div>
 
-            <div class="hidden text-[15px] sm:block">{{ $user->profile?->updated_at?->format('Y.m.d') }}</div>
+            <div class="hidden text-[15px] lg:block">{{ $user->profile?->updated_at?->format('Y.m.d') }}</div>
 
-            <div class="hidden text-[15px] sm:block">{{ $user->last_login_at?->format('Y.m.d') }}</div>
+            <div class="hidden text-[15px] lg:block">{{ $user->last_login_at?->format('Y.m.d') }}</div>
 
-            <div class="relative hidden sm:block" x-data="{ openDialog{{ $user->id }}: false }">
+            <div class="relative hidden lg:block" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
                 @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};">
                 <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />

@@ -1,10 +1,10 @@
 <x-app-layout :url="route('shift.schedule', ['category' => 'week'])">
   <x-main.index>
     <x-main.top>
-      <h5 class="block text-xl font-bold sm:hidden">シフト表一覧</h5>
+      <h5 class="block text-xl font-bold lg:hidden">シフト表一覧</h5>
     </x-main.top>
     <x-main.container>
-      <div class="hidden items-center justify-between sm:flex">
+      <div class="hidden items-center justify-between lg:flex">
         <h5 class="text-xl font-bold">シフト表一覧</h5>
         {{-- <div class="flex items-center">
           <p class="text-xs">シフト提出依頼：</p>
@@ -15,7 +15,7 @@
       </div>
       {{-- デスクトップ版  --}}
       @if ($managers->total() === 0)
-        <div class="mt-[30px] flex h-[calc(100vh-190px)] flex-col items-center justify-center rounded-xl border">
+        <div class="mt-[30px] flex h-[calc(100dvh-190px)] flex-col items-center justify-center rounded-xl border">
           <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g opacity="0.1">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -26,20 +26,20 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[10%,64%,14%,12%] sm:grid">
+        <div class="mt-[30px] hidden grid-cols-[10%,64%,14%,12%] lg:grid">
           <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
           <div class="text-center text-xs font-normal text-[#AAB0B6]"></div>
         </div>
-        <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+        <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
           @foreach ($managers as $manager)
             <div @class([
-                'sm:grid sm:grid-cols-[10%,64%,14%,12%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer',
+                'lg:grid lg:grid-cols-[10%,64%,14%,12%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',
                 'border-b' => !$loop->last,
             ])>
               <div @class([
-                  'hidden truncate px-[12px] w-fit font-bold sm:block text-xs text-white mx-[30px] rounded-full py-1',
+                  'hidden truncate px-[12px] w-fit font-bold lg:block text-xs text-white mx-[30px] rounded-full py-1',
                   'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                   'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                   'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
@@ -51,10 +51,10 @@
                 {{ $manager->start_date->isoFormat('YYYY.MM.DD（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY.MM.DD（ddd）') }}
               </div>
 
-              <div class="hidden text-[15px] sm:block">{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD') }}
+              <div class="hidden text-[15px] lg:block">{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD') }}
               </div>
 
-              <a class="hidden text-center text-[#3289FA] hover:opacity-40 sm:block"
+              <a class="hidden text-center text-[#3289FA] hover:opacity-40 lg:block"
                 href="{{ route('shift.submission.show', ['manager' => $manager]) }}">表示する</a>
             </div>
           @endforeach
@@ -62,7 +62,7 @@
       @endif
 
       {{-- モバイル版 --}}
-      <div class="mt-[30px] block sm:hidden">
+      <div class="mt-[30px] block lg:hidden">
         <div class="mx-5 rounded-lg border">
           @foreach ($managers as $manager)
             <div @class(['py-5 px-[13px] cursor-pointer', 'border-b' => !$loop->last])

@@ -1,9 +1,9 @@
-<div class="flex min-h-[30px] w-full items-center justify-between pt-[30px] sm:max-h-[30px] sm:min-w-[1300px] sm:pt-0"
+<div class="flex min-h-[30px] w-full items-center justify-between pt-[30px] lg:max-h-[30px] lg:min-w-[1300px] lg:pt-0"
   x-data="{ accountModal: false }">
-  <div class="flex w-full items-center justify-between px-[20px] sm:w-auto sm:justify-normal sm:px-0">
+  <div class="flex w-full items-center justify-between px-[20px] lg:w-auto lg:justify-normal lg:px-0">
     {{ $slot }}
   </div>
-  <button class="account-area hidden sm:flex" type="button" x-on:click="accountModal=!accountModal">
+  <button class="account-area hidden lg:flex" type="button" x-on:click="accountModal=!accountModal">
     @if (Auth::user()->icon)
       <img class="h-[30px] w-[30px] rounded-full" src="{{ route('profile.icon', ['id' => Auth::id()]) }}" />
     @else

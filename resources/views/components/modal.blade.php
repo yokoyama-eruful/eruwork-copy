@@ -2,17 +2,17 @@
 
 @php
   $maxWidth = [
-      'sm' => 'sm:max-w-sm',
-      'md' => 'sm:max-w-md',
-      'lg' => 'sm:max-w-lg',
-      'xl' => 'sm:max-w-xl',
-      '2xl' => 'sm:max-w-2xl',
-      '350' => 'sm:max-w-[350px]',
-      '440' => 'sm:max-w-[440px]',
+      'sm' => 'lg:max-w-sm',
+      'md' => 'lg:max-w-md',
+      'lg' => 'lg:max-w-lg',
+      'xl' => 'lg:max-w-xl',
+      '2xl' => 'lg:max-w-2xl',
+      '350' => 'lg:max-w-[350px]',
+      '440' => 'lg:max-w-[440px]',
   ][$maxWidth];
 @endphp
 
-<div class="fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto px-4 py-6 sm:px-0"
+<div class="fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto px-4 py-6 lg:px-0"
   style="display: {{ $show ? 'block' : 'none' }};" x-data="{
       show: @js($show),
       focusables() {
@@ -46,10 +46,10 @@
 
   <div class="{{ $maxWidth }} mb-6 w-full transform overflow-hidden rounded-xl bg-white shadow-xl transition-all"
     x-show="show" x-transition:enter="ease-out duration-300"
-    x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-    x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
-    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-    x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
+    x-transition:enter-start="opacity-0 translate-y-4 lg:translate-y-0 lg:scale-95"
+    x-transition:enter-end="opacity-100 translate-y-0 lg:scale-100" x-transition:leave="ease-in duration-200"
+    x-transition:leave-start="opacity-100 translate-y-0 lg:scale-100"
+    x-transition:leave-end="opacity-0 translate-y-4 lg:translate-y-0 lg:scale-95">
     <div>
       <div class="flex items-center justify-between px-5 py-4">
         <p class="text-start text-base font-bold">{{ $title }}</p>

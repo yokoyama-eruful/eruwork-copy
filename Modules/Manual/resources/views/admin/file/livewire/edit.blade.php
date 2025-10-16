@@ -8,7 +8,7 @@
         : route('manualFileManager.index', ['folder_id' => $file->folder->id]);
   @endphp
   <x-dashboard.top>
-    <a class="hidden items-center hover:opacity-40 sm:flex" href="{{ $targetUrl }}">
+    <a class="hidden items-center hover:opacity-40 lg:flex" href="{{ $targetUrl }}">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
           d="M5.78964 9.39738C5.6843 9.29192 5.62514 9.14895 5.62514 8.99988C5.62514 8.85082 5.6843 8.70785 5.78964 8.60238L11.4146 2.97738C11.5213 2.87802 11.6623 2.82393 11.808 2.8265C11.9538 2.82907 12.0928 2.88811 12.1959 2.99117C12.2989 3.09423 12.358 3.23327 12.3605 3.37899C12.3631 3.52472 12.309 3.66575 12.2096 3.77238L6.98214 8.99988L12.2096 14.2274C12.2649 14.2789 12.3092 14.341 12.34 14.41C12.3707 14.479 12.3873 14.5535 12.3886 14.629C12.3899 14.7045 12.376 14.7795 12.3477 14.8496C12.3194 14.9196 12.2773 14.9832 12.2239 15.0367C12.1705 15.0901 12.1069 15.1322 12.0368 15.1605C11.9668 15.1888 11.8918 15.2027 11.8162 15.2013C11.7407 15.2 11.6662 15.1835 11.5972 15.1527C11.5282 15.122 11.4661 15.0777 11.4146 15.0224L5.78964 9.39738Z"
@@ -16,15 +16,15 @@
       </svg>
       <div class="font-bold text-[#3289FA]">一覧画面に戻る</div>
     </a>
-    <h5 class="text-xl font-bold sm:hidden">編集</h5>
+    <h5 class="text-xl font-bold lg:hidden">編集</h5>
   </x-dashboard.top>
-  <form class="flex h-auto min-h-[calc(100vh-100px)] space-x-5">
+  <form class="flex h-auto min-h-[calc(100dvh-100px)] space-x-5">
     <div
-      class="top-container mt-[30px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
-      <h5 class="hidden text-xl font-bold sm:block">編集</h5>
-      <div class="flex flex-col sm:mt-[30px]">
-        <x-input-label class="hidden sm:block" for="title" value="マニュアルタイトル" />
-        <x-text-input class="mx-5 sm:mx-0" id="title" name="title" type="text" placeholder="タイトルを入力してください"
+      class="top-container mt-[30px] h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      <h5 class="hidden text-xl font-bold lg:block">編集</h5>
+      <div class="flex flex-col lg:mt-[30px]">
+        <x-input-label class="hidden lg:block" for="title" value="マニュアルタイトル" />
+        <x-text-input class="mx-5 lg:mx-0" id="title" name="title" type="text" placeholder="タイトルを入力してください"
           wire:model="form.title" />
         @error('form.title')
           <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
@@ -47,7 +47,7 @@
           @if ($this->judgeUploadFile($form->uploadFile))
             @if (str_contains($form->uploadFile->getMimeType(), 'image'))
               <div
-                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full">
+                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] lg:mx-0 lg:h-[450px] lg:w-full">
                 <img class="h-full w-full rounded-lg" src="{{ $form->uploadFile->temporaryUrl() }}" />
                 <button
                   class="absolute right-2 top-2 flex h-[30px] w-[30px] items-center justify-center rounded bg-[#272727] bg-opacity-40 hover:bg-opacity-70"
@@ -61,7 +61,7 @@
               </div>
             @elseif(str_contains($form->uploadFile->getMimeType(), 'video'))
               <div
-                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full">
+                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] lg:mx-0 lg:h-[450px] lg:w-full">
                 <video class="h-full w-full rounded-lg" controls>
                   <source src="{{ $form->uploadFile->temporaryUrl() }}" type="{{ $form->uploadFile->getMimeType() }}">
                   Your browser does not support the video tag.
@@ -80,7 +80,7 @@
           @else
             @if (str_contains($form->file->type, 'image'))
               <div
-                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full">
+                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] lg:mx-0 lg:h-[450px] lg:w-full">
                 <img class="h-full w-full rounded-lg"
                   src="{{ route('manualFileManager.thumbnail', ['id' => $file->id]) }}" />
                 <button
@@ -95,7 +95,7 @@
               </div>
             @elseif(str_contains($form->file->type, 'video'))
               <div
-                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full">
+                class="relative mx-5 mt-[27px] h-[220px] rounded-lg border border-dashed bg-[#F7F9FA] lg:mx-0 lg:h-[450px] lg:w-full">
                 <video class="h-full w-full rounded-lg" controls>
                   <source src="{{ route('manualFileManager.movie', ['id' => $form->file->id]) }}"
                     type="{{ $form->file->type }}">
@@ -115,7 +115,7 @@
           @endif
         @else
           <div
-            class="mx-5 mt-[27px] flex h-[220px] flex-col items-center justify-center rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full"
+            class="mx-5 mt-[27px] flex h-[220px] flex-col items-center justify-center rounded-lg border border-dashed bg-[#F7F9FA] lg:mx-0 lg:h-[450px] lg:w-full"
             :class="{ 'border-blue-500 bg-blue-50': isDragging }">
             <svg width="214" height="66" viewBox="0 0 214 66" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g opacity="0.4">
@@ -133,7 +133,7 @@
                 fill="#222222" />
             </svg>
 
-            <svg class="mt-[28px] hidden sm:block" width="50" height="50" viewBox="0 0 50 50" fill="none"
+            <svg class="mt-[28px] hidden lg:block" width="50" height="50" viewBox="0 0 50 50" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <circle cx="25" cy="25" r="25" fill="#EBEDF4" />
               <path
@@ -141,7 +141,7 @@
                 stroke="#AAB0B6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
 
-            <p class="mt-[10px] hidden text-xs font-bold text-[#AAB0B6] sm:block">ファイルをエリア内にドラッグ＆ドロップしてください</p>
+            <p class="mt-[10px] hidden text-xs font-bold text-[#AAB0B6] lg:block">ファイルをエリア内にドラッグ＆ドロップしてください</p>
             <button class="mt-5 font-bold text-[#3289FA] hover:opacity-40" type="button"
               x-on:click="$refs.fileInput.click()">
               ファイルを選択する
@@ -149,7 +149,7 @@
 
             <p class="mt-5 text-center text-sm opacity-30">
               ※推奨サイズ<br>
-              画像：横780px × 高さ440px <br class="block sm:hidden"> 動画：1080p（フルHD）
+              画像：横780px × 高さ440px <br class="block lg:hidden"> 動画：1080p（フルHD）
             </p>
           </div>
         @endif
@@ -162,8 +162,8 @@
       </div>
 
       <div class="mt-[27px]">
-        <x-input-label class="hidden sm:block" for="details[]" value="テキストボックス" />
-        <div class="mt-[9px] flex flex-col border-[#DDDDDD] sm:rounded-lg sm:border">
+        <x-input-label class="hidden lg:block" for="details[]" value="テキストボックス" />
+        <div class="mt-[9px] flex flex-col border-[#DDDDDD] lg:rounded-lg lg:border">
           @forelse ($form->details as $index => $detail)
             <div class="min-h-[250px]">
               <div class="flex h-[60px] items-center border-b bg-[#F7F7F7] px-[10px]">
@@ -215,9 +215,9 @@
         </div>
       </div>
 
-      <hr class="mt-[60px] border-t border-[#DDDDDD] sm:-mx-5 sm:mt-[100px]">
+      <hr class="mt-[60px] border-t border-[#DDDDDD] lg:-mx-5 lg:mt-[100px]">
 
-      <div class="sm:hidden">
+      <div class="lg:hidden">
         <h5 class="mx-5 mt-[30px] text-xl font-bold">業務手順</h5>
         <div class="procedure-container">
           <div class="procedure-rows">
@@ -312,9 +312,9 @@
         </div>
       </div>
 
-      <hr class="mt-[60px] border-t border-[#DDDDDD] sm:-mx-5 sm:mt-[100px]">
+      <hr class="mt-[60px] border-t border-[#DDDDDD] lg:-mx-5 lg:mt-[100px]">
 
-      <div class="mb-[80px] mt-5 hidden items-center justify-center space-x-5 sm:flex">
+      <div class="mb-[80px] mt-5 hidden items-center justify-center space-x-5 lg:flex">
         <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
           href="{{ route('manualFileManager.index', ['folder_id' => $file->folder->id]) }}">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#5E5E5E] text-[#5E5E5E]">
@@ -331,7 +331,7 @@
           type="button" wire:click="edit('掲載')" wire:loading.attr="disabled" wire:target="edit">投稿する</button>
       </div>
 
-      <div class="mx-5 mb-[80px] mt-[30px] sm:hidden">
+      <div class="mx-5 mb-[80px] mt-[30px] lg:hidden">
         <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
           type="button" wire:click="edit('掲載')" wire:loading.attr="disabled" wire:target="edit">投稿する</button>
         <div class="mt-[30px] flex items-center space-x-5">
@@ -353,8 +353,8 @@
     </div>
 
     <div
-      class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:block sm:min-w-[320px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
-      <h5 class="hidden text-xl font-bold sm:block">業務手順</h5>
+      class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:min-w-[320px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      <h5 class="hidden text-xl font-bold lg:block">業務手順</h5>
       <div class="procedure-container">
         <div class="procedure-rows">
           @forelse ($form->steps as $index => $step)

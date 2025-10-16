@@ -64,7 +64,7 @@ class AccountController extends Controller
 
         $agent = new Agent;
 
-        return $agent->isMobile()
+        return $agent->isMobile() || $agent->isTablet()
                ? view('account::mobile-edit', ['user' => $user])
                : view('account::desktop-edit', ['user' => $user]);
     }

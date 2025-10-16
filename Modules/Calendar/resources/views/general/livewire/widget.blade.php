@@ -1,5 +1,5 @@
 <div>
-  <div class="hidden sm:block">
+  <div class="hidden lg:block">
     <x-main.top>
       <button class="add-schedule" type="button"
         x-on:click="$dispatch('open-modal', 'create-modal-{{ $startDate->format('Y-m-d') }}')">
@@ -145,7 +145,7 @@
     </x-main.container>
   </div>
 
-  <div class="calender-area-sp sm:hidden">
+  <div class="calender-area-sp lg:hidden">
     <h3 class="calender-sp-title">今週の予定</h3>
     <div class="calendar-sp-month-day">
       <h4 class="min-w-[70px]">{{ $selectDate->format('m月') }}</h4>

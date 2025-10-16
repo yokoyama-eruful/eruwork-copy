@@ -1,8 +1,8 @@
-<div class="w-full justify-between sm:flex">
-  <div class="w-full shrink-0 overflow-y-auto bg-white px-[15px] sm:w-[280px] sm:py-[30px]" x-data="{ koujyoScreen: false }">
-    <div class="mt-[30px] flex items-center justify-between sm:mt-0">
+<div class="w-full justify-between lg:flex">
+  <div class="w-full shrink-0 overflow-y-auto bg-white px-[15px] lg:w-[280px] lg:py-[30px]" x-data="{ koujyoScreen: false }">
+    <div class="mt-[30px] flex items-center justify-between lg:mt-0">
       <h1 class="text-xl font-bold">タイムカード</h1>
-      <a class="block text-xs text-[#3289FA] focus:opacity-40 sm:hidden"
+      <a class="block text-xs text-[#3289FA] focus:opacity-40 lg:hidden"
         href="{{ route('timecard.show', ['date' => $selectedDate->format('Y-m-d')]) }}"
         wire:key="{{ $selectedDate->isoFormat('Ymd') }}">扶養控除目安を確認する</a>
     </div>
@@ -51,7 +51,7 @@
     <hr class="-mx-3 border-t" />
 
     {{-- デスクトップ版 --}}
-    <div class="hidden sm:block">
+    <div class="hidden lg:block">
       <div class="mt-5 text-base font-bold">扶養控除目安</div>
       <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
         <div class="flex flex-col items-start">
@@ -129,7 +129,7 @@
     </div>
 
     {{-- モバイル版 --}}
-    {{-- <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] sm:hidden"
+    {{-- <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] lg:hidden"
       x-show="koujyoScreen===true" x-transition:enter="transition ease-out duration-300"
       x-transition:enter-start="opacity-0 translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
       x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-x-0"
@@ -222,13 +222,13 @@
   </div>
 
   {{-- デスクトップ版メイン --}}
-  <x-main.index class="hidden sm:block">
+  <x-main.index class="hidden lg:block">
     <x-main.top>
       <div class="flex items-center md:ml-0">
         <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-4"
           wire:click="selectedMonth('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="前月">
-          <p class="hidden sm:block">前月</p>
+          <p class="hidden lg:block">前月</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
           <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
@@ -244,7 +244,7 @@
         </div>
         <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-4"
           wire:click="selectedMonth('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
-          <p class="hidden sm:block">翌月</p>
+          <p class="hidden lg:block">翌月</p>
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌月">
         </button>
         <div class="">
@@ -274,7 +274,7 @@
               'min-h-[170px] min-w-[140px]',
               'bg-[#F9FAFF]' =>
                   $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
-              'bg-gray-100 hidden sm:block' => $content['type'] == '補助日',
+              'bg-gray-100 hidden lg:block' => $content['type'] == '補助日',
           ]) wire:click="clickDate('{{ $content['date'] }}')"
             wire:key="calendar-box-{{ $content['date']->format('Y-m-d') }}">
             <div @class([
@@ -312,7 +312,7 @@
   </x-main.index>
 
   {{-- モバイル版メイン --}}
-  <div class="block px-[15px] pt-[50px] sm:hidden">
+  <div class="block px-[15px] pt-[50px] lg:hidden">
     <div class="flex items-center justify-center space-x-[22px] md:ml-0">
       <button class="flex items-center rounded-l text-[15px]"
         wire:click="selectedMonth('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">

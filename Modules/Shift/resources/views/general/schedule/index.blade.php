@@ -16,7 +16,7 @@
       <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-4"
         wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="前月">
-        <p class="hidden sm:block">前月</p>
+        <p class="hidden lg:block">前月</p>
       </button>
       <div class="flex flex-row space-x-[5px]">
         <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
@@ -32,7 +32,7 @@
       </div>
       <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-4"
         wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
-        <p class="hidden sm:block">翌月</p>
+        <p class="hidden lg:block">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌月">
       </button>
       <div class="">

@@ -16,7 +16,7 @@
   }">
     <form @submit.prevent="submitForm">
       <x-dashboard.top>
-        <div class="hidden items-center sm:flex">
+        <div class="hidden items-center lg:flex">
           <button
             class="flex items-center space-x-[6px] rounded bg-[#3289FA] px-[20px] py-[5px] font-bold text-white hover:opacity-40"
             id="downloadBtn" type="submit">
@@ -58,14 +58,14 @@
 
         </div>
 
-        <h5 class="block text-xl font-bold sm:hidden">勤怠管理</h5>
+        <h5 class="block text-xl font-bold lg:hidden">勤怠管理</h5>
       </x-dashboard.top>
       <x-dashboard.container>
         <div class="flex items-center justify-between">
-          <h5 class="hidden text-xl font-bold sm:block">勤怠管理</h5>
+          <h5 class="hidden text-xl font-bold lg:block">勤怠管理</h5>
           <livewire:timecard::admin.calculate-salary :$startDate :$endDate key="{{ $startDate . $endDate }}" />
         </div>
-        <div class="mt-[30px] hidden grid-cols-[5%,4.5%,35.5%,26%,30%] items-end sm:grid">
+        <div class="mt-[30px] hidden grid-cols-[5%,4.5%,35.5%,26%,30%] items-end lg:grid">
           <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
             @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); $wire.set('selectUsers', Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => checkbox.value));">
             全選択</button>
@@ -75,10 +75,10 @@
           <div class="text-left text-xs font-normal text-[#AAB0B6]">支給額（勤怠時間×時給）</div>
           {{-- <div class="text-left text-xs font-normal text-[#AAB0B6]">※休憩を考慮しない<br>見込（確定シフト×時給）</div> --}}
         </div>
-        <div class="mt-[24px] rounded-lg sm:-mx-0 sm:mt-[8px] sm:border sm:border-b">
+        <div class="mt-[24px] rounded-lg lg:-mx-0 lg:mt-[8px] lg:border lg:border-b">
           @foreach ($this->users as $user)
             <div @class([
-                'sm:grid sm:grid-cols-[5%,4.5%,35.5%,26%,30%] sm:py-[18px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid lg:grid-cols-[5%,4.5%,35.5%,26%,30%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
 
@@ -108,7 +108,7 @@
             </div>
           @endforeach
 
-          <div class="block sm:hidden">
+          <div class="block lg:hidden">
             <div class="border-b px-5 pb-[30px]">
               <div class="text-xs font-bold text-[#5E5E5E]">勤怠管理</div>
               <div class="mt-2 flex items-center justify-between">

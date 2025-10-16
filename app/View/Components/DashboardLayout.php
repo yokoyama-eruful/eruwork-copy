@@ -21,7 +21,7 @@ class DashboardLayout extends Component
     {
         $agent = new Agent;
 
-        if ($agent->isMobile()) {
+        if ($agent->isMobile() || $agent->isTablet()) {
             return view('dashboard.mobile.layouts.app');
         }
 

@@ -1,5 +1,5 @@
 <div>
-  <div class="hidden sm:block">
+  <div class="hidden lg:block">
     @vite(['Modules/Board/resources/css/widget.css'])
     <div class="sidebar-title">
       <h5 class="pt-15 font-bold">掲示板</h5>

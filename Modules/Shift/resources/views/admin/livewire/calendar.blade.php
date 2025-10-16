@@ -1,6 +1,6 @@
 <x-dashboard.index>
   <x-dashboard.top>
-    <div class="hidden items-center space-x-[30px] sm:flex">
+    <div class="hidden items-center space-x-[30px] lg:flex">
       <a class="flex items-center space-x-[2px] hover:opacity-40" href="{{ route('shiftManager.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -9,25 +9,25 @@
         </svg>
         <div class="text-sm font-bold text-[#3289FA]">一覧画面に戻る</div>
       </a>
-      <div class="h-[35px] border-l sm:hidden"></div>
+      <div class="h-[35px] border-l lg:hidden"></div>
     </div>
 
-    <div class="flex items-center justify-between sm:hidden">
-      <h5 class="block text-xl font-bold sm:hidden">シフト表管理</h5>
+    <div class="flex items-center justify-between lg:hidden">
+      <h5 class="block text-xl font-bold lg:hidden">シフト表管理</h5>
     </div>
   </x-dashboard.top>
   <x-dashboard.container>
-    <h5 class="hidden text-xl font-bold sm:block">シフト管理</h5>
-    <div class="mt-[30px] flex items-center space-x-2 border-b px-5 pb-[10px] sm:mt-[20px] sm:px-0">
+    <h5 class="hidden text-xl font-bold lg:block">シフト管理</h5>
+    <div class="mt-[30px] flex items-center space-x-2 border-b px-5 pb-[10px] lg:mt-[20px] lg:px-0">
       <div class="text-xs text-[#AAB0B6]">期間:</div>
-      <div class="text-[15px] font-semibold sm:text-[20px]">
+      <div class="text-[15px] font-semibold lg:text-[20px]">
         {{ $manager->submission_start_date->isoFormat('M.D（ddd）') }}　～　{{ $manager->submission_end_date->isoFormat('M.D（ddd）') }}
       </div>
     </div>
 
-    <hr class="mt-5 block border-b sm:hidden" />
+    <hr class="mt-5 block border-b lg:hidden" />
 
-    <div class="mt-[25px] hidden grid-cols-7 sm:grid">
+    <div class="mt-[25px] hidden grid-cols-7 lg:grid">
       <div class="flex items-center justify-center text-[15px]">月</div>
       <div class="flex items-center justify-center text-[15px]">火</div>
       <div class="flex items-center justify-center text-[15px]">水</div>
@@ -37,11 +37,11 @@
       <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
-    <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border sm:grid">
+    <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
             'min-h-[170px] min-w-[140px]',
-            'bg-gray-100 hidden sm:block' => $content['type'] == '期間外',
+            'bg-gray-100 hidden lg:block' => $content['type'] == '期間外',
         ]) wire:key="calendar-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="flex items-center justify-between px-[15px]">
@@ -92,7 +92,7 @@
       @endforeach
     </div>
 
-    {{-- <div class="mt-[10px] block sm:hidden">
+    {{-- <div class="mt-[10px] block lg:hidden">
       <div class="border-b px-5 py-[10px] text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
       @foreach ($this->calendar as $key => $content)
         @if ($content['type'] != '補助日')
@@ -117,7 +117,7 @@
       @endforeach
     </div> --}}
 
-    <div class="block sm:hidden">
+    <div class="block lg:hidden">
       @foreach ($this->calendar as $key => $content)
         <div @class([
             'grid grid-cols-[15%,75%,10%] min-h-[60px]  border-b py-[10px]',

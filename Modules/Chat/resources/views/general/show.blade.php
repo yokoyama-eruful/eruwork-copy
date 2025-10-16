@@ -2,7 +2,7 @@
 
 @section('content')
   <div
-    class="mt-[13px] hidden h-[calc(100vh-100px)] min-w-[1300px] flex-col rounded-[10px] bg-white p-5 shadow-[0_4px_13px_rgba(93,95,98,0.25)] sm:flex">
+    class="mt-[13px] hidden h-[calc(100dvh-100px)] min-w-[1300px] flex-col rounded-[10px] bg-white p-5 shadow-[0_4px_13px_rgba(93,95,98,0.25)] lg:flex">
     <!-- 上のエリア -->
     <div class="h-[40px]">
       <div class="grid grid-cols-[50px,auto,200px]" x-data="{ showMemberList: false }">
@@ -88,7 +88,7 @@
 
   {{-- モバイル版 --}}
   <div
-    class="absolute inset-0 top-[50px] h-[calc(100vh-50px)] transform bg-white transition-transform duration-300 sm:hidden"
+    class="absolute inset-0 top-[50px] h-[calc(100dvh-50px)] transform bg-white transition-transform duration-300 lg:hidden"
     x-show="mobileMemberArea == false" x-transition:enter="translate-x-full" x-transition:enter-start="translate-x-full"
     x-transition:enter-end="translate-x-0" x-transition:leave="translate-x-full" x-transition:leave-start="translate-x-0"
     x-transition:leave-end="translate-x-full">
@@ -164,7 +164,7 @@
         </x-modal-alert>
       @endif
     </div>
-    <div class="mt-2 h-[calc(100vh-210px)] overflow-y-auto">
+    <div class="mt-2 h-[calc(100dvh-210px)] overflow-y-auto">
       @livewire('chat::general.talk-area', ['group' => $selectGroup])
     </div>
 

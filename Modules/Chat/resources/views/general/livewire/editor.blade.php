@@ -1,7 +1,7 @@
-<div class="flex h-full flex-col sm:justify-center">
+<div class="flex h-full flex-col lg:justify-center">
   <!-- ===== 入力フォーム ===== -->
   <!-- スマホ版（画面下固定） -->
-  <div class="fixed bottom-0 left-0 flex w-full items-center gap-2 bg-white p-3 pb-8 shadow-md sm:hidden">
+  <div class="fixed bottom-0 left-0 flex w-full items-center gap-2 bg-white p-3 pb-8 shadow-md lg:hidden">
     <!-- ファイル追加ボタン -->
     <button
       class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
@@ -31,7 +31,7 @@
 
   <!-- PC版（チャット幅に沿って下から20px上に配置） -->
   <div
-    class="mx-auto hidden w-full max-w-[740px] flex-col items-center rounded-lg border border-[#dddddd] bg-white p-3 shadow-sm sm:flex">
+    class="mx-auto hidden w-full max-w-[740px] flex-col items-center rounded-lg border border-[#dddddd] bg-white p-3 shadow-sm lg:flex">
     <!-- ファイル追加ボタン -->
 
     <div class="flex w-full items-center">

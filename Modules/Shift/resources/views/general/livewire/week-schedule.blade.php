@@ -152,7 +152,7 @@
 
 <x-main.index>
   <x-main.top>
-    <div class="hidden flex-row items-center space-x-5 sm:flex">
+    <div class="hidden flex-row items-center space-x-5 lg:flex">
       <div class="flex flex-row">
         <a class="rounded-l border border-[#3289FA] bg-[#3289FA] px-[22px] text-[15px] text-white"
           href="{{ route('shift.schedule', ['category' => 'week']) }}">週</a>
@@ -162,7 +162,7 @@
       <div class="flex items-center md:ml-0">
         <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-2" wire:click="setPreviousWeek">
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="先週">
-          <p class="hidden sm:block">先週</p>
+          <p class="hidden lg:block">先週</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
           <select class="rounded border border-[#DDDDDD]" wire:model.change="viewYear" wire:change="pullDownDateMenu">
@@ -182,7 +182,7 @@
           </select>
         </div>
         <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-2" wire:click="setNextWeek">
-          <p class="hidden sm:block">翌週</p>
+          <p class="hidden lg:block">翌週</p>
           <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌週">
         </button>
         <div class="">
@@ -192,7 +192,7 @@
       </div>
     </div>
 
-    <div class="flex w-full flex-col sm:hidden">
+    <div class="flex w-full flex-col lg:hidden">
       <div class="text-xl font-bold">シフト表</div>
       @if ($manager)
         <div class="mt-[30px]">
@@ -222,14 +222,14 @@
     </div>
   </x-main.top>
   <x-main.container>
-    <div class="hidden items-center justify-between sm:flex">
+    <div class="hidden items-center justify-between lg:flex">
       <h5 class="text-xl font-bold">シフト表</h5>
       @if ($manager)
         <div class="flex items-center">
           <p class="text-xs">シフト提出依頼：</p>
           <div class="ml-3 flex h-[45px] items-center rounded bg-[#F7F7F7] px-5">
             <div @class([
-                'hidden truncate px-[10px] w-fit font-bold sm:block text-xs text-white rounded-full py-[3px]',
+                'hidden truncate px-[10px] w-fit font-bold lg:block text-xs text-white rounded-full py-[3px]',
                 'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                 'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                 'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
@@ -250,10 +250,10 @@
       @endif
     </div>
 
-    <div class="mb-[12px] mt-[35px] flex items-center justify-between px-5 sm:mb-[14px] sm:mt-[17px] sm:px-0">
+    <div class="mb-[12px] mt-[35px] flex items-center justify-between px-5 lg:mb-[14px] lg:mt-[17px] lg:px-0">
       <div class="flex items-center">
         <p class="text-xs text-[#AAB0B6]">期間：</p>
-        <div class="pl-1 text-sm font-semibold sm:text-xl">
+        <div class="pl-1 text-sm font-semibold lg:text-xl">
           {{ $startDate->isoFormat('M/D日（ddd）') }} ～ {{ $endDate->isoFormat('M/D日（ddd）') }}</div>
       </div>
       <a class="flex items-center space-x-1 hover:opacity-40" href="{{ route('shift.submission.index') }}">
@@ -267,7 +267,7 @@
     </div>
     <hr class="border-t">
 
-    <div class="mt-5 flex w-full items-center justify-between px-5 sm:hidden">
+    <div class="mt-5 flex w-full items-center justify-between px-5 lg:hidden">
       <button class="flex items-center space-x-1 rounded-l text-[15px] text-[#5E5E5E] xl:px-2"
         wire:click="setPreviousWeek">
         <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="先週">
@@ -280,12 +280,12 @@
       </button>
     </div>
 
-    <div class="mt-[15px] w-full overflow-x-auto sm:mt-6 sm:overflow-hidden">
+    <div class="mt-[15px] w-full overflow-x-auto lg:mt-6 lg:overflow-hidden">
       <!-- thead -->
       <table class="sticky -top-6 w-full min-w-full table-fixed border-separate border-spacing-0 bg-white">
         <thead>
           <tr>
-            <th class="w-[100px] text-xs font-normal text-[#3289FA] sm:w-32"></th>
+            <th class="w-[100px] text-xs font-normal text-[#3289FA] lg:w-32"></th>
             @foreach ($this->calendar as $content)
               <th
                 class="{{ $content['date']->format('Ymd') === now()->format('Ymd')
@@ -296,9 +296,9 @@
                             ? 'font-normal text-[#FF0000]'
                             : ($content['type'] === '公休日'
                                 ? 'font-normal text-orange-200'
-                                : 'font-normal text-black'))) }} w-[100px] py-[6px] text-[15px] sm:w-32">
-                <p class="hidden sm:block">{{ $content['date']->isoFormat('M/D(ddd)') }}</p>
-                <div class="block sm:hidden">
+                                : 'font-normal text-black'))) }} w-[100px] py-[6px] text-[15px] lg:w-32">
+                <p class="hidden lg:block">{{ $content['date']->isoFormat('M/D(ddd)') }}</p>
+                <div class="block lg:hidden">
                   <p>{{ $content['date']->isoFormat('ddd') }}</p>
                   <p>{{ $content['date']->isoFormat('D') }}</p>
                 </div>
@@ -308,26 +308,26 @@
         </thead>
       </table>
 
-      <div class="mt-[9px] w-full rounded-lg border-gray-300 sm:overflow-x-auto sm:border">
-        <table class="min-w-full table-fixed border-collapse border border-gray-300 sm:border-none">
+      <div class="mt-[9px] w-full rounded-lg border-gray-300 lg:overflow-x-auto lg:border">
+        <table class="min-w-full table-fixed border-collapse border border-gray-300 lg:border-none">
           <tbody>
             @foreach ($this->shiftSchedules as $user)
-              <tr class="h-[100px] sm:h-[137px]">
+              <tr class="h-[100px] lg:h-[137px]">
                 <td
-                  class="min-w-[100px] max-w-[100px] break-words border-b border-r border-gray-300 px-[15px] text-[15px] font-bold sm:min-w-32 sm:max-w-32">
+                  class="min-w-[100px] max-w-[100px] break-words border-b border-r border-gray-300 px-[15px] text-[15px] font-bold lg:min-w-32 lg:max-w-32">
                   {{ $user['name'] }}
                 </td>
                 @foreach ($user['schedules'] as $daySchedules)
                   <td
-                    class="min-w-[100px] max-w-[100px] border-b border-r border-gray-300 py-[10px] align-top sm:min-w-32 sm:max-w-32 sm:py-[15px]">
+                    class="min-w-[100px] max-w-[100px] border-b border-r border-gray-300 py-[10px] align-top lg:min-w-32 lg:max-w-32 lg:py-[15px]">
                     @foreach ($daySchedules as $schedule)
                       <div
-                        class="mr-[10px] truncate rounded-lg border border-[#39A338] bg-[#F6FFF6] px-2 py-1 text-[#39A338] sm:px-[10px] sm:py-2">
+                        class="mr-[10px] truncate rounded-lg border border-[#39A338] bg-[#F6FFF6] px-2 py-1 text-[#39A338] lg:px-[10px] lg:py-2">
                         <div class="text-sm font-bold">出勤</div>
-                        <div class="hidden text-sm sm:block">
+                        <div class="hidden text-sm lg:block">
                           {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time->isoFormat('H:mm') }}
                         </div>
-                        <div class="block text-sm sm:hidden">
+                        <div class="block text-sm lg:hidden">
                           {{ $schedule->start_time->isoFormat('H:mm') }}<br>
                           {{ '～' . $schedule->end_time->isoFormat('H:mm') }}
                         </div>

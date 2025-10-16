@@ -1,13 +1,13 @@
 <x-main.index>
 
   <x-main.top>
-    <h5 class="block text-xl font-bold sm:hidden">カレンダー</h5>
+    <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
     <livewire:calendar::general.multi-create-schedule />
-    <div class="hidden items-center sm:flex md:ml-0">
+    <div class="hidden items-center md:ml-0 lg:flex">
       <button class="flex items-center space-x-1 rounded-l pl-[30px] pr-[11px] text-[15px]"
         wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="前月">
-        <p class="hidden sm:block">前月</p>
+        <p class="hidden lg:block">前月</p>
       </button>
       <div class="flex flex-row space-x-[5px]">
         <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
@@ -23,7 +23,7 @@
       </div>
       <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[15px]"
         wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
-        <p class="hidden sm:block">翌月</p>
+        <p class="hidden lg:block">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌月">
       </button>
       <div class="">
@@ -33,7 +33,7 @@
     </div>
   </x-main.top>
   <x-main.container>
-    <div class="mt-5 flex items-center justify-between px-5 sm:hidden">
+    <div class="mt-5 flex items-center justify-between px-5 lg:hidden">
       <button class="flex items-center space-x-1 rounded-l text-[15px]"
         wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="前月">
@@ -58,9 +58,9 @@
       </button>
     </div>
 
-    <h5 class="hidden text-xl font-bold sm:block">カレンダー</h5>
+    <h5 class="hidden text-xl font-bold lg:block">カレンダー</h5>
 
-    <div class="mt-[25px] hidden grid-cols-7 sm:grid">
+    <div class="mt-[25px] hidden grid-cols-7 lg:grid">
       <div class="flex items-center justify-between">
         <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
         <div class="text-[15px]">月</div>
@@ -73,13 +73,13 @@
       <div class="flex items-center justify-center text-[15px] text-[#48CBFF]">土</div>
       <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
     </div>
-    <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border sm:grid">
+    <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
             'min-h-[170px] min-w-[140px]',
             'bg-[#F9FAFF]' =>
                 $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
-            'bg-gray-100 hidden sm:block' => $content['type'] == '補助日',
+            'bg-gray-100 hidden lg:block' => $content['type'] == '補助日',
         ]) wire:key="calendar-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="flex items-center justify-between px-[15px]">
@@ -232,7 +232,7 @@
     </div>
 
     {{-- モバイル版 --}}
-    <div class="mt-[10px] block sm:hidden">
+    <div class="mt-[10px] block lg:hidden">
       <div class="border-b px-5 py-[10px] text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
       @foreach ($this->calendar as $key => $content)
         @if ($content['type'] != '補助日')

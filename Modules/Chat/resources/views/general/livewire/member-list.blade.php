@@ -1,8 +1,8 @@
-<div class="mb-10 mt-[30px] sm:mb-0 sm:mt-[50px]">
-  <div class="mb-6 text-[11px] font-bold sm:mb-[7px]">グループ一覧</div>
+<div class="mb-10 mt-[30px] lg:mb-0 lg:mt-[50px]">
+  <div class="mb-6 text-[11px] font-bold lg:mb-[7px]">グループ一覧</div>
   @foreach ($this->groups->where('is_dm', false) as $group)
     <a href="{{ route('chat.show', ['group' => $group]) }}" @class([
-        'grid grid-cols-[30px,auto,30px] sm:py-2 py-[20px] rounded gap-1 my-1 sm:border-none border-b sm:-mx-0 -mx-[15px] sm:px-0 px-[20px]',
+        'grid grid-cols-[30px,auto,30px] lg:py-2 py-[20px] rounded gap-1 my-1 lg:border-none border-b lg:-mx-0 -mx-[15px] lg:px-0 px-[20px]',
         'bg-[#3289FA1A] bg-opacity-10 border border-[#3289FA]' =>
             $selectGroup?->id == $group?->id,
     ]) @click="mobileTalkArea=true">
@@ -27,11 +27,11 @@
     </a>
   @endforeach
 
-  <div class="mb-6 mt-[60px] text-[11px] font-bold sm:mb-[7px]">メンバー</div>
+  <div class="mb-6 mt-[60px] text-[11px] font-bold lg:mb-[7px]">メンバー</div>
   @foreach ($this->groups->where('is_dm', true) as $group)
     @if ($group->partnerUser !== null)
       <a href="{{ route('chat.show', ['group' => $group]) }}" @class([
-          'grid grid-cols-[30px,auto,30px] sm:py-2 py-[20px] rounded gap-1 my-1 sm:border-none border-b sm:-mx-0 -mx-[15px] sm:px-0 px-[20px]',
+          'grid grid-cols-[30px,auto,30px] lg:py-2 py-[20px] rounded gap-1 my-1 lg:border-none border-b lg:-mx-0 -mx-[15px] lg:px-0 px-[20px]',
           'bg-[#3289FA1A] bg-opacity-10 border border-[#3289FA]' =>
               $selectGroup?->id == $group?->id,
       ]) @click="mobileTalkArea=true">

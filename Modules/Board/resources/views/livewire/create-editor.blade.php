@@ -1,15 +1,15 @@
 <x-main.index>
   <x-main.top>
-    <div class="flex items-center justify-between sm:hidden">
+    <div class="flex items-center justify-between lg:hidden">
       <h5 class="text-xl font-bold">新規投稿</h5>
     </div>
   </x-main.top>
   <x-main.container>
-    <div class="hidden items-center justify-between sm:flex">
+    <div class="hidden items-center justify-between lg:flex">
       <h5 class="text-xl font-bold">新規投稿</h5>
     </div>
 
-    <form class="p-5 sm:mt-[30px] sm:p-0" id="postForm" wire:submit.prevent="submitPost" enctype="multipart/form-data">
+    <form class="p-5 lg:mt-[30px] lg:p-0" id="postForm" wire:submit.prevent="submitPost" enctype="multipart/form-data">
       {{-- タイトル --}}
       <div class="flex flex-col">
         <x-input-label for="title" value="タイトル" />
@@ -45,16 +45,16 @@
             $refs.fileInput.files = dt.files;
             $refs.fileInput.dispatchEvent(new Event('change', { bubbles: true }));
           ">
-          <div class="flex h-[80px] w-full cursor-pointer flex-col items-center justify-center sm:h-[130px]"
+          <div class="flex h-[80px] w-full cursor-pointer flex-col items-center justify-center lg:h-[130px]"
             @click="$refs.fileInput.click()">
-            <div class="mb-3 flex h-[35px] w-[35px] items-center justify-center rounded-full bg-[#EBEDF4] sm:mb-0">
+            <div class="mb-3 flex h-[35px] w-[35px] items-center justify-center rounded-full bg-[#EBEDF4] lg:mb-0">
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M1 10.75V12.375C1 12.806 1.1712 13.2193 1.47595 13.524C1.7807 13.8288 2.19402 14 2.625 14H12.375C12.806 14 13.2193 13.8288 13.524 13.524C13.8288 13.2193 14 12.806 14 12.375V10.75M4.25 4.25L7.5 1M7.5 1L10.75 4.25M7.5 1V10.75"
                   stroke="#AAB0B6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
               </svg>
             </div>
-            <p class="mb-[7px] mt-4 hidden text-xs font-bold text-[#AAB0B6] sm:block">
+            <p class="mb-[7px] mt-4 hidden text-xs font-bold text-[#AAB0B6] lg:block">
               ファイルをドラッグ＆ドロップ、またはクリックで選択
             </p>
             <div class="text-xs font-bold text-[#3289FA]" type="button">ファイルを選択する</div>
@@ -88,7 +88,7 @@
       </div>
 
       {{-- ボタン --}}
-      <div class="mt-10 hidden justify-center space-x-5 sm:flex">
+      <div class="mt-10 hidden justify-center space-x-5 lg:flex">
         <a class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md border-2 border-[#3289FA] bg-white font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
           href="{{ route('board.index') }}">
           キャンセル
@@ -107,7 +107,7 @@
         </button>
       </div>
 
-      <div class="my-5 block w-full sm:hidden">
+      <div class="my-5 block w-full lg:hidden">
         <button
           class="inline-flex h-[50px] w-full items-center justify-center rounded-md bg-[#3289FA] font-bold uppercase tracking-widest text-white hover:bg-blue-100"
           id="postButton" type="button">

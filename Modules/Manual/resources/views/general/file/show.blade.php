@@ -2,7 +2,7 @@
   <x-main.index>
     @vite(['Modules/Manual/resources/assets/js/procedure.js', 'Modules/Manual/resources/assets/css/procedure.css'])
     <x-main.top>
-      <a class="hidden items-center hover:opacity-40 sm:flex"
+      <a class="hidden items-center hover:opacity-40 lg:flex"
         href="{{ route('manualFile.index', ['folder_id' => $folder->id]) }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -11,21 +11,21 @@
         </svg>
         <div class="font-bold text-[#3289FA]">一覧画面に戻る</div>
       </a>
-      <h5 class="text-xl font-bold sm:hidden">{{ $file->title }}</h5>
+      <h5 class="text-xl font-bold lg:hidden">{{ $file->title }}</h5>
     </x-main.top>
-    <div class="sm:flex sm:h-auto sm:min-h-[calc(100vh-100px)] sm:space-x-5">
+    <div class="lg:flex lg:h-auto lg:min-h-[calc(100dvh-100px)] lg:space-x-5">
       <div
-        class="top-container mt-5 h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
-        <h5 class="hidden text-xl font-bold sm:block">{{ $file->title }}</h5>
+        class="top-container mt-5 h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+        <h5 class="hidden text-xl font-bold lg:block">{{ $file->title }}</h5>
 
         @if (str_contains($file->type, 'image'))
           <div
-            class="mt-5 flex h-[220px] w-full justify-center bg-black sm:static sm:h-[450px] sm:rounded-lg sm:border">
-            <img class="h-full sm:rounded-lg" src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
+            class="mt-5 flex h-[220px] w-full justify-center bg-black lg:static lg:h-[450px] lg:rounded-lg lg:border">
+            <img class="h-full lg:rounded-lg" src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
           </div>
         @elseif(str_contains($file->type, 'video'))
-          <div class="sticky top-0 z-10 mt-5 h-[220px] w-full bg-black sm:static sm:h-[450px] sm:rounded-lg sm:border">
-            <video class="h-full w-full sm:rounded-lg" controls playsinline>
+          <div class="sticky top-0 z-10 mt-5 h-[220px] w-full bg-black lg:static lg:h-[450px] lg:rounded-lg lg:border">
+            <video class="h-full w-full lg:rounded-lg" controls playsinline>
               <source src="{{ route('manualFile.movie', ['id' => $file->id]) }}" type="{{ $file->type }}">
               Your browser does not support the video tag.
             </video>
@@ -33,7 +33,7 @@
         @endif
 
         @if (!empty($file->details))
-          <div class="mt-5 border border-[#DDDDDD] sm:rounded-lg">
+          <div class="mt-5 border border-[#DDDDDD] lg:rounded-lg">
             @foreach ($file->details as $detail)
               <div @class([
                   'flex h-10 items-center bg-[#F7F7F7] px-5 text-sm font-bold',
@@ -45,7 +45,7 @@
           </div>
         @endif
 
-        <div class="sm:hidden">
+        <div class="lg:hidden">
           <div class="procedure-container">
             @if (!empty($file->steps))
               <div class="procedure-rows">
@@ -75,8 +75,8 @@
         </div>
       </div>
       <div
-        class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:block sm:min-w-[320px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
-        <h5 class="hidden text-xl font-bold sm:block">業務手順</h5>
+        class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:min-w-[320px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+        <h5 class="hidden text-xl font-bold lg:block">業務手順</h5>
         <div class="procedure-container">
           @if (!empty($file->steps))
             <div class="procedure-rows">

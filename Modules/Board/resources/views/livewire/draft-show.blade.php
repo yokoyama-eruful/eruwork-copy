@@ -1,12 +1,12 @@
 <x-main.index>
   <x-main.top>
-    <h5 class="block text-xl font-bold sm:hidden">下書き一覧</h5>
+    <h5 class="block text-xl font-bold lg:hidden">下書き一覧</h5>
     <x-main.add-a href="{{ route('board.create') }}">新規投稿</x-main.add-a>
   </x-main.top>
   <x-main.container>
     <div class="flex items-center justify-between">
-      <h5 class="hidden text-xl font-bold sm:block">下書き一覧</h5>
-      <a class="flex items-center px-5 text-sm text-[#3289FA] hover:text-[#3289fa4d] sm:px-0"
+      <h5 class="hidden text-xl font-bold lg:block">下書き一覧</h5>
+      <a class="flex items-center px-5 text-sm text-[#3289FA] hover:text-[#3289fa4d] lg:px-0"
         href="{{ route('board.index') }}">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -18,7 +18,7 @@
     </div>
 
     @if ($posts->isEmpty())
-      <div class="mt-[30px] flex h-[calc(100vh-190px)] flex-col items-center justify-center rounded-xl border">
+      <div class="mt-[30px] flex h-[calc(100dvh-190px)] flex-col items-center justify-center rounded-xl border">
         <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path opacity="0.1" fill-rule="evenodd" clip-rule="evenodd"
             d="M43.75 12.5C42.0927 12.5011 40.5037 13.1599 39.3318 14.3318C38.1599 15.5037 37.5011 17.0927 37.5 18.75H62.5C62.5 17.0924 61.8415 15.5027 60.6694 14.3306C59.4973 13.1585 57.9076 12.5 56.25 12.5H43.75ZM32.5292 13.2417C33.559 11.1439 35.1562 9.3768 37.1396 8.14096C39.123 6.90511 41.4131 6.25001 43.75 6.25H56.25C58.5876 6.24923 60.8786 6.90397 62.8628 8.13986C64.847 9.37574 66.4449 11.1433 67.475 13.2417C69.5458 13.4167 71.6083 13.625 73.6667 13.8667C79.9042 14.5875 84.375 19.95 84.375 26.0708V81.25C84.375 84.5652 83.058 87.7446 80.7138 90.0888C78.3696 92.433 75.1902 93.75 71.875 93.75H28.125C24.8098 93.75 21.6304 92.433 19.2862 90.0888C16.942 87.7446 15.625 84.5652 15.625 81.25V26.0708C15.625 19.9458 20.0958 14.5875 26.3333 13.8625C28.3875 13.625 30.4542 13.4208 32.5292 13.2417Z"
@@ -27,7 +27,7 @@
         <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">下書きがありません</div>
       </div>
     @else
-      <div class="mt-[30px] hidden grid-cols-[65%,10%,10%,10%,5%] sm:grid">
+      <div class="mt-[30px] hidden grid-cols-[65%,10%,10%,10%,5%] lg:grid">
         <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">表題</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">作成者</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">作成日時</div>
@@ -35,16 +35,16 @@
         <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
       </div>
 
-      <div class="mt-[24px] rounded-lg border-b sm:-mx-0 sm:mt-[8px] sm:border">
+      <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($posts as $post)
           <div onclick="window.location='{{ route('board.show', ['id' => $post->id]) }}'" @class([
-              'sm:grid sm:grid-cols-[66%,10%,10%,10%,4%] sm:py-[30px] py-3 text-[15px] sm:px-0 px-5 cursor-pointer',
+              'lg:grid lg:grid-cols-[66%,10%,10%,10%,4%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',
               'border-b' => !$loop->last,
           ])>
-            <div class="hidden truncate px-[30px] font-bold sm:block">{!! nl2br(e($post->title)) !!}</div>
-            <div class="hidden truncate sm:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
-            <div class="hidden truncate sm:block">{{ $post->updated_at?->format('Y.m.d') }}</div>
-            <div class="hidden items-center justify-center sm:flex">
+            <div class="hidden truncate px-[30px] font-bold lg:block">{!! nl2br(e($post->title)) !!}</div>
+            <div class="hidden truncate lg:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
+            <div class="hidden truncate lg:block">{{ $post->updated_at?->format('Y.m.d') }}</div>
+            <div class="hidden items-center justify-center lg:flex">
               @if ($post->attachments->isNotEmpty())
                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +54,7 @@
                 </svg>
               @endif
             </div>
-            <div class="relative hidden sm:block" x-data="{ openDialog{{ $post->id }}: false }">
+            <div class="relative hidden lg:block" x-data="{ openDialog{{ $post->id }}: false }">
               <div onclick="event.stopPropagation();"
                 @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};"><img
                   class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
@@ -93,7 +93,7 @@
                 </button>
               </div>
             </div>
-            <div class="mb-[7px] flex items-center justify-between sm:hidden">
+            <div class="mb-[7px] flex items-center justify-between lg:hidden">
               <div class="flex items-center space-x-2">
                 <div class="truncate text-xs">{{ $post->updated_at?->format('Y.m.d') }}</div>
                 <div class="h-4 border-l border-gray-300"></div>
@@ -154,7 +154,7 @@
               </div>
             </div>
 
-            <div class="block break-words font-bold sm:hidden">{!! nl2br(e($post->title)) !!}</div>
+            <div class="block break-words font-bold lg:hidden">{!! nl2br(e($post->title)) !!}</div>
           </div>
 
           <x-modal-alert name="delete-modal-{{ $post->id }}" title="削除" maxWidth="sm">
@@ -172,7 +172,7 @@
           </x-modal-alert>
         @endforeach
       </div>
-      <div class="mb-5 sm:mb-0">
+      <div class="mb-5 lg:mb-0">
         {{ $posts->links('vendor.pagination.tailwind') }}
       </div>
     @endif

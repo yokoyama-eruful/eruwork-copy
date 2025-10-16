@@ -1,5 +1,5 @@
 <div>
-  <div class="hidden items-center space-x-[10px] sm:flex">
+  <div class="hidden items-center space-x-[10px] lg:flex">
     {{-- <div class="flex h-10 w-[170px] items-center justify-center space-x-1 rounded bg-[#F7F7F7]">
       <p class="text-[11px]">端数処理方法：</p>
       <p class="text-sm font-semibold">{{ $fraction ?? '--' }}</p>

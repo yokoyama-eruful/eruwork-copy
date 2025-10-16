@@ -1,7 +1,7 @@
 <x-dashboard.index>
   @vite(['Modules/Manual/resources/assets/js/procedure.js', 'Modules/Manual/resources/assets/css/procedure.css'])
   <x-dashboard.top>
-    <a class="hidden items-center hover:opacity-40 sm:flex"
+    <a class="hidden items-center hover:opacity-40 lg:flex"
       href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -10,14 +10,14 @@
       </svg>
       <div class="font-bold text-[#3289FA]">一覧画面に戻る</div>
     </a>
-    <h5 class="text-xl font-bold sm:hidden">新規作成</h5>
+    <h5 class="text-xl font-bold lg:hidden">新規作成</h5>
   </x-dashboard.top>
-  <form class="flex h-auto min-h-[calc(100vh-100px)] space-x-5">
+  <form class="flex h-auto min-h-[calc(100dvh-100px)] space-x-5">
     <div
-      class="top-container mt-[30px] h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:min-w-[960px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
-      <h5 class="hidden text-xl font-bold sm:block">新規作成</h5>
-      <div class="mx-5 flex flex-col sm:mx-0 sm:mt-[30px]">
-        <x-input-label class="mb-[9px] hidden sm:block" for="title" value="マニュアルタイトル" />
+      class="top-container mt-[30px] h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      <h5 class="hidden text-xl font-bold lg:block">新規作成</h5>
+      <div class="mx-5 flex flex-col lg:mx-0 lg:mt-[30px]">
+        <x-input-label class="mb-[9px] hidden lg:block" for="title" value="マニュアルタイトル" />
         <x-text-input id="title" name="title" type="text" placeholder="タイトルを入力してください"
           wire:model="form.title" />
         @error('form.title')
@@ -70,7 +70,7 @@
           @endif
         @else
           <div
-            class="mx-5 mt-[27px] flex h-[220px] flex-col items-center justify-center rounded-lg border border-dashed bg-[#F7F9FA] sm:mx-0 sm:h-[450px] sm:w-full"
+            class="mx-5 mt-[27px] flex h-[220px] flex-col items-center justify-center rounded-lg border border-dashed bg-[#F7F9FA] lg:mx-0 lg:h-[450px] lg:w-full"
             :class="{ 'border-blue-500 bg-blue-50': isDragging }">
             <svg width="214" height="66" viewBox="0 0 214 66" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g opacity="0.4">
@@ -88,7 +88,7 @@
                 fill="#222222" />
             </svg>
 
-            <svg class="mt-[28px] hidden sm:block" width="50" height="50" viewBox="0 0 50 50" fill="none"
+            <svg class="mt-[28px] hidden lg:block" width="50" height="50" viewBox="0 0 50 50" fill="none"
               xmlns="http://www.w3.org/2000/svg">
               <circle cx="25" cy="25" r="25" fill="#EBEDF4" />
               <path
@@ -96,7 +96,7 @@
                 stroke="#AAB0B6" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
 
-            <p class="mt-[10px] hidden text-xs font-bold text-[#AAB0B6] sm:block">ファイルをエリア内にドラッグ＆ドロップしてください</p>
+            <p class="mt-[10px] hidden text-xs font-bold text-[#AAB0B6] lg:block">ファイルをエリア内にドラッグ＆ドロップしてください</p>
             <button class="mt-5 font-bold text-[#3289FA] hover:opacity-40" type="button"
               x-on:click="$refs.fileInput.click()">
               ファイルを選択する
@@ -104,7 +104,7 @@
 
             <p class="mt-5 text-center text-sm opacity-30">
               ※推奨サイズ<br>
-              画像：横780px × 高さ440px <br class="block sm:hidden"> 動画：1080p（フルHD）
+              画像：横780px × 高さ440px <br class="block lg:hidden"> 動画：1080p（フルHD）
             </p>
           </div>
         @endif
@@ -117,8 +117,8 @@
       </div>
 
       <div class="mt-[27px]">
-        <x-input-label class="hidden sm:block" for="details[]" value="テキストボックス" />
-        <div class="mt-[9px] flex flex-col border-[#DDDDDD] sm:rounded-lg sm:border">
+        <x-input-label class="hidden lg:block" for="details[]" value="テキストボックス" />
+        <div class="mt-[9px] flex flex-col border-[#DDDDDD] lg:rounded-lg lg:border">
           @foreach ($form->details as $index => $detail)
             <div class="min-h-[250px]">
               <div class="flex h-[60px] items-center border-b bg-[#F7F7F7] px-[10px]">
@@ -159,9 +159,9 @@
         </div>
       </div>
 
-      <hr class="-mx-5 mt-[60px] border-t border-[#DDDDDD] sm:mt-[100px]">
+      <hr class="-mx-5 mt-[60px] border-t border-[#DDDDDD] lg:mt-[100px]">
 
-      <div class="mt-[30px] sm:hidden">
+      <div class="mt-[30px] lg:hidden">
         <div class="procedure-container">
           <h5 class="text-xl font-bold">業務手順</h5>
           <div class="procedure-rows mt-5">
@@ -239,9 +239,9 @@
         </div>
       </div>
 
-      <hr class="-mx-5 mt-[60px] border-t border-[#DDDDDD] sm:hidden">
+      <hr class="-mx-5 mt-[60px] border-t border-[#DDDDDD] lg:hidden">
 
-      <div class="mb-[80px] mt-5 hidden items-center justify-center space-x-5 sm:flex">
+      <div class="mb-[80px] mt-5 hidden items-center justify-center space-x-5 lg:flex">
         <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
           href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#5E5E5E] text-[#5E5E5E]">
@@ -258,7 +258,7 @@
           wire:click="create('掲載')" wire:loading.attr="disabled" wire:target="create">投稿する</button>
       </div>
 
-      <div class="mx-5 mb-[80px] mt-[30px] sm:hidden">
+      <div class="mx-5 mb-[80px] mt-[30px] lg:hidden">
         <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40" type="button"
           wire:click="create('掲載')" wire:loading.attr="disabled" wire:target="create">投稿する</button>
         <div class="mt-[30px] flex items-center space-x-5">
@@ -288,8 +288,8 @@
     </div> --}}
 
     <div
-      class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] sm:mt-[13px] sm:block sm:min-w-[320px] sm:bg-white sm:p-[20px] sm:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
-      <h5 class="hidden text-xl font-bold sm:block">業務手順</h5>
+      class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:min-w-[320px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      <h5 class="hidden text-xl font-bold lg:block">業務手順</h5>
       <div class="procedure-container">
         <div class="procedure-rows">
           @foreach ($form->steps as $index => $step)
