@@ -13,7 +13,7 @@
       </a>
       <h5 class="text-xl font-bold lg:hidden">{{ $file->title }}</h5>
     </x-main.top>
-    <div class="lg:flex lg:h-auto lg:min-h-[calc(100dvh-100px)] lg:space-x-5">
+    <div class="lg:flex lg:h-auto lg:min-h-[calc(var(--vh)*100-100px)] lg:space-x-5">
       <div
         class="top-container mt-5 h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
         <h5 class="hidden text-xl font-bold lg:block">{{ $file->title }}</h5>

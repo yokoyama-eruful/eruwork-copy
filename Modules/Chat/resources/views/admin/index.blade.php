@@ -12,7 +12,7 @@
       <h5 class="hidden text-xl font-bold lg:block">チャット管理</h5>
 
       @if ($groups->total() === 0)
-        <div class="mt-[30px] flex h-[calc(100dvh-190px)] flex-col items-center justify-center rounded-xl border">
+        <div class="mt-[30px] flex h-[calc(var(--vh)*100-190px)] flex-col items-center justify-center rounded-xl border">
           <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g opacity="0.1">
               <path fill-rule="evenodd" clip-rule="evenodd"

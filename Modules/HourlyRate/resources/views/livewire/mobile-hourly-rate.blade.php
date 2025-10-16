@@ -2,7 +2,7 @@
   <x-dashboard.top>
     <h5 class="text-xl font-bold">時給管理</h5>
   </x-dashboard.top>
-  <div class="relative h-[calc(100dvh-100px)] w-full" x-data="{ hourlyRateShow: false }">
+  <div class="relative h-[calc(var(--vh)*100-100px)] w-full" x-data="{ hourlyRateShow: false }">
     <!-- メインコンテンツ -->
     <div
       class="top-container mt-[20px] h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">

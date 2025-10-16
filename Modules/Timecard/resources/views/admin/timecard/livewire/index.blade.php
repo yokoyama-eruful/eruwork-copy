@@ -23,7 +23,7 @@
       <button class="rounded bg-[#77829C] px-[11px] py-[5px] text-white" type="button" wire:click="today">今日</button>
     </div>
   </x-dashboard.top>
-  <div class="min-h-[calc(100dvh-100px)] lg:flex">
+  <div class="min-h-[calc(var(--vh)*100-100px)] lg:flex">
 
     <div class="mt-[30px] block px-5 lg:hidden">
       <div class="text-xs font-bold">出勤日表示</div>

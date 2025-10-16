@@ -162,7 +162,7 @@
           @endforeach
         </div>
       @else
-        <div class="mt-[30px] flex h-[calc(100dvh-190px)] items-center justify-center rounded-xl border">
+        <div class="mt-[30px] flex h-[calc(var(--vh)*100-190px)] items-center justify-center rounded-xl border">
           <svg width="200" height="200" viewBox="0 0 300 150" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path opacity="0.1"
