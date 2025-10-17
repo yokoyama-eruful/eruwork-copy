@@ -129,12 +129,12 @@ const setupEventListeners = () => {
 document.addEventListener('DOMContentLoaded', () => {
     registerServiceWorker();
 
-    Livewire.on('enablePush', () => {
-        subscribePush();
+Livewire.on('enablePush', () => {
+        enablePushNotifications(); 
     });
 
     Livewire.on('disablePush', () => {
-        unsubscribePush();
+        disablePushNotifications(); 
     });
 });
 

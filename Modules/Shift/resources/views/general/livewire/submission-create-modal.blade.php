@@ -16,7 +16,7 @@
       {{ $day->format('Y.m.d') }}
     </div>
 
-    <div class="mt-4 grid w-full grid-cols-[20%,80%] items-center">
+    <div class="mr-[20px] mt-4 grid w-full grid-cols-[20%,80%] items-center">
       <x-input-label value="時間" />
 
       <div class="flex w-full items-center space-x-1">

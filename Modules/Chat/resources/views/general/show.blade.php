@@ -7,7 +7,7 @@
     <div class="h-[40px]">
       <div class="grid grid-cols-[50px,auto,200px]" x-data="{ showMemberList: false }">
         @if ($selectGroup->is_dm)
-          @if ($selectGroup->partnerUser->icon)
+          @if ($selectGroup->partnerUser?->icon)
             <img class="h-10 w-10 rounded-full border bg-white"
               src="{{ route('profile.icon', ['id' => $selectGroup->partnerUser->id]) }}" alt="アイコン">
           @else
@@ -100,7 +100,7 @@
             fill="#3289FA" />
         </svg>
         @if ($selectGroup->is_dm)
-          @if ($selectGroup->partnerUser->icon)
+          @if ($selectGroup->partnerUser?->icon)
             <img class="h-[30px] w-[30px] rounded-full border bg-white"
               src="{{ route('profile.icon', ['id' => $selectGroup->partnerUser->id]) }}" alt="アイコン">
           @else

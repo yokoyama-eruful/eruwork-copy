@@ -28,7 +28,11 @@ class AccountController extends Controller
      */
     public function create()
     {
-        return view('account::create');
+        $agent = new Agent;
+
+        return $agent->isMobile() || $agent->isTablet()
+               ? view('account::mobile-create')
+               : view('account::desktop-create');
     }
 
     /**

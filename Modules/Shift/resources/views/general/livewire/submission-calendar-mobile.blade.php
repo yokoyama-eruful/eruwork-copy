@@ -26,7 +26,7 @@
         @foreach ($this->calendar as $key => $content)
           @if ($content['type'] !== '期間外')
             <div @class([
-                'grid grid-cols-[15%,75%,10%] min-h-[60px]  border-b py-[10px]',
+                'grid grid-cols-[15%,70%,15%] min-h-[60px]  border-b py-[10px]',
                 'bg-[#F9FAFF]' => $content['date']->format('Ymd') === now()->format('Ymd'),
             ]) wire:key="calendar-box-mobile-{{ $content['date']->format('Y-m-d') }}">
               <div @class([

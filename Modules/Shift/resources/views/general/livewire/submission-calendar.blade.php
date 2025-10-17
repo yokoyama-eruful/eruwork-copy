@@ -36,7 +36,7 @@
     <div class="mt-[30px] hidden grid-cols-7 lg:grid">
       <div class="flex items-center justify-between">
         {{-- <div class="text-xl font-bold">{{ $content['date']->isoFormat('M月') }}</div> --}}
-        <div class="text-xl font-bold">9月</div>
+        <div class="text-xl font-bold"></div>
         <div class="text-[15px]">月</div>
         <div></div>
       </div>

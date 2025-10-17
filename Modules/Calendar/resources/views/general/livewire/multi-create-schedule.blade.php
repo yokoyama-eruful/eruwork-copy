@@ -19,11 +19,21 @@
         </div>
       @endif
 
-      <div class="mb-[20px] flex items-center">
+      <div class="mb-[20px] mt-[20px] flex items-center">
         <x-input-label class="w-1/5" for="date" value="日付" />
 
-        <x-text-input class="js-multiple-datepicker w-4/5" id="date" name="date" type="text"
-          wire:model="form.date" required />
+        <div class="relative w-4/5">
+          <x-text-input
+            class="js-multiple-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
+            id="date" name="date" type="text" wire:model="form.date" required />
+          <!-- カレンダーアイコン（青 #3289FA） -->
+          <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+        002-2V7a2 2 0 00-2-2H5a2 2 0
+        00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
       </div>
 
       <script>
@@ -51,12 +61,13 @@
       <div class="mb-[20px] flex items-center">
         <x-input-label class="w-1/5" value="時間" />
 
-        <x-text-input class="w-1/5" id="start_time" name="start_time" type="time" wire:model="form.startTime"
+        <x-text-input class="w-[35%]" id="start_time" name="start_time" type="time" wire:model="form.startTime"
           required />
 
-        <div class="px-[10px]">〜</div>
+        <div class="px-[8px]">〜</div>
 
-        <x-text-input class="w-1/5" id="end_time" name="end_time" type="time" wire:model="form.endTime" required />
+        <x-text-input class="w-[35%]" id="end_time" name="end_time" type="time" wire:model="form.endTime"
+          required />
       </div>
 
       <div class="flex items-center">

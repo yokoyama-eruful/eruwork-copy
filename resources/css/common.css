@@ -488,7 +488,7 @@ body.fixed {
   border-radius: 8px;
   padding: 10px 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 13, 0.13);
-  z-index: 15;
+  z-index: 21;
 }
 
 .account-setting {

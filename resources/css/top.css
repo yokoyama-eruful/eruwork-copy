@@ -22,7 +22,6 @@
 .calender-move {
   color: #777;
   display: flex;
-  align-items: center;
   font-size: 15px;
   background: transparent;
   height: 17px;
@@ -30,13 +29,12 @@
 }
 
 .calender-move i {
-  padding: 2px 5px 0;
+  padding: 3px 5px 0;
 }
 
 .calender-move2 {
   color: #777;
   display: flex;
-  align-items: center;
   font-size: 15px;
   background: transparent;
   height: 17px;
@@ -44,7 +42,7 @@
 }
 
 .calender-move2 i {
-  padding: 2px 5px 0;
+  padding: 3px 5px 0;
 }
 
 
@@ -82,6 +80,7 @@
   min-height: 25px;
   font-size: 15px;
   margin: 0 30px 0 10px;
+  padding-top: 1px;
 }
 
 .speach-news {

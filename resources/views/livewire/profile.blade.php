@@ -1,5 +1,5 @@
 <x-modal name="profile" title="プロフィール設定" maxWidth="440">
-  <form class="px-[30px] py-5" wire:submit="update" enctype="multipart/form-data">
+  <form class="px-[20px] py-5 lg:px-[30px] lg:py-5" wire:submit="update" enctype="multipart/form-data">
     @if ($errors->any())
       <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
         <ul class="list-disc pl-5">
@@ -39,11 +39,15 @@
 
     <!-- 現在のパスワード -->
     <div class="relative mt-[10px] grid grid-cols-[30%,70%] items-center">
-      <x-input-label name="current_password">現在のパスワード</x-input-label>
+
+      <x-input-label name="current_password">
+        <p class="block lg:hidden">現在の<br>パスワード</p>
+        <p class="hidden lg:block">現在のパスワード</p>
+      </x-input-label>
       <div class="relative w-full">
-        <x-text-input class="pr-10" id="current_password" name="current_password" type="password"
+        <x-text-input class="pr-5 lg:pr-10" id="current_password" name="current_password" type="password"
           autocomplete="current-password" wire:model="form.currentPassword" />
-        <button class="absolute right-3 top-1/2 -translate-y-1/2" id="current_togglePassword" type="button">
+        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" id="current_togglePassword" type="button">
           <svg id="current_icon-hide" width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -65,11 +69,15 @@
 
     <!-- 新しいパスワード -->
     <div class="relative mt-[10px] grid grid-cols-[30%,70%] items-center">
-      <x-input-label name="new_password">新しいパスワード</x-input-label>
+      <x-input-label name="new_password">
+        <p class="block lg:hidden">新しい<br>パスワード</p>
+        <p class="hidden lg:block">新しいパスワード</p>
+
+      </x-input-label>
       <div class="relative w-full">
-        <x-text-input class="pr-10" id="new_password" name="new_password" type="password" autocomplete="new-password"
-          wire:model="form.newPassword" />
-        <button class="absolute right-3 top-1/2 -translate-y-1/2" id="new_togglePassword" type="button">
+        <x-text-input class="pr-5 lg:pr-10" id="new_password" name="new_password" type="password"
+          autocomplete="new-password" wire:model="form.newPassword" />
+        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" id="new_togglePassword" type="button">
           <svg id="new_icon-hide" width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -91,13 +99,16 @@
 
     <!-- 確認用パスワード -->
     <div class="relative mt-[10px] grid grid-cols-[30%,70%] items-center">
-      <x-input-label name="new_password_confirmation">新しいパスワード<br>
-        <p class="text-[11px] text-[#6F6C6C]">※確認用</p>
+      <x-input-label name="new_password_confirmation">
+        <p class="block lg:hidden">新しい<br>パスワード確認</p>
+        <p class="hidden lg:block">新しいパスワード確認</p>
       </x-input-label>
+
       <div class="relative w-full">
-        <x-text-input class="pr-10" id="new_password_confirmation" name="new_password_confirmation" type="password"
-          autocomplete="new-password" wire:model="form.newPasswordConfirmation" />
-        <button class="absolute right-3 top-1/2 -translate-y-1/2" id="confirm_togglePassword" type="button">
+        <x-text-input class="pr-5 lg:pr-10" id="new_password_confirmation" name="new_password_confirmation"
+          type="password" autocomplete="new-password" wire:model="form.newPasswordConfirmation" />
+        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" id="confirm_togglePassword"
+          type="button">
           <svg id="confirm_icon-hide" width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
@@ -117,7 +128,7 @@
       </div>
     </div>
 
-    <div class="mt-[24px] grid hidden grid-cols-[30%,70%] items-center">
+    <div class="mt-[24px] grid grid-cols-[30%,70%] items-center">
       <x-input-label name="new_password">通知</x-input-label>
       <div class="flex items-center space-x-[30px] text-xs">
         <div class="flex items-center space-x-2">
