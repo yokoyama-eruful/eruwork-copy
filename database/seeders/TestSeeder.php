@@ -22,7 +22,7 @@ class TestSeeder extends Seeder
 {
     public function run(): void
     {
-        $this->user();
+        // $this->user();
         $this->testUser();
         // $this->board();
         // $this->calendar();
