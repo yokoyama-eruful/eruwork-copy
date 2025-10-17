@@ -39,7 +39,7 @@
       @endforeach
     @endif
   </div>
-  <div class="slider">
+  <div class="slider lg:hidden">
     <div class="slides-wrapper">
       @foreach ($posts->take(3) as $post)
         <a href="{{ route('board.show', ['id' => $post->id]) }}">
@@ -64,9 +64,9 @@
       @endforeach
     </div>
     <div class="pagination">
-      <span></span>
-      <span></span>
-      <span></span>
+      @foreach ($posts->take(3) as $post)
+        <span></span>
+      @endforeach
     </div>
   </div>
 </div>

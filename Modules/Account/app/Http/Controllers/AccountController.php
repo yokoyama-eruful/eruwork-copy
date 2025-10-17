@@ -30,9 +30,16 @@ class AccountController extends Controller
     {
         $agent = new Agent;
 
-        return $agent->isMobile() || $agent->isTablet()
-               ? view('account::mobile-create')
-               : view('account::desktop-create');
+        $ua = $agent->getUserAgent();
+        $isTablet = $agent->isTablet()
+            || str_contains($ua, 'iPad')
+            || (str_contains($ua, 'Macintosh'));
+
+        if ($agent->isMobile() || $isTablet) {
+            return view('account::mobile-create');
+        }
+
+        return view('account::desktop-create');
     }
 
     /**
@@ -68,9 +75,16 @@ class AccountController extends Controller
 
         $agent = new Agent;
 
-        return $agent->isMobile() || $agent->isTablet()
-               ? view('account::mobile-edit', ['user' => $user])
-               : view('account::desktop-edit', ['user' => $user]);
+        $ua = $agent->getUserAgent();
+        $isTablet = $agent->isTablet()
+            || str_contains($ua, 'iPad')
+            || (str_contains($ua, 'Macintosh'));
+
+        if ($agent->isMobile() || $isTablet) {
+            return view('account::mobile-edit', ['user' => $user]);
+        }
+
+        return view('account::desktop-edit', ['user' => $user]);
     }
 
     /**

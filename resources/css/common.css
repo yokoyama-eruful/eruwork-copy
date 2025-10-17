@@ -109,9 +109,9 @@ body.fixed {
   height: 15px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .sidebar {
-    display: none;
+    width: 100%;
   }
 
 }
@@ -548,7 +548,7 @@ ount-setting img {
 }
 
 /* ========== SP: 440px以下は上部バー＋右ドロワー ========== */
-@media (max-width: 1025px) {
+@media (max-width: 1024px) {
 .main-area {
   display: block;
     width: 100%;
@@ -824,7 +824,7 @@ ount-setting img {
 }
 
 
-@media (min-width: 1024px) {
+@media (max-width: 1024px) {
   .acc[data-pinned] .acc-btn[aria-expanded="true"] .caret {
     transform: rotate(180deg);
   }

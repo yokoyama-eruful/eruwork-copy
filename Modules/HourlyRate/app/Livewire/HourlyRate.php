@@ -59,8 +59,15 @@ class HourlyRate extends Component
     {
         $agent = new Agent;
 
-        return $agent->isMobile() || $agent->isTablet()
-               ? view('hourlyrate::livewire.mobile-hourly-rate')
-               : view('hourlyrate::livewire.desktop-hourly-rate');
+        $ua = $agent->getUserAgent();
+        $isTablet = $agent->isTablet()
+            || str_contains($ua, 'iPad')
+            || (str_contains($ua, 'Macintosh'));
+
+        if ($agent->isMobile() || $isTablet) {
+            return view('hourlyrate::livewire.mobile-hourly-rate');
+        }
+
+        return view('hourlyrate::livewire.desktop-hourly-rate');
     }
 }

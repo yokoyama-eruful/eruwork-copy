@@ -312,7 +312,7 @@
   </x-main.index>
 
   {{-- モバイル版メイン --}}
-  <div class="block px-[15px] pt-[50px] lg:hidden">
+  <div class="block px-[15px] pb-[30px] pt-[50px] lg:hidden">
     <div class="flex items-center justify-center space-x-[22px] md:ml-0">
       <button class="flex items-center rounded-l text-[15px]"
         wire:click="selectedMonth('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">

@@ -145,7 +145,7 @@
   display: none;
 }
 
-@media (max-width: 1025px) {
+@media (max-width: 1024px) {
 .date {
     font-size: 16px;
   }

@@ -50,11 +50,11 @@
                       </div>
                     @endforeach
                   @else
-                    いいねした人はいません
+                    <div class="p-2">いいねした人はいません</div>
                   @endif
                 </div>
 
-                <div class="m-2 flex justify-end">
+                <div class="my-5 flex items-center justify-center hover:opacity-40">
                   <x-secondary-button x-on:click="$dispatch('close')">
                     閉じる
                   </x-secondary-button>
@@ -110,11 +110,11 @@
                       </div>
                     @endforeach
                   @else
-                    いいねした人はいません
+                    <div class="p-2">いいねした人はいません</div>
                   @endif
                 </div>
 
-                <div class="mt-6 flex justify-end">
+                <div class="my-5 flex items-center justify-center hover:opacity-40">
                   <x-secondary-button x-on:click="$dispatch('close')">
                     閉じる
                   </x-secondary-button>

@@ -96,13 +96,13 @@
 
         <button
           class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
-          id="draftButton" type="button">
+          id="desktop-draftButton" type="button">
           下書きとして保存
         </button>
 
         <button
           class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#3289FA] font-bold uppercase tracking-widest text-white hover:bg-blue-100"
-          id="postButton" type="button">
+          id="desktop-postButton" type="button">
           投稿する
         </button>
       </div>
@@ -110,7 +110,7 @@
       <div class="my-5 block w-full lg:hidden">
         <button
           class="inline-flex h-[50px] w-full items-center justify-center rounded-md bg-[#3289FA] font-bold uppercase tracking-widest text-white hover:bg-blue-100"
-          id="postButton" type="button">
+          id="mobile-postButton" type="button">
           投稿する
         </button>
 
@@ -121,19 +121,30 @@
           </a>
           <button
             class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
-            id="draftButton" type="button">
+            id="mobile-draftButton" type="button">
             下書きとして保存
           </button>
         </div>
       </div>
 
       <script>
-        document.getElementById('postButton').addEventListener('click', function() {
+        document.getElementById('desktop-postButton').addEventListener('click', function() {
           Livewire.dispatch('submit-post', {
             branchStatus: '掲載'
           });
         });
-        document.getElementById('draftButton').addEventListener('click', function() {
+        document.getElementById('desktop-draftButton').addEventListener('click', function() {
+          Livewire.dispatch('submit-post', {
+            branchStatus: '下書き'
+          });
+        });
+
+        document.getElementById('mobile-postButton').addEventListener('click', function() {
+          Livewire.dispatch('submit-post', {
+            branchStatus: '掲載'
+          });
+        });
+        document.getElementById('mobile-draftButton').addEventListener('click', function() {
           Livewire.dispatch('submit-post', {
             branchStatus: '下書き'
           });
