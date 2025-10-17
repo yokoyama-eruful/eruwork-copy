@@ -23,11 +23,35 @@ class TestSeeder extends Seeder
     public function run(): void
     {
         $this->user();
+        $this->testUser();
         // $this->board();
         // $this->calendar();
-        $this->chat();
+        // $this->chat();
         // $this->timecard();
         // $this->shift();
+    }
+
+    private function testUser()
+    {
+        $adminUser = User::factory()->create([
+            'login_id' => 'test',
+        ]);
+
+        $adminRole = Role::create(['name' => 'admin']);
+        $memberRole = Role::create(['name' => 'member']);
+
+        $registerPermission = Permission::create(['name' => 'register']);
+
+        $adminRole->givePermissionTo($registerPermission);
+
+        $adminUser->assignRole($adminRole);
+
+        Profile::create([
+            'user_id' => $adminUser->id,
+            'name' => '店長',
+            'name_kana' => 'テンチョウ',
+            'contract_type' => '正社員',
+        ]);
     }
 
     private function user()
