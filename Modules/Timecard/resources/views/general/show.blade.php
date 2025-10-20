@@ -60,9 +60,9 @@
           <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
           <div class="mt-3 flex flex-col space-y-2">
             <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
-              <div class="text-sm font-bold">103万</div>
+              <div class="text-sm font-bold">106万</div>
               <div class="flex items-center space-x-[2px]">
-                <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1030000 - $totalYearPay) }}</div>
+                <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1060000 - $totalYearPay) }}</div>
                 <div class="text-xs">円以上で超過</div>
               </div>
             </div>

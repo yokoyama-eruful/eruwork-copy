@@ -87,6 +87,7 @@ body.fixed {
   padding: 25px 0;
   flex-shrink: 0;
   overflow-y: auto;
+  height: calc(var(--vh) * 100);
 }
 .sidebar h5 {
   font-size: 16px;

@@ -1,5 +1,6 @@
 <div class="w-full justify-between lg:flex">
-  <div class="w-full shrink-0 overflow-y-auto bg-white px-[15px] lg:w-[280px] lg:py-[30px]" x-data="{ koujyoScreen: false }">
+  <div class="h-[calc(var(--vh)*100)] w-full shrink-0 overflow-y-auto bg-white px-[15px] lg:w-[280px] lg:py-[30px]"
+    x-data="{ koujyoScreen: false }">
     <div class="mt-[30px] flex items-center justify-between lg:mt-0">
       <h1 class="text-xl font-bold">タイムカード</h1>
       <a class="block text-xs text-[#3289FA] focus:opacity-40 lg:hidden"
@@ -104,9 +105,9 @@
         <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
         <div class="mt-3 flex flex-col space-y-2">
           <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[20px]">
-            <div class="text-sm font-bold">103万</div>
+            <div class="text-sm font-bold">106万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1030000 - $totalYearPay) }}</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1060000 - $totalYearPay) }}</div>
               <div class="text-xs">円以上で超過</div>
             </div>
           </div>
@@ -127,98 +128,6 @@
         </div>
       </div>
     </div>
-
-    {{-- モバイル版 --}}
-    {{-- <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] lg:hidden"
-      x-show="koujyoScreen===true" x-transition:enter="transition ease-out duration-300"
-      x-transition:enter-start="opacity-0 translate-x-full" x-transition:enter-end="opacity-100 translate-x-0"
-      x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 translate-x-0"
-      x-transition:leave-end="opacity-0 translate-x-full">
-      <div class="flex items-center hover:opacity-40" x-on:click="koujyoScreen = false">
-        <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M0.182788 7.30568C0.0657455 7.18931 0 7.03157 0 6.86711C0 6.70264 0.0657455 6.5449 0.182788 6.42853L6.43279 0.222234C6.55127 0.112606 6.70797 0.0529239 6.86989 0.0557607C7.03181 0.0585976 7.1863 0.123732 7.30081 0.237442C7.41532 0.351152 7.48091 0.50456 7.48377 0.665345C7.48662 0.82613 7.42652 0.98174 7.31612 1.09939L1.50779 6.86711L7.31612 12.6348C7.37753 12.6916 7.42678 12.7602 7.46094 12.8363C7.4951 12.9124 7.51347 12.9946 7.51495 13.0779C7.51643 13.1613 7.50099 13.244 7.46956 13.3213C7.43812 13.3986 7.39134 13.4688 7.33199 13.5277C7.27264 13.5867 7.20194 13.6331 7.12412 13.6643C7.0463 13.6956 6.96294 13.7109 6.87902 13.7094C6.7951 13.7079 6.71234 13.6897 6.63567 13.6558C6.55901 13.6219 6.49001 13.573 6.43279 13.512L0.182788 7.30568Z"
-            fill="#3289FA" />
-        </svg>
-        <div class="ml-2 text-lg font-bold">扶養控除目安</div>
-      </div>
-
-      <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
-        <div class="flex flex-col items-start">
-          <div class="flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('Y年度') }}
-          </div>
-          <div class="flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
-        </div>
-        <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
-          {{ $totalYearWorkingTime }}
-        </div>
-      </div>
-
-      <div class="mt-5 text-sm font-bold">扶養控除ラインと現在の収入の比較</div>
-      <div class="mt-[10px]">
-        <div class="-mx-[15px] grid grid-cols-8 text-[10px] text-[#777777]">
-          <div class="text-center">0</div>
-          <div class="text-center">25</div>
-          <div class="text-center">50</div>
-          <div class="text-center">75</div>
-          <div class="text-center">100</div>
-          <div class="text-center">125</div>
-          <div class="text-center">150</div>
-          <div class="text-center">万円</div>
-        </div>
-        <div class="relative grid h-[180px] grid-cols-7 overflow-hidden rounded border">
-          <!-- グリッド背景 -->
-          <div class="border-r"></div>
-          <div class="border-r"></div>
-          <div class="border-r"></div>
-          <div class="border-r"></div>
-          <div class="border-r"></div>
-          <div class="border-r"></div>
-          <div></div>
-
-          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7] transition-[width] duration-1000 ease-out"
-            style="width: {{ $this->barWidth() }};">
-          </div>
-
-          <div
-            class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240] transition-[left] duration-1000 ease-out"
-            style="left: {{ $this->barWidth() }}; transform: translateX(8px);">
-            {{ number_format($totalYearPay) }}円
-          </div>
-
-          <hr
-            class="absolute left-[58.86%] top-0 z-[5] h-[calc(100%+10px)] border-r-[1.5px] border-dashed border-[#FF4A62]" />
-        </div>
-
-      </div>
-      <div class="mt-[56px]">
-        <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
-        <div class="mt-3 flex flex-col space-y-2">
-          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
-            <div class="text-sm font-bold">103万</div>
-            <div class="flex items-center space-x-[2px]">
-              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1030000 - $totalYearPay) }}</div>
-              <div class="text-xs">円以上で超過</div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
-            <div class="text-sm font-bold">130万</div>
-            <div class="flex items-center space-x-[2px]">
-              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1300000 - $totalYearPay) }}</div>
-              <div class="text-xs">円以上で超過</div>
-            </div>
-          </div>
-          <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
-            <div class="text-sm font-bold">150万</div>
-            <div class="flex items-center space-x-[2px]">
-              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1500000 - $totalYearPay) }}</div>
-              <div class="text-xs">円以上で超過</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> --}}
-
   </div>
 
   {{-- デスクトップ版メイン --}}

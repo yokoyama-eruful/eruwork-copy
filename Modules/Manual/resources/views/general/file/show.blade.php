@@ -20,7 +20,7 @@
 
         @if (str_contains($file->type, 'image'))
           <div
-            class="mt-5 flex h-[220px] w-full justify-center bg-black lg:static lg:h-[450px] lg:rounded-lg lg:border">
+            class="mt-5 flex h-[320px] w-full justify-center bg-black lg:static lg:h-[450px] lg:rounded-lg lg:border">
             <img class="h-full lg:rounded-lg" src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
           </div>
         @elseif(str_contains($file->type, 'video'))
@@ -62,8 +62,10 @@
                         {{-- <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7]">{{ $step['content'] }}</textarea> --}}
                         <div class="whitespace-pre-wrap text-[15px]">{{ $step['content'] }}</div>
                         @if ($step['file'])
-                          <img class="h-auto max-w-full rounded-lg"
-                            src="{{ route('manualFile.step', ['id' => $file->id, 'index' => $index]) }}" />
+                          <div class="mt-5 flex h-[220px] w-full justify-center rounded-lg bg-black">
+                            <img class="h-full lg:rounded-lg"
+                              src="{{ route('manualFile.step', ['id' => $file->id, 'index' => $index]) }}" />
+                          </div>
                         @endif
                       </div>
                     </div>
@@ -90,10 +92,13 @@
                       <h4>{{ $step['title'] }}</h4>
                     </div>
                     <div class="form-area-general">
-                      <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7]">{{ $step['content'] }}</textarea>
+                      <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7] focus:outline-none focus:ring-0 focus:ring-offset-0"
+                        readonly>{{ $step['content'] }}</textarea>
                       @if ($step['file'])
-                        <img class="max-h-[200px] w-auto rounded-lg object-contain"
-                          src="{{ route('manualFile.step', ['id' => $file->id, 'index' => $index]) }}" />
+                        <div class="mt-5 flex max-h-[200px] w-full justify-center rounded-lg bg-black">
+                          <img class="max-h-[200px]"
+                            src="{{ route('manualFile.step', ['id' => $file->id, 'index' => $index]) }}" />
+                        </div>
                       @endif
                     </div>
                   </div>
@@ -106,19 +111,21 @@
 
     </div>
     <script>
-      document.querySelectorAll('.auto-resize').forEach(el => {
-        el.style.height = el.scrollHeight + 'px';
-        el.addEventListener('input', e => {
-          e.target.style.height = 'auto';
-          e.target.style.height = e.target.scrollHeight + 'px';
+      window.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.auto-resize').forEach(el => {
+          el.style.height = el.scrollHeight + 'px';
+          el.addEventListener('input', e => {
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+          });
         });
-      });
 
-      document.querySelectorAll('.auto-resize-textarea').forEach(el => {
-        el.style.height = el.scrollHeight + 'px';
-        el.addEventListener('textarea', e => {
-          e.target.style.height = 'auto';
-          e.target.style.height = e.target.scrollHeight + 'px';
+        document.querySelectorAll('.auto-resize-textarea').forEach(el => {
+          el.style.height = el.scrollHeight + 'px';
+          el.addEventListener('textarea', e => {
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 'px';
+          });
         });
       });
     </script>

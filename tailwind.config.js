@@ -51,7 +51,11 @@ export default {
 
               spacing: {
                 15: '15px', // p-15, m-15 として使える
-              }
+              },
+              
+               screens: {
+                'lg': '1025px',
+               },
         },
     },
 

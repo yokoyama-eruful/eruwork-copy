@@ -20,8 +20,13 @@
   @vite(['resources/css/app.css', 'resources/css/common.css', 'resources/js/app.js', 'resources/js/top.js', 'resources/js/notification.js'])
 </head>
 
-<body>
-  @include('home.desktop.layouts.sidemenu')
+<body class="m-0 grid h-screen w-screen grid-rows-[50px,1fr] p-0 lg:block" x-data="{ sideMenu: false }" x-cloak>
+
+  <div class="hidden lg:block">
+    @include('home.desktop.layouts.sidemenu')
+  </div>
+
+  @include('home.mobile.layouts.sidemenu')
 
   <livewire:profile />
 
@@ -42,7 +47,7 @@
     </form>
   </x-modal-alert>
 
-  <div class="main-area">
+  <div class="overflow-y-auto lg:ml-20 lg:flex lg:w-[calc(100%-80px)]">
     {{ $slot }}
   </div>
   @livewireScripts

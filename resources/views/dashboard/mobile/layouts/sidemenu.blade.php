@@ -1,4 +1,4 @@
-<header class="flex items-center justify-between bg-[#363b46] px-5 text-white" x-data="{ accountModal: false }">
+<header class="flex items-center justify-between bg-[#363b46] px-5 text-white lg:hidden" x-data="{ accountModal: false }">
   @if ($url)
     <a href="{{ $url }}"><img class="h-6 w-6" src="{{ global_asset('img/icon/arrow-l-w.png') }}" /></a>
   @else
