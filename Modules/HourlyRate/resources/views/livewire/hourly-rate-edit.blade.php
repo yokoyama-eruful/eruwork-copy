@@ -59,6 +59,24 @@
           更 新
         </x-primary-button>
       </div>
+
+      <script>
+        function Datepickr() {
+          return {
+            initDatepickr() {
+              flatpickr('.js-datepicker', {
+                locale: {
+                  ...flatpickr.l10ns.ja,
+                  "firstDayOfWeek": 1
+                },
+                dateFormat: "Y-m-d",
+                disableMobile: "true",
+                static: false,
+              });
+            }
+          }
+        }
+      </script>
     </form>
   </x-modal>
 </div>

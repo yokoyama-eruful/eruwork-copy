@@ -40,7 +40,7 @@ class SubmissionForm extends Form
                 'date_format:H:i',
             ],
             'endTime' => [
-                'nullable',
+                'required',
                 'date_format:H:i',
             ],
         ];

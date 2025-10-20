@@ -55,7 +55,10 @@ class Manager extends Model
             return '準備中';
         }
 
-        if ($this->submission_start_date < now() && $this->submission_end_date > now()) {
+        if (
+            $this->submission_start_date <= now() &&
+            $this->submission_end_date->endOfDay() >= now()
+        ) {
             return '受付中';
         }
 

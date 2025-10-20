@@ -41,24 +41,6 @@
 
         <div class="text-left">
           <livewire:hourlyrate::hourly-rate-edit :$hourlyRate :key="'desktop-rate-edit-' . $hourlyRate->id" />
-
-          <script>
-            function Datepickr() {
-              return {
-                initDatepickr() {
-                  flatpickr('.js-datepicker', {
-                    locale: {
-                      ...flatpickr.l10ns.ja,
-                      "firstDayOfWeek": 1
-                    },
-                    dateFormat: "Y-m-d",
-                    disableMobile: "true",
-                    static: false,
-                  });
-                }
-              }
-            }
-          </script>
         </div>
       </div>
     @endforeach

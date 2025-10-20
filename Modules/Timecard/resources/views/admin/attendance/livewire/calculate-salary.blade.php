@@ -10,11 +10,11 @@
     </div> --}}
     <div class="flex h-10 w-[170px] items-center justify-center space-x-1 rounded bg-[#F7F7F7]">
       <p class="text-[11px]">深夜割増料金：</p>
-      <p class="text-sm font-semibold">{{ $overtimeRate ? $overtimeRate . '%割増' : '--%割増' }}</p>
+      <p class="text-sm font-semibold">{{ $nightRate ? $nightRate . '%割増' : '--%割増' }}</p>
     </div>
     <div class="flex h-10 w-[170px] items-center justify-center space-x-1 rounded bg-[#F7F7F7]">
       <p class="text-[11px]">残業料金：</p>
-      <p class="text-sm font-semibold">{{ $nightRate ? $nightRate . '%割増' : '--%割増' }}</p>
+      <p class="text-sm font-semibold">{{ $overtimeRate ? $overtimeRate . '%割増' : '--%割増' }}</p>
     </div>
     <button class="flex items-center space-x-1 hover:opacity-40" type="button"
       @click="$dispatch('open-modal','wage-premium-modal')">
@@ -73,20 +73,20 @@
       </div> --}}
 
       <div class="grid grid-cols-[30%,15%,55%] items-center px-4 pt-[18px]">
+        <x-input-label for="nightRate" value="深夜割増料金" />
+
+        <x-text-input class="w-[55px]" wire:model="form.nightRate" />
+
+        <div class="text-sm">%割増</div>
+      </div>
+
+      <div class="grid grid-cols-[30%,15%,55%] items-center px-4 pb-[30px] pt-[30px]">
         <div class="flex flex-col">
           <x-input-label for="overtimeRate" value="残業料金設定" />
           <div class="text-[10px] text-[#000000] text-opacity-30">※勤務8時間超で適用</div>
         </div>
 
         <x-text-input class="w-[55px]" wire:model="form.overtimeRate" />
-
-        <div class="text-sm">%割増</div>
-      </div>
-
-      <div class="grid grid-cols-[30%,15%,55%] items-center px-4 pb-[30px] pt-[30px]">
-        <x-input-label for="nightRate" value="深夜割増料金" />
-
-        <x-text-input class="w-[55px]" wire:model="form.nightRate" />
 
         <div class="text-sm">%割増</div>
       </div>
