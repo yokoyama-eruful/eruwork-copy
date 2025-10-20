@@ -92,7 +92,7 @@
                       <h4>{{ $step['title'] }}</h4>
                     </div>
                     <div class="form-area-general">
-                      <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7] focus:outline-none focus:ring-0 focus:ring-offset-0"
+                      <textarea class="auto-resize-textarea border-none bg-[#F7F7F7] focus:outline-none focus:ring-0 focus:ring-offset-0"
                         readonly>{{ $step['content'] }}</textarea>
                       @if ($step['file'])
                         <div class="mt-5 flex max-h-[200px] w-full justify-center rounded-lg bg-black">
