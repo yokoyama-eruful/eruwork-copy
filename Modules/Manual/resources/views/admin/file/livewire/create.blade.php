@@ -281,7 +281,7 @@
     {{-- <div
       class="fixed right-0 top-0 z-50 flex h-full w-full items-center justify-center space-x-5 bg-white bg-opacity-80"
       wire:loading wire:target="create('下書き')">
-      <img class="h-10 animate-bounce" src="{{ global_asset('img/icon/fukuro_pc.png') }}" />
+      <img class="h-10 animate-bounce" src="{{ asset('img/icon/fukuro_pc.png') }}" />
       <div class="text-3xl font-bold">
         保存中
       </div>

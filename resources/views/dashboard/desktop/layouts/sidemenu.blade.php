@@ -11,15 +11,15 @@
         </a>
       @else
         <button class="account-area sp">
-          <img src="{{ global_asset('img/icon/yokoyama.png') }}" />
+          <img src="{{ asset('img/icon/yokoyama.png') }}" />
         </button>
       @endif
     </div>
 
-    <img class="side-menu-logo side-menu-center" src="{{ global_asset('img/eruwork_white_logo.png') }}" />
+    <img class="side-menu-logo side-menu-center" src="{{ asset('img/eruwork_white_logo.png') }}" />
 
     <div class="right-wrap">
-      <img class="side-menu-icon sp" src="{{ global_asset('img/icon/news-bell-sp.png') }}" />
+      <img class="side-menu-icon sp" src="{{ asset('img/icon/news-bell-sp.png') }}" />
       <div class="hamburger">
         <p class="btn-gNav">
           <span></span>
@@ -32,7 +32,7 @@
               <li>
                 <a href="{{ route('home.index') }}">
                   <div @class(['menuicon_bg', 'menuicon_acbg' => request()->routeIs('home')])>
-                    <img src="{{ global_asset('img/icon/home.png') }}" />
+                    <img src="{{ asset('img/icon/home.png') }}" />
                   </div>
                   <p>ホーム</p>
                 </a>
@@ -43,7 +43,7 @@
                       'menuicon_bg',
                       'menuicon_acbg' => request()->routeIs('timecard.*'),
                   ])>
-                    <img src="{{ global_asset('img/icon/timecard.png') }}" />
+                    <img src="{{ asset('img/icon/timecard.png') }}" />
                   </div>
                   <p>タイム
                     <br class="pc" />
@@ -57,7 +57,7 @@
                       'menuicon_bg',
                       'menuicon_acbg' => request()->routeIs('calendar.*'),
                   ])>
-                    <img src="{{ global_asset('img/icon/calendar.png') }}" />
+                    <img src="{{ asset('img/icon/calendar.png') }}" />
                   </div>
                   <p>カレンダー</p>
                 </a>
@@ -68,7 +68,7 @@
                       'menuicon_bg',
                       'menuicon_acbg' => request()->routeIs('shift.*'),
                   ])>
-                    <img src="{{ global_asset('img/icon/shift.png') }}" />
+                    <img src="{{ asset('img/icon/shift.png') }}" />
                   </div>
                   <p>シフト表</p>
                 </a>
@@ -79,7 +79,7 @@
                       'menuicon_bg',
                       'menuicon_acbg' => request()->routeIs('chat.*'),
                   ])>
-                    <img src="{{ global_asset('img/icon/chat.png') }}" />
+                    <img src="{{ asset('img/icon/chat.png') }}" />
                   </div>
                   <p>チャット</p>
                 </a>
@@ -91,7 +91,7 @@
                       'menuicon_acbg' =>
                           request()->routeIs('board.*') | request()->routeIs('draft.*'),
                   ])>
-                    <img src="{{ global_asset('img/icon/keiji.png') }}" />
+                    <img src="{{ asset('img/icon/keiji.png') }}" />
                   </div>
                   <p>掲示板</p>
                 </a>
@@ -103,7 +103,7 @@
                         'menuicon_bg',
                         'menuicon_acbg' => request()->routeIs('shiftManager.*'),
                     ])>
-                      <img src="{{ global_asset('img/icon/setting.png') }}" />
+                      <img src="{{ asset('img/icon/setting.png') }}" />
                     </div>
                     管理者<br class="pc" />設定
                     <span class="caret" aria-hidden="true"></span>
@@ -148,7 +148,7 @@
                           request()->routeIs('manualFolder.*') ||
                           request()->routeIs('manualFile.*'),
                   ])>
-                    <img src="{{ global_asset('img/icon/manual.png') }}" />
+                    <img src="{{ asset('img/icon/manual.png') }}" />
                   </div>
                   <p>マニュアル</p>
                 </a>

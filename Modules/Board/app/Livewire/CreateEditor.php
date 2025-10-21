@@ -16,8 +16,6 @@ class CreateEditor extends Component
 {
     use WithFileUploads;
 
-    public string $tenantId = '';
-
     #[Validate('required')]
     public string $title = '';
 

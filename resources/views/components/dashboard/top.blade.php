@@ -11,13 +11,13 @@
       <div class="h-[30px] w-[30px] rounded-full border border-[#DDDDDD]"></div>
     @endif
     <p>{{ Auth::user()->name }}</p>
-    <img class="account-arrow-down" src="{{ global_asset('img/icon/arrow-down.png') }}" />
+    <img class="account-arrow-down" src="{{ asset('img/icon/arrow-down.png') }}" />
   </button>
   <div class="account-modal-box" id="accountModal" x-show="accountModal" x-on:click.away="accountModal=false">
     <div class="modal-content">
       <button class="flex items-center text-xs hover:opacity-40" type="button"
         x-on:click="$dispatch('open-modal','profile'); accountModal=false">
-        <img class="h-5 w-5" src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
+        <img class="h-5 w-5" src="{{ asset('img/icon/account-modal-icon.png') }}" />
         アカウント
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path fill-rule="evenodd"
@@ -28,7 +28,7 @@
       <div>
         <button class="flex items-center text-xs text-[#F76E80] hover:opacity-40" type="button"
           x-on:click="$dispatch('open-modal','logout')">
-          <img class="h-5 w-5" src="{{ global_asset('img/icon/logout.png') }}" />
+          <img class="h-5 w-5" src="{{ asset('img/icon/logout.png') }}" />
           ログアウト
           <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
             <path fill-rule="evenodd"

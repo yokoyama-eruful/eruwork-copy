@@ -161,7 +161,7 @@
       </div>
       <div class="flex items-center md:ml-0">
         <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-2" wire:click="setPreviousWeek">
-          <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="先週">
+          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
           <p class="hidden lg:block">先週</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
@@ -183,7 +183,7 @@
         </div>
         <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-2" wire:click="setNextWeek">
           <p class="hidden lg:block">翌週</p>
-          <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌週">
+          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
         </button>
         <div class="">
           <button class="mx-2 h-[25px] rounded border bg-[#77829C] px-2 text-xs text-white"
@@ -270,13 +270,13 @@
     <div class="mt-5 flex w-full items-center justify-between px-5 lg:hidden">
       <button class="flex items-center space-x-1 rounded-l text-[15px] text-[#5E5E5E] xl:px-2"
         wire:click="setPreviousWeek">
-        <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="先週">
+        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
         <p>先週</p>
       </button>
       <div class="text-xl font-bold">{{ $startDate->isoFormat('M月') }}</div>
       <button class="flex items-center space-x-1 rounded-r text-[15px] text-[#5E5E5E] xl:px-2" wire:click="setNextWeek">
         <p>翌週</p>
-        <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌週">
+        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
       </button>
     </div>
 

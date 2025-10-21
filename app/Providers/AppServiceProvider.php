@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Livewire\Features\SupportFileUploads\FilePreviewController;
 use Livewire\Livewire;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,11 +35,9 @@ class AppServiceProvider extends ServiceProvider
             return Route::post('/livewire/update', $handle)
                 ->middleware(
                     'web',
-                    'universal',
-                    InitializeTenancyByDomain::class, // or whatever tenancy middleware you use
                 );
         });
 
-        FilePreviewController::$middleware = ['web', 'universal', InitializeTenancyByDomain::class];
+        FilePreviewController::$middleware = ['web'];
     }
 }

@@ -9,7 +9,7 @@
       </div>
       <div class="flex items-center md:ml-0">
         <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-2" wire:click="setPreviousDay">
-          <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-l.png') }}" alt="先週">
+          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
           <p class="hidden lg:block">前日</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
@@ -31,7 +31,7 @@
         </div>
         <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-2" wire:click="setNextDay">
           <p class="hidden lg:block">翌日</p>
-          <img class="h-[18px] w-[18px]" src="{{ global_asset('img/icon/arrow-r.png') }}" alt="翌週">
+          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
         </button>
         <div class="">
           <button class="mx-2 h-[25px] rounded border bg-[#77829C] px-2 text-xs text-white"

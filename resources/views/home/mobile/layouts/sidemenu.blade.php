@@ -1,20 +1,20 @@
 <header class="flex items-center justify-between bg-[#363b46] px-5 text-white lg:hidden" x-data="{ accountModal: false }">
   @if ($url)
-    <a href="{{ $url }}"><img class="h-6 w-6" src="{{ global_asset('img/icon/arrow-l-w.png') }}" /></a>
+    <a href="{{ $url }}"><img class="h-6 w-6" src="{{ asset('img/icon/arrow-l-w.png') }}" /></a>
   @else
     <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
       @if (Auth::user()->icon)
         <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
           x-on:click="accountModal=!accountModal" />
       @else
-        <img class="h-full w-full object-cover" src="{{ global_asset('img/icon/user.png') }}"
+        <img class="h-full w-full object-cover" src="{{ asset('img/icon/user.png') }}"
           x-on:click="accountModal=!accountModal" />
       @endif
     </div>
   @endif
 
   <a class="h-[28px] w-[35px]" href="{{ route('home.index') }}">
-    <img src="{{ global_asset('img/eruwork_white_logo.png') }}" />
+    <img src="{{ asset('img/eruwork_white_logo.png') }}" />
   </a>
 
   <button class="relative flex h-4 w-4 flex-col items-center justify-between" @click="sideMenu = !sideMenu">
@@ -36,7 +36,7 @@
     <div class="modal-content">
       <button class="flex items-center text-[14px] text-[#777777] hover:opacity-40" type="button"
         x-on:click="$dispatch('open-modal','profile'); accountModal=false">
-        <img class="h-6 w-6" src="{{ global_asset('img/icon/account-modal-icon.png') }}" />
+        <img class="h-6 w-6" src="{{ asset('img/icon/account-modal-icon.png') }}" />
         アカウント
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
           <path fill-rule="evenodd"
@@ -47,7 +47,7 @@
       <div>
         <button class="flex items-center text-[14px] text-[#F76E80] hover:opacity-40" type="button"
           x-on:click="$dispatch('open-modal','logout')">
-          <img class="h-6 w-6" src="{{ global_asset('img/icon/logout.png') }}" />
+          <img class="h-6 w-6" src="{{ asset('img/icon/logout.png') }}" />
           ログアウト
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
             <path fill-rule="evenodd h-[10px]"
@@ -72,7 +72,7 @@
         'h-[35px] w-[35px] rounded-lg flex items-center justify-center',
         'bg-[#3289FA]' => request()->routeIs('home'),
     ])>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/home.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/home.png') }}" />
     </div>
     <div class="text-[15px] font-bold text-white">ホーム</div>
   </a>
@@ -82,7 +82,7 @@
         'h-[35px] w-[35px] rounded-lg flex items-center justify-center',
         'bg-[#3289FA]' => request()->routeIs('timecard.*'),
     ])>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/timecard.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/timecard.png') }}" />
     </div>
     <div class="text-[15px] font-bold text-white">タイムカード</div>
   </a>
@@ -92,7 +92,7 @@
         'h-[35px] w-[35px] rounded-lg flex items-center justify-center',
         'bg-[#3289FA]' => request()->routeIs('calendar.*'),
     ])>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/calendar.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/calendar.png') }}" />
     </div>
     <div class="text-[15px] font-bold text-white">カレンダー</div>
   </a>
@@ -102,7 +102,7 @@
         'h-[35px] w-[35px] rounded-lg flex items-center justify-center',
         'bg-[#3289FA]' => request()->routeIs('shift.*'),
     ])>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/shift.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/shift.png') }}" />
     </div>
     <div class="text-[15px] font-bold text-white">シフト表</div>
   </a>
@@ -112,7 +112,7 @@
         'h-[35px] w-[35px] rounded-lg flex items-center justify-center',
         'bg-[#3289FA]' => request()->routeIs('chat.*'),
     ])>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/chat.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/chat.png') }}" />
     </div>
     <div class="text-[15px] font-bold text-white">チャット</div>
   </a>
@@ -123,7 +123,7 @@
         'bg-[#3289FA]' =>
             request()->routeIs('board.*') | request()->routeIs('draft.*'),
     ])>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/keiji.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/keiji.png') }}" />
     </div>
     <div class="text-[15px] font-bold text-white">掲示板</div>
   </a>
@@ -135,7 +135,7 @@
             request()->routeIs('manualFolder.*') |
             request()->routeIs('manualFile.*'),
     ])>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/manual.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/manual.png') }}" />
     </div>
     <div class="text-[15px] font-bold text-white">マニュアル</div>
   </a>
@@ -155,11 +155,11 @@
                 request()->routeIs('manualFolderManager.*') |
                 request()->routeIs('manualFileManager.*'),
         ])>
-          <img class="h-6 w-6" src="{{ global_asset('img/icon/setting.png') }}" />
+          <img class="h-6 w-6" src="{{ asset('img/icon/setting.png') }}" />
         </div>
         <div class="text-[15px] font-bold text-white">管理者設定</div>
       </div>
-      <img class="h-6 w-6" src="{{ global_asset('img/icon/arrow-down.png') }}" />
+      <img class="h-6 w-6" src="{{ asset('img/icon/arrow-down.png') }}" />
     </button>
 
     <div

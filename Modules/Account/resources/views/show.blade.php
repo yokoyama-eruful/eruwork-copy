@@ -51,7 +51,7 @@
             <div class="relative block cursor-pointer" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
                 @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};"><img
-                  class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" /></div>
+                  class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" /></div>
               <div
                 class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
                 @click.away="openDialog{{ $user->id }} = false" x-show="openDialog{{ $user->id }}===true"

@@ -18,7 +18,7 @@
       {{-- <div class="mx-5 lg:hidden">
         <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
           href="{{ route('manualFileManager.create', ['folder_id' => $folder->id]) }}">
-          <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
+          <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
           新規作成
         </a>
       </div> --}}
@@ -73,7 +73,7 @@
                 <div class="relative" x-data="{ openDialog{{ $file->manual__folder_id }}: false }">
                   <button class="flex items-center" type="button"
                     @click="openDialog{{ $file->manual__folder_id }} = !openDialog{{ $file->manual__folder_id }};">
-                    <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+                    <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
                   </button>
                   <div
                     class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
@@ -125,7 +125,7 @@
                 <div class="relative" x-data="{ openDialog{{ $file->manual__folder_id }}: false }">
                   <button class="flex items-center" type="button"
                     @click="openDialog{{ $file->manual__folder_id }} = !openDialog{{ $file->manual__folder_id }};">
-                    <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+                    <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
                   </button>
                   <div
                     class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\Chat\Http\Controllers\Admin\ChatManagerController;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +20,6 @@ Route::middleware([
     'web',
     'auth',
     'can:register',
-    InitializeTenancyByDomain::class,
-    PreventAccessFromCentralDomains::class,
 ])->group(function () {
     // Route::resource('chatManager', ChatManagerController::class)->names('chatManager');
 

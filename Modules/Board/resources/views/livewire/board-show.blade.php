@@ -57,7 +57,7 @@
               <div class="relative hidden lg:block" x-data="{ openDialog{{ $post->id }}: false }">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">
-                  <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+                  <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
                 </div>
                 <div
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
@@ -117,7 +117,7 @@
                   <div class="relative block" x-data="{ openDialog{{ $post->id }}: false }">
                     <div onclick="event.stopPropagation();"
                       @click="openDialog{{ $post->id }} = !openDialog{{ $post->id }};">
-                      <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+                      <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
                     </div>
                     <div
                       class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"

@@ -6,11 +6,11 @@ ARG WWWGROUP
 ARG NODE_VERSION=22
 ARG POSTGRES_VERSION=17
 
-WORKDIR /var/www/eruwork-dev
+WORKDIR /var/www/eruwork-copy
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TZ=Asia/Tokyo
-ENV SUPERVISOR_PHP_COMMAND="/usr/bin/php -d variables_order=EGPCS /var/www/eruwork-dev/artisan serve --host=0.0.0.0 --port=80"
+ENV SUPERVISOR_PHP_COMMAND="/usr/bin/php -d variables_order=EGPCS /var/www/eruwork-copy/artisan serve --host=0.0.0.0 --port=80"
 ENV SUPERVISOR_PHP_USER="sail"
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
 use Modules\Chat\Http\Controllers\General\ImageController;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
  *--------------------------------------------------------------------------
@@ -21,8 +19,6 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 Route::middleware([
     'web',
     'auth',
-    InitializeTenancyByDomain::class,
-    PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::get('image', [ImageController::class, 'show'])->name('image.show');
 });

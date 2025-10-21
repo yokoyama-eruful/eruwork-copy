@@ -2,7 +2,7 @@
   <button
     class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
     type="button" x-on:click="$dispatch('open-modal', 'manager-create-modal')">
-    <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
+    <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
     シフト表を追加
   </button>
   <x-modal name="manager-create-modal" title="シフト表作成">

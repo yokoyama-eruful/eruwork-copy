@@ -45,7 +45,7 @@
               <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
                 <button class="flex items-center" type="button"
                   @click.prevent.stop="openDialog{{ $folder->id }} = !openDialog{{ $folder->id }};">
-                  <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+                  <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
                 </button>
                 <div
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"

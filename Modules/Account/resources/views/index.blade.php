@@ -4,7 +4,7 @@
       <h5 class="block text-xl font-bold lg:hidden">アカウント管理</h5>
       <a class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
         href="{{ route('account.create') }}">
-        <img class="mr-[5px] h-[15px] w-[15px]" src="{{ global_asset('img/icon/add-schedule.png') }}" />
+        <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
         アカウントを追加
       </a>
     </x-dashboard.top>
@@ -51,7 +51,7 @@
             <div class="relative hidden lg:block" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
                 @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};">
-                <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
+                <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
               </div>
               <div
                 class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"

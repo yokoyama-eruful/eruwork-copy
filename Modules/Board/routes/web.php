@@ -5,8 +5,6 @@ declare(strict_types=1);
 use Illuminate\Support\Facades\Route;
 use Modules\Board\Http\Controllers\BoardController;
 use Modules\Board\Http\Controllers\DraftController;
-use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
-use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +19,6 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 
 Route::middleware([
     'web',
-    InitializeTenancyByDomain::class,
-    PreventAccessFromCentralDomains::class,
 ])->group(function () {
     Route::group([], function () {
         Route::controller(BoardController::class)

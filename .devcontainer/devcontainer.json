@@ -10,7 +10,7 @@
 		"../docker-compose.yml"
 	],
 	"service": "laravel.test",
-	"workspaceFolder": "/var/www/eruwork-dev",
+	"workspaceFolder": "/var/www/eruwork-copy",
 	"customizations": {
 		"vscode": {
 			"extensions": [
@@ -36,5 +36,5 @@
 		}
 	},
 	"remoteUser": "sail",
-	"postCreateCommand": "chown -R 1000:1000 /var/www/eruwork-dev 2>/dev/null || true"
+	"postCreateCommand": "chown -R 1000:1000 /var/www/eruwork-copy 2>/dev/null || true"
 }
