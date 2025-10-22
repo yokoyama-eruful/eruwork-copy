@@ -1,16 +1,6 @@
 <x-dashboard-layout :url="route('account.index')">
   <x-dashboard.index>
     <x-dashboard.top>
-      <div class="flex w-full items-center justify-between lg:hidden">
-        <div class="flex items-center space-x-1 text-xs">
-          <div class="text-[#AAB0B6]">最終更新日：</div>
-          <div>{{ $user->updated_at?->format('Y.m.d') }}</div>
-        </div>
-        <div class="flex items-center space-x-1 text-xs">
-          <div class="text-[#AAB0B6]">最終ログイン日：</div>
-          <div>{{ $user->last_login_at?->format('Y.m.d') }}</div>
-        </div>
-      </div>
       <a class="hidden items-center text-sm font-bold text-[#3289FA] hover:opacity-40 lg:flex"
         href="{{ route('account.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -20,9 +10,11 @@
         </svg>
         一覧画面に戻る
       </a>
+
+      <h5 class="text-2xl font-bold lg:hidden">アカウント編集</h5>
     </x-dashboard.top>
     <x-dashboard.container>
-      <form class="flex flex-col p-6" action="{{ route('account.update', ['account' => $user->login_id]) }}"
+      <form class="flex flex-col px-5 lg:p-6" action="{{ route('account.update', ['account' => $user->login_id]) }}"
         method="POST">
         @csrf
         @method('PUT')
@@ -44,23 +36,33 @@
             </div>
 
             <div class="flex items-center space-x-10">
+              <div class="hidden items-center space-x-1 lg:flex">
+                <div class="text-xs text-[#AAB0B6]">最終ログイン日：</div>
+                <div class="text-[15px]">{{ $user->last_login_at?->format('Y.m.d') }}</div>
+              </div>
+              <div class="hidden items-center space-x-1 lg:flex">
+                <div class="text-xs text-[#AAB0B6]">最終更新日：</div>
+                <div class="text-[15px]">{{ $user->updated_at?->format('Y.m.d') }}</div>
+              </div>
               <div class="relative block cursor-pointer" x-data="">
                 <div>
-                  <button class="flex items-center" type="button" onclick="event.stopPropagation();"
-                    x-on:click="$dispatch('open-modal', 'delete-modal-{{ $user->id }}')">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M12.2833 7.49995L11.995 14.9999M8.005 14.9999L7.71667 7.49995M16.0233 4.82495C16.3083 4.86828 16.5917 4.91411 16.875 4.96328M16.0233 4.82495L15.1333 16.3941C15.097 16.8651 14.8842 17.3051 14.5375 17.626C14.1908 17.9469 13.7358 18.1251 13.2633 18.1249H6.73667C6.26425 18.1251 5.80919 17.9469 5.46248 17.626C5.11578 17.3051 4.90299 16.8651 4.86667 16.3941L3.97667 4.82495M16.0233 4.82495C15.0616 4.67954 14.0948 4.56919 13.125 4.49411M3.97667 4.82495C3.69167 4.86745 3.40833 4.91328 3.125 4.96245M3.97667 4.82495C4.93844 4.67955 5.9052 4.56919 6.875 4.49411M13.125 4.49411V3.73078C13.125 2.74745 12.3667 1.92745 11.3833 1.89661C10.4613 1.86714 9.53865 1.86714 8.61667 1.89661C7.63333 1.92745 6.875 2.74828 6.875 3.73078V4.49411M13.125 4.49411C11.0448 4.33334 8.95523 4.33334 6.875 4.49411"
-                        stroke="#F76E80" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <p class="mt-[1px] pl-[4px] pr-[5px] text-sm font-bold text-[#F76E80]">削除</p>
-                    <svg width="14" height="14" viewBox="0 0 11 11" fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#F76E80" stroke-width="1.1"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                  </button>
+                  @if (!Auth::id() == $user->id)
+                    <button class="flex items-center hover:opacity-40" type="button"
+                      x-on:click="$dispatch('open-modal', 'delete-modal-{{ $user->id }}')">
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M12.2833 7.49995L11.995 14.9999M8.005 14.9999L7.71667 7.49995M16.0233 4.82495C16.3083 4.86828 16.5917 4.91411 16.875 4.96328M16.0233 4.82495L15.1333 16.3941C15.097 16.8651 14.8842 17.3051 14.5375 17.626C14.1908 17.9469 13.7358 18.1251 13.2633 18.1249H6.73667C6.26425 18.1251 5.80919 17.9469 5.46248 17.626C5.11578 17.3051 4.90299 16.8651 4.86667 16.3941L3.97667 4.82495M16.0233 4.82495C15.0616 4.67954 14.0948 4.56919 13.125 4.49411M3.97667 4.82495C3.69167 4.86745 3.40833 4.91328 3.125 4.96245M3.97667 4.82495C4.93844 4.67955 5.9052 4.56919 6.875 4.49411M13.125 4.49411V3.73078C13.125 2.74745 12.3667 1.92745 11.3833 1.89661C10.4613 1.86714 9.53865 1.86714 8.61667 1.89661C7.63333 1.92745 6.875 2.74828 6.875 3.73078V4.49411M13.125 4.49411C11.0448 4.33334 8.95523 4.33334 6.875 4.49411"
+                          stroke="#F76E80" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      <p class="mt-[1px] pl-[4px] pr-[5px] text-sm font-bold text-[#F76E80]">削除</p>
+                      <svg width="14" height="14" viewBox="0 0 11 11" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#F76E80" stroke-width="1.1"
+                          stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                    </button>
+                  @endif
                 </div>
               </div>
             </div>
@@ -78,57 +80,62 @@
 
           <input name="id" type="hidden" value="{{ $user->id }}">
 
-          {{-- モバイル --}}
-          <div class="mt-10 flex flex-col gap-[50px] pb-[50px] lg:hidden">
-            <div class="grid grid-cols-[30%,70%]">
+          <div class="mt-10 flex flex-col gap-[30px] border-b pb-[50px] lg:gap-[50px]">
+            <div class="grid grid-cols-[30%,70%] sm:grid-cols-[10%,40%,10%,40%]">
               <div class="flex items-center text-[11px] font-bold">名前</div>
-              <div class="flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name" type="text"
                   value="{{ old('name', $user->profile?->name) }}" required></div>
-            </div>
-            <div class="grid grid-cols-[30%,70%]">
-              <div class="flex items-center text-[11px] font-bold">フリガナ</div>
-              <div class="flex items-center"><input
+              <div class="mt-[30px] flex items-center text-[11px] font-bold lg:mt-0">フリガナ</div>
+              <div class="mt-[30px] flex items-center lg:mr-10 lg:mt-0"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name_kana"
                   type="text" value="{{ old('name_kana', $user->profile?->name_kana) }}"></div>
             </div>
-            <div class="grid grid-cols-[30%,70%]">
+
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">ログインID</div>
-              <div class="flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="login_id" type="text"
                   value="{{ old('login_id', $user->login_id) }}" required></div>
             </div>
-            <div class="grid grid-cols-[30%,70%]">
+
+            <!-- 4行目: 1列 -->
+            <div class="grid grid-cols-[30%,70%] items-start lg:grid-cols-[10%,90%] lg:items-center">
               <div class="flex items-center text-[11px] font-bold">契約区分</div>
               <div class="flex items-center">
-                <div class="ms-4 mt-1 grid grid-cols-2">
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="正社員"
-                      {{ old('contract_type', $user->profile?->contract_type) == '正社員' ? 'checked' : '' }}>
-                    <span class="ml-1">正社員</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="契約社員"
-                      {{ old('contract_type', $user->profile?->contract_type) == '契約社員' ? 'checked' : '' }}>
-                    <span class="ml-1">契約社員</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="パート"
-                      {{ old('contract_type', $user->profile?->contract_type) == 'パート' ? 'checked' : '' }}>
-                    <span class="ml-1">パート</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="アルバイト"
-                      {{ old('contract_type', $user->profile?->contract_type) == 'アルバイト' ? 'checked' : '' }}>
-                    <span class="ml-1">アルバイト</span>
-                  </label>
+                <div class="flex flex-col lg:ms-4 lg:mt-1 lg:flex-row lg:items-center lg:space-x-[50px]">
+                  <div class="flex items-center space-x-[50px]">
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="正社員"
+                        {{ old('contract_type', $user->profile?->contract_type) == '正社員' ? 'checked' : '' }}>
+                      <span class="ml-1">正社員</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="契約社員"
+                        {{ old('contract_type', $user->profile?->contract_type) == '契約社員' ? 'checked' : '' }}>
+                      <span class="ml-1">契約社員</span>
+                    </label>
+                  </div>
+                  <div class="mt-5 flex items-center space-x-[50px] lg:mt-0">
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="パート"
+                        {{ old('contract_type', $user->profile?->contract_type) == 'パート' ? 'checked' : '' }}>
+                      <span class="ml-1">パート</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="アルバイト"
+                        {{ old('contract_type', $user->profile?->contract_type) == 'アルバイト' ? 'checked' : '' }}>
+                      <span class="ml-1">アルバイト</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="grid grid-cols-[30%,70%] border-b pb-[40px]">
+
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">管理者権限</div>
               <div class="flex items-center">
-                <div class="ms-4 mt-1 flex items-center space-x-[50px]">
+                <div class="flex items-center space-x-[50px] lg:ms-4 lg:mt-1">
                   <label class="flex items-center">
                     <input class="form-radio text-indigo-600" name="role" type="radio" value="1"
                       {{ old('role', optional($user?->roles->first())->id) == '1' ? 'checked' : '' }}>
@@ -140,37 +147,47 @@
                     <span class="ml-1">一般</span>
                   </label>
                 </div>
+                @error('role')
+                  <div class="font-normal text-red-500">{{ $message }}</div>
+                @enderror
               </div>
             </div>
+          </div>
 
-            <div class="grid grid-cols-[30%,70%]">
+          <div class="mt-10 flex flex-col gap-[50px] pb-[50px]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">住所</div>
-              <div class="flex items-center"> <input
+              <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="address"
                   type="text" value="{{ old('address', $user->profile?->address) }}"></div>
             </div>
-            <div class="grid grid-cols-[30%,70%]">
+
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">電話番号</div>
-              <div class="flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="phone_number"
                   type="text" value="{{ old('phone_number', $user->profile?->phone_number) }}"></div>
             </div>
-            <div class="grid grid-cols-[30%,70%]">
+
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
-              <div class="flex items-center"><input
+              <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal"
                   name="emergency_phone_number" type="text"
-                  value="{{ old('emergency_phone_number', $user->profile?->emergency_phone_number) }}"></div>
+                  value="{{ old('emergency_phone_number', $user->profile?->emergency_phone_number) }}">
+              </div>
             </div>
           </div>
+        </div>
 
-          <div class="mb-10 flex items-center justify-center space-x-[10px]">
-            <a class="flex h-[45px] w-[150px] items-center justify-center rounded border hover:opacity-40"
-              href="{{ route('account.index') }}">キャンセル</a>
-            <button
-              class="flex h-[45px] w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
-              type="submit">更新する</button>
-          </div>
+        <div class="mb-[60px] flex items-center justify-center space-x-[10px] lg:mt-10">
+          <a class="flex h-[45px] w-[150px] items-center justify-center rounded border hover:opacity-40"
+            href="{{ route('account.index') }}">キャンセル</a>
+          <button
+            class="flex h-[45px] w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+            type="submit">更新する</button>
+        </div>
+
       </form>
 
       <x-modal-alert name="delete-modal-{{ $user->id }}" title="削除" maxWidth="sm">

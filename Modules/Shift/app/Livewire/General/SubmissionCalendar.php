@@ -7,7 +7,6 @@ namespace Modules\Shift\Livewire\General;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
 use Illuminate\Support\Facades\Auth;
-use Jenssegers\Agent\Agent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -73,17 +72,6 @@ class SubmissionCalendar extends Component
 
     public function render()
     {
-        $agent = new Agent;
-
-        $ua = $agent->getUserAgent();
-        $isTablet = $agent->isTablet()
-            || str_contains($ua, 'iPad')
-            || (str_contains($ua, 'Macintosh'));
-
-        if ($agent->isMobile() || $isTablet) {
-            return view('shift::general.livewire.submission-calendar-mobile');
-        }
-
         return view('shift::general.livewire.submission-calendar');
     }
 }

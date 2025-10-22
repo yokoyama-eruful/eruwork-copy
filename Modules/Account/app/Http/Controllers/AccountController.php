@@ -6,7 +6,6 @@ namespace Modules\Account\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Jenssegers\Agent\Agent;
 use Modules\Account\Http\Requests\AccountStoreRequest;
 use Modules\Account\Http\Requests\AccountUpdateRequest;
 use Modules\Chat\Models\Group;
@@ -28,18 +27,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-        $agent = new Agent;
-
-        $ua = $agent->getUserAgent();
-        $isTablet = $agent->isTablet()
-            || str_contains($ua, 'iPad')
-            || (str_contains($ua, 'Macintosh'));
-
-        if ($agent->isMobile() || $isTablet) {
-            return view('account::mobile-create');
-        }
-
-        return view('account::desktop-create');
+        return view('account::create');
     }
 
     /**
@@ -73,18 +61,7 @@ class AccountController extends Controller
     {
         $user = User::where('login_id', $id)->first();
 
-        $agent = new Agent;
-
-        $ua = $agent->getUserAgent();
-        $isTablet = $agent->isTablet()
-            || str_contains($ua, 'iPad')
-            || (str_contains($ua, 'Macintosh'));
-
-        if ($agent->isMobile() || $isTablet) {
-            return view('account::mobile-edit', ['user' => $user]);
-        }
-
-        return view('account::desktop-edit', ['user' => $user]);
+        return view('account::edit', ['user' => $user]);
     }
 
     /**

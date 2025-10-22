@@ -21,7 +21,7 @@
     <div class="mt-[30px] flex items-center space-x-2 border-b px-5 pb-[10px] lg:mt-[20px] lg:px-0">
       <div class="text-xs text-[#AAB0B6]">期間:</div>
       <div class="text-[15px] font-semibold lg:text-[20px]">
-        {{ $manager->submission_start_date->isoFormat('M.D（ddd）') }}　～　{{ $manager->submission_end_date->isoFormat('M.D（ddd）') }}
+        {{ $manager->start_date->isoFormat('M.D（ddd）') }}　～　{{ $manager->end_date->isoFormat('M.D（ddd）') }}
       </div>
     </div>
 

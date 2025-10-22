@@ -10,12 +10,14 @@
         </svg>
         一覧画面に戻る
       </a>
+
+      <h5 class="text-2xl font-bold lg:hidden">アカウント追加</h5>
     </x-dashboard.top>
     <x-dashboard.container>
-      <form class="flex flex-col p-6" action="{{ route('account.store') }}" method="POST">
+      <form class="flex flex-col px-5 lg:p-6" action="{{ route('account.store') }}" method="POST">
         @csrf
         <h5 class="hidden text-xl font-bold lg:block">アカウント管理</h5>
-        <div class="rounded-lg border-[#DDDDDD] px-[25px] lg:mt-[30px] lg:border lg:py-[30px]">
+        <div class="rounded-lg border-[#DDDDDD] sm:px-[25px] lg:mt-[30px] lg:border lg:py-[30px]">
 
           @if ($errors->any())
             <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
@@ -27,72 +29,76 @@
             </div>
           @endif
 
-          <div class="mt-10 hidden flex-col gap-[50px] border-b pb-[50px] lg:flex">
-            <div class="grid grid-cols-[10%,40%,10%,40%]">
+          <div class="mt-10 flex flex-col gap-[30px] border-b pb-[50px] lg:gap-[50px]">
+            <div class="grid grid-cols-[30%,70%] sm:grid-cols-[10%,40%,10%,40%]">
               <div class="flex items-center text-[11px] font-bold">名前</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name" type="text"
                   value="{{ old('name') }}" required></div>
-              <div class="flex items-center text-[11px] font-bold">フリガナ</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="mt-[30px] flex items-center text-[11px] font-bold lg:mt-0">フリガナ</div>
+              <div class="mt-[30px] flex items-center lg:mr-10 lg:mt-0"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name_kana"
                   type="text" value="{{ old('name_kana') }}"></div>
             </div>
 
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">ログインID</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="login_id" type="text"
                   value="{{ old('login_id') }}" required></div>
             </div>
 
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">パスワード</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="password"
                   type="password" value="{{ old('password') }}" required></div>
             </div>
 
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">パスワード確認</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="password_confirmation"
                   type="password" value="{{ old('password_confirmation') }}" required></div>
             </div>
 
             <!-- 4行目: 1列 -->
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] items-start lg:grid-cols-[10%,90%] lg:items-center">
               <div class="flex items-center text-[11px] font-bold">契約区分</div>
               <div class="flex items-center">
-                <div class="ms-4 mt-1 flex items-center space-x-[50px]">
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="正社員"
-                      {{ old('contract_type') == '正社員' ? 'checked' : '' }}>
-                    <span class="ml-1">正社員</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="契約社員"
-                      {{ old('contract_type') == '契約社員' ? 'checked' : '' }}>
-                    <span class="ml-1">契約社員</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="パート"
-                      {{ old('contract_type') == 'パート' ? 'checked' : '' }}>
-                    <span class="ml-1">パート</span>
-                  </label>
-                  <label class="flex items-center">
-                    <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="アルバイト"
-                      {{ old('contract_type') == 'アルバイト' ? 'checked' : '' }}>
-                    <span class="ml-1">アルバイト</span>
-                  </label>
+                <div class="flex flex-col lg:ms-4 lg:mt-1 lg:flex-row lg:items-center lg:space-x-[50px]">
+                  <div class="flex items-center space-x-[50px]">
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="正社員"
+                        {{ old('contract_type') == '正社員' ? 'checked' : '' }}>
+                      <span class="ml-1">正社員</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="契約社員"
+                        {{ old('contract_type') == '契約社員' ? 'checked' : '' }}>
+                      <span class="ml-1">契約社員</span>
+                    </label>
+                  </div>
+                  <div class="mt-5 flex items-center space-x-[50px] lg:mt-0">
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="パート"
+                        {{ old('contract_type') == 'パート' ? 'checked' : '' }}>
+                      <span class="ml-1">パート</span>
+                    </label>
+                    <label class="flex items-center">
+                      <input class="form-radio text-indigo-600" name="contract_type" type="radio" value="アルバイト"
+                        {{ old('contract_type') == 'アルバイト' ? 'checked' : '' }}>
+                      <span class="ml-1">アルバイト</span>
+                    </label>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">管理者権限</div>
               <div class="flex items-center">
-                <div class="ms-4 mt-1 flex items-center space-x-[50px]">
+                <div class="flex items-center space-x-[50px] lg:ms-4 lg:mt-1">
                   <label class="flex items-center">
                     <input class="form-radio text-indigo-600" name="role" type="radio" value="1"
                       {{ old('role') == '1' ? 'checked' : '' }}>
@@ -111,24 +117,24 @@
             </div>
           </div>
 
-          <div class="mt-10 hidden flex-col gap-[50px] pb-[50px] lg:flex">
-            <div class="grid grid-cols-[10%,90%]">
+          <div class="mt-10 flex flex-col gap-[50px] pb-[50px]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">住所</div>
-              <div class="mr-10 flex items-center"> <input
+              <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="address"
                   type="text" value="{{ old('address') }}"></div>
             </div>
 
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">電話番号</div>
-              <div class="mr-10 flex items-center"><input
+              <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="phone_number"
                   type="text" value="{{ old('phone_number') }}"></div>
             </div>
 
-            <div class="grid grid-cols-[10%,90%]">
+            <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
               <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
-              <div class="mr-10 flex items-center"> <input
+              <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal"
                   name="emergency_phone_number" type="text" value="{{ old('emergency_phone_number') }}">
               </div>
@@ -136,7 +142,7 @@
           </div>
         </div>
 
-        <div class="mt-10 flex items-center justify-center space-x-[10px]">
+        <div class="mb-[60px] flex items-center justify-center space-x-[10px] lg:mb-0 lg:mt-10">
           <a class="flex h-[45px] w-[150px] items-center justify-center rounded border hover:opacity-40"
             href="{{ route('account.index') }}">キャンセル</a>
           <button

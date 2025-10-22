@@ -1,7 +1,7 @@
 <x-main.index>
 
   <x-main.top>
-    <div class="flex w-full items-center justify-between space-x-[30px] lg:justify-normal">
+    <div class="hidden w-full items-center justify-between space-x-[30px] lg:flex lg:justify-normal">
       <a class="flex items-center hover:opacity-40" href="{{ route('shift.submission.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -14,10 +14,17 @@
         <livewire:shift::general.submission-multi-create :$manager />
       @endif
     </div>
+
+    <h5 class="text-2xl font-bold lg:hidden">シフト希望表入力</h5>
   </x-main.top>
   <x-main.container>
     <div class="hidden items-center justify-between lg:flex">
       <h5 class="text-xl font-bold">シフト表提出</h5>
+    </div>
+
+    <div class="flex w-full items-center justify-center bg-[#F7F7F7] py-1 lg:hidden">
+      <div class="text-xs text-[#6F6C6C]">提出期限：</div>
+      <div class="font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD（ddd曜）まで') }}</div>
     </div>
 
     <div class="mt-[19px] flex items-center space-x-[5px] px-5 lg:space-x-2 lg:px-0">
@@ -48,22 +55,28 @@
       <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
-    <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
+    <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'min-h-[170px] min-w-[140px]',
+            'lg:min-h-[170px] min-h-[90px] min-w-[140px] lg:block grid grid-cols-[20%,60%,20%] items-center',
             'bg-[#E6E6E6] hidden lg:block' => $content['type'] === '期間外',
         ]) wire:key="calendar-box-desktop-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="flex items-center justify-between pl-[15px] pr-[10px]">
             @if ($content['date']->isoFormat('D') === '1' || $loop->first)
-              <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('M.D日') }}</div>
+              <div class="flex flex-col items-start">
+                <div @class(['text-[15px] lg:py-[15px]'])>{{ $content['date']->isoFormat('M.D日') }}</div>
+                <div class="text-xs lg:hidden">{{ $content['date']->isoFormat('ddd') }}曜</div>
+              </div>
             @else
-              <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('D日') }}</div>
+              <div class="flex flex-col items-start">
+                <div @class(['text-[15px] lg:py-[15px]'])>{{ $content['date']->isoFormat('D日') }}</div>
+                <div class="text-xs lg:hidden">{{ $content['date']->isoFormat('ddd') }}曜</div>
+              </div>
             @endif
             @if ($content['type'] !== '期間外')
               {{-- スケジュール作成ボタン --}}
-              <div>
+              <div class="hidden lg:block">
                 @if ($manager->OverSubmissionPeriod)
                   <button class="hover:opacity-40" type="button"
                     x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">
@@ -80,7 +93,7 @@
                 :manager="$manager" />
             @endif
           </div>
-          <div class="mb-1 flex flex-col space-y-1 pr-1 lg:text-sm">
+          <div class="my-3 flex flex-col space-y-1 lg:my-0 lg:mb-1 lg:pr-1 lg:text-sm">
             @foreach ($content['draftShifts'] as $key => $schedule)
               @if (!$schedule->shiftStatus)
                 <button
@@ -104,6 +117,19 @@
               <livewire:shift::general.submission-edit-modal @edited="$refresh" :key="'edit-desktop-' . $schedule->id" :$schedule
                 :$manager />
             @endforeach
+          </div>
+          <div class="flex items-center justify-center lg:hidden">
+            @if ($content['type'] !== '期間外' && $manager->OverSubmissionPeriod)
+              <button class="hover:opacity-40" type="button"
+                x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9 6.5V11.5M11.5 9H6.5M16.5 9C16.5 9.98491 16.306 10.9602 15.9291 11.8701C15.5522 12.7801 14.9997 13.6069 14.3033 14.3033C13.6069 14.9997 12.7801 15.5522 11.8701 15.9291C10.9602 16.306 9.98491 16.5 9 16.5C8.01509 16.5 7.03982 16.306 6.12987 15.9291C5.21993 15.5522 4.39314 14.9997 3.6967 14.3033C3.00026 13.6069 2.44781 12.7801 2.0709 11.8701C1.69399 10.9602 1.5 9.98491 1.5 9C1.5 7.01088 2.29018 5.10322 3.6967 3.6967C5.10322 2.29018 7.01088 1.5 9 1.5C10.9891 1.5 12.8968 2.29018 14.3033 3.6967C15.7098 5.10322 16.5 7.01088 16.5 9Z"
+                    stroke="#3289FA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            @endif
           </div>
         </div>
       @endforeach

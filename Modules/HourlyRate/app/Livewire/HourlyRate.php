@@ -6,7 +6,6 @@ namespace Modules\HourlyRate\Livewire;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Jenssegers\Agent\Agent;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
@@ -57,17 +56,6 @@ class HourlyRate extends Component
 
     public function render()
     {
-        $agent = new Agent;
-
-        $ua = $agent->getUserAgent();
-        $isTablet = $agent->isTablet()
-            || str_contains($ua, 'iPad')
-            || (str_contains($ua, 'Macintosh'));
-
-        if ($agent->isMobile() || $isTablet) {
-            return view('hourlyrate::livewire.mobile-hourly-rate');
-        }
-
-        return view('hourlyrate::livewire.desktop-hourly-rate');
+        return view('hourlyrate::livewire.hourly-rate');
     }
 }

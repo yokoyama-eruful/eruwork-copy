@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Account\Models\Profile;
 use Modules\Chat\Models\Group;
 use Modules\HourlyRate\Models\HourlyRate;
+use Modules\Shift\Models\Pattern;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
 use NotificationChannels\WebPush\HasPushSubscriptions;
@@ -113,6 +114,11 @@ class User extends Authenticatable
     public function breakTime(): HasMany
     {
         return $this->hasMany(BreakTime::class);
+    }
+
+    public function Patterns(): HasMany
+    {
+        return $this->hasMany(Pattern::class);
     }
 
     public function groups(): BelongsToMany

@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Modules\Chat\Http\Controllers\General;
 
+use App\Events\ChatEvent;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Modules\Chat\Enums\ChatGroupType;
 use Modules\Chat\Models\Group;
 
 class ChatController extends Controller
@@ -16,19 +15,6 @@ class ChatController extends Controller
      */
     public function index()
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-
-        $groups = $user->groups(ChatGroupType::ALL)
-            ->get()
-            ->sortByDesc(function ($group) {
-                return $group->lastMessage ? $group->lastMessage->created_at : null;
-            });
-
-        if ($groups->first()) {
-            return to_route('chat.show', ['group' => $groups->first()]);
-        }
-
         return view('chat::general.index');
     }
 
@@ -37,6 +23,8 @@ class ChatController extends Controller
      */
     public function show(Group $group)
     {
+        ChatEvent::dispatch();
+
         return view('chat::general.show', ['selectGroup' => $group]);
     }
 }
