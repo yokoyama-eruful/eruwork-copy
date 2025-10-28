@@ -1,5 +1,4 @@
-<div
-  class="mt-[45px] flex min-h-[30px] w-full items-center justify-between pt-[30px] lg:mt-0 lg:max-h-[30px] lg:min-w-[1300px] lg:pt-0"
+<div class="mt-[45px] flex min-h-[30px] w-full items-center justify-between pt-[30px] lg:mt-0 lg:max-h-[30px] lg:pt-0"
   x-data="{ accountModal: false }">
   <div class="flex w-full items-center justify-between px-[20px] lg:w-auto lg:justify-normal lg:px-0">
     {{ $slot }}

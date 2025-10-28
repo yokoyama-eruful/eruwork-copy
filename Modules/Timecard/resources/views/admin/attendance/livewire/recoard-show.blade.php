@@ -65,7 +65,7 @@
           <h5 class="hidden text-xl font-bold lg:block">勤怠管理</h5>
           <livewire:timecard::admin.calculate-salary :$startDate :$endDate key="{{ $startDate . $endDate }}" />
         </div>
-        <div class="mt-[30px] hidden grid-cols-[5%,4.5%,35.5%,26%,30%] items-end lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[8%,6.5%,30.5%,26%,30%] items-end lg:grid">
           <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
             @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); $wire.set('selectUsers', Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => checkbox.value));">
             全選択</button>
@@ -78,7 +78,7 @@
         <div class="mt-[24px] rounded-lg lg:-mx-0 lg:mt-[8px] lg:border lg:border-b">
           @foreach ($this->users as $user)
             <div @class([
-                'lg:grid lg:grid-cols-[5%,4.5%,35.5%,26%,30%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid lg:grid-cols-[8%,6.5%,30.5%,26%,30%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
 

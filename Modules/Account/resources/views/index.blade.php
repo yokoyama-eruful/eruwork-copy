@@ -11,12 +11,11 @@
     <x-dashboard.container>
       <h5 class="hidden text-xl font-bold lg:block">アカウント管理</h5>
       <div
-        class="mt-[30px] grid grid-cols-[15%,60%,20%,5%] border-b px-5 pb-2 lg:grid-cols-[6%,15%,15%,15%,15%,27.2%,3.8%,3%] lg:border-none lg:px-0 lg:pb-0">
+        class="mt-[30px] grid grid-cols-[15%,60%,20%,5%] border-b px-5 pb-2 lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] lg:border-none lg:px-0 lg:pb-0">
         <div class="text-left text-xs font-normal text-[#AAB0B6] lg:pl-[25px]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">ログインID</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">契約区分</div>
-        <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">更新日</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">最終ログイン日</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
@@ -24,7 +23,7 @@
       <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($users as $user)
           <div @class([
-              'grid lg:grid-cols-[6%,15%,15%,15%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
           ])>
             <div
@@ -43,8 +42,6 @@
             <div class="hidden text-[15px] lg:block">{{ $user->login_id }}</div>
 
             <div class="text-[12px] lg:text-[15px]">{{ $user->profile?->contract_type }}</div>
-
-            <div class="hidden text-[15px] lg:block">{{ $user->profile?->updated_at?->format('Y.m.d') }}</div>
 
             <div class="hidden text-[15px] lg:block">{{ $user->last_login_at?->format('Y.m.d') }}</div>
 

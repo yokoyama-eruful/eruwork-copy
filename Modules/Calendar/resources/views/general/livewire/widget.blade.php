@@ -168,7 +168,7 @@
     </div>
     <div class="schedule-box-area">
       <h4>{{ $selectDate->format('m.d') }}の予定</h4>
-      <div class="schedule-detail-box">
+      <div class="schedule-detail-box space-y-2">
         @if ($mobileSchedules->isNotEmpty() || $mobileShiftSchedules->isNotEmpty())
           @foreach ($mobileShiftSchedules as $shift)
             <div class="rounded-[10px] border border-[#39A338] bg-[#F6FFF6] px-[10px] py-4 text-[#39A338]">

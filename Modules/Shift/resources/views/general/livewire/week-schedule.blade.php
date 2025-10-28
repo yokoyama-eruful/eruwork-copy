@@ -110,6 +110,16 @@
             </div>
           </div>
         @endif
+      </div>
+    </div>
+
+    <div class="mb-[12px] mt-[35px] flex items-center justify-between px-5 lg:mb-[14px] lg:mt-[17px] lg:px-0">
+      <div class="flex items-center">
+        <p class="text-xs text-[#AAB0B6]">期間：</p>
+        <div class="pl-1 text-sm font-semibold lg:text-xl">
+          {{ $startDate->isoFormat('M/D日（ddd）') }} ～ {{ $endDate->isoFormat('M/D日（ddd）') }}</div>
+      </div>
+      <div class="hidden items-center space-x-5 lg:flex">
         <a class="flex items-center space-x-1 hover:opacity-40" href="{{ route('shift.submission.index') }}">
           <p class="text-xs text-[#3289FA]">シフト一覧</p>
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -119,14 +129,6 @@
           </svg>
         </a>
         <livewire:shift::general.pattern-create-modal />
-      </div>
-    </div>
-
-    <div class="mb-[12px] mt-[35px] flex items-center justify-between px-5 lg:mb-[14px] lg:mt-[17px] lg:px-0">
-      <div class="flex items-center">
-        <p class="text-xs text-[#AAB0B6]">期間：</p>
-        <div class="pl-1 text-sm font-semibold lg:text-xl">
-          {{ $startDate->isoFormat('M/D日（ddd）') }} ～ {{ $endDate->isoFormat('M/D日（ddd）') }}</div>
       </div>
     </div>
     <hr class="border-t">

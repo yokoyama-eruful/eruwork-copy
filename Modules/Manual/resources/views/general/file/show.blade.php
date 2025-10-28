@@ -15,16 +15,16 @@
     </x-main.top>
     <div class="lg:flex lg:h-auto lg:min-h-[calc(var(--vh)*100-100px)] lg:space-x-5">
       <div
-        class="top-container mt-5 h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-2/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+        class="top-container mt-5 h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-3/5 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
         <h5 class="hidden text-xl font-bold lg:block">{{ $file->title }}</h5>
 
         @if (str_contains($file->type, 'image'))
           <div
-            class="mt-5 flex h-[320px] w-full justify-center bg-black lg:static lg:h-[450px] lg:rounded-lg lg:border">
+            class="mt-5 flex h-[220px] w-full justify-center bg-black lg:static lg:h-[350px] lg:rounded-lg lg:border">
             <img class="h-full lg:rounded-lg" src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
           </div>
         @elseif(str_contains($file->type, 'video'))
-          <div class="sticky top-0 z-10 mt-5 h-[220px] w-full bg-black lg:static lg:h-[450px] lg:rounded-lg lg:border">
+          <div class="sticky top-0 z-10 mt-5 h-[220px] w-full bg-black lg:static lg:h-[350px] lg:rounded-lg lg:border">
             <video class="h-full w-full lg:rounded-lg" controls playsinline>
               <source src="{{ route('manualFile.movie', ['id' => $file->id]) }}" type="{{ $file->type }}">
               Your browser does not support the video tag.
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div
-        class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:w-1/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+        class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:w-2/5 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
         <h5 class="hidden text-xl font-bold lg:block">業務手順</h5>
         <div class="procedure-container">
           @if (!empty($file->steps))

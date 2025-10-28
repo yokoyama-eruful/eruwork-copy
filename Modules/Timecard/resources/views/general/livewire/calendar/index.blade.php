@@ -180,7 +180,7 @@
       <div class="mt-[15px] grid grid-cols-7 divide-x divide-y rounded-lg border">
         @foreach ($this->calendar as $content)
           <div @class([
-              'min-h-[170px] min-w-[140px]',
+              'min-h-[170px]',
               'bg-[#F9FAFF]' =>
                   $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
               'bg-gray-100 hidden lg:block' => $content['type'] == '補助日',
@@ -194,7 +194,7 @@
 
             @if ($content['workTimes']->isNotEmpty())
               <div
-                class="mb-[19px] mr-1 min-h-[108px] min-w-[135px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF]">
+                class="mb-[19px] mr-1 min-h-[108px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF]">
                 <div class="text-[13px] font-bold">勤務時間</div>
                 @foreach ($content['workTimes'] as $key => $time)
                   <div class="pt-[4px] text-xs">

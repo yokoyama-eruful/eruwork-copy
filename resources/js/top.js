@@ -1,6 +1,6 @@
 (() => {
   const GAP_FIXED = 15; // “ずらし”の上限(px)
-  const MIN_W     = 140; // カード最小幅(px)
+  const MIN_W     = 80; // カード最小幅(px)
 
   // ====== カード内 <p> の可視制御 ======
   function updateSecondPVisibility(card) {

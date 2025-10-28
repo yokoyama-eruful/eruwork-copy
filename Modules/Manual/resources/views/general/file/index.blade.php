@@ -15,7 +15,7 @@
     <x-main.container>
       <h5 class="hidden text-xl font-bold lg:block">{{ $folder->title }}</h5>
       @if ($files->isNotEmpty())
-        <div class="mt-[30px] hidden grid-cols-[10%,5%,41%,21%,21%,2%] px-5 lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[10%,8%,40%,20%,20%,2%] px-5 lg:grid">
           <div class="text-xs text-[#AAB0B6]">サムネイル</div>
           <div class="text-xs text-[#AAB0B6]"></div>
           <div class="text-xs text-[#AAB0B6]">表題</div>
@@ -27,7 +27,7 @@
           @foreach ($files as $file)
             <a href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}"
               @class([
-                  'hidden lg:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5',
+                  'hidden lg:grid grid-cols-[10%,8%,40%,20%,20%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5',
                   'border-b' => !$loop->last,
               ])>
               <div class="flex h-[80px] w-[145px] justify-center rounded bg-black">

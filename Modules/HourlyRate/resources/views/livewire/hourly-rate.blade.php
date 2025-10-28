@@ -4,12 +4,12 @@
   </x-dashboard.top>
   <div class="hidden min-h-[calc(var(--vh)*100-100px)] lg:flex lg:space-x-5">
     <div
-      class="top-container mt-[20px] min-h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      class="top-container mt-[20px] min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-3/5 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <div class="flex items-center justify-between">
         <h5 class="hidden text-xl font-bold lg:block">時給管理</h5>
         <livewire:hourlyrate::wage-premiums-create :key="'desktop-create-wage-' . $selectedId" />
       </div>
-      <div class="mt-[30px] hidden grid-cols-[10%,70%,10%,10%] lg:grid">
+      <div class="mt-[30px] hidden grid-cols-[15%,58%,13%,14%] lg:grid">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">時給</div>
@@ -18,7 +18,7 @@
       <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid lg:grid-cols-[10%,70%,10%,10%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid lg:grid-cols-[15%,58%,13%,14%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'bg-[#F9FAFF] border border-[#3289FA]' => $selectedUser->id === $user->id,
               'rounded-t-lg' => $loop->first,
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div
-      class="top-container mt-[20px] hidden min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:min-w-[320px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      class="top-container mt-[20px] hidden min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:w-2/5 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <livewire:hourlyrate::hourly-rate-show :$selectedUser :key="'desktop-show-' . $selectedId" />
     </div>
   </div>

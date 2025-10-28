@@ -23,7 +23,7 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">ルームがありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[8%,29%,45%,14%,4%] lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[10%,27%,45%,14%,4%] lg:grid">
           <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
           <div class="pr-[20px] text-left text-xs font-normal text-[#AAB0B6]">グループ名</div>
           <div class="pr-[87px] text-left text-xs font-normal text-[#AAB0B6]">メンバー</div>
@@ -33,7 +33,7 @@
         <div class="mt-[24px] border border-b lg:-mx-0 lg:mt-[8px] lg:rounded-lg">
           @foreach ($groups as $group)
             <div @class([
-                'lg:grid lg:grid-cols-[8%,29%,45%,14%,4%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid lg:grid-cols-[10%,27%,45%,14%,4%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
               <div

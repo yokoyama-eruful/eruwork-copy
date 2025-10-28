@@ -1,5 +1,5 @@
 <main
-  {{ $attributes->class('h-[calc(var(--vh)*100-50px)] lg:h-screen flex-1 overflow-auto lg:bg-[#f4f4f4] bg-white lg:p-6') }}>
+  {{ $attributes->class('h-[calc(var(--vh)*100-50px)] lg:h-screen flex-1 overflow-y-auto overflow-x-hidden lg:bg-[#f4f4f4] bg-white lg:p-6') }}>
   <div
     class="fixed z-10 flex h-[45px] w-full flex-row items-center space-x-2 overflow-x-auto bg-[#3D475D] px-5 py-[5px] lg:hidden">
     <a href="{{ route('shiftManager.index') }}" @class([

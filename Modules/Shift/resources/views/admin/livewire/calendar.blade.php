@@ -125,7 +125,7 @@
     <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'min-h-[170px] min-w-[140px]',
+            'min-h-[170px]',
             'bg-gray-100 hidden lg:block' => $content['type'] == '期間外',
         ]) wire:key="calendar-{{ $content['date']->format('Y-m-d') }}">
 
@@ -166,7 +166,7 @@
                 </div>
                 <div class="flex flex-col space-y-[3px] text-xs text-[#DE993A]">
                   <div class="font-bold">
-                    {{ $draft->start_time->isoFormat('H時mm分') }}～{{ $draft->end_time->isoFormat('H:mm') }}
+                    {{ $draft->start_time->isoFormat('H:mm') }}～{{ $draft->end_time->isoFormat('H:mm') }}
                   </div>
                   <div>{{ $draft->user->name }}</div>
                 </div>
