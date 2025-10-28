@@ -1,26 +1,5 @@
 @charset "utf-8";
 
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/web/Inter-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/web/Inter-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Inter";
-  src: url("./fonts/web/Inter-ExtraBold.woff2") format("woff2");
-  font-weight: 800;
-  font-style: normal;
-}
-
 :root {
   --row-h: 50px; /* 1時間の高さ */
   --head-h: 44px; /* 日付ヘッダーの高さ（左の月の高さと揃える） */

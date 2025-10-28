@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Modules\Shift\Livewire\General;
 
+use App\Models\User;
+use App\Notifications\WebPushNotification;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -68,6 +71,40 @@ class SubmissionCalendar extends Component
             ->where('date', $date)
             ->where('manager_id', $this->manager->id)
             ->get();
+    }
+
+    public function submissionStatus($manager)
+    {
+        return $manager->users()
+            ->wherePivot('user_id', Auth::id())
+            ->first()?->pivot->status;
+    }
+
+    public function submission($managerId)
+    {
+        $manager = Manager::find($managerId);
+
+        $manager->users()->updateExistingPivot(Auth::id(), [
+            'status' => '提出済',
+        ]);
+
+        $admins = User::role('admin')->get();
+
+        $formatMessage = Auth::user()->name . 'がシフトを提出しました。';
+
+        $url = Request::getSchemeAndHttpHost() . '/shiftManager/' . $managerId;
+
+        foreach ($admins as $user) {
+            $user->notify(
+                new WebPushNotification(
+                    title: 'エルフルサービス',
+                    message : $formatMessage,
+                    image: '',
+                    url: $url,
+                ));
+        }
+
+        return to_route('shift.submission.show', ['manager' => $manager]);
     }
 
     public function render()

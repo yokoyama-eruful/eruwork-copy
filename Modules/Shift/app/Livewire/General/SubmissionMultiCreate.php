@@ -13,6 +13,13 @@ class SubmissionMultiCreate extends Component
 
     public SubmissionForm $form;
 
+    public string $item;
+
+    public function mount()
+    {
+        $this->item = 'time';
+    }
+
     public function save()
     {
         $this->form->managerId = $this->manager->id;
@@ -21,6 +28,17 @@ class SubmissionMultiCreate extends Component
         $this->dispatch('SubmissionCalendarAllRefresh');
         $this->dispatch('reset-property');
         $this->dispatch('close-modal', 'multi-create-modal');
+    }
+
+    public function changeItem($item)
+    {
+        $this->item = $item;
+    }
+
+    public function selectPattern($startTime, $endTime)
+    {
+        $this->form->startTime = $startTime;
+        $this->form->endTime = $endTime;
     }
 
     public function render()

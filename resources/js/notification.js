@@ -120,12 +120,6 @@ self.addEventListener('notificationclick', function(event) {
     clients.openWindow(event.notification.data.url); // 通知に関連するURLを開く
 });
 
-// イベントリスナーの設定
-const setupEventListeners = () => {
-    document.getElementById('enable-push').addEventListener('click', enablePushNotifications);
-    document.getElementById('disable-push').addEventListener('click', disablePushNotifications);
-};
-
 document.addEventListener('DOMContentLoaded', () => {
     registerServiceWorker();
 
@@ -142,7 +136,6 @@ Livewire.on('enablePush', () => {
 const init = () => {
     registerServiceWorker();
     checkNotificationSupport();
-    setupEventListeners();
 };
 
 // 初期化を実行

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Shift\Livewire\Admin;
 
+use App\Models\User;
 use Livewire\Form;
 use Modules\Shift\Models\Manager;
 
@@ -67,12 +68,20 @@ final class ShiftManagerForm extends Form
     {
         $this->validate();
 
-        Manager::create([
+        $manager = Manager::create([
             'start_date' => $this->startDate,
             'end_date' => $this->endDate,
             'submission_start_date' => $this->submissionStartDate,
             'submission_end_date' => $this->submissionEndDate,
         ]);
+
+        $allUsers = User::all();
+        $userData = [];
+        foreach ($allUsers as $user) {
+            $userData[$user->id] = ['status' => '未提出'];
+        }
+
+        $manager->users()->attach($userData);
 
         $this->reset(['startDate', 'endDate', 'submissionStartDate', 'submissionEndDate']);
     }

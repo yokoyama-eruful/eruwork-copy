@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Modules\Shift\Livewire\Admin;
 
 use App\Models\User;
+use App\Notifications\WebPushNotification;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -26,6 +28,12 @@ class Calendar extends Component
     public ShiftScheduleForm $form;
 
     public $shifts;
+
+    public $status = '提出済';
+
+    public $draftStartTime;
+
+    public $draftEndTime;
 
     public function mount()
     {
@@ -90,6 +98,9 @@ class Calendar extends Component
             ->where('date', $date)
             ->where('status', '未承認')
             ->where('manager_id', $this->manager->id)
+            ->whereHas('user.managers', function ($query) {
+                $query->where('shift__manager_user.status', '提出済');
+            })
             ->orderBy('start_time', 'asc')
             ->get();
     }
@@ -129,6 +140,16 @@ class Calendar extends Component
         $this->dispatch('open-modal', 'edit-modal-' . $scheduleId);
     }
 
+    public function selectDraftShift($draftId)
+    {
+        $draft = DraftSchedule::find($draftId);
+
+        $this->draftStartTime = $draft->start_time->format('H:i');
+        $this->draftEndTime = $draft->end_time->format('H:i');
+
+        $this->dispatch('open-modal', 'confirm-shift-modal-' . $draftId);
+    }
+
     public function upShift(int $draftId)
     {
         $draft = DraftSchedule::find($draftId);
@@ -137,8 +158,8 @@ class Calendar extends Component
             'user_id' => $draft->user_id,
             'shift_draft_schedule_id' => $draft->id,
             'date' => $draft->date,
-            'start_time' => $draft->start_time,
-            'end_time' => $draft->end_time,
+            'start_time' => $this->draftStartTime,
+            'end_time' => $this->draftEndTime,
         ];
 
         Schedule::updateOrCreate(['shift_draft_schedule_id' => $draft->id], $params);
@@ -155,6 +176,42 @@ class Calendar extends Component
         $this->form->delete();
         $this->dispatch('close-modal', 'edit-modal-' . $this->form->schedule->id);
         $this->reloadSchedule($date);
+    }
+
+    public function getStatus($user, $managerId)
+    {
+        $manager = $user->managers()->where('shift_manager_id', $managerId)->first();
+
+        return $manager?->pivot->status;
+    }
+
+    public function changeList($status)
+    {
+        $this->status = $status;
+    }
+
+    public function returnSubmission($userId, $managerId)
+    {
+        $user = User::find($userId);
+
+        $user->managers()->updateExistingPivot($managerId, ['status' => '未提出']);
+    }
+
+    public function remindSubmission($userId, $managerId)
+    {
+        $user = User::find($userId);
+
+        $formatMessage = 'シフトを提出してください。';
+
+        $url = Request::getSchemeAndHttpHost() . '/shift/submission/' . $managerId;
+
+        $user->notify(
+            new WebPushNotification(
+                title: 'エルフルサービス',
+                message : $formatMessage,
+                image: '',
+                url: $url,
+            ));
     }
 
     public function render()

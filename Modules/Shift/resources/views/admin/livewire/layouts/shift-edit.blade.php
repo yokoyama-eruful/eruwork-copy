@@ -12,7 +12,7 @@
           </button>
         </form>
       @else
-        <form class="flex justify-end" wire:submit="downShift">
+        <form class="flex justify-end" wire:submit="downShift('{{ $content['date'] }}')">
           <button class="rounded px-2 py-1 text-red-600 hover:bg-red-600 hover:text-white" type="submit">
             <i class="fa-solid fa-trash me-1"></i>
             削除する
@@ -37,7 +37,7 @@
       <div class="grid grid-cols-[20%,80%] items-center">
         @if ($schedule->shift_draft_schedule_id)
           <x-input-label value="ユーザー名" />
-          <div class="w-full rounded-md ps-3 focus:border-indigo-500 focus:ring-indigo-500">
+          <div class="w-full border-b border-gray-300 py-2 ps-3">
             {{ $schedule->user->name }}
           </div>
         @else
@@ -54,13 +54,13 @@
       @if ($schedule->shift_draft_schedule_id)
         <div class="mt-4 grid grid-cols-[20%,80%] items-center">
           <x-input-label value="希望開始時間" />
-          <div class="w-full rounded-md ps-3 focus:border-indigo-500 focus:ring-indigo-500">
+          <div class="w-full border-b border-gray-300 py-2 ps-3">
             {{ $schedule->draftSchedule->start_time->format('H:i') }}
           </div>
         </div>
         <div class="mt-4 grid grid-cols-[20%,80%] items-center">
           <x-input-label value="希望終了時間" />
-          <div class="w-full rounded-md ps-3 focus:border-indigo-500 focus:ring-indigo-500">
+          <div class="w-full border-b border-gray-300 py-2 ps-3">
             {{ $schedule->draftSchedule->end_time->format('H:i') }}
           </div>
         </div>

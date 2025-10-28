@@ -1,6 +1,16 @@
 <x-app-layout :url="route('shift.schedule', ['category' => 'week'])">
   <x-main.index>
     <x-main.top>
+      <a class="hidden items-center hover:opacity-40 lg:flex"
+        href="{{ route('shift.schedule', ['category' => 'week']) }}">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M5.78988 9.39751C5.68455 9.29204 5.62538 9.14907 5.62538 9.00001C5.62538 8.85094 5.68455 8.70798 5.78988 8.60251L11.4149 2.97751C11.5215 2.87815 11.6626 2.82405 11.8083 2.82663C11.954 2.8292 12.093 2.88823 12.1961 2.99129C12.2992 3.09435 12.3582 3.23339 12.3608 3.37911C12.3633 3.52484 12.3092 3.66588 12.2099 3.77251L6.98238 9.00001L12.2099 14.2275C12.2651 14.279 12.3095 14.3411 12.3402 14.4101C12.371 14.4791 12.3875 14.5536 12.3888 14.6291C12.3902 14.7046 12.3763 14.7797 12.348 14.8497C12.3197 14.9197 12.2776 14.9834 12.2242 15.0368C12.1707 15.0902 12.1071 15.1323 12.0371 15.1606C11.967 15.1889 11.892 15.2028 11.8165 15.2015C11.741 15.2001 11.6665 15.1836 11.5975 15.1528C11.5285 15.1221 11.4664 15.0778 11.4149 15.0225L5.78988 9.39751Z"
+            fill="#3289FA" />
+        </svg>
+        <p class="hidden ps-[2px] text-sm font-bold text-[#3289FA] lg:block">シフト画面に戻る</p>
+      </a>
+
       <h5 class="block text-xl font-bold lg:hidden">シフト表一覧</h5>
     </x-main.top>
     <x-main.container>
@@ -15,7 +25,8 @@
       </div>
       {{-- デスクトップ版  --}}
       @if ($managers->total() === 0)
-        <div class="mt-[30px] flex h-[calc(var(--vh)*100-190px)] flex-col items-center justify-center rounded-xl border">
+        <div
+          class="mt-[30px] flex h-[calc(var(--vh)*100-190px)] flex-col items-center justify-center rounded-xl border">
           <svg width="55" height="55" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g opacity="0.1">
               <path fill-rule="evenodd" clip-rule="evenodd"
@@ -32,7 +43,7 @@
           <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
           <div class="text-center text-xs font-normal text-[#AAB0B6]"></div>
         </div>
-        <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
+        <div class="mt-[24px] hidden rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:block lg:border">
           @foreach ($managers as $manager)
             <div @class([
                 'lg:grid lg:grid-cols-[10%,64%,14%,12%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',

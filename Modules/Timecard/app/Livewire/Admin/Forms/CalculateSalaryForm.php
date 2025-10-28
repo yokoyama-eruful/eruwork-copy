@@ -53,8 +53,8 @@ class CalculateSalaryForm extends Form
         WagePremium::updateOrCreate(
             ['id' => $this->wagePremium?->id],
             [
-                'overtime_rate' => $this->overtimeRate ?? 0,
-                'night_rate' => $this->nightRate ?? 0,
+                'overtime_rate' => ! empty($this->overtimeRate) ? $this->overtimeRate : 0,
+                'night_rate' => ! empty($this->nightRate) ? $this->nightRate : 0,
             ]
         );
     }

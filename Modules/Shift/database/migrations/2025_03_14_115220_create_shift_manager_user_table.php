@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shift__patterns', function (Blueprint $table) {
+        Schema::create('shift__manager_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('title')->nullable();
-            $table->time('start_time')->nullable();
-            $table->time('end_time')->nullable();
-            $table->timestamps();
+            $table->foreignId('shift_manager_id')->nullable()->constrained('shift__managers')->onDelete('cascade');
+            $table->string('status');
+            $table->datetimes();
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shift__patterns');
+        Schema::dropIfExists('shift__managers');
     }
 };

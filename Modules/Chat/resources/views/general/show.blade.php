@@ -26,7 +26,7 @@
 
       {{-- ------------- --}}
       <div
-        class="mt-[13px] hidden h-[calc(var(--vh)*100-100px)] min-w-[1300px] flex-col rounded-[10px] bg-white p-5 shadow-[0_4px_13px_rgba(93,95,98,0.25)] lg:flex">
+        class="mt-[13px] hidden h-[calc(var(--vh)*100-100px)] flex-col rounded-[10px] bg-white p-5 shadow-[0_4px_13px_rgba(93,95,98,0.25)] lg:flex">
         <!-- 上のエリア -->
         <div class="h-[40px]">
           <div class="grid grid-cols-[50px,auto,200px]" x-data="{ showMemberList: false }">

@@ -16,10 +16,13 @@ class SubmissionCreateModal extends Component
 
     public Manager $manager;
 
+    public string $item;
+
     public function mount()
     {
         $this->form->date = $this->day->format('Y-m-d');
         $this->form->managerId = $this->manager->id;
+        $this->item = 'time';
     }
 
     public function save()
@@ -31,6 +34,17 @@ class SubmissionCreateModal extends Component
         $this->dispatch('added');
         $this->form->date = $this->day->format('Y-m-d');
         $this->dispatch('close-modal', 'create-modal-' . $date);
+    }
+
+    public function changeItem($item)
+    {
+        $this->item = $item;
+    }
+
+    public function selectPattern($startTime, $endTime)
+    {
+        $this->form->startTime = $startTime;
+        $this->form->endTime = $endTime;
     }
 
     public function render()

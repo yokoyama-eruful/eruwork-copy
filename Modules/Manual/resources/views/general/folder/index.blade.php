@@ -9,7 +9,7 @@
       </div>
 
       @if ($folders->isNotEmpty())
-        <div class="mt-[30px] lg:mt-8">
+        <div class="lg:mt-8">
           <div class="hidden grid-cols-[95%,5%] px-[30px] text-xs text-[#AAB0B6] lg:grid">
             <div>表題</div>
             <div></div>
@@ -17,7 +17,7 @@
           <div class="border-b border-[#DDDDDD] lg:mt-2 lg:rounded-lg lg:border">
             @foreach ($folders as $folder)
               <div @class([
-                  'grid grid-cols-[95%,5%]  px-[30px] text-[15px] lg:py-[30px] py-3 cursor-pointer',
+                  'grid grid-cols-[95%,5%]  px-[30px] text-[15px] lg:py-[30px] py-5 cursor-pointer',
                   'border-b' => !$loop->last,
               ])
                 onclick="window.location='{{ route('manualFile.index', ['folder_id' => $folder->id]) }}'">

@@ -15,7 +15,7 @@
     </x-main.top>
     <div class="lg:flex lg:h-auto lg:min-h-[calc(var(--vh)*100-100px)] lg:space-x-5">
       <div
-        class="top-container mt-5 h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+        class="top-container mt-5 h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-2/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
         <h5 class="hidden text-xl font-bold lg:block">{{ $file->title }}</h5>
 
         @if (str_contains($file->type, 'image'))
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div
-        class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:min-w-[320px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+        class="top-container mt-[20px] hidden h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:w-1/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
         <h5 class="hidden text-xl font-bold lg:block">業務手順</h5>
         <div class="procedure-container">
           @if (!empty($file->steps))

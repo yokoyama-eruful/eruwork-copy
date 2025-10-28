@@ -9,6 +9,7 @@ use App\Models\User;
 use Modules\Account\Http\Requests\AccountStoreRequest;
 use Modules\Account\Http\Requests\AccountUpdateRequest;
 use Modules\Chat\Models\Group;
+use Modules\Shift\Models\Manager;
 
 class AccountController extends Controller
 {
@@ -49,6 +50,15 @@ class AccountController extends Controller
 
         foreach ($users as $partner) {
             Group::open([$user, $partner]);
+        }
+
+        $allManagers = Manager::all(); // 全 Manager を取得
+
+        foreach ($allManagers as $manager) {
+            // すでに中間テーブルにあれば作らない
+            if (! $user->managers()->where('shift_manager_id', $manager->id)->exists()) {
+                $user->managers()->attach($manager->id, ['status' => '未提出']);
+            }
         }
 
         return to_route('account.index');

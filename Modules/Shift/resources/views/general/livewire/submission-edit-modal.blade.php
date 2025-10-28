@@ -2,7 +2,7 @@
   <x-modal name="edit-modal-{{ $schedule->id }}" title="シフト希望編集">
     @if ($schedule->shiftStatus || !$manager->OverSubmissionPeriod)
       <div class="p-4">
-        <div class="mt-4 text-start text-lg font-bold">
+        <div class="text-start text-lg font-bold">
           {{ $schedule->date->format('Y.m.d') }}
         </div>
 
@@ -78,13 +78,13 @@
             <x-input-label value="時間" />
 
             <div class="flex w-full items-center space-x-1">
-              <x-text-input class="flex-1" id="start_time" name="start_time" type="time" wire:model="form.startTime"
-                required />
+              <x-text-input class="flex-1" id="start_time_{{ $schedule->id }}" name="start_time" type="time"
+                wire:model="form.startTime" required />
 
               <div class="px-[10px]">〜</div>
 
-              <x-text-input class="flex-1" id="end_time" name="end_time" type="time" wire:model="form.endTime"
-                required />
+              <x-text-input class="flex-1" id="end_time_{{ $schedule->id }}" name="end_time" type="time"
+                wire:model="form.endTime" required />
             </div>
           </div>
 

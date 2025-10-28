@@ -161,7 +161,7 @@
                 @click="openModalSchedule{{ $schedule->id }}=true"
                 @click.away="openModalSchedule{{ $schedule->id }}=false" wire:key="schedule-{{ $schedule->id }}"
                 x-cloak>
-                <div class="text-[13px] font-bold">
+                <div class="break-words text-[13px] font-bold">
                   {{ $schedule->title }}
                 </div>
                 <div class="pt-[4px] text-xs">

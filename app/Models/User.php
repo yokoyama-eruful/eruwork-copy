@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Account\Models\Profile;
 use Modules\Chat\Models\Group;
 use Modules\HourlyRate\Models\HourlyRate;
+use Modules\Shift\Models\Manager;
 use Modules\Shift\Models\Pattern;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
@@ -125,5 +126,11 @@ class User extends Authenticatable
     {
         return $this
             ->belongsToMany(Group::class, 'chat__group_user', 'user_id', 'group_id');
+    }
+
+    public function managers()
+    {
+        return $this->belongsToMany(Manager::class, 'shift__manager_user', 'user_id', 'shift_manager_id')->withPivot('status')
+            ->withTimestamps();
     }
 }

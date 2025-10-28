@@ -76,6 +76,9 @@
   border: 2px solid #6ed0f7;
   color: #6ed0f7;
 }
+.shape-stamp-b-start:disabled {
+  opacity: 40%;
+}
 
 .shape-stamp-b-start:hover{
   opacity: 70%;
@@ -88,6 +91,10 @@
 
 .shape-stamp-b-end:hover{
   opacity: 70%;
+}
+
+.shape-stamp-b-end:disabled {
+  opacity: 40%;
 }
 
 .day-timerecord-area {

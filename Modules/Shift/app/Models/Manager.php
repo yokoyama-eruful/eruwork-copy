@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Modules\Shift\Models;
 
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -63,6 +64,22 @@ class Manager extends Model
         }
 
         return '終了';
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'shift__manager_user', 'shift_manager_id', 'user_id')->withPivot('status')
+            ->withTimestamps();
+    }
+
+    public function getAlreadySubmissionUsersAttribute()
+    {
+        return $this->users()->wherePivot('status', '提出済')->get();
+    }
+
+    public function getStillSubmissionUsersAttribute()
+    {
+        return $this->users()->wherePivot('status', '未提出')->get();
     }
 
     protected static function newFactory(): ManagerFactory

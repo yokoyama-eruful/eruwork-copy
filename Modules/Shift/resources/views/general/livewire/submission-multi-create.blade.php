@@ -5,7 +5,7 @@
     <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
     複数日登録
   </button>
-  <x-modal name="multi-create-modal" title="予定複数登録">
+  <x-modal name="multi-create-modal" title="シフト希望複数登録">
     <form class="p-4" method="post" wire:submit="save">
       @csrf
 
@@ -19,10 +19,10 @@
         </div>
       @endif
 
-      <div class="mb-[20px] mt-[20px] flex items-center">
-        <x-input-label class="w-1/5" for="date" value="日付" />
+      <div class="mb-[20px] mt-[20px] grid w-full grid-cols-[30%,70%] items-center">
+        <x-input-label for="date" value="日付" />
 
-        <div class="relative w-4/5">
+        <div class="relative">
           <x-text-input
             class="js-multiple-term-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
             id="date" name="date" type="text" wire:model="form.date" required
@@ -63,19 +63,56 @@
         });
       </script>
 
-      <div class="mt-4 grid w-full grid-cols-[20%,80%] items-center">
-        <x-input-label value="時間" />
-
-        <div class="flex w-full items-center space-x-1">
-          <x-text-input class="flex-1" id="start_time" name="start_time" type="time" wire:model="form.startTime"
-            required />
-
-          <div class="px-[10px]">〜</div>
-
-          <x-text-input class="flex-1" id="end_time" name="end_time" type="time" wire:model="form.endTime"
-            required />
+      <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-center">
+        <x-input-label value="勤務時間" />
+        <div class="flex items-center space-x-5">
+          <div @class([
+              'cursor-pointer rounded px-2 py-1 font-bold',
+              'bg-[#3289FA1A] bg-opacity-10 text-[#3289FA]' => $item === 'time',
+              'text-[#AAB0B6] hover:opacity-40' => $item !== 'time',
+          ]) wire:click="changeItem('time')">
+            時間指定</div>
+          <div @class([
+              'cursor-pointer rounded px-2 py-1 font-bold',
+              'bg-[#3289FA1A] bg-opacity-10 text-[#3289FA]' => $item === 'pattern',
+              'text-[#AAB0B6] hover:opacity-40' => $item !== 'pattern',
+          ]) wire:click="changeItem('pattern')">
+            パターン指定</div>
         </div>
       </div>
+
+      @if ($item === 'time')
+        <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-center">
+          <x-input-label class="font-normal" value="時間設定" />
+          <div class="flex w-full items-center space-x-1">
+            <x-text-input class="flex-1" id="start_time" name="start_time" type="time" wire:model="form.startTime" />
+
+            <div class="px-[10px]">〜</div>
+
+            <x-text-input class="flex-1" id="end_time" name="end_time" type="time" wire:model="form.endTime" />
+          </div>
+        </div>
+      @endif
+
+      @if ($item === 'pattern')
+        <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-start">
+          <x-input-label class="font-normal" value="パターン設定" />
+          <div class="flex flex-col justify-center space-y-3">
+            @forelse (Auth::user()->patterns as $pattern)
+              @if (!is_null($pattern->start_time) && !is_null($pattern->end_time))
+                <div class="flex items-center space-x-1">
+                  <label class="flex cursor-pointer items-center space-x-1">
+                    <input name="pattern_id" type="radio"
+                      wire:click="selectPattern('{{ $pattern->start_time->format('H:i') }}','{{ $pattern->end_time->format('H:i') }}')">
+                    <span>{{ $pattern->start_time->format('H:i') }}~{{ $pattern->end_time->format('H:i') }}</span>
+                  </label>
+                </div>
+              @endif
+            @endforeach
+          </div>
+        </div>
+      @endif
+
       <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}

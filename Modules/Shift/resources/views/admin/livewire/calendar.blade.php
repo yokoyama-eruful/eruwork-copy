@@ -17,7 +17,92 @@
     </div>
   </x-dashboard.top>
   <x-dashboard.container>
-    <h5 class="hidden text-xl font-bold lg:block">シフト管理</h5>
+    <div class="flex items-center justify-between">
+      <h5 class="hidden text-xl font-bold lg:block">シフト管理</h5>
+      <button class="text-sm hover:opacity-40" type="button"
+        x-on:click="$dispatch('open-modal','submission-list-modal')">
+        提出人数:{{ $manager->alreadySubmissionUsers->count() }}/{{ $users->count() }}
+      </button>
+      <x-modal name="submission-list-modal" title="シフト提出">
+        <div class="flex h-auto max-h-96 flex-col space-y-[10px] overflow-y-auto border-y bg-[#F7F7F7] px-5 py-5">
+          <div class="flex items-center justify-between space-x-5">
+            <div class="flex h-10 w-full items-center justify-between bg-white px-3">
+              <div class="font-bold text-[#39A338]">提出済み</div>
+              <div class="flex items-end">
+                <p class="m-0 font-bold leading-none">{{ $manager->alreadySubmissionUsers->count() }}</p>
+                <p class="m-0 text-xs leading-none">人</p>
+              </div>
+            </div>
+            <div class="flex h-10 w-full items-center justify-between bg-white px-3">
+              <div class="font-bold text-[#FF4A62]">未提出</div>
+              <div class="flex items-end">
+                <p class="m-0 font-bold leading-none">{{ $manager->stillSubmissionUsers->count() }}</p>
+                <p class="m-0 text-xs leading-none">人</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-5 flex items-center space-x-5">
+            <div @class([
+                'px-[10px] py-1 text-xs font-bold cursor-pointer',
+                'text-[#3289FA] bg-[#3289FA1A] bg-opacity-10 rounded' =>
+                    $status === '提出済',
+                ' text-[#222222] text-opacity-30 hover:opacity-40' => $status === '未提出',
+            ]) wire:click="changeList('提出済')">提出済み</div>
+            <div @class([
+                'px-[10px] py-1 text-xs font-bold cursor-pointer',
+                'text-[#3289FA] bg-[#3289FA1A] bg-opacity-10 rounded' =>
+                    $status === '未提出',
+                ' text-[#222222] text-opacity-30 hover:opacity-40' => $status === '提出済',
+            ]) wire:click="changeList('未提出')">未提出</div>
+          </div>
+
+          @if ($status === '提出済')
+            @foreach ($manager->alreadySubmissionUsers as $user)
+              <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'>
+                @if ($user->icon)
+                  <img class="h-[25px] w-[25px] rounded-full border bg-white"
+                    src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
+                @else
+                  <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white">
+                    <i class="fa-solid fa-image"></i>
+                  </div>
+                @endif
+                <div class="truncate text-[15px] font-bold">{{ $user->name }}</div>
+                <button
+                  class="flex w-[100px] items-center justify-center rounded py-1 text-center text-xs font-bold text-[#FF4A62] outline outline-1 outline-[#FF4A62] hover:opacity-40"
+                  type="button" wire:click="returnSubmission({{ $user->id }},{{ $manager->id }})">
+                  提出を取り消す</button>
+              </div>
+            @endforeach
+          @elseif($status === '未提出')
+            @foreach ($manager->stillSubmissionUsers as $user)
+              <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'>
+                @if ($user->icon)
+                  <img class="h-[25px] w-[25px] rounded-full border bg-white"
+                    src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
+                @else
+                  <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white">
+                    <i class="fa-solid fa-image"></i>
+                  </div>
+                @endif
+                <div class="truncate text-[15px] font-bold">{{ $user->name }}</div>
+                <button
+                  class="flex w-[100px] items-center justify-center py-1 text-center text-xs font-bold text-[#3289FA] hover:opacity-40"
+                  type="button" wire:click="remindSubmission({{ $user->id }},{{ $manager->id }})">
+                  提出を催促する</button>
+              </div>
+            @endforeach
+          @endif
+        </div>
+
+        <div class="flex justify-center bg-white">
+          <button class="my-4 flex h-11 w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white"
+            x-on:click="$dispatch('close-modal', 'submission-list-modal')">
+            閉じる
+          </button>
+        </div>
+      </x-modal>
+    </div>
     <div class="mt-[30px] flex items-center space-x-2 border-b px-5 pb-[10px] lg:mt-[20px] lg:px-0">
       <div class="text-xs text-[#AAB0B6]">期間:</div>
       <div class="text-[15px] font-semibold lg:text-[20px]">
@@ -75,7 +160,7 @@
             @foreach ($content['drafts'] as $draft)
               <div
                 class="mr-[11px] flex cursor-pointer items-center space-x-[6px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] px-[10px] py-[7px]"
-                wire:click="upShift({{ $draft->id }})">
+                wire:click="selectDraftShift({{ $draft->id }})">
                 <div class="flex h-[22px] w-[22px] items-center justify-center rounded bg-[#DE993A] text-xs text-white">
                   希
                 </div>
@@ -86,6 +171,58 @@
                   <div>{{ $draft->user->name }}</div>
                 </div>
               </div>
+
+              <x-modal name="confirm-shift-modal-{{ $draft->id }}" title="希望シフト">
+                <div class="px-[15px] py-5">
+                  @csrf
+
+                  @if ($errors->any())
+                    <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+                      <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  @endif
+
+                  <div class="text-lg font-bold">
+                    {{ $content['date']->format('Y.m.d') }}
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+                    <x-input-label for="user" value="ユーザー名" />
+                    <div class="w-full border-b border-gray-300 py-2 ps-3">
+                      {{ $draft->user->name }}
+                    </div>
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+                    <x-input-label for="start_time" value="開始時間" />
+
+                    <x-text-input class="mt-1 block w-full" type="time" wire:model="draftStartTime" required
+                      x-data
+                      @input="$event.target.style.color = $event.target.value < '{{ $draftStartTime }}' ? 'red' : 'black'" />
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+                    <x-input-label for="end_time" value="終了時間" />
+
+                    <x-text-input class="mt-1 block w-full" type="time" wire:model="draftEndTime" required x-data
+                      @input="$event.target.style.color = $event.target.value > '{{ $draftEndTime }}' ? 'red' : 'black'" />
+                  </div>
+
+                  <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                      {{ __('Cancel') }}
+                    </x-secondary-button>
+
+                    <x-primary-button class="ms-3" wire:click="upShift({{ $draft->id }})">
+                      確定する
+                    </x-primary-button>
+                  </div>
+                </div>
+              </x-modal>
             @endforeach
           </div>
         </div>
