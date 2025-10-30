@@ -9,7 +9,7 @@
         <h5 class="hidden text-xl font-bold lg:block">時給管理</h5>
         <livewire:hourlyrate::wage-premiums-create :key="'desktop-create-wage-' . $selectedId" />
       </div>
-      <div class="mt-[30px] hidden grid-cols-[15%,58%,13%,14%] lg:grid">
+      <div class="mt-[30px] hidden grid-cols-[20%,45%,16%,19%] lg:grid tablet:grid-cols-[15%,58%,13%,14%]">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">時給</div>
@@ -18,7 +18,7 @@
       <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid lg:grid-cols-[15%,58%,13%,14%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid tablet:grid-cols-[15%,58%,13%,14%] grid-cols-[20%,45%,16%,19%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'bg-[#F9FAFF] border border-[#3289FA]' => $selectedUser->id === $user->id,
               'rounded-t-lg' => $loop->first,

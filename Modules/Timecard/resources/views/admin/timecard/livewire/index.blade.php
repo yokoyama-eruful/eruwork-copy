@@ -50,7 +50,7 @@
       <h5 class="hidden text-xl font-bold lg:block">タイムカード管理</h5>
       <div class="block px-5 font-bold lg:hidden">{{ $selectDate?->format('Y.m.d') }}出勤者</div>
       <div
-        class="mb-[9px] mt-4 grid grid-cols-[15%,44%,36%,5%] lg:mb-0 lg:mt-[30px] lg:grid-cols-[15%,35%,18%,18%,14%]">
+        class="mb-[9px] mt-4 grid grid-cols-[15%,44%,36%,5%] lg:mb-0 lg:mt-[30px] lg:grid-cols-[20%,25%,19%,19%,17%] tablet:grid-cols-[15%,35%,18%,18%,14%]">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">勤務時間</div>
@@ -60,7 +60,7 @@
       <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid hidden lg:grid-cols-[15%,35%,18%,18%,14%] grid-cols-[15%,45%,35%,5%] lg:py-[18px] lg:py-3 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid hidden tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-[18px] lg:py-3 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'lg:bg-[#F9FAFF] border lg:border-[#3289FA]' =>
                   $this->user->id === $user->id,

@@ -1,16 +1,21 @@
 <div>
   <div class="hidden lg:block">
     <x-main.top>
-      <button class="add-schedule" type="button"
-        x-on:click="$dispatch('open-modal', 'create-modal-{{ $startDate->format('Y-m-d') }}')">
-        <img src="img/icon/add-schedule.png" />
-        予定を追加する
+      <button
+        class="mr-5 flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-[14px] font-bold text-white hover:bg-[#3289fa4d]"
+        type="button" x-on:click="$dispatch('open-modal', 'create-modal-{{ $startDate->format('Y-m-d') }}')">
+        <img class="mr-[5px] h-[14px] w-[14px]" src="img/icon/add-schedule.png" />
+        <p>予定</p>
+        <p class="hidden tablet:block">を</p>
+        <p>追加</p>
+        <p class="hidden tablet:block">する</p>
       </button>
       <livewire:calendar::general.create-schedule @added="$refresh" :date="$startDate" />
       <div class="flex items-center">
-        <button class="calender-move" wire:click="setPreviousWeek">
+        <button class="mr-2.5 hidden items-center space-x-1 bg-transparent text-[15px] text-gray-500 tablet:flex"
+          wire:click="setPreviousWeek">
           <i class="fa-solid fa-angle-left"></i>
-          先週
+          <p>先週</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
           <select class="rounded border border-[#DDDDDD]" wire:model.change="year" wire:change="updateCalendar">
@@ -29,8 +34,9 @@
             @endforeach
           </select>
         </div>
-        <button class="calender-move2" wire:click="setNextWeek">
-          翌週
+        <button class="ml-2.5 mr-5 hidden items-center space-x-1 bg-transparent text-[15px] text-gray-500 tablet:flex"
+          wire:click="setNextWeek">
+          <p>翌週</p>
           <i class="fa-solid fa-angle-right"></i>
         </button>
         <button class="today-btn" wire:click="setToday">今日</button>

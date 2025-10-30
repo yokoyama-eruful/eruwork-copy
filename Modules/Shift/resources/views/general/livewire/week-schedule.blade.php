@@ -8,7 +8,8 @@
           href="{{ route('shift.schedule', ['category' => 'day']) }}">日</a>
       </div>
       <div class="flex items-center md:ml-0">
-        <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-2" wire:click="setPreviousWeek">
+        <button class="hidden items-center space-x-1 rounded-l text-[15px] xl:px-2 tablet:flex"
+          wire:click="setPreviousWeek">
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
           <p class="hidden lg:block">先週</p>
         </button>
@@ -29,7 +30,8 @@
             @endforeach
           </select>
         </div>
-        <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-2" wire:click="setNextWeek">
+        <button class="hidden items-center space-x-1 rounded-r text-[15px] xl:px-2 tablet:flex"
+          wire:click="setNextWeek">
           <p class="hidden lg:block">翌週</p>
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
         </button>
@@ -88,7 +90,7 @@
       <div class="flex items-center space-x-[30px]">
         @if ($manager)
           <div class="flex items-center">
-            <p class="text-xs">シフト提出依頼：</p>
+            <p class="hidden text-xs tablet:block">シフト提出依頼：</p>
             <div class="ml-3 flex h-[45px] items-center rounded bg-[#F7F7F7] px-5">
               <div @class([
                   'hidden truncate px-[10px] w-fit font-bold lg:block text-xs text-white rounded-full py-[3px]',
@@ -146,7 +148,7 @@
       </button>
     </div>
 
-    <div class="mt-[15px] w-full overflow-x-auto lg:mt-6 lg:overflow-hidden">
+    <div class="mt-[15px] w-full overflow-x-auto lg:mt-6">
       <!-- thead -->
       <table class="sticky -top-6 w-full min-w-full table-fixed border-separate border-spacing-0 bg-white">
         <thead>
@@ -174,7 +176,7 @@
         </thead>
       </table>
 
-      <div class="mt-[9px] w-full rounded-lg border-gray-300 lg:overflow-x-auto lg:border">
+      <div class="mt-[9px] inline-block rounded-lg border-gray-300 lg:border">
         <table class="min-w-full table-fixed border-collapse border border-gray-300 lg:border-none">
           <tbody>
             @foreach ($this->shiftSchedules as $user)

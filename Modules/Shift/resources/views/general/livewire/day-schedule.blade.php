@@ -8,7 +8,8 @@
           href="{{ route('shift.schedule', ['category' => 'day']) }}">日</a>
       </div>
       <div class="flex items-center md:ml-0">
-        <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-2" wire:click="setPreviousDay">
+        <button class="hidden items-center space-x-1 rounded-l text-[15px] xl:px-2 tablet:flex"
+          wire:click="setPreviousDay">
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
           <p class="hidden lg:block">前日</p>
         </button>
@@ -29,7 +30,7 @@
             @endforeach
           </select>
         </div>
-        <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-2" wire:click="setNextDay">
+        <button class="hidden items-center space-x-1 rounded-r text-[15px] xl:px-2 tablet:flex" wire:click="setNextDay">
           <p class="hidden lg:block">翌日</p>
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
         </button>
@@ -45,7 +46,7 @@
       <h5 class="text-xl font-bold">シフト表</h5>
       @if ($manager)
         <div class="flex items-center">
-          <p class="text-xs">シフト提出依頼：</p>
+          <p class="hidden text-xs tablet:block">シフト提出依頼：</p>
           <div class="ml-3 flex h-[45px] items-center rounded bg-[#F7F7F7] px-5">
             <div @class([
                 'hidden truncate px-[10px] w-fit font-bold lg:block text-xs text-white rounded-full py-[3px]',
@@ -186,81 +187,6 @@
         </div>
       @endforeach
     </div>
-
-    {{-- <div class="fixed inset-0 bg-white" id="printArea" x-show="showPrintArea" x-transition>
-      <div class="flex justify-center text-xl font-bold">{{ $date->isoFormat('M/D(ddd)') }}</div>
-      <div class="flex w-full flex-row bg-gray-100">
-        <div class="flex w-32 items-center justify-center border">ユーザー名</div>
-        <div class="grid h-20 w-full grid-cols-1440">
-          @foreach (range(0, 1380, 60) as $start)
-            <div @class([
-                ' col-span-60 flex h-20 items-center justify-center border',
-                'col-start-1' => $start == 0,
-                'col-start-61' => $start == 60,
-                'col-start-121' => $start == 120,
-                'col-start-181' => $start == 180,
-                'col-start-241' => $start == 240,
-                'col-start-301' => $start == 300,
-                'col-start-361' => $start == 360,
-                'col-start-421' => $start == 420,
-                'col-start-481' => $start == 480,
-                'col-start-541' => $start == 540,
-                'col-start-601' => $start == 600,
-                'col-start-661' => $start == 660,
-                'col-start-721' => $start == 720,
-                'col-start-781' => $start == 780,
-                'col-start-841' => $start == 840,
-                'col-start-901' => $start == 900,
-                'col-start-961' => $start == 960,
-                'col-start-1021' => $start == 1020,
-                'col-start-1081' => $start == 1080,
-                'col-start-1141' => $start == 1140,
-                'col-start-1201' => $start == 1200,
-                'col-start-1261' => $start == 1260,
-                'col-start-1321' => $start == 1320,
-                'col-start-1381' => $start == 1380,
-            ])>
-              {{ $start / 60 }}:00
-            </div>
-          @endforeach
-        </div>
-      </div>
-      @foreach ($userShiftSchedules as $shiftSchedules)
-        <div class="flex w-full flex-row">
-          <div class="flex w-32 items-center justify-center border">{{ $shiftSchedules['name'] }}</div>
-          <div class="relative grid h-20 w-full grid-cols-1440">
-            @foreach (range(0, 1380, 60) as $start)
-              <div @class(['col-span-60 flex h-20 items-center justify-center border'])>
-              </div>
-            @endforeach
-
-            <div class="absolute h-full w-full">
-              <div class="col grid h-full grid-cols-1440 py-2">
-                @foreach ($shiftSchedules['schedules'] as $shiftSchedule)
-                  @include('shift::general.layouts.time', ['shiftSchedule' => $shiftSchedule])
-                @endforeach
-              </div>
-            </div>
-          </div>
-        </div>
-      @endforeach
-    </div> --}}
-    {{-- 
-    <style>
-      @media print {
-        @page {
-          size: A4 landscape;
-          margin: 2%;
-        }
-      }
-
-      #printArea {
-        transform: scale(0.5);
-        transform-origin: top left;
-        width: 200%;
-        height: 200%;
-      }
-    </style> --}}
 
   </x-main.container>
 </x-main.index>

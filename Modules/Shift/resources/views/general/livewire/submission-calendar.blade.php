@@ -97,7 +97,7 @@
     <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'lg:min-h-[170px] min-h-[90px] min-w-[140px] lg:block grid grid-cols-[20%,60%,20%] items-center',
+            'lg:min-h-[170px] min-h-[90px] lg:block grid grid-cols-[20%,60%,20%] items-center',
             'bg-[#E6E6E6] hidden lg:block' => $content['type'] === '期間外',
         ]) wire:key="calendar-box-desktop-{{ $content['date']->format('Y-m-d') }}">
 

@@ -169,7 +169,7 @@
   // gNav開閉 + 背景ブラー Overlay + アコーディオン（nav.js統合）
   // ===============================
   function initNavAndOverlay() {
-    const MOBILE_MAX = 1024; // @media (max-width: 440px)
+    const MOBILE_MAX = 1023; // @media (max-width: 440px)
     const isMobile = () => window.innerWidth <= MOBILE_MAX;
 
     // ★ ピン留め（PCのみ有効）：.acc[data-pinned] を閉じさせない

@@ -54,7 +54,8 @@ export default {
               },
               
                screens: {
-                'lg': '1025px',
+                'lg': '1023px',
+                'tablet':'1366px',
                },
         },
     },

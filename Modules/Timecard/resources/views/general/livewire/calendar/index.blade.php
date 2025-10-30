@@ -134,7 +134,7 @@
   <x-main.index class="hidden lg:block">
     <x-main.top>
       <div class="flex items-center md:ml-0">
-        <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-4"
+        <button class="hidden items-center space-x-1 rounded-l text-[15px] xl:px-4 tablet:flex"
           wire:click="selectedMonth('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
           <p class="hidden lg:block">前月</p>
@@ -151,7 +151,7 @@
             @endforeach
           </select>
         </div>
-        <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-4"
+        <button class="hidden items-center space-x-1 rounded-r text-[15px] xl:px-4 tablet:flex"
           wire:click="selectedMonth('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
           <p class="hidden lg:block">翌月</p>
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">

@@ -12,6 +12,7 @@
       @else
         <button class="account-area sp">
           <img src="{{ route('profile.icon', ['id' => Auth::id()]) }}">
+
         </button>
       @endif
     </div>

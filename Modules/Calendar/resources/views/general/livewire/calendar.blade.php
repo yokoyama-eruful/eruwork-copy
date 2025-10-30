@@ -3,8 +3,8 @@
   <x-main.top>
     <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
     <livewire:calendar::general.multi-create-schedule />
-    <div class="hidden items-center md:ml-0 lg:flex">
-      <button class="flex items-center space-x-1 rounded-l pl-[30px] pr-[11px] text-[15px]"
+    <div class="ml-5 hidden items-center lg:flex tablet:ml-0">
+      <button class="hidden items-center space-x-1 rounded-l pl-[30px] pr-[11px] text-[15px] tablet:flex"
         wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
         <p class="hidden lg:block">前月</p>
@@ -21,7 +21,7 @@
           @endforeach
         </select>
       </div>
-      <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[15px]"
+      <button class="hidden items-center space-x-1 rounded-r pl-[11px] text-[15px] tablet:flex"
         wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
         <p class="hidden lg:block">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
@@ -76,7 +76,7 @@
     <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'min-h-[170px] min-w-[140px]',
+            'min-h-[170px]',
             'bg-[#F9FAFF]' =>
                 $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
             'bg-gray-100 hidden lg:block' => $content['type'] == '補助日',
@@ -108,8 +108,7 @@
 
           {{-- 確定シフト表示 --}}
           @if (!empty($content['shifts']))
-            <div
-              class="mb-1 mr-1 min-h-[50px] min-w-[135px] rounded-lg border border-[#39A338] bg-[#F6FFF6] p-[9px] text-[#39A338]"
+            <div class="mb-1 mr-1 min-h-[50px] rounded-lg border border-[#39A338] bg-[#F6FFF6] p-[9px] text-[#39A338]"
               x-cloak>
               <div class="text-[13px] font-bold">出勤</div>
               @foreach ($content['shifts'] as $shift)
@@ -120,7 +119,7 @@
                     {{ (is_null($shift->start_time) ? ' -- : -- ' : $shift->start_time->isoFormat('H:mm')) . ' ～ ' . (is_null($shift->end_time) ? ' -- : -- ' : $shift->end_time->isoFormat('H:mm')) }}
                   </div>
                   <div
-                    class="absolute -left-4 z-10 min-w-[300px] max-w-[300px] rounded-xl bg-white py-[15px] pl-[30px] pr-[15px] shadow-[0_4px_13px_rgba(93,95,98,0.25)]"
+                    class="absolute -left-4 z-10 rounded-xl bg-white py-[15px] pl-[30px] pr-[15px] shadow-[0_4px_13px_rgba(93,95,98,0.25)]"
                     x-show="openModalShift{{ $shift->id }} === true"
                     x-transition:enter="transition ease-out duration-300"
                     x-transition:enter-start="opacity-0 translate-y-2"
@@ -155,7 +154,7 @@
           @foreach ($content['schedules'] as $schedule)
             @if ($content['type'] != '補助日')
               <div @class([
-                  'relative mb-1 mr-1 min-h-[50px] min-w-[135px] cursor-pointer rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF]',
+                  'relative mb-1 mr-1 min-h-[50px] cursor-pointer rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF]',
                   'mb-[23px]' => $loop->last,
               ]) x-data="{ openModalSchedule{{ $schedule->id }}: false }"
                 @click="openModalSchedule{{ $schedule->id }}=true"

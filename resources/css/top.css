@@ -1,52 +1,4 @@
 /* ========== トップメニュー ========== */
-.add-schedule {
-  background: #3289fa;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  font-weight: bold;
-  font-size: 14px;
-  border-radius: 5px;
-  padding: 8px 20px;
-  height: 35px;
-}
-.add-schedule:hover {
-  background: #3289fa4d;
-}
-.add-schedule img {
-  width: 14px;
-  height: 14px;
-  margin-right: 5px;
-}
-
-.calender-move {
-  color: #777;
-  display: flex;
-  font-size: 15px;
-  background: transparent;
-  height: 17px;
-  margin: 0 10px 0 20px;
-}
-
-.calender-move i {
-  padding: 3px 5px 0;
-}
-
-.calender-move2 {
-  color: #777;
-  display: flex;
-  font-size: 15px;
-  background: transparent;
-  height: 17px;
-  margin: 0 0px 0 10px;
-}
-
-.calender-move2 i {
-  padding: 3px 5px 0;
-}
-
-
-
 .top-calender-menu-select {
   border: 1px solid #ddd;
   color: #222;
@@ -466,7 +418,7 @@ dialog::backdrop {
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1023px) {
   .main-area-sp {
     display: block;
     width: 100%;

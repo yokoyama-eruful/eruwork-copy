@@ -37,7 +37,7 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[10%,64%,14%,12%] lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[20%,54%,14%,12%] lg:grid tablet:grid-cols-[10%,64%,14%,12%]">
           <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
@@ -46,7 +46,7 @@
         <div class="mt-[24px] hidden rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:block lg:border">
           @foreach ($managers as $manager)
             <div @class([
-                'lg:grid lg:grid-cols-[10%,64%,14%,12%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',
+                'grid-cols-[20%,54%,14%,12%] lg:grid tablet:grid-cols-[10%,64%,14%,12%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',
                 'border-b' => !$loop->last,
             ])>
               <div @class([
