@@ -8,7 +8,7 @@
     ]) @click="mobileTalkArea=true">
       <div class="flex items-center justify-center">
         @if ($group->IconImage)
-          <img class="h-[35px] w-[35px] rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
+          <img class="h-[25px] w-[25px] rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
         @else
           <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
               class="fa-solid fa-image"></i>

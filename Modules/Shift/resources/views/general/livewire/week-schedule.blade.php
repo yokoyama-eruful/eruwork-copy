@@ -149,11 +149,13 @@
     </div>
 
     <div class="mt-[15px] w-full overflow-x-auto lg:mt-6">
-      <!-- thead -->
-      <table class="sticky -top-6 w-full min-w-full table-fixed border-separate border-spacing-0 bg-white">
-        <thead>
+      <!-- ここに横スクロールを任せる -->
+
+      <!-- テーブル：画面幅にフィット（小さい時）／中身に伸びる（大きい時） -->
+      <table class="w-full min-w-max table-fixed">
+        <thead class="sticky -top-6 z-10 bg-white">
           <tr>
-            <th class="w-[100px] text-xs font-normal text-[#3289FA] lg:w-32"></th>
+            <th class="w-[100px] min-w-[100px] text-xs font-normal text-[#3289FA] lg:w-32"></th>
             @foreach ($this->calendar as $content)
               <th
                 class="{{ $content['date']->format('Ymd') === now()->format('Ymd')
@@ -164,7 +166,7 @@
                             ? 'font-normal text-[#FF0000]'
                             : ($content['type'] === '公休日'
                                 ? 'font-normal text-orange-200'
-                                : 'font-normal text-black'))) }} w-[100px] py-[6px] text-[15px] lg:w-32">
+                                : 'font-normal text-black'))) }} w-[100px] min-w-[100px] py-[6px] text-[15px] lg:w-32">
                 <p class="hidden lg:block">{{ $content['date']->isoFormat('M/D(ddd)') }}</p>
                 <div class="block lg:hidden">
                   <p>{{ $content['date']->isoFormat('ddd') }}</p>
@@ -174,40 +176,37 @@
             @endforeach
           </tr>
         </thead>
-      </table>
 
-      <div class="mt-[9px] inline-block rounded-lg border-gray-300 lg:border">
-        <table class="min-w-full table-fixed border-collapse border border-gray-300 lg:border-none">
-          <tbody>
-            @foreach ($this->shiftSchedules as $user)
-              <tr class="h-[100px] lg:h-[137px]">
+        <tbody class="rounded border border-gray-300">
+          @foreach ($this->shiftSchedules as $user)
+            <tr class="h-[100px] lg:h-[137px]">
+              <td
+                class="w-[100px] min-w-[100px] break-words border-b border-r border-gray-300 px-[15px] text-[15px] font-bold lg:w-32 lg:min-w-32">
+                {{ $user['name'] }}
+              </td>
+
+              @foreach ($user['schedules'] as $daySchedules)
                 <td
-                  class="min-w-[100px] max-w-[100px] break-words border-b border-r border-gray-300 px-[15px] text-[15px] font-bold lg:min-w-32 lg:max-w-32">
-                  {{ $user['name'] }}
-                </td>
-                @foreach ($user['schedules'] as $daySchedules)
-                  <td
-                    class="min-w-[100px] max-w-[100px] border-b border-r border-gray-300 py-[10px] align-top lg:min-w-32 lg:max-w-32 lg:py-[15px]">
-                    @foreach ($daySchedules as $schedule)
-                      <div
-                        class="mr-[10px] truncate rounded-lg border border-[#39A338] bg-[#F6FFF6] px-2 py-1 text-[#39A338] lg:px-[10px] lg:py-2">
-                        <div class="text-sm font-bold">出勤</div>
-                        <div class="hidden text-sm lg:block">
-                          {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time->isoFormat('H:mm') }}
-                        </div>
-                        <div class="block text-sm lg:hidden">
-                          {{ $schedule->start_time->isoFormat('H:mm') }}<br>
-                          {{ '～' . $schedule->end_time->isoFormat('H:mm') }}
-                        </div>
+                  class="w-[100px] min-w-[100px] border-b border-r border-gray-300 py-[10px] align-top lg:w-32 lg:min-w-32 lg:py-[15px]">
+                  @foreach ($daySchedules as $schedule)
+                    <div
+                      class="mr-[10px] truncate rounded-lg border border-[#39A338] bg-[#F6FFF6] px-2 py-1 text-[#39A338] lg:px-[10px] lg:py-2">
+                      <div class="text-sm font-bold">出勤</div>
+                      <div class="hidden text-sm lg:block">
+                        {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time->isoFormat('H:mm') }}
                       </div>
-                    @endforeach
-                  </td>
-                @endforeach
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </div>
+                      <div class="block text-sm lg:hidden">
+                        {{ $schedule->start_time->isoFormat('H:mm') }}<br>
+                        {{ '～' . $schedule->end_time->isoFormat('H:mm') }}
+                      </div>
+                    </div>
+                  @endforeach
+                </td>
+              @endforeach
+            </tr>
+          @endforeach
+        </tbody>
+      </table>
     </div>
 
   </x-main.container>
