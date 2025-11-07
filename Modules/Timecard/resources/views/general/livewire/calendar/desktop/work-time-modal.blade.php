@@ -7,7 +7,7 @@
       </form>
     @endif
   </div>
-  <form class="px-4 pb-4" wire:submit="storeWorkTime">
+  <form wire:submit="storeWorkTime">
 
     <div class="mt-4">
       <x-input-label for="title" value="開始時間" />
@@ -25,7 +25,7 @@
       <x-input-error class="mt-2" :messages="$errors->get('workData.outTime')" />
     </div>
     <x-input-error class="mt-2" :messages="$errors->get('workError')" />
-    <div class="mt-6 flex justify-end">
+    <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>

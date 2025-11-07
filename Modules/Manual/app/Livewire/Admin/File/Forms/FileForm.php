@@ -17,9 +17,9 @@ class FileForm extends Form
 {
     use WithFileUploads;
 
-    public ?ManualFolder $folder;
+    public ?ManualFolder $folder = null;
 
-    public ?ManualFile $file;
+    public ?ManualFile $file = null;
 
     public ?string $title;
 
@@ -41,7 +41,7 @@ class FileForm extends Form
 
         if (! $this->existingFile) {
             $rules['uploadFile'] = [
-                'required',
+                'nullable',
                 'mimetypes:video/mp4,video/quicktime,image/png,image/jpeg,image/jpg,image/gif,image/bmp,image/heic,image/heif',
                 'max:51200',
             ];
@@ -53,11 +53,12 @@ class FileForm extends Form
     public function setValue($file)
     {
         $this->file = $file;
+        $this->folder = $file->folder;
         $this->title = $file->title;
         $this->details = $file->details;
         $this->steps = $file->steps;
         $this->existingFile = $file->thumbnail_path;
-        if (str_contains($file->type, 'video')) {
+        if (str_contains((string) $file->type, 'video')) {
             $this->uploadFile = $file->movie_path;
         } else {
             $this->uploadFile = $file->thumbnail_path;
@@ -68,43 +69,32 @@ class FileForm extends Form
     {
         $this->validate();
 
-        $data = [];
-
         $filteredDetails = $this->filterDetails();
         $filteredSteps = $this->filterSteps();
 
-        $filePath = $this->uploadFile->store('manual/' . $this->folder->id);
+        $baseData = [
+            'title' => $this->title,
+            'type' => $this->uploadFile?->getMimeType(),
+            'manual__folder_id' => $this->folder->id,
+            'details' => $filteredDetails,
+            'steps' => $filteredSteps,
+            'status' => $branchStatus,
+        ];
 
-        if (str_contains($this->uploadFile->getMimeType(), 'image')) {
-            $data = [
-                'title' => $this->title,
-                'thumbnail_path' => $filePath,
-                'type' => $this->uploadFile->getMimeType(),
-                'manual__folder_id' => $this->folder->id,
-                'details' => $filteredDetails,
-                'steps' => $filteredSteps,
-                'status' => $branchStatus,
-            ];
+        // ファイルある場合だけパス設定
+        if ($this->uploadFile) {
+            $mime = $this->uploadFile->getMimeType();
+            $path = $this->uploadFile->store('manual/' . $this->folder->id);
+
+            if (str_contains($mime, 'image')) {
+                $baseData['thumbnail_path'] = $path;
+            } elseif (str_contains($mime, 'video')) {
+                $baseData['movie_path'] = $path;
+                $baseData['thumbnail_path'] = $this->getMovieThumbnail($path);
+            }
         }
 
-        if (str_contains($this->uploadFile->getMimeType(), 'video')) {
-            $thumbnailRelativePath = $this->getMovieThumbnail($filePath);
-
-            $data = [
-                'title' => $this->title,
-                'thumbnail_path' => $thumbnailRelativePath,
-                'movie_path' => $filePath,
-                'type' => $this->uploadFile->getMimeType(),
-                'manual__folder_id' => $this->folder->id,
-                'details' => $filteredDetails,
-                'steps' => $filteredSteps,
-                'status' => $branchStatus,
-            ];
-        }
-
-        if (! empty($data)) {
-            ManualFile::create($data);
-        }
+        ManualFile::create($baseData);
     }
 
     public function update($branchStatus)

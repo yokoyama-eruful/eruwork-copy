@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('manual__files', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('thumbnail_path');
+            $table->string('thumbnail_path')->nullable();
             $table->string('movie_path')->nullable();
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->string('status');
             $table->foreignId('user_id')->nullable()->constrained();
             $table->foreignId('manual__folder_id')->nullable()->constrained()->onDelete('cascade');

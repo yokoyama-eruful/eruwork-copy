@@ -47,7 +47,7 @@
    </x-modal-alert>
 
    <x-modal name="edit-work-time-modal-{{ $workTime->id }}" :title="'勤務時間修正'">
-     <form class="p-4" wire:submit="updateWorkTime">
+     <form wire:submit="updateWorkTime">
 
        @if ($errors->any())
          <div class="mb-4 rounded bg-red-100 p-3 text-red-700">
@@ -80,7 +80,7 @@
        </div>
 
        <x-input-error class="mt-2" :messages="$errors->get('form.out_time')" />
-       <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+       <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
          <x-secondary-button x-on:click="$dispatch('close')">
            {{ __('Cancel') }}
          </x-secondary-button>

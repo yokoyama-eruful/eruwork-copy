@@ -57,8 +57,16 @@
                 </div>
               @endif
 
-              <img class="max-h-[80px] max-w-[145px] rounded"
-                src="{{ route('manualFileManager.thumbnail', ['id' => $file->id]) }}" />
+              @if ($file->type)
+                <div class="flex h-[80px] w-[145px] justify-center rounded-md bg-black">
+                  <img class="max-h-[80px] max-w-[145px] rounded"
+                    src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
+                </div>
+              @else
+                <div class="flex h-[80px] w-[145px] justify-center rounded-md bg-black">
+                  <img class="max-h-[80px] max-w-[145px] rounded" src="{{ asset('img/icon/NoImage.png') }}" />
+                </div>
+              @endif
 
               <div class="flex justify-end pr-1">
                 @if (str_contains($file->type, 'video'))

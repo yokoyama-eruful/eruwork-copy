@@ -1,7 +1,7 @@
 <div>
   <x-modal name="edit-modal-{{ $schedule->id }}" title="シフト希望編集">
     @if ($schedule->shiftStatus || !$manager->OverSubmissionPeriod)
-      <div class="p-4">
+      <div>
         <div class="text-start text-lg font-bold">
           {{ $schedule->date->format('Y.m.d') }}
         </div>
@@ -47,7 +47,7 @@
     @endif
 
     @if (!$schedule->shiftStatus && $manager->OverSubmissionPeriod)
-      <div class="p-4">
+      <div>
         @if ($errors->any())
           <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
             <ul class="list-disc pl-5">
@@ -88,7 +88,7 @@
             </div>
           </div>
 
-          <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+          <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
             <x-secondary-button x-on:click="$dispatch('close')">
               {{ __('Cancel') }}
             </x-secondary-button>

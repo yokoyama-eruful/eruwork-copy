@@ -1,4 +1,4 @@
-@props(['name', 'show' => false, 'maxWidth' => '440', 'title' => ''])
+@props(['name', 'show' => false, 'maxWidth' => '440', 'mobileMaxWidth' => '350', 'title' => ''])
 
 @php
   $maxWidth = [
@@ -10,6 +10,16 @@
       '350' => 'lg:max-w-[350px]',
       '440' => 'lg:max-w-[440px]',
   ][$maxWidth];
+
+  $mobileMaxWidth = [
+      'sm' => 'max-w-sm',
+      'md' => 'max-w-md',
+      'lg' => 'max-w-lg',
+      'xl' => 'max-w-xl',
+      '2xl' => 'max-w-2xl',
+      '350' => 'max-w-[350px]',
+      '440' => 'max-w-[440px]',
+  ][$mobileMaxWidth];
 @endphp
 
 <div class="fixed inset-0 z-50 flex w-full items-center justify-center overflow-y-auto px-4 py-6 lg:px-0"
@@ -44,7 +54,8 @@
     <div class="absolute inset-0 bg-gray-900 bg-opacity-75 backdrop-blur-sm"></div>
   </div>
 
-  <div class="{{ $maxWidth }} mb-6 w-full transform overflow-hidden rounded-xl bg-white shadow-xl transition-all"
+  <div
+    class="{{ $maxWidth }} {{ $mobileMaxWidth }} mb-6 w-full transform overflow-hidden rounded-xl bg-white shadow-xl transition-all"
     x-show="show" x-transition:enter="ease-out duration-300"
     x-transition:enter-start="opacity-0 translate-y-4 lg:translate-y-0 lg:scale-95"
     x-transition:enter-end="opacity-100 translate-y-0 lg:scale-100" x-transition:leave="ease-in duration-200"
@@ -61,7 +72,7 @@
         </button>
       </div>
       <hr class="border-t">
-      <div class="bg-[#F7F7F7]">
+      <div class="bg-[#F7F7F7] px-5 py-[30px]">
         {{ $slot }}
       </div>
       @if (isset($footer))

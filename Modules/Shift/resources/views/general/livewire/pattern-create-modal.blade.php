@@ -2,7 +2,7 @@
   <button class="text-xs text-[#3289FA] hover:opacity-40" type="button" wire:click="setPattern"
     x-on:click="$dispatch('open-modal','pattern-create-modal')">パターンを登録する</button>
   <x-modal name="pattern-create-modal" title="シフトパターン登録">
-    <form class="p-4" wire:submit="save">
+    <form wire:submit="save">
 
       @if ($errors->any())
         <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
@@ -47,7 +47,7 @@
         </div>
       </div>
 
-      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

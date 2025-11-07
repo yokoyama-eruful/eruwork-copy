@@ -8,7 +8,7 @@
     </svg>
   </button>
   <x-modal name="create-modal-{{ $content['date']->format('Y-m-d') }}" title="確定シフト登録">
-    <form class="px-[15px] py-5" wire:submit="save('{{ $content['date'] }}')">
+    <form wire:submit="save('{{ $content['date'] }}')">
       @csrf
 
       @if ($errors->any())
@@ -48,7 +48,7 @@
         <x-text-input class="mt-1 block w-full" type="time" wire:model="form.endTime" required />
       </div>
 
-      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

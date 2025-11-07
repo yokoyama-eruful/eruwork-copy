@@ -6,7 +6,7 @@
     シフト表を追加
   </button>
   <x-modal name="manager-create-modal" title="シフト表作成">
-    <form class="px-[20px] pb-[20px] pt-[30px]" wire:submit="save">
+    <form wire:submit="save">
       @csrf
       @if ($errors->any())
         <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

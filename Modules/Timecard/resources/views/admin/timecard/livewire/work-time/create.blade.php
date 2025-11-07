@@ -11,7 +11,7 @@
     <div class="text-xs text-[#3289FA]">追加する</div>
   </button>
   <x-modal name="create-work-time-modal-{{ $user->id }}" :title="'勤務時間作成'">
-    <form class="px-[20px] pb-[20px] pt-[30px]" wire:submit="storeWorkTime">
+    <form wire:submit="storeWorkTime">
 
       @if ($errors->any())
         <div class="mb-4 rounded bg-red-100 p-3 text-red-700">
@@ -68,7 +68,7 @@
       </div>
 
       <x-input-error class="mt-2" :messages="$errors->get('form.out_time')" />
-      <div class="-mx-4 -mb-4 mt-[20px] flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

@@ -1,5 +1,5 @@
 <x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="予定登録">
-  <form class="px-[15px] py-5" method="post" wire:submit="add">
+  <form method="post" wire:submit="add">
     @csrf
 
     @if ($errors->any())
@@ -50,7 +50,7 @@
       <x-text-area class="min-h-[130px] w-4/5" type="text" wire:model="form.description"
         placeholder="説明"></x-text-area>
     </div>
-    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+    <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>

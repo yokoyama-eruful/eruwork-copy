@@ -95,7 +95,7 @@
           @endif
         </div>
 
-        <div class="flex justify-center bg-white">
+        <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
           <button class="my-4 flex h-11 w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white"
             x-on:click="$dispatch('close-modal', 'submission-list-modal')">
             閉じる
@@ -173,7 +173,7 @@
               </div>
 
               <x-modal name="confirm-shift-modal-{{ $draft->id }}" title="希望シフト">
-                <div class="px-[15px] py-5">
+                <div>
                   @csrf
 
                   @if ($errors->any())
@@ -200,8 +200,7 @@
                   <div class="mt-4 grid grid-cols-[20%,80%] items-center">
                     <x-input-label for="start_time" value="開始時間" />
 
-                    <x-text-input class="mt-1 block w-full" type="time" wire:model="draftStartTime" required
-                      x-data
+                    <x-text-input class="mt-1 block w-full" type="time" wire:model="draftStartTime" required x-data
                       @input="$event.target.style.color = $event.target.value < '{{ $draftStartTime }}' ? 'red' : 'black'" />
                   </div>
 
@@ -212,7 +211,7 @@
                       @input="$event.target.style.color = $event.target.value > '{{ $draftEndTime }}' ? 'red' : 'black'" />
                   </div>
 
-                  <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+                  <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
                     <x-secondary-button x-on:click="$dispatch('close')">
                       {{ __('Cancel') }}
                     </x-secondary-button>

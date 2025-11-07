@@ -67,7 +67,7 @@
       <x-input-error class="mt-2" :messages="$errors->userDeletion->get('end_time')" />
     </div>
 
-    <div class="mt-6 flex justify-end">
+    <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>

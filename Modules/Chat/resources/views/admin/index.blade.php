@@ -2,11 +2,13 @@
   <x-dashboard.index>
     <x-dashboard.top>
       <h5 class="block text-xl font-bold lg:hidden">チャット管理</h5>
-      <a class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
-        href="{{ route('chatManager.create') }}">
+      <button
+        class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
+        type="button" x-on:click="$dispatch('open-modal', 'create-group-modal')">
         <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
         グループを追加
-      </a>
+      </button>
+      @livewire('chat::admin.create-group')
     </x-dashboard.top>
     <x-dashboard.container>
       <h5 class="hidden text-xl font-bold lg:block">チャット管理</h5>
@@ -58,7 +60,8 @@
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
                   @click.away="openDialog{{ $group->id }} = false" x-show="openDialog{{ $group->id }}===true"
                   x-cloak>
-                  <a class="flex items-center" href="{{ route('chatManager.edit', ['group' => $group]) }}">
+                  <button class="flex items-center" type="button"
+                    x-on:click="$dispatch('open-modal', 'group-edit-modal-{{ $group->id }}')">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -71,7 +74,10 @@
                       <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#777777" stroke-width="1.1"
                         stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                  </a>
+                  </button>
+
+                  <livewire:chat::admin.edit-group :group="$group" key="desktop-{{ $group->id }}" />
+
                   <button class="flex items-center" type="button" onclick="event.stopPropagation();"
                     x-on:click="$dispatch('open-modal', 'delete-modal-{{ $group->id }}')">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -139,7 +145,8 @@
                   class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
                   @click.away="openDialog{{ $group->id }} = false" x-show="openDialog{{ $group->id }}===true"
                   x-cloak>
-                  <a class="flex items-center" href="{{ route('chatManager.edit', ['group' => $group]) }}">
+                  <button class="flex items-center" type="button"
+                    x-on:click="$dispatch('open-modal', 'group-edit-modal-{{ $group->id }}')">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
                       <path
@@ -152,7 +159,10 @@
                       <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#777777" stroke-width="1.1"
                         stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
-                  </a>
+                  </button>
+
+                  <livewire:chat::admin.edit-group :group="$group" key="mobile-{{ $group->id }}" />
+
                   <button class="flex items-center" type="button" onclick="event.stopPropagation();"
                     x-on:click="$dispatch('open-modal', 'delete-modal-{{ $group->id }}')">
                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -164,7 +174,7 @@
                     <p class="mt-[1px] pl-[4px] pr-[5px] text-sm font-bold text-[#F76E80]">削除</p>
                     <svg width="14" height="14" viewBox="0 0 11 11" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#F76E80" stroke-width="1.1"
+                      <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#F 76E80" stroke-width="1.1"
                         stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   </button>

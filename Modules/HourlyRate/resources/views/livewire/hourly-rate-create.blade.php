@@ -8,7 +8,7 @@
     <div class="text-sm font-bold text-[#3289FA]">時給を追加</div>
   </button>
   <x-modal name="create-modal" title="時給情報の追加">
-    <form class="p-4" wire:submit="save" x-data="Datepickr()" x-init="initDatepickr">
+    <form wire:submit="save" x-data="Datepickr()" x-init="initDatepickr">
       @csrf
       @if ($errors->any())
         <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
@@ -20,14 +20,17 @@
         </div>
       @endif
 
-      <div class="grid grid-cols-[20%,80%] items-center">
-        <x-input-label for="rate" value="時給" />
+      <div>
+        <x-input-label for="rate" value="時給金額" />
 
-        <x-text-input class="mt-1 block w-full" id="rate" name="rate" type="number" min="0"
-          wire:model="rate" required />
+        <div class="grid w-full grid-cols-[92%,8%] items-center">
+          <x-text-input class="mt-1 block w-full" id="rate" name="rate" type="number" min="0"
+            wire:model="rate" required />
+          <div class="text-center text-sm">円</div>
+        </div>
       </div>
 
-      <div class="mb-[30px] mt-4 grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="date" value="開始日" />
 
         <div class="relative mt-1">
@@ -35,14 +38,13 @@
             type="text" wire:model="date" required />
           <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
-        002-2V7a2 2 0 00-2-2H5a2 2 0
-        00-2 2v12a2 2 0 002 2z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d=" M8 7V3m8 4V3m-9 8h10M5 21h14a2 2
+        0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
         </div>
       </div>
 
-      <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

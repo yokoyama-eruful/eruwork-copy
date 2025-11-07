@@ -1,4 +1,4 @@
-<x-modal name="view-group-create-modal" maxWidth="440" mobileMaxWidth="350">
+<x-modal name="create-group-modal" maxWidth="440" mobileMaxWidth="350">
   <form wire:submit="store" enctype="multipart/form-data">
     @csrf
     <x-slot:title>

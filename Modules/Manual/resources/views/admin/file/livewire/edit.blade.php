@@ -36,7 +36,7 @@
           handleDrop(e) {
               let files = e.dataTransfer.files;
               if (files.length > 0) {
-                  @this.upload('form.file', files[0]);
+                  @this.upload('form.uploadFile', files[0]);
               }
               this.isDragging = false;
           }

@@ -30,10 +30,17 @@
                   'hidden lg:grid grid-cols-[10%,8%,40%,20%,20%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5',
                   'border-b' => !$loop->last,
               ])>
-              <div class="flex h-[80px] w-[145px] justify-center rounded bg-black">
-                <img class="max-h-[80px] max-w-[145px]"
-                  src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
-              </div>
+
+              @if ($file->type)
+                <div class="flex h-[80px] w-[145px] justify-center rounded-md bg-black">
+                  <img class="max-h-[80px] max-w-[145px] rounded"
+                    src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
+                </div>
+              @else
+                <div class="flex h-[80px] w-[145px] justify-center rounded-md bg-black">
+                  <img class="max-h-[80px] max-w-[145px] rounded" src="{{ asset('img/icon/NoImage.png') }}" />
+                </div>
+              @endif
 
               <div class="flex justify-end pr-1">
                 @if (str_contains($file->type, 'video'))

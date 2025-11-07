@@ -10,7 +10,7 @@
   @if ($this->overlappingSchedules() || $this->overlappingShifts())
     <div><i class="fa-solid fa-circle-exclamation p-1 text-rose-600"></i>予定が重複しています</div>
   @endif
-  <form class="p-4" wire:submit="update">
+  <form wire:submit="update">
 
     <div class="grid grid-cols-[20%,80%] items-center">
       <x-input-label for="title" value="タイトル" />
@@ -44,7 +44,7 @@
 
       <x-input-error class="mt-2" :messages="$errors->userDeletion->get('end_time')" />
     </div>
-    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+    <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>

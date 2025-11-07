@@ -1,5 +1,5 @@
 <x-modal name="create-modal-{{ $day->format('Y-m-d') }}" title="シフト希望登録">
-  <form class="px-4 py-4" wire:submit="save">
+  <form wire:submit="save">
     @csrf
 
     @if ($errors->any())
@@ -68,7 +68,7 @@
       </div>
     @endif
 
-    <div class="-mx-4 -mb-4 mt-4 flex items-center justify-center rounded-b bg-white py-4">
+    <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
