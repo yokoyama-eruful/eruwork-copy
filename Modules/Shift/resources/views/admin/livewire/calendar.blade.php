@@ -297,7 +297,7 @@
             @foreach ($content['drafts'] as $draft)
               <div
                 class="flex cursor-pointer items-center justify-between space-x-[6px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] px-[10px] py-[7px] text-xs text-[#DE993A]"
-                wire:click="upShift({{ $draft->id }})">
+                wire:click="selectDraftShift({{ $draft->id }})">
                 <div class="flex items-center space-x-2">
                   <div
                     class="flex h-[22px] w-[22px] items-center justify-center rounded bg-[#DE993A] text-xs text-white">
@@ -309,6 +309,57 @@
                 </div>
                 <div>{{ $draft->user->name }}</div>
               </div>
+
+              <x-modal name="confirm-shift-modal-{{ $draft->id }}" title="希望シフト">
+                <div>
+                  @csrf
+
+                  @if ($errors->any())
+                    <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
+                      <ul class="list-disc pl-5">
+                        @foreach ($errors->all() as $error)
+                          <li>{{ $error }}</li>
+                        @endforeach
+                      </ul>
+                    </div>
+                  @endif
+
+                  <div class="text-lg font-bold">
+                    {{ $content['date']->format('Y.m.d') }}
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+                    <x-input-label for="user" value="ユーザー名" />
+                    <div class="w-full border-b border-gray-300 py-2 ps-3">
+                      {{ $draft->user->name }}
+                    </div>
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+                    <x-input-label for="start_time" value="開始時間" />
+
+                    <x-text-input class="mt-1 block w-full" type="time" wire:model="draftStartTime" required x-data
+                      @input="$event.target.style.color = $event.target.value < '{{ $draftStartTime }}' ? 'red' : 'black'" />
+                  </div>
+
+                  <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+                    <x-input-label for="end_time" value="終了時間" />
+
+                    <x-text-input class="mt-1 block w-full" type="time" wire:model="draftEndTime" required x-data
+                      @input="$event.target.style.color = $event.target.value > '{{ $draftEndTime }}' ? 'red' : 'black'" />
+                  </div>
+
+                  <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
+                    <x-secondary-button x-on:click="$dispatch('close')">
+                      {{ __('Cancel') }}
+                    </x-secondary-button>
+
+                    <x-primary-button class="ms-3" wire:click="upShift({{ $draft->id }})">
+                      確定する
+                    </x-primary-button>
+                  </div>
+                </div>
+              </x-modal>
             @endforeach
 
           </div>
