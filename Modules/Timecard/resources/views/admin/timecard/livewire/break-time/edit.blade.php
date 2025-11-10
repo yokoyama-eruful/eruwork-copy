@@ -1,6 +1,6 @@
 <div class="relative" x-data="{ breakTimeModal{{ $breakTime->id }}: false }">
   <button class="flex items-center hover:opacity-40" type="button" x-on:click="breakTimeModal{{ $breakTime->id }}=true">
-    <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
+    <img class="h-6 w-6 hover:opacity-40" src="{{ global_asset('img/icon/dot_gray.png') }}" />
   </button>
 
   <div class="absolute right-0 top-7 z-10 w-[95px] rounded-xl bg-white px-4 py-2 shadow-md"
@@ -60,22 +60,22 @@
         </div>
       @endif
 
-      <div class="grid grid-cols-[20%,80%] items-center">
+      <div class="">
         <x-input-label for="in-date" value="開始日付" />
         <x-text-input class="mt-1 block w-full" name="in-date" type="date" wire:model="form.in_date" required />
       </div>
 
-      <div class="mt-2 grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="in-time" value="開始時間" />
         <x-text-input class="mt-1 block w-full" name="in-time" type="time" wire:model="form.in_time" required />
       </div>
 
-      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="out-date" value="終了日付" />
         <x-text-input class="mt-1 block w-full" name="out-date" type="date" wire:model="form.out_date" required />
       </div>
 
-      <div class="mt-2 grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="out-time" value="終了時間" />
         <x-text-input class="mt-1 block w-full" name="out-time" type="time" wire:model="form.out_time" required />
       </div>

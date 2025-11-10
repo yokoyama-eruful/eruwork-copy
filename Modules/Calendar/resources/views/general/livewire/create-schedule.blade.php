@@ -12,10 +12,10 @@
       </div>
     @endif
 
-    <div class="mb-[20px] mt-[20px] flex items-center">
+    <div class="">
       <x-input-label class="w-1/5" for="date" value="日付" />
 
-      <div class="relative w-4/5">
+      <div class="relative w-full">
         <x-text-input class="js-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
           type="text" wire:model="date" required />
         <!-- カレンダーアイコン（青 #3289FA） -->
@@ -28,26 +28,28 @@
       </div>
     </div>
 
-    <div class="mb-[20px] flex items-center">
-      <x-input-label class="w-1/5" value="時間" />
+    <div class="mt-5">
+      <x-input-label value="時間" />
 
-      <x-text-input class="w-[35%]" type="time" wire:model="form.startTime" required />
+      <div class="flex w-full items-center space-x-1">
+        <x-text-input class="flex-1" type="time" wire:model="form.startTime" required />
 
-      <div class="px-[8px]">〜</div>
+        <div class="px-[10px]">〜</div>
 
-      <x-text-input class="w-[35%]" type="time" wire:model="form.endTime" required />
+        <x-text-input class="flex-1" type="time" wire:model="form.endTime" required />
+      </div>
     </div>
 
-    <div class="flex items-center">
+    <div class="mt-5">
       <x-input-label class="w-1/5" for="title" value="タイトル" />
 
-      <x-text-input class="w-4/5" type="text" wire:model="form.title" placeholder="タイトル" required />
+      <x-text-input class="w-full" type="text" wire:model="form.title" placeholder="タイトル" required />
     </div>
 
-    <div class="mb-[40px] flex pt-[20px]">
+    <div class="mt-5">
       <x-input-label class="w-1/5 pt-2" for="description" value="説明" />
 
-      <x-text-area class="min-h-[130px] w-4/5" type="text" wire:model="form.description"
+      <x-text-area class="min-h-[130px] w-full" type="text" wire:model="form.description"
         placeholder="説明"></x-text-area>
     </div>
     <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">

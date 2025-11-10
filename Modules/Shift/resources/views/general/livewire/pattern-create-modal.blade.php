@@ -20,7 +20,7 @@
           wire:click="settingReset">設定をリセット</button>
       </div>
 
-      <div class="mt-[30px] grid grid-cols-[30%,70%] items-center">
+      <div class="mt-5">
         <x-input-label for="title" value="パターン1" />
         <div class="flex w-full items-center space-x-[10px]">
           <x-text-input class="w-1/2" type="time" placeholder="0:00" wire:model="startTime1" />
@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="mt-[30px] grid grid-cols-[30%,70%] items-center">
+      <div class="mt-5">
         <x-input-label for="title" value="パターン2" />
         <div class="flex w-full items-center space-x-[10px]">
           <x-text-input class="w-1/2" type="time" placeholder="0:00" wire:model="startTime2" />
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="mt-[30px] grid grid-cols-[30%,70%] items-center">
+      <div class="mt-5">
         <x-input-label for="title" value="パターン3" />
         <div class="flex w-full items-center space-x-[10px]">
           <x-text-input class="w-1/2" type="time" placeholder="0:00" wire:model="startTime3" />

@@ -74,7 +74,7 @@
         <form wire:submit="update">
           @csrf
 
-          <div class="mt-4 grid w-full grid-cols-[20%,80%] items-center">
+          <div class="mt-5">
             <x-input-label value="時間" />
 
             <div class="flex w-full items-center space-x-1">

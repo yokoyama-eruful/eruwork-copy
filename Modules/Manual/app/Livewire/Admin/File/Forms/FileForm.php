@@ -138,14 +138,19 @@ class FileForm extends Form
 
     public function delete()
     {
-        Storage::delete($this->file->thumbnail_path);
-        if (isset($this->file->movie_path)) {
-            Storage::delete($this->file->movie_path);
+        if (! empty($this->file->thumbnail_path)) {
+            Storage::exists($this->file->thumbnail_path) && Storage::delete($this->file->thumbnail_path);
         }
 
+        // 動画ファイル削除
+        if (! empty($this->file->movie_path)) {
+            Storage::exists($this->file->movie_path) && Storage::delete($this->file->movie_path);
+        }
+
+        // ステップ内のファイル削除
         foreach ($this->file->steps as $step) {
-            if ($step['file']) {
-                Storage::delete($step['file']);
+            if (! empty($step['file'])) {
+                Storage::exists($step['file']) && Storage::delete($step['file']);
             }
         }
 

@@ -35,16 +35,15 @@
       <div class="mt-5">
         <x-input-label for="rate" value="時給" />
 
-        <x-text-input class="mt-1 block w-full" id="rate" name="rate" type="number" min="0"
-          wire:model="rate" required />
+        <x-text-input class="mt-1 block w-full" type="number" min="0" wire:model="rate" required />
       </div>
 
       <div class="mt-5">
         <x-input-label for="date" value="開始日" />
 
         <div class="relative mt-1">
-          <x-text-input class="js-datepicker block w-full rounded border border-gray-300 py-1 pl-3 pr-8" id="date"
-            name="date" type="text" wire:model="date" required />
+          <x-text-input class="js-datepicker block w-full rounded border border-gray-300 py-1 pl-3 pr-8" type="text"
+            wire:model="date" required />
           <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0

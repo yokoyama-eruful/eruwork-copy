@@ -20,7 +20,7 @@
 
       <div class="font-bold">シフト表</div>
 
-      <div class="mt-[20px] grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="start_date" value="開始日" />
 
         <div class="relative w-full">
@@ -35,7 +35,7 @@
         </div>
       </div>
 
-      <div class="mb-[30px] mt-[10px] grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="end_date" value="終了日" />
 
         <div class="relative w-full">
@@ -50,9 +50,9 @@
         </div>
       </div>
 
-      <div class="mt-[20px] font-bold">シフト掲載期間</div>
+      <div class="mt-5 font-bold">シフト掲載期間</div>
 
-      <div class="mt-[20px] grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="submission_start_date" value="開始日" />
 
         <div class="relative w-full">
@@ -67,7 +67,7 @@
         </div>
       </div>
 
-      <div class="mb-[40px] mt-[10px] grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="submission_end_date" value="終了日" />
 
         <div class="relative w-full">

@@ -1,5 +1,5 @@
 <div class="w-full justify-between lg:flex">
-  <div class="h-[calc(var(--vh)*100)] w-full shrink-0 overflow-y-auto bg-white px-[15px] lg:w-[280px] lg:py-[30px]"
+  <div class="w-full shrink-0 overflow-y-auto bg-white px-[15px] lg:h-[calc(var(--vh)*100)] lg:w-[280px] lg:py-[30px]"
     x-data="{ koujyoScreen: false }">
     <div class="mt-[30px] flex items-center justify-between lg:mt-0">
       <h1 class="text-xl font-bold">タイムカード</h1>

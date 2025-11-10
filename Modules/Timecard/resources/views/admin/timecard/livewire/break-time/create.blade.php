@@ -25,7 +25,7 @@
       @endif
 
       <!-- 開始日付 -->
-      <div class="grid grid-cols-[20%,80%] items-center">
+      <div class="">
         <x-input-label for="in-date" value="開始日付" />
         <div class="relative mt-1">
           <x-text-input class="js-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
@@ -41,13 +41,13 @@
       </div>
 
       <!-- 開始時間 -->
-      <div class="mt-2 grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="in-time" value="開始時間" />
         <x-text-input class="mt-1 block w-full" name="in-time" type="time" wire:model="form.in_time" required />
       </div>
 
       <!-- 終了日付 -->
-      <div class="mt-4 grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="out-date" value="終了日付" />
         <div class="relative mt-1">
           <x-text-input class="js-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
@@ -63,7 +63,7 @@
       </div>
 
       <!-- 終了時間 -->
-      <div class="mt-2 grid grid-cols-[20%,80%] items-center">
+      <div class="mt-5">
         <x-input-label for="out-time" value="終了時間" />
         <x-text-input class="mt-1 block w-full" name="out-time" type="time" wire:model="form.out_time" required />
       </div>

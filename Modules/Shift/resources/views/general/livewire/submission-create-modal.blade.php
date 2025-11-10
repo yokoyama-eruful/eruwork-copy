@@ -35,7 +35,7 @@
     </div>
 
     @if ($item === 'time')
-      <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-center">
+      <div class="mt-5">
         <x-input-label class="font-normal" value="時間設定" />
         <div class="flex w-full items-center space-x-1">
           <x-text-input class="flex-1" id="start_time_{{ $day->format('Ymd') }}" name="start_time" type="time"
@@ -50,7 +50,7 @@
     @endif
 
     @if ($item === 'pattern')
-      <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-start">
+      <div class="mt-5">
         <x-input-label class="font-normal" value="パターン設定" />
         <div class="flex flex-col justify-center space-y-3">
           @forelse (Auth::user()->patterns as $pattern)
