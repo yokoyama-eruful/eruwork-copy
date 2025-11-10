@@ -27,7 +27,7 @@
         <div class="flex items-center justify-between border-b pb-5">
           <div class="flex items-center space-x-5">
             <div
-              class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:h-[45px] lg:w-[45px]">
+              class="flex h-[50px] w-[50px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:h-[45px] lg:w-[45px]">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else

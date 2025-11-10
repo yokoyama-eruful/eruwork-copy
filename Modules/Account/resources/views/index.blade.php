@@ -22,10 +22,11 @@
       </div>
       <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($users as $user)
-          <div @class([
-              'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
-              'border-b' => !$loop->last,
-          ])>
+          <div onclick="window.location='{{ route('account.show', ['account' => $user->login_id]) }}'"
+            @class([
+                'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+                'border-b' => !$loop->last,
+            ])>
             <div
               class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[45px] lg:w-[45px]">
               @if ($user->icon)
@@ -94,22 +95,23 @@
                     </div>
                     <div class="my-5 flex items-center justify-center space-x-[10px]">
                       <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+                        onclick="event.stopPropagation();"
                         @click="$dispatch('close-modal', 'delete-modal-{{ $user->id }}')">キャンセル</div>
                       <button
                         class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
-                        type="submit">削除する</button>
+                        type="submit" onclick="event.stopPropagation();">削除する</button>
                     </div>
                   </form>
                 </x-modal-alert>
               </div>
             </div>
 
-            <a href="{{ route('account.show', ['account' => $user->login_id]) }}"><svg width="24" height="24"
-                viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
-            </a>
+            </div>
 
           </div>
         @endforeach

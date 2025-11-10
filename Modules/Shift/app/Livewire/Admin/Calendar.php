@@ -168,6 +168,8 @@ class Calendar extends Component
             'status' => '承認',
         ]);
 
+        $this->dispatch('close-modal', 'confirm-shift-modal-' . $draft->id);
+
         $this->reloadSchedule($draft->date);
     }
 
@@ -195,13 +197,37 @@ class Calendar extends Component
         $user = User::find($userId);
 
         $user->managers()->updateExistingPivot($managerId, ['status' => '未提出']);
+
+        $url = Request::getSchemeAndHttpHost() . '/shift/submission/' . $managerId;
+
+        $user->notify(
+            new WebPushNotification(
+                title: 'エルフルサービス',
+                message : 'シフトの提出が取り消されました。',
+                image: '',
+                url: $url,
+            ));
+
+        $admins = User::role('admin')->get();
+
+        $adminMessage = $user->name . 'さんにシフト提出取り消し通知を送信しました。';
+
+        foreach ($admins as $adminUser) {
+            $adminUser->notify(
+                new WebPushNotification(
+                    title: 'エルフルサービス',
+                    message: $adminMessage,
+                    image: '',
+                    url: $url,
+                ));
+        }
     }
 
     public function remindSubmission($userId, $managerId)
     {
         $user = User::find($userId);
 
-        $formatMessage = 'シフトを提出してください。';
+        $formatMessage = 'シフトの提出依頼が届いています。';
 
         $url = Request::getSchemeAndHttpHost() . '/shift/submission/' . $managerId;
 
@@ -212,6 +238,20 @@ class Calendar extends Component
                 image: '',
                 url: $url,
             ));
+
+        $admins = User::role('admin')->get();
+
+        $adminMessage = $user->name . 'さんにシフト提出依頼通知を送信しました。';
+
+        foreach ($admins as $adminUser) {
+            $adminUser->notify(
+                new WebPushNotification(
+                    title: 'エルフルサービス',
+                    message: $adminMessage,
+                    image: '',
+                    url: $url,
+                ));
+        }
     }
 
     public function render()

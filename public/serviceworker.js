@@ -1,91 +1,91 @@
+const filesToCache = [
+  '/',
+  '/offline.html', // ←ちゃんとキャッシュしておく！
+];
+
+// ===============================
+// 🔧 インストール処理
+// ===============================
 const preLoad = function () {
-    return caches.open("offline").then(function (cache) {
-        // caching index and important routes
-        return cache.addAll(filesToCache);
-    });
+  return caches.open("offline").then(function (cache) {
+    // caching index and important routes
+    return cache.addAll(filesToCache);
+  });
 };
 
 self.addEventListener("install", function (event) {
-    event.waitUntil(preLoad());
+  event.waitUntil(preLoad());
+  self.skipWaiting(); // 追加（即反映）
 });
 
-const filesToCache = [
-    '/',
-    // '/offline.html'
-];
+// ===============================
+// 🚀 有効化処理
+// ===============================
+self.addEventListener("activate", function (event) {
+  event.waitUntil(self.clients.claim());
+});
 
-const checkResponse = function (request) {
-    return new Promise(function (fulfill, reject) {
-        fetch(request).then(function (response) {
-            if (response.status !== 404) {
-                fulfill(response);
-            } else {
-                reject();
-            }
-        }, reject);
-    });
-};
-
-const addToCache = function (request) {
-    return caches.open("offline").then(function (cache) {
-        return fetch(request).then(function (response) {
-            return cache.put(request, response);
-        });
-    });
-};
-
-const returnFromCache = function (request) {
-    return caches.open("offline").then(function (cache) {
-        return cache.match(request).then(function (matching) {
-            if (!matching || matching.status === 404) {
-                return cache.match("offline.html");
-            } else {
-                return matching;
-            }
-        });
-    });
-};
-
+// ===============================
+// 🌐 fetch イベント（ここだけ修正版）
+// ===============================
 self.addEventListener("fetch", function (event) {
-    event.respondWith(checkResponse(event.request).catch(function () {
-        return returnFromCache(event.request);
-    }));
-    if(!event.request.url.startsWith('http')){
-        event.waitUntil(addToCache(event.request));
-    }
+  // HTTP以外（chrome-extension, blob等）はスルー
+  if (!event.request.url.startsWith('http')) return;
+
+  event.respondWith(
+    fetch(event.request)
+      .then(function (response) {
+        // 404だったらオフラインページへ
+        if (!response || response.status === 404) {
+          return caches.match('/offline.html');
+        }
+
+        // 正常レスポンスをキャッシュに保存
+      if (event.request.method === 'GET') {
+        const responseClone = response.clone();
+        caches.open('offline').then(function (cache) {
+          cache.put(event.request, responseClone);
+        });
+      }
+
+        return response;
+      })
+      .catch(function () {
+        // ネットがダメなときはキャッシュ or offline.html
+        return caches.match(event.request).then(function (cached) {
+          return cached || caches.match('/offline.html');
+        });
+      })
+  );
 });
 
 
 "use strict";
 
-self.addEventListener("install", function (event) {
-    self.skipWaiting();
-});
-
-self.addEventListener("activate", function (event) {
-    event.waitUntil(self.clients.claim());
-});
-
 self.addEventListener("push", function (event) {
-    if (!(self.Notification && self.Notification.permission === 'granted')) {
-        return;
-    }
-
-
-    self.addEventListener('notificationclick', function(event) {
-        event.preventDefault();
-
-        const url = event.notification.data.url;
-      
-        clients.openWindow(url).then(function(windowClient) {
-          console.log('ウィンドウが開かれました:', windowClient);
-        }).catch(function(error) {
-          console.log('ウィンドウのオープンに失敗:', error);
-        });
-
-        event.notification.close();
-      });
+    if (!(self.Notification && self.Notification.permission === 'granted')) return;
 
     const payload = event.data ? event.data.json() : {};
-    event.waitUntil(self.registration.showNotification(payload.title, payload));
+    event.waitUntil(
+        self.registration.showNotification(payload.title, {
+            body: payload.body || "",
+            icon: payload.icon || "/icons/icon-192x192.png",
+            data: { url: payload.url || "/" },
+        })
+    );
+});
+
+// notificationclick は push の外で1回だけ登録
+self.addEventListener('notificationclick', function(event) {
+    event.preventDefault();
+
+    const url = event.notification.data.url;
+
+    clients.openWindow(url).then(function(windowClient) {
+      console.log('ウィンドウが開かれました:', windowClient);
+    }).catch(function(error) {
+      console.log('ウィンドウのオープンに失敗:', error);
+    });
+
+    event.notification.close();
 });
