@@ -41,7 +41,7 @@
               'border-b' => !$loop->last,
           ])>
             <div class="hidden truncate px-[30px] font-bold lg:block">{!! nl2br(e($post->title)) !!}</div>
-            <div class="hidden truncate lg:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
+            <div class="hidden truncate lg:block">{!! nl2br(e($post->user->profile->name ?? 'NoName')) !!}</div>
             <div class="hidden truncate lg:block">{{ $post->updated_at?->format('Y/m/d') }}</div>
             <div class="hidden items-center justify-center lg:flex">
               @if ($post->attachments->isNotEmpty())
@@ -100,7 +100,7 @@
               <div class="flex items-center space-x-2">
                 <div class="truncate text-xs">{{ $post->updated_at?->format('Y/m/d') }}</div>
                 <div class="h-4 border-l border-gray-300"></div>
-                <div class="truncate text-xs">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
+                <div class="truncate text-xs">{!! nl2br(e($post->user->profile->name ?? 'NoName')) !!}</div>
               </div>
               <div class="flex items-center space-x-[15px]">
                 <div class="flex items-center justify-center">

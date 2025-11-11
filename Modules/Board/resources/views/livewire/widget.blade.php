@@ -32,7 +32,7 @@
                 @endif
               </div>
               <h4 class="ellipsis">{!! nl2br(e($post->title)) !!}</h4>
-              <p>{{ $post->user->profile->name ?? 'UnknownUser' }}</p>
+              <p>{{ $post->user->profile->name ?? 'NoName' }}</p>
             </div>
           </div>
         </a>
@@ -56,7 +56,7 @@
               </div>
               <div class="board-text">
                 <h4 class="ellipsis">{!! nl2br(e($post->title)) !!}</h4>
-                <p>{{ $post->user->profile->name ?? 'UnknownUser' }}</p>
+                <p>{{ $post->user->profile->name ?? 'NoName' }}</p>
               </div>
             </div>
           </div>

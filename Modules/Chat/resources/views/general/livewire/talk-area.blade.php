@@ -30,7 +30,7 @@
     <div class="my-5 grid grid-cols-[65px,1fr] gap-2">
       <!-- 左側（1エリア固定） -->
       <div class="flex justify-center">
-        @if ($message->user->icon)
+        @if ($message->user?->icon)
           <img class="h-[45px] w-[45px] rounded-full border bg-white"
             src="{{ route('profile.icon', ['id' => $message->user->id]) }}" alt="アイコン">
         @else
@@ -43,7 +43,7 @@
       <!-- 右側（上下2エリア） -->
       <div class="grid grid-rows-[auto,1fr] gap-2">
         <div class="flex space-x-3">
-          <div class="text-xs">{{ $message->user->name }}</div>
+          <div class="text-xs">{{ $message->user?->name ?? 'NoName' }}</div>
           <div class="text-xs text-[#AAB0B6]">{{ $message->created_at->format('H:i') }}</div>
           <div class="text-xs text-[#AAB0B6]">{{ $message->readStatuses }}</div>
         </div>

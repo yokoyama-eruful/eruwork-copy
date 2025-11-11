@@ -82,6 +82,8 @@
           <h5 class="hidden text-xl font-bold lg:block">勤怠管理</h5>
 
           <div class="hidden items-center space-x-3 lg:flex">
+            <livewire:timecard::admin.calculate-salary :$startDate :$endDate
+              key="desktop-{{ $startDate . $endDate }}" />
             <button class="flex items-center space-x-1 hover:opacity-40" type="button"
               @click="$dispatch('open-modal','wage-premium-modal')">
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -91,8 +93,6 @@
               </svg>
               <p class="text-sm font-bold text-[#3289FA]">給与算出設定</p>
             </button>
-            <livewire:timecard::admin.calculate-salary :$startDate :$endDate
-              key="desktop-{{ $startDate . $endDate }}" />
           </div>
         </div>
         <div

@@ -14,7 +14,7 @@
           <h5 class="text-[15px] text-[#AAB0B6]">{{ $post->created_at?->format('Y/m/d') }}</h5>
           <div class="flex items-center">
             <div class="text-xs text-[#AAB0B6]">作成者:</div>
-            <div class="pl-[6px] text-[15px]">{{ $post->user->name }}</div>
+            <div class="pl-[6px] text-[15px]">{{ $post->user->name ?? 'NoName' }}</div>
           </div>
         </div>
         <div class="mt-2 flex items-center justify-between">
@@ -29,7 +29,7 @@
           <div class="break-words text-[22px] font-bold">{{ $post->title }}</div>
           <div class="flex items-center justify-end">
             <div class="text-xs text-[#AAB0B6]">作成者:</div>
-            <div class="pl-[6px] text-[15px]">{{ $post->user->name }}</div>
+            <div class="pl-[6px] text-[15px]">{{ $post->user->name ?? 'NoName' }}</div>
           </div>
         </div>
         <div class="mt-[19px] border-t"></div>
