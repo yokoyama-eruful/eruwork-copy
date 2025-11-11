@@ -42,7 +42,7 @@
               </div>
 
               <div class="text-[15px] font-bold">
-                {{ $manager->start_date->isoFormat('YYYY.MM.DD（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY.MM.DD（ddd）') }}
+                {{ $manager->start_date->isoFormat('YYYY.MM.DD（ddd）') }}～{{ $manager->end_date->isoFormat('MM.DD（ddd）') }}
               </div>
 
               <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD') }}</div>
@@ -50,7 +50,21 @@
               <a class="text-[#3289FA] hover:opacity-40"
                 href="{{ route('shiftManager.show', ['manager' => $manager]) }}">表示する</a>
 
-              <livewire:shift::admin.manager-delete :manager="$manager">
+              <div class="relative hidden lg:block" x-data="{ openDialog{{ $manager->id }}: false }">
+                <div onclick="event.stopPropagation();"
+                  @click="openDialog{{ $manager->id }} = !openDialog{{ $manager->id }};">
+                  <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
+                </div>
+                <div
+                  class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
+                  @click.away="openDialog{{ $manager->id }} = false" x-show="openDialog{{ $manager->id }}===true"
+                  x-cloak>
+                  <livewire:shift::admin.manager-edit :manager="$manager" @updated="$refresh"
+                    key="desktop-manager-edit-{{ $manager->id }}" />
+                  <livewire:shift::admin.manager-delete :manager="$manager"
+                    key="desktop-manager-delete-{{ $manager->id }}" />
+                </div>
+              </div>
             </div>
           @endforeach
         </div>
@@ -59,22 +73,42 @@
       <div class="mt-[30px] block lg:hidden">
         <div class="mx-5 rounded-lg border">
           @foreach ($managers as $manager)
-            <div @class(['py-5 px-[13px] cursor-pointer', 'border-b' => !$loop->last])
+            <div @class([
+                'py-5 px-[13px] cursor-pointer grid grid-cols-[80%,20%]',
+                'border-b' => !$loop->last,
+            ])
               onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'">
-              <div class="flex items-center justify-between">
-                <div @class([
-                    'px-[15px] py-1 flex items-center justify-center rounded-full text-[10px] font-bold text-white',
-                    'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
-                    'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
-                    'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
-                ])>{{ $manager->ReceptionStatus }}</div>
-                <div class="flex items-center space-x-[10px] text-xs">
-                  <div class="text-[#AAB0B6]">受付終了日:</div>
-                  <div>{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD') }}</div>
+              <div>
+                <div class="flex items-center space-x-3">
+                  <div @class([
+                      'px-[15px] py-1 flex items-center justify-center rounded-full text-[10px] font-bold text-white',
+                      'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
+                      'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
+                      'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
+                  ])>{{ $manager->ReceptionStatus }}</div>
+                  <div class="flex items-center space-x-[10px] text-xs">
+                    <div class="text-[#AAB0B6]">受付終了日:</div>
+                    <div>{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD') }}</div>
+                  </div>
+                </div>
+                <div class="mt-3 text-sm font-bold">
+                  {{ $manager->start_date->isoFormat('YYYY.MM.DD（ddd）') }}　～　{{ $manager->end_date->isoFormat('MM.DD（ddd）') }}
                 </div>
               </div>
-              <div class="mt-3 text-sm font-bold">
-                {{ $manager->start_date->isoFormat('YYYY.MM.DD（ddd）') }}　～　{{ $manager->end_date->isoFormat('YYYY.MM.DD（ddd）') }}
+              <div class="relative flex items-center justify-center lg:hidden" x-data="{ openDialogMobile{{ $manager->id }}: false }">
+                <div onclick="event.stopPropagation();"
+                  @click="openDialogMobile{{ $manager->id }} = !openDialogMobile{{ $manager->id }};">
+                  <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
+                </div>
+                <div
+                  class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
+                  @click.away="openDialogMobile{{ $manager->id }} = false"
+                  x-show="openDialogMobile{{ $manager->id }}===true" x-cloak>
+                  <livewire:shift::admin.manager-edit :manager="$manager" @updated="$refresh"
+                    key="mobile-manager-edit-{{ $manager->id }}" />
+                  <livewire:shift::admin.manager-delete :manager="$manager"
+                    key="mobile-manager-delete-{{ $manager->id }}" />
+                </div>
               </div>
             </div>
           @endforeach

@@ -19,10 +19,10 @@
         </div>
       @endif
 
-      <div class="mb-[20px] mt-[20px] flex items-center">
-        <x-input-label class="w-1/5" for="date" value="日付" />
+      <div class="">
+        <x-input-label for="date" value="日付" />
 
-        <div class="relative w-4/5">
+        <div class="relative">
           <x-text-input
             class="js-multiple-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
             id="date" name="date" type="text" wire:model="form.date" required />
@@ -58,29 +58,29 @@
         });
       </script>
 
-      <div class="mb-[20px] flex items-center">
-        <x-input-label class="w-1/5" value="時間" />
+      <div class="mt-4">
+        <x-input-label value="時間" />
 
-        <x-text-input class="w-[35%]" id="start_time" name="start_time" type="time" wire:model="form.startTime"
-          required />
+        <div class="flex w-full items-center space-x-1">
+          <x-text-input class="flex-1" type="time" wire:model="form.startTime" required />
 
-        <div class="px-[8px]">〜</div>
+          <div class="px-[10px]">〜</div>
 
-        <x-text-input class="w-[35%]" id="end_time" name="end_time" type="time" wire:model="form.endTime"
-          required />
+          <x-text-input class="flex-1" type="time" wire:model="form.endTime" required />
+        </div>
       </div>
 
-      <div class="flex items-center">
-        <x-input-label class="w-1/5" for="title" value="タイトル" />
+      <div class="mt-4">
+        <x-input-label for="title" value="タイトル" />
 
-        <x-text-input class="w-4/5" id="title" name="title" type="text" wire:model="form.title"
+        <x-text-input class="w-full" id="title" name="title" type="text" wire:model="form.title"
           placeholder="タイトル" required />
       </div>
 
-      <div class="flex pt-[20px]">
-        <x-input-label class="w-1/5 pt-2" for="description" value="説明" />
+      <div class="mt-4">
+        <x-input-label for="description" value="説明" />
 
-        <x-text-area class="mb-[20px] min-h-[130px] w-4/5" id="description" name="description" type="text"
+        <x-text-area class="min-h-[130px] w-full" id="description" name="description" type="text"
           wire:model="form.description" placeholder="説明"></x-text-area>
       </div>
       <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">

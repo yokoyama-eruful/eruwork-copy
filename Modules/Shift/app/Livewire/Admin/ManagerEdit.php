@@ -11,6 +11,8 @@ class ManagerEdit extends Component
 {
     public ShiftManagerForm $form;
 
+    public Manager $manager;
+
     public function mount(Manager $manager)
     {
         $this->form->setValues($manager);
@@ -20,7 +22,9 @@ class ManagerEdit extends Component
     {
         $this->form->update();
         $this->dispatch('updated');
-        $this->dispatch('close-modal', 'edit-modal');
+
+        return redirect()->route('shiftManager.index');
+        // $this->dispatch('close-modal', 'edit-modal-' . $this->manager->id);
     }
 
     public function render()

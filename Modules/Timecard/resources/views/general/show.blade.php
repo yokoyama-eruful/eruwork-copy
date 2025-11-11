@@ -4,8 +4,9 @@
     </x-main.top>
     <x-main.container>
       <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] lg:hidden">
-        <div class="flex items-center hover:opacity-40">
-          <div class="ml-2 text-lg font-bold">扶養控除目安</div>
+        <div class="flex flex-col hover:opacity-40">
+          <div class="ml-2 text-lg font-bold">税金の壁到達目安</div>
+          <div class="text-xs">（扶養控除）</div>
         </div>
 
         <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
@@ -19,7 +20,7 @@
           </div>
         </div>
 
-        <div class="mt-5 text-sm font-bold">扶養控除ラインと現在の収入の比較</div>
+        <div class="mt-5 text-sm font-bold">税金の壁と現在の収入の比較</div>
         <div class="mt-[10px]">
           <div class="-mx-[15px] grid grid-cols-8 text-[10px] text-[#777777]">
             <div class="text-center">0</div>
@@ -57,12 +58,12 @@
 
         </div>
         <div class="mt-[56px]">
-          <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
+          <div class="text-xs font-bold">あなたの時給から税金の壁（扶養控除）を算出</div>
           <div class="mt-3 flex flex-col space-y-2">
             <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[25px]">
-              <div class="text-sm font-bold">106万</div>
+              <div class="text-sm font-bold">123万</div>
               <div class="flex items-center space-x-[2px]">
-                <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1060000 - $totalYearPay) }}</div>
+                <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1230000 - $totalYearPay) }}</div>
                 <div class="text-xs">円以上で超過</div>
               </div>
             </div>

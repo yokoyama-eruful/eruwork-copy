@@ -23,13 +23,13 @@
     <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
     <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
   </div>
-  <div class="mx-5 mt-[24px] rounded-lg border border-b lg:mx-0 lg:mt-[8px]">
+  <div class="mx-5 mt-[8px] rounded-lg border border-b lg:mx-0">
     @foreach ($this->rateTable as $hourlyRate)
       <div @class([
           'grid-cols-[30%,35%,25%,10%] py-[30px] grid items-center',
           'border-b' => !$loop->last,
       ])>
-        <div class="pl-[20px] pr-[30px] text-[15px] font-bold">{{ $hourlyRate->rate }}円</div>
+        <div class="pl-[20px] pr-[5px] text-[15px] font-bold lg:pr-[30px]">{{ $hourlyRate->rate }}円</div>
         <div class="text-left text-[12px]">{{ $hourlyRate->effective_date->format('Y.m.d') }}</div>
         @if ($this->getApplyRate()?->id == $hourlyRate->id)
           <div class="w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-xs font-bold text-[#3289FA]">

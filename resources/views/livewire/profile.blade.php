@@ -41,7 +41,7 @@
     <div class="relative mt-5 items-center">
 
       <x-input-label name="current_password">
-        <p class="block lg:hidden">現在の<br>パスワード</p>
+        <p class="block lg:hidden">現在のパスワード</p>
         <p class="hidden lg:block">現在のパスワード</p>
       </x-input-label>
       <div class="relative w-full">
@@ -70,7 +70,7 @@
     <!-- 新しいパスワード -->
     <div class="relative mt-5 items-center">
       <x-input-label name="new_password">
-        <p class="block lg:hidden">新しい<br>パスワード</p>
+        <p class="block lg:hidden">新しいパスワード</p>
         <p class="hidden lg:block">新しいパスワード</p>
 
       </x-input-label>
@@ -100,7 +100,7 @@
     <!-- 確認用パスワード -->
     <div class="relative mt-5 items-center">
       <x-input-label name="new_password_confirmation">
-        <p class="block lg:hidden">新しい<br>パスワード確認</p>
+        <p class="block lg:hidden">新しいパスワード確認</p>
         <p class="hidden lg:block">新しいパスワード確認</p>
       </x-input-label>
 

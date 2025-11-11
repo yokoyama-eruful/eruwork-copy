@@ -3,9 +3,9 @@
     x-data="{ koujyoScreen: false }">
     <div class="mt-[30px] flex items-center justify-between lg:mt-0">
       <h1 class="text-xl font-bold">タイムカード</h1>
-      <a class="block text-xs text-[#3289FA] focus:opacity-40 lg:hidden"
+      <a class="block text-xs font-bold text-[#3289FA] focus:opacity-40 lg:hidden"
         href="{{ route('timecard.show', ['date' => $selectedDate->format('Y-m-d')]) }}"
-        wire:key="{{ $selectedDate->isoFormat('Ymd') }}">扶養控除目安を確認する</a>
+        wire:key="{{ $selectedDate->isoFormat('Ymd') }}">税金の壁到達目安を確認する</a>
     </div>
 
     <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
@@ -53,7 +53,12 @@
 
     {{-- デスクトップ版 --}}
     <div class="hidden lg:block">
-      <div class="mt-5 text-base font-bold">扶養控除目安</div>
+      <div class="mt-5 text-base font-bold">
+        <div class="flex flex-col hover:opacity-40">
+          <div class="ml-2 text-lg">税金の壁到達目安</div>
+          <div class="text-xs">（扶養控除）</div>
+        </div>
+      </div>
       <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
         <div class="flex flex-col items-start">
           <div class="mt-2 flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('Y年度') }}
@@ -63,7 +68,7 @@
         <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
           {{ $totalYearWorkingTime }}</div>
       </div>
-      <div class="mt-5 text-sm font-bold">扶養控除ラインと現在の収入の比較</div>
+      <div class="mt-5 text-sm font-bold">税金の壁と現在の収入の比較</div>
       <div class="mt-[10px]">
         <div class="-mx-[15px] grid grid-cols-8 text-[10px] text-[#777777]">
           <div class="text-center">0</div>
@@ -102,12 +107,12 @@
 
       </div>
       <div class="mt-[56px]">
-        <div class="text-xs font-bold">あなたの時給から扶養控除目安を算出</div>
+        <div class="text-xs font-bold">あなたの時給から税金の壁を算出</div>
         <div class="mt-3 flex flex-col space-y-2">
           <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[20px]">
-            <div class="text-sm font-bold">106万</div>
+            <div class="text-sm font-bold">123万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1060000 - $totalYearPay) }}</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1230000 - $totalYearPay) }}</div>
               <div class="text-xs">円以上で超過</div>
             </div>
           </div>

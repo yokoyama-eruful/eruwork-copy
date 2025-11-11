@@ -1,10 +1,18 @@
 <div>
-  <button
-    class="focus:shadow-outline rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none"
-    type="button" x-on:click="$dispatch('open-modal', 'edit-modal')">
-    受付期間の編集
+  <button class="flex items-center" type="button" onclick="event.stopPropagation();"
+    x-on:click="$dispatch('open-modal', 'edit-modal-{{ $manager->id }}')">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M1.875 15.6248V6.87476C1.87505 6.21179 2.13863 5.57597 2.60742 5.10718C3.07625 4.6384 3.71201 4.37476 4.375 4.37476H8.33333C8.67844 4.37476 8.95822 4.65467 8.95833 4.99976C8.95833 5.34493 8.67851 5.62476 8.33333 5.62476H4.375C4.04353 5.62476 3.72562 5.75661 3.49121 5.99097C3.25684 6.22534 3.12505 6.54331 3.125 6.87476V15.6248C3.125 15.9562 3.25686 16.2741 3.49121 16.5085C3.72563 16.743 4.04348 16.8748 4.375 16.8748H13.125C13.4565 16.8748 13.7744 16.743 14.0088 16.5085C14.2431 16.2741 14.375 15.9562 14.375 15.6248V11.6664C14.3751 11.3213 14.6549 11.0414 15 11.0414C15.3451 11.0414 15.6249 11.3213 15.625 11.6664V15.6248C15.625 16.2877 15.3614 16.9235 14.8926 17.3923C14.4237 17.8612 13.788 18.1248 13.125 18.1248H4.375C3.71196 18.1248 3.07626 17.8612 2.60742 17.3923C2.13865 16.9235 1.875 16.2877 1.875 15.6248ZM17.5 3.43726C17.4999 3.18864 17.4016 2.94981 17.2257 2.77401C17.0499 2.59822 16.8111 2.49976 16.5625 2.49976C16.3139 2.49976 16.0751 2.59822 15.8993 2.77401L14.9349 3.73836L16.2614 5.06486L17.2257 4.1005C17.4015 3.92466 17.5 3.6859 17.5 3.43726ZM14.0511 4.62215L7.05078 11.6233C6.72977 11.9445 6.48236 12.3312 6.3265 12.7561L6.26546 12.9408L5.92855 14.0704L7.05892 13.7343L7.24365 13.6733C7.66852 13.5174 8.05526 13.2708 8.37646 12.9498L15.3776 5.94865L14.0511 4.62215ZM18.75 3.43726C18.75 4.01742 18.5197 4.57403 18.1095 4.98429L9.26025 13.8336C8.74635 14.3472 8.11251 14.7248 7.41618 14.9322L5.17822 15.5987C4.95832 15.6642 4.72035 15.6039 4.55811 15.4417C4.39591 15.2794 4.33554 15.0414 4.40104 14.8215L5.06755 12.5844C5.2749 11.8879 5.65249 11.2535 6.16618 10.7395L15.0155 1.89103C15.4257 1.48082 15.9823 1.24976 16.5625 1.24976C17.1427 1.24976 17.6993 1.48001 18.1095 1.89022C18.5198 2.30044 18.7499 2.85711 18.75 3.43726Z"
+        fill="#777777" />
+    </svg>
+    <p class="mt-[1px] pl-[4px] pr-[5px] text-sm font-bold text-[#777777]">編集</p>
+    <svg width="14" height="14" viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M3.78125 2.0625L7.21875 5.5L3.78125 8.9375" stroke="#777777" stroke-width="1.1" stroke-linecap="round"
+        stroke-linejoin="round" />
+    </svg>
   </button>
-  <x-modal name="edit-modal" title="シフト受付期間編集">
+  <x-modal name="edit-modal-{{ $manager->id }}" title="シフト受付期間編集">
     <form wire:submit="update">
       @csrf
 
@@ -18,26 +26,45 @@
         </div>
       @endif
 
-      <div class="mt-4">
-        <x-input-label for="submission_start_date" value="開始日" />
+      <div class="">
+        <x-input-label value="開始日" />
 
-        <x-text-input class="mt-1 block w-full" id="submission_start_date" name="submission_start_date" type="date"
-          wire:model="form.submissionStartDate" required />
+        <div class="relative w-full">
+          <x-text-input class="js-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
+            type="text" wire:model="form.submissionStartDate" required />
+          <!-- カレンダーアイコン（青 #3289FA） -->
+          <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+        002-2V7a2 2 0 00-2-2H5a2 2 0
+        00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
       </div>
 
-      <div class="mt-2">
-        <x-input-label for="submission_end_date" value="終了日" />
+      <div class="mt-5">
+        <x-input-label value="終了日" />
 
-        <x-text-input class="mt-1 block w-full" id="submission_end_date" name="submission_end_date" type="date"
-          wire:model="form.submissionEndDate" required />
+        <div class="relative w-full">
+          <x-text-input class="js-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
+            type="text" wire:model="form.submissionEndDate" required />
+          <!-- カレンダーアイコン（青 #3289FA） -->
+          <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
+            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+        002-2V7a2 2 0 00-2-2H5a2 2 0
+        00-2 2v12a2 2 0 002 2z" />
+          </svg>
+        </div>
+
       </div>
 
       <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
-        <x-secondary-button x-on:click="$dispatch('close')">
+        <x-secondary-button onclick="event.stopPropagation();" x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="ms-3" onclick="event.stopPropagation();">
           更新
         </x-primary-button>
       </div>
