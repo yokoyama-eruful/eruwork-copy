@@ -13,7 +13,7 @@
     @endif
 
     <div class="text-xl font-bold">
-      {{ $day->format('Y.m.d') }}
+      {{ $day->format('Y/m/d') }}
     </div>
 
     <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-center">

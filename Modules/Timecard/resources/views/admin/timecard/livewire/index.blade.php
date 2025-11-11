@@ -48,7 +48,7 @@
     <div
       class="top-container mt-[20px] h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-2/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <h5 class="hidden text-xl font-bold lg:block">タイムカード管理</h5>
-      <div class="block px-5 font-bold lg:hidden">{{ $selectDate?->format('Y.m.d') }}出勤者</div>
+      <div class="block px-5 font-bold lg:hidden">{{ $selectDate?->format('Y/m/d') }}出勤者</div>
       <div
         class="mb-[9px] mt-4 grid grid-cols-[15%,44%,36%,5%] lg:mb-0 lg:mt-[30px] lg:grid-cols-[20%,25%,19%,19%,17%] tablet:grid-cols-[15%,35%,18%,18%,14%]">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
@@ -175,7 +175,7 @@
         <div class="text-2xl font-bold">{{ $this->totalWorkTime() }}</div>
       </div>
       <div class="mt-[30px] font-bold">
-        {{ $selectDate?->isoFormat('YYYY.MM.DD（ddd曜）') }}
+        {{ $selectDate?->isoFormat('YYYY/MM/DD（ddd曜）') }}
       </div>
       <div class="mt-6">
         <div class="text-[11px] font-bold">本日の勤務時間</div>

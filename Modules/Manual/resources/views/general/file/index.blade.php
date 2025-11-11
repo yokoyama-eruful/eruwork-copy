@@ -57,7 +57,7 @@
 
               <div>{{ $file->user->name ?? '' }}</div>
 
-              <div>{{ $file->updated_at->format('Y.m.d') ?? '' }}</div>
+              <div>{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
 
               <div class="flex items-center justify-end hover:opacity-40">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -90,7 +90,7 @@
                   @endif
                   <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
                 </div>
-                <div class="text-xs">更新日：{{ $file->updated_at->format('Y.m.d') ?? '' }}</div>
+                <div class="text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>
               <div class="flex items-center justify-end hover:opacity-40">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

@@ -4,11 +4,11 @@
       <div class="flex w-full items-center justify-between lg:hidden">
         <div class="flex hidden items-center space-x-1 text-xs lg:block">
           <div class="text-[#AAB0B6]">最終更新日：</div>
-          <div>{{ $user->updated_at?->format('Y.m.d') }}</div>
+          <div>{{ $user->updated_at?->format('Y/m/d') }}</div>
         </div>
         <div class="flex items-center space-x-1 text-xs">
           <div class="text-[#AAB0B6]">最終ログイン日：</div>
-          <div>{{ $user->last_login_at?->format('Y.m.d') }}</div>
+          <div>{{ $user->last_login_at?->format('Y/m/d') }}</div>
         </div>
       </div>
       <a class="hidden items-center text-sm font-bold text-[#3289FA] hover:opacity-40 lg:flex"
@@ -42,11 +42,11 @@
           <div class="flex items-center space-x-10">
             <div class="hidden items-center space-x-1 lg:flex">
               <div class="text-xs text-[#AAB0B6]">最終ログイン日：</div>
-              <div class="text-[15px]">{{ $user->last_login_at?->format('Y.m.d') }}</div>
+              <div class="text-[15px]">{{ $user->last_login_at?->format('Y/m/d') }}</div>
             </div>
             <div class="hidden items-center space-x-1 lg:flex">
               <div class="text-xs text-[#AAB0B6]">最終更新日：</div>
-              <div class="text-[15px]">{{ $user->updated_at?->format('Y.m.d') }}</div>
+              <div class="text-[15px]">{{ $user->updated_at?->format('Y/m/d') }}</div>
             </div>
             <div class="relative block cursor-pointer" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
@@ -167,7 +167,7 @@
 
           <div class="block grid grid-cols-[30%,70%] lg:hidden">
             <div class="flex items-center text-[11px] font-bold">最終更新日</div>
-            <div class="flex items-center">{{ $user->updated_at?->format('Y.m.d') }}</div>
+            <div class="flex items-center">{{ $user->updated_at?->format('Y/m/d') }}</div>
           </div>
 
           <div class="grid grid-cols-[30%,70%]">

@@ -25,7 +25,7 @@
         <div class="text-2xl font-bold">{{ $this->totalWorkTime() }}</div>
       </div>
       <div class="mt-[30px] font-bold">
-        {{ $this->date?->isoFormat('YYYY.MM.DD（ddd曜）') }}
+        {{ $this->date?->isoFormat('YYYY/MM/DD（ddd曜）') }}
       </div>
       <div class="mt-6">
         <div class="text-[11px] font-bold">本日の勤務時間</div>

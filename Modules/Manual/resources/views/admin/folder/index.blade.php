@@ -41,7 +41,7 @@
             ])>
               <div class="pl-[30px] font-bold">{{ $folder->title }}</div>
               <div class="hidden lg:block">{{ $folder->user->name }}</div>
-              <div class="hidden lg:block">{{ $folder->updated_at?->format('Y.m.d') }}</div>
+              <div class="hidden lg:block">{{ $folder->updated_at?->format('Y/m/d') }}</div>
               <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
                 <button class="flex items-center" type="button"
                   @click.prevent.stop="openDialog{{ $folder->id }} = !openDialog{{ $folder->id }};">

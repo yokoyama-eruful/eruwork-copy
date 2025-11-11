@@ -26,7 +26,7 @@
                 <div class="new-ribbon">NEW</div>
               @endif
               <div class="board-title">
-                <span>{{ $post->created_at?->format('Y.m.d') }}</span>
+                <span>{{ $post->created_at?->format('Y/m/d') }}</span>
                 @if ($post->attachments->isNotEmpty())
                   <img src="img/icon/attached-icon.png" />
                 @endif
@@ -49,7 +49,7 @@
                 <div class="new-ribbon">NEW</div>
               @endif
               <div class="board-title">
-                <span>{{ $post->created_at?->format('Y.m.d') }}</span>
+                <span>{{ $post->created_at?->format('Y/m/d') }}</span>
                 @if ($post->attachments->isNotEmpty())
                   <img src="images/icon/attached-icon.png" />
                 @endif

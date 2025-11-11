@@ -43,7 +43,7 @@
           ])>
             <div class="hidden truncate px-[30px] font-bold lg:block">{!! nl2br(e($post->title)) !!}</div>
             <div class="hidden truncate lg:block">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
-            <div class="hidden truncate lg:block">{{ $post->updated_at?->format('Y.m.d') }}</div>
+            <div class="hidden truncate lg:block">{{ $post->updated_at?->format('Y/m/d') }}</div>
             <div class="hidden items-center justify-center lg:flex">
               @if ($post->attachments->isNotEmpty())
                 <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
@@ -95,7 +95,7 @@
             </div>
             <div class="mb-[7px] flex items-center justify-between lg:hidden">
               <div class="flex items-center space-x-2">
-                <div class="truncate text-xs">{{ $post->updated_at?->format('Y.m.d') }}</div>
+                <div class="truncate text-xs">{{ $post->updated_at?->format('Y/m/d') }}</div>
                 <div class="h-4 border-l border-gray-300"></div>
                 <div class="truncate text-xs">{!! nl2br(e($post->user->profile->name ?? 'UnknownUser')) !!}</div>
               </div>

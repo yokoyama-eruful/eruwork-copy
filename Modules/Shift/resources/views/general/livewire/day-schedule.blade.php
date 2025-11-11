@@ -63,7 +63,7 @@
             <hr class="mx-5 h-5 border-r" />
             <p class="text-xs">期限：</p>
             <div class="ml-[8px] font-semibold text-[#FF4A62]">
-              {{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）まで') }}</div>
+              {{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd）まで') }}</div>
           </div>
         </div>
       @endif

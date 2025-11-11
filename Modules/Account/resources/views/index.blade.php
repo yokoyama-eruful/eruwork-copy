@@ -44,7 +44,7 @@
 
             <div class="text-[12px] lg:text-[15px]">{{ $user->profile?->contract_type }}</div>
 
-            <div class="hidden text-[15px] lg:block">{{ $user->last_login_at?->format('Y.m.d') }}</div>
+            <div class="hidden text-[15px] lg:block">{{ $user->last_login_at?->format('Y/m/d') }}</div>
 
             <div class="relative hidden lg:block" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"

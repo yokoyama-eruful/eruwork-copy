@@ -61,10 +61,10 @@
                   {{ $manager->ReceptionStatus }}
                 </div>
                 <div class="ml-[8px] text-sm text-[#FF4A62]">
-                  {{ $manager->submission_end_date->isoFormat('MM.DD（ddd）まで') }}</div>
+                  {{ $manager->submission_end_date->isoFormat('MM/DD（ddd）まで') }}</div>
               </div>
-              <div class="mt-1 text-[16px] font-bold">{{ $manager->start_date->isoFormat('YYYY.MM.DD') }}～
-                {{ $manager->end_date->isoFormat('MM.DD') }}</div>
+              <div class="mt-1 text-[16px] font-bold">{{ $manager->start_date->isoFormat('YYYY/MM/DD') }}～
+                {{ $manager->end_date->isoFormat('MM/DD') }}</div>
             </div>
             <a class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40"
               href="{{ route('shift.submission.show', ['manager' => $manager->id]) }}">入力する</a>
@@ -97,7 +97,7 @@
 
               <p class="text-xs">期限：</p>
               <div class="ml-[8px] font-semibold text-[#FF4A62]">
-                {{ $manager->submission_end_date->isoFormat('YYYY年MM/DD（ddd）まで') }}</div>
+                {{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd）まで') }}</div>
             </div>
           </div>
         @endif
@@ -120,7 +120,7 @@
       <div class="flex items-center">
         <p class="text-xs text-[#AAB0B6]">期間：</p>
         <div class="pl-1 text-sm font-semibold lg:text-xl">
-          {{ $startDate->isoFormat('M/D日（ddd）') }} ～ {{ $endDate->isoFormat('M/D日（ddd）') }}</div>
+          {{ $startDate->isoFormat('M/D（ddd）') }} ～ {{ $endDate->isoFormat('M/D（ddd）') }}</div>
       </div>
       <div class="hidden items-center space-x-5 lg:flex">
         <a class="flex items-center space-x-1 hover:opacity-40" href="{{ route('shift.submission.index') }}">

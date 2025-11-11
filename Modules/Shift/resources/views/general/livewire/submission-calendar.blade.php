@@ -23,7 +23,7 @@
       <div class="flex items-center space-x-[10px]">
         <div class="text-sm">シフト提出期限：</div>
         <div class="rounded bg-[#F7F7F7] px-5 py-3 font-bold text-[#FF4A62]">
-          {{ $manager->submission_end_date->isoFormat('YYYY.MM.DD（ddd）まで') }}</div>
+          {{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd）まで') }}</div>
         @if ($this->submissionStatus($manager) === '未提出')
           <button class="rounded bg-[#FF4A62] px-8 py-[10px] font-bold text-white hover:opacity-40" type="button"
             x-on:click="$dispatch('open-modal','submission-confirm-alert')">提出する</button>
@@ -63,7 +63,7 @@
 
     <div class="flex w-full items-center justify-center bg-[#F7F7F7] py-1 lg:hidden">
       <div class="text-xs text-[#6F6C6C]">提出期限：</div>
-      <div class="font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY.MM.DD（ddd曜）まで') }}</div>
+      <div class="font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd曜）まで') }}</div>
     </div>
 
     <div class="mt-[19px] flex items-center space-x-[5px] px-5 lg:space-x-2 lg:px-0">
@@ -104,7 +104,7 @@
           <div class="flex items-center justify-between pl-[15px] pr-[10px]">
             @if ($content['date']->isoFormat('D') === '1' || $loop->first)
               <div class="flex flex-col items-start">
-                <div @class(['text-[15px] lg:py-[15px]'])>{{ $content['date']->isoFormat('M.D日') }}</div>
+                <div @class(['text-[15px] lg:py-[15px]'])>{{ $content['date']->isoFormat('M/D日') }}</div>
                 <div class="text-xs lg:hidden">{{ $content['date']->isoFormat('ddd') }}曜</div>
               </div>
             @else

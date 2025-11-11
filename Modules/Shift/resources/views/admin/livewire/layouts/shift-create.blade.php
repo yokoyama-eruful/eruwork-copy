@@ -22,7 +22,7 @@
       @endif
 
       <div class="text-lg font-bold">
-        {{ $content['date']->format('Y.m.d') }}
+        {{ $content['date']->format('Y/m/d') }}
       </div>
 
       <div class="mt-5">

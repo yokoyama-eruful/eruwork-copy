@@ -130,13 +130,13 @@
       ])>{{ $manager->receptionStatus }}</div>
       <div class="flex items-center space-x-2">
         <div class="text-xs text-[#AAB0B6]">受付終了日:</div>
-        <div class="text-xs text-[#AAB0B6]">{{ $manager->submission_end_date->isoFormat('Y.M.D（ddd）') }}</div>
+        <div class="text-xs text-[#AAB0B6]">{{ $manager->submission_end_date->isoFormat('Y/M/D（ddd）') }}</div>
       </div>
     </div>
     <div class="flex items-center space-x-2 px-5 lg:mt-[20px] lg:border-b lg:px-0 lg:pb-[10px]">
       <div class="hidden text-xs text-[#AAB0B6] lg:block">期間:</div>
       <div class="text-[20px] font-semibold lg:text-[20px]">
-        {{ $manager->start_date->isoFormat('Y.M.D（ddd）') }}　～　{{ $manager->end_date->isoFormat('Y.M.D（ddd）') }}
+        {{ $manager->start_date->isoFormat('Y/M/D（ddd）') }}　～　{{ $manager->end_date->isoFormat('Y/M/D（ddd）') }}
       </div>
     </div>
 
@@ -244,7 +244,7 @@
                     @endif
 
                     <div class="text-lg font-bold">
-                      {{ $content['date']->format('Y.m.d') }}
+                      {{ $content['date']->format('Y/m/d') }}
                     </div>
 
                     <div class="mt-4 grid grid-cols-[20%,80%] items-center">

@@ -129,7 +129,7 @@
                     x-transition:leave-end="opacity-0 translate-y-2">
 
                     <div class="flex items-center justify-between space-x-7">
-                      <div class="text-xs text-[#777777]">{{ $shift->date->format('Y.m.d') }}</div>
+                      <div class="text-xs text-[#777777]">{{ $shift->date->format('Y/m/d') }}</div>
                       <div class="flex items-center space-x-[15px]">
                         <div class="cursor-pointer" @click.stop="openModalShift{{ $shift->id }}=false">
                           <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -177,7 +177,7 @@
                   x-transition:leave-end="opacity-0 translate-y-2">
 
                   <div class="flex items-center justify-between space-x-7">
-                    <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y.m.d') }}</div>
+                    <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y/m/d') }}</div>
                     <div class="flex items-center space-x-[15px]">
                       <div class="cursor-pointer"
                         x-on:click="$dispatch('open-modal','schedule-delete-modal-{{ $schedule->id }}')"><svg
@@ -278,7 +278,7 @@
                         x-transition:leave-end="opacity-0 translate-y-2">
 
                         <div class="flex items-center justify-between space-x-7">
-                          <div class="text-xs text-[#777777]">{{ $shift->date->format('Y.m.d') }}</div>
+                          <div class="text-xs text-[#777777]">{{ $shift->date->format('Y/m/d') }}</div>
                           <div class="flex items-center space-x-[15px]">
                             <div class="cursor-pointer" @click.stop="openModalShift{{ $shift->id }}=false">
                               <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -324,7 +324,7 @@
                       x-transition:leave-end="opacity-0 translate-y-2">
 
                       <div class="flex items-center justify-between space-x-7">
-                        <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y.m.d') }}</div>
+                        <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y/m/d') }}</div>
                         <div class="flex items-center space-x-[15px]">
                           <div class="cursor-pointer"
                             x-on:click="$dispatch('open-modal','schedule-delete-modal-{{ $schedule->id }}')"><svg

@@ -50,7 +50,7 @@
               </div>
               <div class="truncate pr-[20px] text-[15px] font-bold">{{ $group->name }}</div>
               <div class="break-words pr-[87px] text-[15px]">{{ $group->users->implode('name', '　') }}</div>
-              <div class="text-[15px]">{{ $group->updated_at->format('Y.m.d') }}</div>
+              <div class="text-[15px]">{{ $group->updated_at->format('Y/m/d') }}</div>
 
               <div class="relative block" x-data="{ openDialog{{ $group->id }}: false }">
                 <div onclick="event.stopPropagation();"

@@ -83,7 +83,7 @@
 
               <div>{{ $file->user->name ?? '' }}</div>
 
-              <div>{{ $file->updated_at->format('Y.m.d') ?? '' }}</div>
+              <div>{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
 
               <div class="flex items-center justify-end">
                 <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
@@ -135,7 +135,7 @@
                   @endif
                   <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
                 </div>
-                <div class="text-xs">更新日：{{ $file->updated_at->format('Y.m.d') ?? '' }}</div>
+                <div class="text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>
               <div class="flex items-center justify-end">
                 <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">

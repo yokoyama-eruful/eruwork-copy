@@ -19,7 +19,7 @@
     </div>
 
     <div class="mb-[50px] mt-5">
-      <div class="font-bold">{{ $selectedDate->isoFormat('YYYY.MM.DD（ddd曜）') }}</div>
+      <div class="font-bold">{{ $selectedDate->isoFormat('YYYY/MM/DD（ddd曜）') }}</div>
       <div class="mt-5 text-[11px] font-bold">本日の勤務時間</div>
       @if ($workTimeList->isEmpty())
         <div
