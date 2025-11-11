@@ -15,7 +15,7 @@
       @endif
 
       <div class="flex items-center justify-between">
-        <div class="text-sm font-medium">最大3つまでパターンを登録できます。</div>
+        <div class="text-xs font-medium">最大3つパターンを登録できます。</div>
         <button class="text-sm font-bold text-[#3289FA] hover:opacity-40" type="button"
           wire:click="settingReset">設定をリセット</button>
       </div>

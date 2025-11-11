@@ -104,7 +104,7 @@
       </div>
     </div>
 
-    <div class="flex items-center space-x-2 px-5 lg:hidden">
+    <div class="flex items-center space-x-5 px-5 lg:hidden">
       <a class="flex items-center space-x-1 hover:opacity-40" href="{{ route('shift.submission.index') }}">
         <p class="text-xs text-[#3289FA]">シフト一覧</p>
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
