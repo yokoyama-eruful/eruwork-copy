@@ -59,7 +59,7 @@
               </div>
 
               <div class="text-[15px] font-bold">
-                {{ $manager->start_date->isoFormat('YYYY/MM/DD（ddd）') }}～{{ $manager->end_date->isoFormat('YYYY/MM/DD（ddd）') }}
+                {{ $manager->start_date->isoFormat('YYYY/MM/DD（ddd）') }}～{{ $manager->end_date->isoFormat('MM/DD（ddd）') }}
               </div>
 
               <div class="hidden text-[15px] lg:block">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}

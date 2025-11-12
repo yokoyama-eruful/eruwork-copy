@@ -66,11 +66,14 @@ self.addEventListener("push", function (event) {
     if (!(self.Notification && self.Notification.permission === 'granted')) return;
 
     const payload = event.data ? event.data.json() : {};
+    
+    const notificationUrl = (payload.data && payload.data.url) ? payload.data.url : "/";
+
     event.waitUntil(
         self.registration.showNotification(payload.title, {
             body: payload.body || "",
             icon: payload.icon || "/icons/icon-192x192.png",
-            data: { url: payload.url || "/" },
+            data: { url: notificationUrl }
         })
     );
 });

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Shift\Livewire\Admin;
 
 use App\Models\User;
+use App\Notifications\WebPushNotification;
 use Livewire\Form;
 use Modules\Shift\Models\Manager;
 
@@ -82,6 +83,23 @@ final class ShiftManagerForm extends Form
         }
 
         $manager->users()->attach($userData);
+
+        if ($manager->ReceptionStatus === '受付中') {
+            $formatMessage =
+                $this->startDate . ' から ' . $this->endDate . ' のシフト提出が開始されました。' . "\n" .
+                '提出締め切りは ' . $this->submissionEndDate . ' です。';
+            $url = route('shift.submission.show', ['manager' => $manager->id]);
+
+            foreach ($allUsers as $user) {
+                $user->notify(
+                    new WebPushNotification(
+                        title: 'エルフルサービス',
+                        message : $formatMessage,
+                        image: '',
+                        url: $url,
+                    ));
+            }
+        }
 
         $this->reset(['startDate', 'endDate', 'submissionStartDate', 'submissionEndDate']);
     }

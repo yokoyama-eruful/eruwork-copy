@@ -51,7 +51,7 @@
               <div class="board-title">
                 <span>{{ $post->created_at?->format('Y/m/d') }}</span>
                 @if ($post->attachments->isNotEmpty())
-                  <img src="images/icon/attached-icon.png" />
+                  <img src="img/icon/attached-icon.png" />
                 @endif
               </div>
               <div class="board-text">

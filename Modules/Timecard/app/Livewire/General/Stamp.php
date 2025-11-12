@@ -31,13 +31,13 @@ class Stamp extends Component
 
         $this->workTimes = $this->getTodayWorkTimes();
         $this->breakTime = $this->getTodayBreakTime();
-        $this->currentDate = Carbon::now()->isoFormat('Y.M.D (ddd)');
+        $this->currentDate = Carbon::now()->isoFormat('Y/M/D (ddd)');
         $this->currentTime = Carbon::now()->format('H:i');
     }
 
     public function updateClock()
     {
-        $this->currentDate = Carbon::now()->isoFormat('Y.M.D (ddd)');
+        $this->currentDate = Carbon::now()->isoFormat('Y/M/D (ddd)');
         $this->currentTime = Carbon::now()->format('H:i');
     }
 
