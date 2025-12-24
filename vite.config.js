@@ -15,6 +15,7 @@ export default defineConfig({
                 'resources/css/sidemenu.css',
                 'resources/css/container.css',
                 'Modules/Timecard/resources/css/general/stamp.css',
+                'Modules/Timecard/resources/css/punch/stamp.css',
                 'Modules/Board/resources/css/widget.css',
                 'Modules/Board/resources/js/tiptap.js',
                 'Modules/Chat/resources/js/tiptap.js',
