@@ -2,38 +2,40 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\Models;
+namespace Modules\Timecard\App\Models;
 
 use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Auth;
+use Modules\HourlyRate\Models\WagePremium;
 use Modules\Timecard\Enums\StampStatus;
+use Modules\Timecard\Models\BreakTime;
+use Modules\Timecard\Models\WorkTime;
 
 class Stamp
 {
-    public static function push(CarbonImmutable $datetime, StampStatus $status): void
+    public static function push(CarbonImmutable $datetime, StampStatus $status, int $userId): void
     {
-        $workTime = WorkTime::where('user_id', Auth::id())
+        $workTime = WorkTime::where('user_id', $userId)
             ->whereNull('out_time')
             ->orderBy('in_time', 'desc')
             ->first();
 
         switch ($status) {
             case StampStatus::IN:
-                self::in($datetime, $workTime);
+                self::in($datetime, $workTime, $userId);
                 break;
             case StampStatus::OUT:
                 self::out($datetime, $workTime);
                 break;
             case StampStatus::BREAK_START:
-                self::breakStart($datetime, $workTime);
+                self::breakStart($datetime, $workTime, $userId);
                 break;
             case StampStatus::BREAK_END:
-                self::breakEnd($datetime, $workTime);
+                self::breakEnd($datetime, $workTime, $userId);
                 break;
         }
     }
 
-    private static function in(CarbonImmutable $datetime, ?WorkTime $workTime): void
+    private static function in(CarbonImmutable $datetime, ?WorkTime $workTime, int $userId): void
     {
         if ($workTime?->in_time) {
             abort(400, '出社中です。退勤ボタンを押してください。');
@@ -44,7 +46,7 @@ class Stamp
         $calculated = self::roundInTime($datetime, $pay_unit);
 
         WorkTime::create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId,
             'in_time' => $calculated->format('Y-m-d H:i'),
         ]);
     }
@@ -100,13 +102,13 @@ class Stamp
         return $datetime->setMinute($roundedMinute)->setSecond(0);
     }
 
-    private static function breakStart(CarbonImmutable $datetime, ?WorkTime $workTime): void
+    private static function breakStart(CarbonImmutable $datetime, ?WorkTime $workTime, int $userId): void
     {
         if (is_null($workTime)) {
             abort(400, '出勤状態ではありません。');
         }
 
-        $breakTime = BreakTime::where('user_id', Auth::id())
+        $breakTime = BreakTime::where('user_id', $userId)
             ->where('timecard__work_time_id', $workTime->id)
             ->whereNull('out_time')
             ->orderBy('in_time', 'desc')
@@ -117,19 +119,19 @@ class Stamp
         }
 
         BreakTime::create([
-            'user_id' => Auth::id(),
+            'user_id' => $userId,
             'timecard__work_time_id' => $workTime->id,
             'in_time' => $datetime->format('Y-m-d H:i'),
         ]);
     }
 
-    private static function breakEnd(CarbonImmutable $datetime, ?WorkTime $workTime): void
+    private static function breakEnd(CarbonImmutable $datetime, ?WorkTime $workTime, int $userId): void
     {
         if (is_null($workTime)) {
             abort(400, '出勤状態ではありません。');
         }
 
-        $breakTime = BreakTime::where('user_id', Auth::id())
+        $breakTime = BreakTime::where('user_id', $userId)
             ->where('timecard__work_time_id', $workTime->id)
             ->whereNotNull('in_time')
             ->whereNull('out_time')

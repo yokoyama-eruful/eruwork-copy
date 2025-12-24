@@ -16,22 +16,22 @@
 }
 
 .timerecord-button-area {
-  width: 90%;
+  width: 95%;
   margin: 1.4em auto;
   display: flex;
-  justify-content: space-around;
+  justify-content:space-around;
 }
 
 .shape-stamp-in {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   color: #fff;
   background: #48cbff;
   border-radius: 10px;
   box-shadow: 0 4px 13px 0 #48cbff3d;
   letter-spacing: 2px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 40px;
 }
 
 .shape-stamp-in:disabled {
@@ -45,15 +45,15 @@
 
 
 .shape-stamp-out {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   color: #fff;
   background: #f76e80;
   border-radius: 10px;
   box-shadow: 0 4px 13px 0 #f76e803d;
   letter-spacing: 2px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 40px;
 }
 .shape-stamp-out:disabled {
   background: #f76e804d;
@@ -66,12 +66,12 @@
 
 .shape-stamp-b-start,
 .shape-stamp-b-end {
-  width: 100px;
-  height: 30px;
+  width: 150px;
+  height: 60px;
   background: #fff;
   border-radius: 5px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 20px;
 }
 .shape-stamp-b-start {
   border: 2px solid #6ed0f7;
@@ -98,37 +98,15 @@
   opacity: 40%;
 }
 
-.day-timerecord-area {
-  width: 90%;
-  margin: 35px auto 15px;
-}
-
 .day-timerecord-area p {
   margin: 5px 0;
 }
 
 .day-timerecord-title {
   font-weight: bold;
-  font-size: 11px;
+  font-size: 16px;
 }
 
-.day-timerecord-box {
-  width: 250px;
-  height: 40px;
-  border-radius: 5px;
-  border: 1px solid #ddd;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 12px;
-  margin-bottom: 5px;
-}
-
-.day-timerecord-box p {
-  margin: 0;
-  line-height: 10px;
-  font-size: 14px;
-}
 .stamp-start {
   color: #48cbff;
 }
@@ -166,7 +144,6 @@
 
   .timerecord-button-area {
     width: 100%;
-    margin: 30px auto 0;
     display: flex;
     justify-content: center;
     gap: 40px;

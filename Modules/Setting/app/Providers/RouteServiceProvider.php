@@ -1,15 +1,13 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Modules\Timecard\Providers;
+namespace Modules\Setting\Providers;
 
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
 class RouteServiceProvider extends ServiceProvider
 {
-    protected string $name = 'Timecard';
+    protected string $name = 'Setting';
 
     /**
      * Called before routes are registered.
@@ -26,10 +24,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map(): void
     {
-        // $this->mapApiRoutes();
+        $this->mapApiRoutes();
         $this->mapWebRoutes();
-        $this->mapDashboardRoutes();
-        $this->mapPunchRoutes();
     }
 
     /**
@@ -42,13 +38,13 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('web')->group(module_path($this->name, '/routes/web.php'));
     }
 
-    protected function mapDashboardRoutes(): void
+    /**
+     * Define the "api" routes for the application.
+     *
+     * These routes are typically stateless.
+     */
+    protected function mapApiRoutes(): void
     {
-        Route::middleware('web')->group(module_path($this->name, '/routes/dashboard.php'));
-    }
-
-    protected function mapPunchRoutes(): void
-    {
-        Route::middleware('web')->group(module_path($this->name, '/routes/punch.php'));
+        Route::middleware('api')->prefix('api')->name('api.')->group(module_path($this->name, '/routes/api.php'));
     }
 }

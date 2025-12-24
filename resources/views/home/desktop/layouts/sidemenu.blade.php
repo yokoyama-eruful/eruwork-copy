@@ -141,6 +141,9 @@
                             request()->routeIs('manualFolderManager.*') ||
                             request()->routeIs('manualFileManager.*'),
                     ])>マニュアル管理</a></li>
+                    <li><a href="{{ route('setting.index') }}" @class([
+                        'bg-blue-500 rounded' => request()->routeIs('setting.*'),
+                    ])>各種設定</a></li>
                   </ul>
                 </li>
               @endcan

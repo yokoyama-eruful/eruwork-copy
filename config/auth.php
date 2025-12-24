@@ -46,6 +46,10 @@ return [
             'driver' => 'session',
             'provider' => 'central_users',
         ],
+        'timecard' => [
+            'driver' => 'session',
+            'provider' => 'timecard__users',
+        ],
     ],
 
     /*
@@ -74,6 +78,11 @@ return [
         'central_users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\CentralUser::class),
+        ],
+
+        'timecard__users' => [
+            'driver' => 'eloquent',
+            'model' => env('AUTH_MODEL', Modules\Timecard\Models\TimecardUser::class),
         ],
     ],
 

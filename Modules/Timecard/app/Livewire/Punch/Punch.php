@@ -2,19 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\Livewire\General;
+namespace Modules\Timecard\Livewire\Punch;
 
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Modules\Timecard\App\Models\Stamp as ModelsStamp;
+use Modules\Timecard\App\Models\Stamp;
 use Modules\Timecard\Enums\StampStatus;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\Rule;
 use Modules\Timecard\Models\WorkTime;
 
-class Stamp extends Component
+class Punch extends Component
 {
     public $buttonStatus;
 
@@ -28,7 +27,9 @@ class Stamp extends Component
 
     public $rule;
 
-    public function mount()
+    public $user;
+
+    public function mount($user)
     {
         $this->buttonStatus = $this->buttonStatus();
 
@@ -37,6 +38,7 @@ class Stamp extends Component
         $this->currentDate = Carbon::now()->isoFormat('Y/M/D (ddd)');
         $this->currentTime = Carbon::now()->format('H:i');
         $this->rule = Rule::first()?->rule ?? 'remote';
+        $this->user = $user;
     }
 
     public function updateClock()
@@ -47,27 +49,29 @@ class Stamp extends Component
 
     public function push(string $status)
     {
-        ModelsStamp::push(
+        Stamp::push(
             CarbonImmutable::now(),
             StampStatus::from($status),
-            Auth::id()
+            $this->user->id
         );
 
         $this->buttonStatus = $this->buttonStatus();
         $this->workTimes = $this->getTodayWorkTimes();
         $this->breakTime = $this->getTodayBreakTime();
+
+        $this->dispatch('statusUpdate');
     }
 
     public function buttonStatus()
     {
-        $workTime = WorkTime::where('user_id', Auth::id())
+        $workTime = WorkTime::where('user_id', $this->user->id)
             ->whereNull('out_time')
             ->orderBy('in_time', 'desc')
             ->first();
 
         $breakTime = null;
         if ($workTime) {
-            $breakTime = BreakTime::where('user_id', Auth::id())
+            $breakTime = BreakTime::where('user_id', $this->user->id)
                 ->where('timecard__work_time_id', $workTime->id)
                 ->whereNull('out_time')
                 ->orderBy('in_time', 'desc')
@@ -82,7 +86,7 @@ class Stamp extends Component
         $todayStart = Carbon::today()->startOfDay();
         $todayEnd = Carbon::today()->endOfDay();
 
-        return WorkTime::where('user_id', Auth::id())
+        return WorkTime::where('user_id', $this->user->id)
             ->where(function ($query) use ($todayStart, $todayEnd) {
                 $query->whereBetween('in_time', [$todayStart, $todayEnd])
                     ->orWhereBetween('out_time', [$todayStart, $todayEnd])
@@ -119,6 +123,6 @@ class Stamp extends Component
 
     public function render()
     {
-        return view('timecard::general.livewire.stamp');
+        return view('timecard::punch.livewire.punch');
     }
 }

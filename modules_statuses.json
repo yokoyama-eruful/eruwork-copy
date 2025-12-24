@@ -6,5 +6,6 @@
     "Timecard": true,
     "Shift": true,
     "Manual": true,
-    "HourlyRate": true
+    "HourlyRate": true,
+    "Setting": true
 }

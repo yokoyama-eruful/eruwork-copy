@@ -153,7 +153,8 @@
                 request()->routeIs('attendanceManager.*') |
                 request()->routeIs('chatManager.*') |
                 request()->routeIs('manualFolderManager.*') |
-                request()->routeIs('manualFileManager.*'),
+                request()->routeIs('manualFileManager.*') |
+                request()->routeIs('setting.*'),
         ])>
           <img class="h-6 w-6" src="{{ asset('img/icon/setting.png') }}" />
         </div>
@@ -201,6 +202,11 @@
               request()->routeIs('manualFolderManager.*') |
               request()->routeIs('manualFileManager.*'),
       ])>マニュアル管理</a>
+
+      <a href="{{ route('setting.index') }}" @class([
+          'p-[10px] text-white',
+          'bg-[#3289FA] rounded-lg' => request()->routeIs('setting.*'),
+      ])>各種設定</a>
     </div>
   @endcan
 
