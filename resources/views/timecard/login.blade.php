@@ -47,9 +47,6 @@
       </form>
     </div>
   </div>
-  <script>
-    window.Notification = undefined;
-  </script>
 </body>
 
 </html>
