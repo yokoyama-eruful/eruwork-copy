@@ -2,13 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Modules\Timecard\App\Models;
+namespace Modules\Timecard\Models;
 
 use Carbon\CarbonImmutable;
 use Modules\HourlyRate\Models\WagePremium;
 use Modules\Timecard\Enums\StampStatus;
-use Modules\Timecard\Models\BreakTime;
-use Modules\Timecard\Models\WorkTime;
 
 class Stamp
 {

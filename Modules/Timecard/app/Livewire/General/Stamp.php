@@ -8,10 +8,10 @@ use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
-use Modules\Timecard\App\Models\Stamp as ModelsStamp;
 use Modules\Timecard\Enums\StampStatus;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\Rule;
+use Modules\Timecard\Models\Stamp as ModelsStamp;
 use Modules\Timecard\Models\WorkTime;
 
 class Stamp extends Component

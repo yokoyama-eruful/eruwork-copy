@@ -7,10 +7,10 @@ namespace Modules\Timecard\Livewire\Punch;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Livewire\Component;
-use Modules\Timecard\App\Models\Stamp;
 use Modules\Timecard\Enums\StampStatus;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\Rule;
+use Modules\Timecard\Models\Stamp;
 use Modules\Timecard\Models\WorkTime;
 
 class Punch extends Component
