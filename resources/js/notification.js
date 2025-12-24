@@ -12,9 +12,6 @@ const registerServiceWorker = () => {
 
 // 通知サポートのチェック
 const checkNotificationSupport = () => {
-    if (!('Notification' in window)) {
-        alert("This browser does not support notifications.");
-    }
 };
 
 // Base64からUint8Arrayへの変換

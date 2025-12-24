@@ -3,13 +3,11 @@ const filesToCache = [
   '/offline.html', // ←ちゃんとキャッシュしておく！
 ];
 
-const CACHE_NAME = 'offline-v2';
-
 // ===============================
 // 🔧 インストール処理
 // ===============================
 const preLoad = function () {
-  return caches.open(CACHE_NAME).then(function (cache) {
+  return caches.open("offline").then(function (cache) {
     // caching index and important routes
     return cache.addAll(filesToCache);
   });
@@ -24,14 +22,7 @@ self.addEventListener("install", function (event) {
 // 🚀 有効化処理
 // ===============================
 self.addEventListener("activate", function (event) {
- event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-      )
-    )
-  );
-  self.clients.claim();
+  event.waitUntil(self.clients.claim());
 });
 
 // ===============================
@@ -40,10 +31,6 @@ self.addEventListener("activate", function (event) {
 self.addEventListener("fetch", function (event) {
   // HTTP以外（chrome-extension, blob等）はスルー
   if (!event.request.url.startsWith('http')) return;
-
- if (event.request.url.includes('/punch')) {
-    return;
-  }
 
   event.respondWith(
     fetch(event.request)
