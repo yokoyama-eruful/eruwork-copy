@@ -32,7 +32,7 @@ self.addEventListener("fetch", function (event) {
   // HTTP以外（chrome-extension, blob等）はスルー
   if (!event.request.url.startsWith('http')) return;
 
- if (event.request.url.includes('/public-timecard/login')) {
+ if (event.request.url.includes('/punch')) {
     return;
   }
 
