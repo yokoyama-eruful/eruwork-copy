@@ -10,9 +10,9 @@ use Modules\Timecard\Models\WagePremium;
 
 class CalculateSalary extends Component
 {
-    // public $fraction = '切り上げ';
+    // public $fraction;
 
-    // public $payUnit = 1;
+    public $payUnit;
 
     public $overtimeRate;
 
@@ -29,6 +29,8 @@ class CalculateSalary extends Component
         $wagePremium = WagePremium::first();
         $this->overtimeRate = $wagePremium?->overtime_rate;
         $this->nightRate = $wagePremium?->night_rate;
+        // $this->fraction = $wagePremium?->fraction;
+        $this->payUnit = $wagePremium?->pay_unit;
         $this->form->setValues($wagePremium);
     }
 

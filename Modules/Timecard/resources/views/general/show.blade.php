@@ -3,7 +3,8 @@
     <x-main.top>
     </x-main.top>
     <x-main.container>
-      <div class="fixed inset-x-0 bottom-0 top-[50px] z-10 block bg-white px-[15px] pt-[30px] lg:hidden">
+      <div
+        class="fixed inset-x-0 bottom-0 top-[50px] z-10 block overflow-y-auto bg-white px-[15px] pb-[30px] pt-[30px] lg:hidden">
         <div class="flex flex-col hover:opacity-40">
           <div class="ml-2 text-lg font-bold">税金の壁到達目安</div>
           <div class="text-xs">（扶養控除）</div>

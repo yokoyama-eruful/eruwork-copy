@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('timecard__wage_premiums', function (Blueprint $table) {
-            $table->id();
-            $table->string('overtime_rate')->default(25);
-            $table->string('night_rate')->default(25);
-            $table->timestamps();
+        Schema::table('timecard__wage_premiums', function (Blueprint $table) {
+            // $table->string('fraction')->default('切り上げ');
+            $table->integer('pay_unit')->nullable();
         });
     }
 
@@ -26,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('timecard__wage_premiums');
+        Schema::table('timecard__wage_premiums', function (Blueprint $table) {});
     }
 };

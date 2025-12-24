@@ -16,7 +16,7 @@ class WagePremium extends Model
 
     protected $fillable = [
         // 'fraction',
-        // 'pay_unit',
+        'pay_unit',
         'overtime_rate',
         'night_rate',
     ];

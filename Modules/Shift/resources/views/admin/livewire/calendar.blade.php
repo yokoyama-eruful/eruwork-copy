@@ -76,7 +76,8 @@
 
           @if ($status === '提出済')
             @foreach ($manager->alreadySubmissionUsers as $user)
-              <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'>
+              <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'
+                wire:key="submitted-{{ $user->id }}">
                 @if ($user->icon)
                   <img class="h-[25px] w-[25px] rounded-full border bg-white"
                     src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
@@ -94,7 +95,8 @@
             @endforeach
           @elseif($status === '未提出')
             @foreach ($manager->stillSubmissionUsers as $user)
-              <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'>
+              <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'
+                wire:key="not-submitted-{{ $user->id }}">
                 @if ($user->icon)
                   <img class="h-[25px] w-[25px] rounded-full border bg-white"
                     src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
@@ -198,7 +200,7 @@
                 <div
                   class="mr-[11px] flex cursor-pointer items-center space-x-[6px] rounded-lg border border-[#39A338] bg-[#F6FFF6] px-[10px] py-[7px]"
                   x-on:click="$dispatch('open-modal','edit-modal-{{ $shift->id }}')"
-                  wire:click="setSchedule({{ $shift->id }})">
+                  wire:click="setSchedule({{ $shift->id }})" wire:key="confirmed-{{ $shift->id }}">
                   <div
                     class="flex h-[22px] w-[22px] items-center justify-center rounded bg-[#39A338] text-xs text-white">
                     確
@@ -216,7 +218,7 @@
               @foreach ($content['drafts'] as $draft)
                 <div
                   class="mr-[11px] flex cursor-pointer items-center space-x-[6px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] px-[10px] py-[7px]"
-                  wire:click="selectDraftShift({{ $draft->id }})">
+                  wire:click="selectDraftShift({{ $draft->id }})" wire:key="draft-{{ $draft->id }}">
                   <div
                     class="flex h-[22px] w-[22px] items-center justify-center rounded bg-[#DE993A] text-xs text-white">
                     希

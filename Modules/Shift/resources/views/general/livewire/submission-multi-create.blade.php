@@ -19,14 +19,15 @@
         </div>
       @endif
 
-      <div class="mb-[20px] mt-[20px] grid w-full grid-cols-[30%,70%] items-center">
+      <div class="mb-[20px] grid w-full grid-cols-[20%,80%] items-center">
         <x-input-label for="date" value="日付" />
 
         <div class="relative">
           <x-text-input
             class="js-multiple-term-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
             id="date" name="date" type="text" wire:model="form.date" required
-            min="{{ $manager->start_date->format('Y-m-d') }}" min="{{ $manager->end_date->format('Y-m-d') }}" />
+            min="{{ $manager->start_date->format('Y-m-d') }}" min="{{ $manager->end_date->format('Y-m-d') }}"
+            autocomplete="off" />
           <!-- カレンダーアイコン（青 #3289FA） -->
           <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -63,7 +64,7 @@
         });
       </script>
 
-      <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-center">
+      <div class="mr-[20px] mt-4 grid w-full grid-cols-[20%,80%] items-center">
         <x-input-label value="勤務時間" />
         <div class="flex items-center space-x-5">
           <div @class([
@@ -82,21 +83,21 @@
       </div>
 
       @if ($item === 'time')
-        <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-center">
-          <x-input-label class="font-normal" value="時間設定" />
+        <div class="mr-[20px] mt-4 grid w-full grid-cols-[20%,80%] items-center">
+          <x-input-label value="時間設定" />
           <div class="flex w-full items-center space-x-1">
-            <x-text-input class="flex-1" id="start_time" name="start_time" type="time" wire:model="form.startTime" />
+            <x-text-input class="flex-1" type="time" wire:model="form.startTime" />
 
             <div class="px-[10px]">〜</div>
 
-            <x-text-input class="flex-1" id="end_time" name="end_time" type="time" wire:model="form.endTime" />
+            <x-text-input class="flex-1" type="time" wire:model="form.endTime" />
           </div>
         </div>
       @endif
 
       @if ($item === 'pattern')
-        <div class="mr-[20px] mt-4 grid w-full grid-cols-[30%,70%] items-start">
-          <x-input-label class="font-normal" value="パターン設定" />
+        <div class="mr-[20px] mt-4 grid w-full grid-cols-[20%,80%] items-start">
+          <x-input-label value="パターン設定" />
           <div class="flex flex-col justify-center space-y-3">
             @forelse (Auth::user()->patterns as $pattern)
               @if (!is_null($pattern->start_time) && !is_null($pattern->end_time))

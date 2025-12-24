@@ -11,6 +11,10 @@ class CalculateSalaryForm extends Form
 {
     public ?WagePremium $wagePremium = null;
 
+    // public $fraction;
+
+    public $payUnit;
+
     public $overtimeRate;
 
     public $nightRate;
@@ -18,6 +22,8 @@ class CalculateSalaryForm extends Form
     public function setValues($wagePremium)
     {
         $this->wagePremium = $wagePremium;
+        // $this->fraction = $wagePremium?->fraction;
+        $this->payUnit = $wagePremium?->pay_unit;
         $this->overtimeRate = $wagePremium?->overtime_rate;
         $this->nightRate = $wagePremium?->night_rate;
     }
@@ -53,6 +59,8 @@ class CalculateSalaryForm extends Form
         WagePremium::updateOrCreate(
             ['id' => $this->wagePremium?->id],
             [
+                // 'fraction' => $this->fraction,
+                'pay_unit' => $this->payUnit,
                 'overtime_rate' => ! empty($this->overtimeRate) ? $this->overtimeRate : 0,
                 'night_rate' => ! empty($this->nightRate) ? $this->nightRate : 0,
             ]

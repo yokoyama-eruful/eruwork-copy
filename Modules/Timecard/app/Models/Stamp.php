@@ -39,9 +39,13 @@ class Stamp
             abort(400, '出社中です。退勤ボタンを押してください。');
         }
 
+        $pay_unit = WagePremium::first()->pay_unit ?? 1;
+
+        $calculated = self::roundInTime($datetime, $pay_unit);
+
         WorkTime::create([
             'user_id' => Auth::id(),
-            'in_time' => $datetime->format('Y-m-d H:i'),
+            'in_time' => $calculated->format('Y-m-d H:i'),
         ]);
     }
 
@@ -51,9 +55,49 @@ class Stamp
             abort(400, '出勤状態ではありません。');
         }
 
+        $pay_unit = WagePremium::first()->pay_unit ?? 1;
+
+        $calculated = self::roundOutTime($datetime, $pay_unit);
+
+        $inTime = CarbonImmutable::parse($workTime->in_time);
+
+        if ($calculated->lessThan($inTime)) {
+            $calculated = $inTime;
+        }
+
         $workTime->update([
-            'out_time' => $datetime->format('Y-m-d H:i'),
+            'out_time' => $calculated->format('Y-m-d H:i'),
         ]);
+    }
+
+    private static function roundInTime(CarbonImmutable $datetime, int $pay_unit): CarbonImmutable
+    {
+        if ($pay_unit === 1) {
+            return $datetime;
+        }
+
+        $minute = $datetime->minute;
+
+        $roundedMinute = intdiv($minute, $pay_unit) * $pay_unit;
+
+        if ($minute % $pay_unit !== 0) {
+            $roundedMinute += $pay_unit;
+        }
+
+        return $datetime->setMinute($roundedMinute)->setSecond(0);
+    }
+
+    private static function roundOutTime(CarbonImmutable $datetime, int $pay_unit): CarbonImmutable
+    {
+        if ($pay_unit === 1) {
+            return $datetime;
+        }
+
+        $minute = $datetime->minute;
+
+        $roundedMinute = intdiv($minute, $pay_unit) * $pay_unit;
+
+        return $datetime->setMinute($roundedMinute)->setSecond(0);
     }
 
     private static function breakStart(CarbonImmutable $datetime, ?WorkTime $workTime): void

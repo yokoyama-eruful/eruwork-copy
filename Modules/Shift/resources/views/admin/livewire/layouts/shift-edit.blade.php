@@ -45,7 +45,7 @@
               {{ $schedule->draftSchedule->start_time->format('H:i') }} 〜
               {{ $schedule->draftSchedule->end_time->format('H:i') }}
             </div>
-            <div class="text-end text-[15px] font-bold">{{ $user->name }}</div>
+            <div class="text-end text-[15px] font-bold">{{ $shift->user->name }}</div>
           </div>
         </div>
 
