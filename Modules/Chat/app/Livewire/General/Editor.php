@@ -76,7 +76,11 @@ class Editor extends Component
         }
 
         if ($files) {
-            $formatMessage = $formatMessage . 'と' . count($files) . '件の画像';
+            if ($message->message === '' || $message->message === null) {
+                $formatMessage = $formatMessage . count($files) . '件の画像';
+            } else {
+                $formatMessage = $formatMessage . 'と' . count($files) . '件の画像';
+            }
         }
 
         $url = Request::getSchemeAndHttpHost() . '/app/chat/' . $this->group->id;

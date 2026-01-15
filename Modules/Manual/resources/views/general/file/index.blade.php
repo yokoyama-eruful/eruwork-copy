@@ -15,11 +15,10 @@
     <x-main.container>
       <h5 class="hidden text-xl font-bold lg:block">{{ $folder->title }}</h5>
       @if ($files->isNotEmpty())
-        <div class="mt-[30px] hidden grid-cols-[10%,8%,40%,20%,20%,2%] px-5 lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr] px-5 lg:grid">
           <div class="text-xs text-[#AAB0B6]">サムネイル</div>
           <div class="text-xs text-[#AAB0B6]"></div>
           <div class="text-xs text-[#AAB0B6]">表題</div>
-          <div class="text-xs text-[#AAB0B6]">メンバー</div>
           <div class="text-xs text-[#AAB0B6]">更新日</div>
           <div class="text-xs text-[#AAB0B6]"></div>
         </div>
@@ -27,7 +26,8 @@
           @foreach ($files as $file)
             <a href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}"
               @class([
-                  'hidden lg:grid grid-cols-[10%,8%,40%,20%,20%,2%] py-[20px] text-[15px] items-center min-h-[121px] px-5',
+                  'hidden lg:grid grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr]
+                                                                                                                 py-[20px] text-[15px] items-center min-h-[121px] px-5',
                   'border-b' => !$loop->last,
               ])>
 
@@ -38,11 +38,11 @@
                 </div>
               @else
                 <div class="flex h-[80px] w-[145px] justify-center rounded-md bg-black">
-                  <img class="max-h-[80px] max-w-[145px] rounded" src="{{ asset('img/icon/NoImage.png') }}" />
+                  <img class="max-h-[80px] max-w-[145px] rounded" src="{{ global_asset('img/icon/NoImage.png') }}" />
                 </div>
               @endif
 
-              <div class="flex justify-end pr-1">
+              <div class="flex items-center justify-center">
                 @if (str_contains($file->type, 'video'))
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
                     xmlns="http://www.w3.org/2000/svg">
@@ -54,8 +54,6 @@
               </div>
 
               <div class="font-bold">{{ $file->title }}</div>
-
-              <div>{{ $file->user->name ?? '' }}</div>
 
               <div>{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
 

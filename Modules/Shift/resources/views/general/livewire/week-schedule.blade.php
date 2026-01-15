@@ -154,7 +154,7 @@
 
       <!-- テーブル：画面幅にフィット（小さい時）／中身に伸びる（大きい時） -->
       <table class="w-full min-w-max table-fixed">
-        <thead class="sticky -top-6 z-10 bg-white">
+        <thead class="sticky -top-6 z-0 bg-white">
           <tr>
             <th class="w-[100px] min-w-[100px] text-xs font-normal text-[#3289FA] lg:w-32"></th>
             @foreach ($this->calendar as $content)

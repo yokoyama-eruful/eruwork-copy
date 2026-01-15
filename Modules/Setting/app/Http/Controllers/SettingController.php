@@ -35,33 +35,72 @@ class SettingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    // public function update(Request $request)
+    // {
+    //     DB::transaction(function () use ($request) {
+    //         Rule::updateOrCreate(
+    //             [],
+    //             ['rule' => $request->rule],
+    //         );
+
+    //         WagePremium::updateOrCreate(
+    //             [],
+    //             [
+    //                 'pay_unit' => $request->pay_unit,
+    //                 'overtime_rate' => $request->overtimeRate ?? 0,
+    //                 'night_rate' => $request->nightRate ?? 0,
+    //             ],
+    //         );
+
+    //         $pin = mb_str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+
+    //         TimecardUser::updateOrCreate(
+    //             [],
+    //             ['pin_encrypted' => Crypt::encryptString($pin)],
+    //         );
+    //     });
+
+    //     return redirect()
+    //         ->route('setting.index')
+    //         ->with('success', '設定を更新しました');
+    // }
+
+    public function updatePunchSetting(Request $request)
     {
         DB::transaction(function () use ($request) {
             Rule::updateOrCreate(
                 [],
                 ['rule' => $request->rule],
             );
+        });
 
+        $pin = mb_str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
+
+        TimecardUser::updateOrCreate(
+            [],
+            ['pin_encrypted' => Crypt::encryptString($pin)],
+        );
+
+        return redirect()
+            ->route('setting.index')
+            ->with('success', '打刻設定を更新しました');
+    }
+
+    public function updatePayUnitSetting(Request $request)
+    {
+        DB::transaction(function () use ($request) {
             WagePremium::updateOrCreate(
                 [],
                 [
                     'pay_unit' => $request->pay_unit,
-                    'overtime_rate' => $request->overtimeRate,
-                    'night_rate' => $request->nightRate,
+                    'overtime_rate' => $request->overtimeRate ?? 0,
+                    'night_rate' => $request->nightRate ?? 0,
                 ],
-            );
-
-            $pin = mb_str_pad((string) random_int(0, 9999), 4, '0', STR_PAD_LEFT);
-
-            TimecardUser::updateOrCreate(
-                [],
-                ['pin_encrypted' => Crypt::encryptString($pin)],
             );
         });
 
         return redirect()
             ->route('setting.index')
-            ->with('success', '設定を更新しました');
+            ->with('success', '給与算出設定を更新しました');
     }
 }

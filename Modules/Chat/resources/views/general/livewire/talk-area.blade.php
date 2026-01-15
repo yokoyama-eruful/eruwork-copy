@@ -27,14 +27,15 @@
       @php $previousDate = $messageDate; @endphp
     @endif
 
-    <div class="my-5 grid grid-cols-[65px,1fr] gap-2">
+    <div class="my-5 grid grid-cols-[50px,1fr] gap-2 px-[10px] lg:grid-cols-[65px,1fr] lg:px-5">
       <!-- 左側（1エリア固定） -->
       <div class="flex justify-center">
         @if ($message->user?->icon)
-          <img class="h-[45px] w-[45px] rounded-full border bg-white"
+          <img class="h-[30px] w-[30px] rounded-full border bg-white lg:h-[45px] lg:w-[45px]"
             src="{{ route('profile.icon', ['id' => $message->user->id]) }}" alt="アイコン">
         @else
-          <div class="flex h-[45px] w-[45px] items-center justify-center rounded-full border bg-white">
+          <div
+            class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white lg:h-[45px] lg:w-[45px]">
             <i class="fa-solid fa-image"></i>
           </div>
         @endif
@@ -48,7 +49,7 @@
           <div class="text-xs text-[#AAB0B6]">{{ $message->readStatuses }}</div>
         </div>
         <div class="w-fit break-all rounded-bl-xl rounded-br-xl rounded-tr-xl bg-[#F7F7F7] px-5 py-[11px]">
-          {!! $message->message !!}
+          <div class="text-[15px] lg:text-base">{!! $message->message !!}</div>
           <div class="flex flex-row space-x-2">
             @foreach ($message->images as $image)
               <div x-data="{ viewImage{{ $image->id }}: false }">

@@ -29,4 +29,14 @@ class DraftShow extends Component
 
         return view('board::livewire.draft-show', ['posts' => $posts]);
     }
+
+    public function deletePost($postId)
+    {
+        $this->dispatch('close-modal', 'delete-modal-' . $postId);
+
+        $post = BoardPost::find($postId);
+        if ($post) {
+            $post->delete();
+        }
+    }
 }

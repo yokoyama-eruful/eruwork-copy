@@ -48,7 +48,7 @@ class BoardPost extends Model
 
     public function canEdit()
     {
-        return $this->user_id == Auth::id();
+        return ($this->user_id == Auth::id()) || (auth()->user()->hasRole('admin'));
     }
 
     public function saveFiles(?array $files): void

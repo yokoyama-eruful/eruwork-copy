@@ -34,10 +34,12 @@
     </div>
 
     @if ($form->icon)
-      <div class="mt-3 flex items-center justify-between">
-        <div class="flex space-x-2">
+      <div class="mt-3 flex w-full items-center justify-between">
+        <div class="flex min-w-0 space-x-2">
           <img class="h-[20px] w-[20px] rounded object-cover" src="{{ $form->icon->temporaryUrl() }}" alt="プレビュー">
-          <p class="truncate text-sm">{{ $form->icon->getClientOriginalName() }}</p>
+          <p class="flex-1 truncate text-sm">
+            {{ $form->icon->getClientOriginalName() }}
+          </p>
         </div>
       </div>
     @endif

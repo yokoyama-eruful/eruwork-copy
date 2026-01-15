@@ -1,4 +1,4 @@
-<div class="flex h-full flex-col lg:justify-center">
+{{-- <div class="flex h-full flex-col lg:justify-center">
   <!-- ===== 入力フォーム ===== -->
   <!-- スマホ版（画面下固定） -->
   <div class="fixed bottom-0 left-0 flex w-full items-center gap-2 bg-white p-3 pb-8 shadow-md lg:hidden">
@@ -83,4 +83,49 @@
     @endif
   </div>
 
+</div> --}}
+
+<div class="h-full w-full">
+  <div class="grid w-full grid-cols-[40px,auto,60px] items-center">
+    <div class="flex h-full w-full justify-center">
+      <button
+        class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-gray-300 hover:bg-gray-100"
+        type="button" onclick="document.getElementById('fileInput').click()">
+        <i class="fa-solid fa-plus text-gray-600"></i>
+      </button>
+      <input id="fileInput" type="file" wire:model="files" multiple accept="image/*" hidden>
+    </div>
+    <div class="flex h-full w-full items-center justify-center">
+      <textarea
+        class="flex h-10 w-full resize-none items-center rounded-lg border border-[#dddddd] bg-gray-50 text-sm text-gray-800 placeholder-gray-400"
+        x-data x-ref="editor" wire:model="message" placeholder="メッセージを入力"></textarea>
+    </div>
+    <div class="flex h-full w-full items-center justify-center">
+      <button
+        class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-[#3289FA] shadow-md hover:bg-[#2870c0]"
+        type="button" wire:click="store">
+        <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M4 10L1.269 1.125C7.802 3.025 13.962 6.026 19.485 10C13.963 13.974 7.803 16.975 1.27 18.875L4 10ZM4 10H11.5"
+            stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  @if ($files)
+    <div class="mt-2 flex flex-row items-center gap-2 overflow-x-auto p-3 md:mx-auto md:max-w-2xl">
+      @foreach ($files as $key => $file)
+        <div
+          class="relative flex h-12 w-12 flex-shrink-0 items-center justify-center overflow-hidden rounded-lg border border-gray-200 lg:h-16 lg:w-16"
+          wire:key="file-{{ $key }}">
+          <img class="h-full w-full object-cover" src="{{ $file->temporaryUrl() }}">
+          <button
+            class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full border bg-white text-gray-500 hover:bg-gray-300"
+            wire:click="deleteUploadFile({{ $key }})">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+      @endforeach
+    </div>
+  @endif
 </div>

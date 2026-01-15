@@ -46,6 +46,12 @@ class ProfileForm extends Form
                 return;
             }
 
+            if (mb_strlen($this->newPassword) < 4) {
+                $this->addError('newPassword', '新しいパスワードは4文字以上にしてください');
+
+                return;
+            }
+
             if ($this->newPassword != $this->newPasswordConfirmation) {
                 $this->addError('currentPassword', '新しいパスワードと確認用パスワードが一致しません');
 

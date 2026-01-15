@@ -37,13 +37,13 @@
       </div>
 
       <div class="mt-5">
-        <x-input-label for="start_time" value="開始時間" />
+        <x-input-label value="開始時間" />
 
         <x-text-input class="mt-1 block w-full" type="time" wire:model="form.startTime" required />
       </div>
 
       <div class="mt-5">
-        <x-input-label for="end_time" value="終了時間" />
+        <x-input-label value="終了時間" />
 
         <x-text-input class="mt-1 block w-full" type="time" wire:model="form.endTime" required />
       </div>

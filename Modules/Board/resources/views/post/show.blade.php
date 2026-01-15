@@ -37,7 +37,9 @@
           {!! $post->contents !!}
         </div>
         <livewire:board::download :post="$post" :canBeDeleted="false" />
-        <livewire:board::like :postId="$post->id" />
+        @if ($post->status !== '下書き')
+          <livewire:board::like :postId="$post->id" />
+        @endif
       </div>
     </x-main.container>
   </x-main.index>

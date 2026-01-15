@@ -14,6 +14,7 @@ Route::middleware([
         ->name('setting.')
         ->group(function () {
             Route::get('', 'index')->name('index');
-            Route::post('update', 'update')->name('update');
+            Route::post('punch', 'updatePunchSetting')->name('punch.update');
+            Route::post('pay_unit', 'updatePayUnitSetting')->name('pay_unit.update');
         });
 });

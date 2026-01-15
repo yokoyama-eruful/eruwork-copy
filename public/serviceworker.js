@@ -1,94 +1,114 @@
+"use strict";
+
+// ===============================
+// 📦 キャッシュするファイル
+// ===============================
+const CACHE_NAME = "offline-v1";
+const OFFLINE_URL = "/offline.html";
+
 const filesToCache = [
-  '/',
-  '/offline.html', // ←ちゃんとキャッシュしておく！
+  "/",
+  OFFLINE_URL,
 ];
 
 // ===============================
-// 🔧 インストール処理
+// 🔧 install
 // ===============================
-const preLoad = function () {
-  return caches.open("offline").then(function (cache) {
-    // caching index and important routes
-    return cache.addAll(filesToCache);
-  });
-};
-
 self.addEventListener("install", function (event) {
-  event.waitUntil(preLoad());
-  self.skipWaiting(); // 追加（即反映）
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function (cache) {
+      return cache.addAll(filesToCache);
+    })
+  );
+  self.skipWaiting();
 });
 
 // ===============================
-// 🚀 有効化処理
+// 🚀 activate
 // ===============================
 self.addEventListener("activate", function (event) {
   event.waitUntil(self.clients.claim());
 });
 
 // ===============================
-// 🌐 fetch イベント（ここだけ修正版）
+// 🌐 fetch（超重要）
 // ===============================
 self.addEventListener("fetch", function (event) {
-  // HTTP以外（chrome-extension, blob等）はスルー
-  if (!event.request.url.startsWith('http')) return;
 
+  // http(s) 以外は無視
+  if (!event.request.url.startsWith("http")) return;
+
+  /**
+   * 🚨 ページ遷移（通知クリック含む）
+   * → 404でも offline.html に差し替えない！
+   */
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(function () {
+        // ネット完全死亡時のみ
+        return caches.match(OFFLINE_URL);
+      })
+    );
+    return;
+  }
+
+  /**
+   * 📦 画像・CSS・JS・API 用
+   */
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
-        // 404だったらオフラインページへ
-        if (!response || response.status === 404) {
-          return caches.match('/offline.html');
-        }
 
-        // 正常レスポンスをキャッシュに保存
-      if (event.request.method === 'GET') {
-        const responseClone = response.clone();
-        caches.open('offline').then(function (cache) {
-          cache.put(event.request, responseClone);
-        });
-      }
+        // GETだけキャッシュ
+        if (event.request.method === "GET" && response.ok) {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then(function (cache) {
+            cache.put(event.request, clone);
+          });
+        }
 
         return response;
       })
       .catch(function () {
-        // ネットがダメなときはキャッシュ or offline.html
-        return caches.match(event.request).then(function (cached) {
-          return cached || caches.match('/offline.html');
-        });
+        // キャッシュがあれば返す
+        return caches.match(event.request);
       })
   );
 });
 
-
-"use strict";
-
+// ===============================
+// 🔔 push
+// ===============================
 self.addEventListener("push", function (event) {
-    if (!(self.Notification && self.Notification.permission === 'granted')) return;
+  if (!(self.Notification && self.Notification.permission === "granted")) return;
 
-    const payload = event.data ? event.data.json() : {};
-    
-    const notificationUrl = (payload.data && payload.data.url) ? payload.data.url : "/";
+  const payload = event.data ? event.data.json() : {};
 
-    event.waitUntil(
-        self.registration.showNotification(payload.title, {
-            body: payload.body || "",
-            icon: payload.icon || "/icons/icon-192x192.png",
-            data: { url: notificationUrl }
-        })
-    );
+  const notificationUrl =
+    payload?.data?.url ?? "/";
+
+  event.waitUntil(
+    self.registration.showNotification(payload.title ?? "通知", {
+      body: payload.body ?? "",
+      icon: payload.icon ?? "/icons/icon-192x192.png",
+      data: {
+        url: notificationUrl,
+      },
+    })
+  );
 });
 
-// notificationclick は push の外で1回だけ登録
-self.addEventListener('notificationclick', function(event) {
-    event.preventDefault();
+// ===============================
+// 👉 通知クリック
+// ===============================
+self.addEventListener("notificationclick", function (event) {
+  event.preventDefault();
 
-    const url = event.notification.data.url;
+  const url = event.notification.data.url;
 
-    clients.openWindow(url).then(function(windowClient) {
-      console.log('ウィンドウが開かれました:', windowClient);
-    }).catch(function(error) {
-      console.log('ウィンドウのオープンに失敗:', error);
-    });
+  event.waitUntil(
+    clients.openWindow(url)
+  );
 
-    event.notification.close();
+  event.notification.close();
 });

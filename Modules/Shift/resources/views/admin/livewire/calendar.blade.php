@@ -75,9 +75,9 @@
           </div>
 
           @if ($status === '提出済')
-            @foreach ($manager->alreadySubmissionUsers as $user)
+            @foreach ($manager->alreadySubmissionUsers as $key => $user)
               <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'
-                wire:key="submitted-{{ $user->id }}">
+                wire:key="submitted-{{ $manager->id }}-{{ $user->id }}-{{ $key }}">
                 @if ($user->icon)
                   <img class="h-[25px] w-[25px] rounded-full border bg-white"
                     src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
@@ -94,9 +94,9 @@
               </div>
             @endforeach
           @elseif($status === '未提出')
-            @foreach ($manager->stillSubmissionUsers as $user)
+            @foreach ($manager->stillSubmissionUsers as $key => $user)
               <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'
-                wire:key="not-submitted-{{ $user->id }}">
+                wire:key="not-submitted-{{ $manager->id }}-{{ $user->id }}-{{ $key }}">
                 @if ($user->icon)
                   <img class="h-[25px] w-[25px] rounded-full border bg-white"
                     src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
@@ -177,7 +177,8 @@
         <div @class([
             'lg:min-h-[170px] min-h-[80px] lg:block flex items-center lg:items-normal',
             'bg-gray-100 hidden lg:block' => $content['type'] == '期間外',
-        ]) wire:key="calendar-{{ $content['date']->format('Y-m-d') }}">
+        ])
+          wire:key="calendar-{{ $key }}-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="hidden items-center justify-between px-[15px] lg:flex">
             <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('D日') }}</div>
@@ -196,11 +197,12 @@
             </div>
 
             <div class="my-[15px] flex flex-col space-y-[10px] lg:my-0 lg:mb-5">
-              @foreach ($content['shifts'] as $shift)
+              @foreach ($content['shifts'] as $shiftKey => $shift)
                 <div
                   class="mr-[11px] flex cursor-pointer items-center space-x-[6px] rounded-lg border border-[#39A338] bg-[#F6FFF6] px-[10px] py-[7px]"
                   x-on:click="$dispatch('open-modal','edit-modal-{{ $shift->id }}')"
-                  wire:click="setSchedule({{ $shift->id }})" wire:key="confirmed-{{ $shift->id }}">
+                  wire:click="setSchedule({{ $shift->id }})"
+                  wire:key="confirmed-{{ $content['date']->format('Y-m-d') }}-{{ $shift->id }}-{{ $shiftKey }}">
                   <div
                     class="flex h-[22px] w-[22px] items-center justify-center rounded bg-[#39A338] text-xs text-white">
                     確
@@ -215,10 +217,11 @@
                 @include('shift::admin.livewire.layouts.shift-edit', ['schedule' => $shift])
               @endforeach
 
-              @foreach ($content['drafts'] as $draft)
+              @foreach ($content['drafts'] as $draftKey => $draft)
                 <div
                   class="mr-[11px] flex cursor-pointer items-center space-x-[6px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] px-[10px] py-[7px]"
-                  wire:click="selectDraftShift({{ $draft->id }})" wire:key="draft-{{ $draft->id }}">
+                  wire:click="selectDraftShift({{ $draft->id }})"
+                  wire:key="draft-{{ $content['date']->format('Y-m-d') }}-{{ $draft->id }}-{{ $draftKey }}">
                   <div
                     class="flex h-[22px] w-[22px] items-center justify-center rounded bg-[#DE993A] text-xs text-white">
                     希

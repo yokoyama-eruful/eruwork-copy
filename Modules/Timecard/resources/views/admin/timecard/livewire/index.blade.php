@@ -149,6 +149,7 @@
 
           </a>
         @endforeach
+        {{ $this->users->links('vendor.pagination.tailwind') }}
       </div>
     </div>
     <div
