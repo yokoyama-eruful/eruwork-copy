@@ -110,7 +110,7 @@
                             @endif
                           @endif
                         </div>
-                        <p class="truncate">{{ $like->user->name }}</p>
+                        <p class="truncate">{{ $like->user->name ?? 'NoName' }}</p>
                       </div>
                     @endforeach
                   @else

@@ -83,7 +83,7 @@ class Editor extends Component
             }
         }
 
-        $url = Request::getSchemeAndHttpHost() . '/app/chat/' . $this->group->id;
+        $url = Request::getSchemeAndHttpHost() . '/chat/' . $this->group->id;
 
         foreach ($otherUsers as $user) {
             $user->notify(
