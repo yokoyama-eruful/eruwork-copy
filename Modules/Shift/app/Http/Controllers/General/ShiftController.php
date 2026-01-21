@@ -12,7 +12,6 @@ class ShiftController extends Controller
 {
     public function index()
     {
-        // TODO
         $managers = Manager::get();
 
         $shifts = Schedule::where('date', now())

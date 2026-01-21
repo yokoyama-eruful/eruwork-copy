@@ -13,8 +13,6 @@ class AttendanceRequest extends FormRequest
      */
     public function rules(): array
     {
-        // TODO 使えてないから変更
-
         $rules = [
             'date' => [
                 'required',

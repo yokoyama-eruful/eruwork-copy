@@ -95,22 +95,24 @@
             @endforeach
           @elseif($status === '未提出')
             @foreach ($manager->stillSubmissionUsers as $key => $user)
-              <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'
-                wire:key="not-submitted-{{ $manager->id }}-{{ $user->id }}-{{ $key }}">
-                @if ($user->icon)
-                  <img class="h-[25px] w-[25px] rounded-full border bg-white"
-                    src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
-                @else
-                  <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white">
-                    <i class="fa-solid fa-image"></i>
-                  </div>
-                @endif
-                <div class="truncate text-[15px] font-bold">{{ $user->name }}</div>
-                <button
-                  class="flex w-full items-center justify-center rounded py-1 text-center text-xs font-bold text-[#3289FA] outline outline-1 outline-[#3289FA] hover:opacity-40"
-                  type="button" wire:click="remindSubmission({{ $user->id }},{{ $manager->id }})">
-                  提出依頼</button>
-              </div>
+              @if ($user->id !== Auth::id())
+                <div class='grid grid-cols-[15%,55%,30%] items-center rounded bg-white px-5 py-3'
+                  wire:key="not-submitted-{{ $manager->id }}-{{ $user->id }}-{{ $key }}">
+                  @if ($user->icon)
+                    <img class="h-[25px] w-[25px] rounded-full border bg-white"
+                      src="{{ route('profile.icon', ['id' => $user->id]) }}" alt="アイコン">
+                  @else
+                    <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white">
+                      <i class="fa-solid fa-image"></i>
+                    </div>
+                  @endif
+                  <div class="truncate text-[15px] font-bold">{{ $user->name }}</div>
+                  <button
+                    class="flex w-full items-center justify-center rounded py-1 text-center text-xs font-bold text-[#3289FA] outline outline-1 outline-[#3289FA] hover:opacity-40"
+                    type="button" wire:click="remindSubmission({{ $user->id }},{{ $manager->id }})">
+                    提出依頼</button>
+                </div>
+              @endif
             @endforeach
           @endif
         </div>

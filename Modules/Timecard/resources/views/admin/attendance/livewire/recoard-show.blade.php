@@ -1,10 +1,9 @@
 <x-dashboard.index>
   <div x-data="{
       selectAll: false,
-      selectUsers: @entangle('selectUsers'),
-      toggleAll() {
-          this.selectUsers = this.selectAll ? @entangle('selectUsers') : [];
-          @this.set('selectUsers', this.selectUsers);
+      selectUsers: [],
+      init() {
+          this.selectUsers = @entangle('selectUsers').live;
       },
       submitForm() {
           if (this.selectUsers.length === 0) {
@@ -13,7 +12,7 @@
               @this.call('downloadExcel');
           }
       }
-  }">
+  }" x-init="init()">
     <form @submit.prevent="submitForm">
       <x-dashboard.top>
         <div class="hidden items-center lg:flex">
@@ -98,7 +97,7 @@
         <div
           class="mt-[30px] hidden grid-cols-[10%,10%,30%,25%,25%] items-end lg:grid tablet:grid-cols-[8%,6.5%,30.5%,26%,30%]">
           <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
-            @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); $wire.set('selectUsers', Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => checkbox.value));">
+            @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); selectUsers = Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => parseInt(checkbox.value)); $wire.set('selectUsers', selectUsers);">
             全選択</button>
           <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>

@@ -12,16 +12,16 @@
 
     <div class="flex justify-between">
       <div class="font-bold">
-        {{ $content['date']->isoFormat('YYYY/MM/DD (ddd)') }}
+        {{ $schedule->date->isoFormat('YYYY/MM/DD (ddd)') }}
       </div>
       @if ($schedule->shift_draft_schedule_id)
-        <form class="flex justify-end" wire:submit="downShift('{{ $content['date'] }}')">
+        <form class="flex justify-end" wire:submit="downShift('{{ $schedule->date }}')">
           <button class="text-sm font-bold text-[#3289FA] hover:opacity-40" type="submit">
             希望シフトに戻す
           </button>
         </form>
       @else
-        <form class="flex justify-end" wire:submit="downShift('{{ $content['date'] }}')">
+        <form class="flex justify-end" wire:submit="downShift('{{ $schedule->date }}')">
           <button class="text-sm font-bold text-red-600 hover:opacity-40" type="submit">
             <i class="fa-solid fa-trash me-1"></i>
             削除する

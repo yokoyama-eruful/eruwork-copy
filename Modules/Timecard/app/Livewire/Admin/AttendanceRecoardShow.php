@@ -7,6 +7,7 @@ namespace Modules\Timecard\Livewire\Admin;
 use App\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
+use Exception;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -37,92 +38,97 @@ class AttendanceRecoardShow extends Component
 
     public function downloadExcel()
     {
-        $this->validate([
-            'selectUsers' => 'required|array|min:1',
-        ]);
+        try {
+            $this->validate([
+                'selectUsers' => 'required|array|min:1',
+            ]);
 
-        $selectedUsers = User::whereIn('id', $this->selectUsers)->get();
-        $workTimes = WorkTime::query()
-            ->whereBetween('in_time', [$this->startDate, $this->endDate])
-            ->whereNotNull('in_time')
-            ->whereNotNull('out_time')
-            ->orderBy('in_time', 'asc')
-            ->get();
+            $selectedUsers = User::whereIn('id', $this->selectUsers)
+                ->orderBy('id')
+                ->get();
+            $workTimes = WorkTime::query()
+                ->whereBetween('in_time', [$this->startDate, $this->endDate])
+                ->whereNotNull('in_time')
+                ->whereNotNull('out_time')
+                ->orderBy('in_time', 'asc')
+                ->get();
 
-        $breakTimes = BreakTime::query()
-            ->whereBetween('in_time', [$this->startDate, $this->endDate])
-            ->whereNotNull('in_time')
-            ->whereNotNull('out_time')
-            ->orderBy('in_time', 'asc')
-            ->get();
+            $breakTimes = BreakTime::query()
+                ->whereBetween('in_time', [$this->startDate, $this->endDate])
+                ->whereNotNull('in_time')
+                ->whereNotNull('out_time')
+                ->orderBy('in_time', 'asc')
+                ->get();
 
-        $spreadsheet = new Spreadsheet;
+            $spreadsheet = new Spreadsheet;
 
-        foreach ($selectedUsers as $index => $user) {
-            $worksheet = $index === 0
-                ? $spreadsheet->getActiveSheet()
-                : $spreadsheet->createSheet();
+            foreach ($selectedUsers as $index => $user) {
+                $worksheet = $index === 0
+                    ? $spreadsheet->getActiveSheet()
+                    : $spreadsheet->createSheet();
 
-            $worksheet->setTitle($user->name);
+                $worksheet->setTitle($user->name);
 
-            // ヘッダー
-            $worksheet->fromArray([['勤務日', '出勤', '退勤', '休憩開始', '休憩終了']], null, 'A1');
+                // ヘッダー
+                $worksheet->fromArray([['勤務日', '出勤', '退勤', '休憩開始', '休憩終了']], null, 'A1');
 
-            $userWorkTimes = [];
+                $userWorkTimes = [];
 
-            foreach ($workTimes->where('user_id', $user->id) as $workTime) {
-                $start = $workTime->in_time->copy();
-                $end = $workTime->out_time->copy();
+                foreach ($workTimes->where('user_id', $user->id) as $workTime) {
+                    $start = $workTime->in_time->copy();
+                    $end = $workTime->out_time->copy();
 
-                // 勤務を日ごとに分割
-                while ($start->lt($end)) {
-                    $currentDayEnd = $start->copy()->endOfDay();
-                    $rowEnd = $end->lt($currentDayEnd) ? $end : $currentDayEnd;
+                    // 勤務を日ごとに分割
+                    while ($start->lt($end)) {
+                        $currentDayEnd = $start->copy()->endOfDay();
+                        $rowEnd = $end->lt($currentDayEnd) ? $end : $currentDayEnd;
 
-                    // 当日の休憩を取得
-                    $dailyBreaks = $breakTimes->where('user_id', $user->id)->filter(function ($b) use ($start, $rowEnd) {
-                        return $b->in_time->lt($rowEnd) && $b->out_time->gt($start);
-                    });
+                        // 当日の休憩を取得
+                        $dailyBreaks = $breakTimes->where('user_id', $user->id)->filter(function ($b) use ($start, $rowEnd) {
+                            return $b->in_time->lt($rowEnd) && $b->out_time->gt($start);
+                        });
 
-                    if ($dailyBreaks->isEmpty()) {
-                        // 休憩なし
-                        $userWorkTimes[] = [
-                            $start->format('Y-m-d'),
-                            $start->format('H:i'),
-                            $rowEnd->format('H:i'),
-                            '',
-                            '',
-                        ];
-                    } else {
-                        // 休憩がある場合は複数行に分ける
-                        foreach ($dailyBreaks as $b) {
-                            $breakStart = $b->in_time->lt($start) ? $start : $b->in_time;
-                            $breakEnd = $b->out_time->gt($rowEnd) ? $rowEnd : $b->out_time;
-
+                        if ($dailyBreaks->isEmpty()) {
+                            // 休憩なし
                             $userWorkTimes[] = [
                                 $start->format('Y-m-d'),
                                 $start->format('H:i'),
                                 $rowEnd->format('H:i'),
-                                $breakStart->format('H:i'),
-                                $breakEnd->format('H:i'),
+                                '',
+                                '',
                             ];
-                        }
-                    }
+                        } else {
+                            // 休憩がある場合は複数行に分ける
+                            foreach ($dailyBreaks as $b) {
+                                $breakStart = $b->in_time->lt($start) ? $start : $b->in_time;
+                                $breakEnd = $b->out_time->gt($rowEnd) ? $rowEnd : $b->out_time;
 
-                    // 次の日に進める
-                    $start = $rowEnd->copy()->addSecond();
+                                $userWorkTimes[] = [
+                                    $start->format('Y-m-d'),
+                                    $start->format('H:i'),
+                                    $rowEnd->format('H:i'),
+                                    $breakStart->format('H:i'),
+                                    $breakEnd->format('H:i'),
+                                ];
+                            }
+                        }
+
+                        $start = $rowEnd->copy()->addSecond();
+                    }
                 }
+
+                $worksheet->fromArray($userWorkTimes, null, 'A2');
             }
 
-            $worksheet->fromArray($userWorkTimes, null, 'A2');
+            $fileName = '勤怠記録_' . $this->startDate . '~' . $this->endDate . '.xlsx';
+
+            return response()->streamDownload(function () use ($spreadsheet): void {
+                $writer = new Xlsx($spreadsheet);
+                $writer->save('php://output');
+            }, $fileName);
+        } catch (Exception $e) {
+            session()->flash('error', $e->getMessage());
         }
-
-        $fileName = '勤怠記録_' . $this->startDate . '~' . $this->endDate . '.xlsx';
-
-        return response()->streamDownload(function () use ($spreadsheet): void {
-            $writer = new Xlsx($spreadsheet);
-            $writer->save('php://output');
-        }, $fileName);
     }
 
     #[Computed]

@@ -136,8 +136,10 @@ class Calendar extends Component
     public function setSchedule($scheduleId)
     {
         $schedule = Schedule::find($scheduleId);
-        $this->form->setSchedule($schedule);
-        $this->dispatch('open-modal', 'edit-modal-' . $scheduleId);
+        if ($schedule) {
+            $this->form->setSchedule($schedule);
+            $this->dispatch('open-modal', 'edit-modal-' . $scheduleId);
+        }
     }
 
     public function selectDraftShift($draftId)

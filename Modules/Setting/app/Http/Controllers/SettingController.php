@@ -88,6 +88,21 @@ class SettingController extends Controller
 
     public function updatePayUnitSetting(Request $request)
     {
+        $request->validate(
+            [
+                'overtimeRate' => ['nullable', 'integer', 'min:0'],
+                'nightRate' => ['nullable', 'integer', 'min:0'],
+            ],
+            [
+                'overtimeRate.integer' => ':attributeは整数で入力してください',
+                'nightRate.integer' => ':attributeは整数で入力してください',
+            ],
+            [
+                'overtimeRate' => '残業割増率',
+                'nightRate' => '深夜割増率',
+            ]
+        );
+
         DB::transaction(function () use ($request) {
             WagePremium::updateOrCreate(
                 [],

@@ -91,6 +91,12 @@
           登 録
         </x-primary-button>
       </div>
+
+      <div class="absolute inset-0 z-50 hidden flex-col items-center justify-center bg-black/40" wire:loading.flex
+        wire:target="save">
+        <img class="h-20 w-20 animate-bounce" src="{{ asset('img/fukurou_icon01.png') }}" />
+        <p class="mt-3 text-xl font-bold text-white">登録中</p>
+      </div>
     </form>
   </x-modal>
 </div>

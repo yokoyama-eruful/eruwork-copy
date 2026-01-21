@@ -35,7 +35,6 @@ final class PublicHolidayForm extends Form
 
     public function save(): void
     {
-        // TODO
         $this->validate();
 
         $dateArray = explode(', ', $this->date);

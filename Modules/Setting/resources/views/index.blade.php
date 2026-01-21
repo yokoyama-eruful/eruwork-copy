@@ -5,7 +5,7 @@
     </x-dashboard.top>
     <x-dashboard.container>
       <h5 class="hidden text-xl font-bold lg:block">各種設定</h5>
-      <div class="flex flex-col rounded-xl px-[25px] py-[30px] lg:mt-[30px] lg:border">
+      <div class="flex flex-col rounded-xl px-[20px] py-[30px] lg:mt-[30px] lg:border lg:px-[25px]">
         <form class="" method="POST" action="{{ route('setting.punch.update') }}">
           @csrf
           <div class="font-bold">打刻設定</div>
@@ -17,32 +17,36 @@
                   <input class="mt-1 lg:mt-0" name="rule" type="radio" value="personal"
                     @if ($rule->rule === 'personal') checked @endif />
                   <div class="flex flex-col text-sm lg:flex-row lg:text-base">
-                    <div>パーソナル打刻</div>
-                    <div>（自分のスマホ・PCなどの端末から打刻）</div>
+                    <div class="text-sm">パーソナル打刻</div>
+                    <div class="text-xs">（自分のスマホ・PCなどの端末から打刻）</div>
                   </div>
                 </label>
                 <label class="flex cursor-pointer space-x-2 text-sm lg:items-center lg:text-base">
                   <input class="mt-1 lg:mt-0" name="rule" type="radio" value="public"
                     @if ($rule->rule === 'public') checked @endif />
                   <div class="flex flex-col lg:flex-row">
-                    <div>パブリック打刻</div>
-                    <div>（1台の端末を全スタッフで共有して打刻）</div>
+                    <div class="text-sm">パブリック打刻</div>
+                    <div class="text-xs">（1台の端末を全スタッフで共有して打刻）</div>
                   </div>
                 </label>
               </div>
             </div>
-            @if ($rule->rule === 'public')
-              <div class="mt-5 grid grid-cols-[20%,80%] lg:items-center">
-                <div></div>
-                <div class="flex h-[35px] items-center bg-[#F4F4F4] px-[20px]">専用URL:<a class="text-blue-500"
-                    href="{{ route('public-timecard.login') }}">　{{ 'https://' . request()->getHost() . '/public-timecard/login' }}</a>
+            <div>
+              @if ($rule->rule === 'public')
+                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
+                  <div></div>
+                  <div class="flex h-[35px] items-center bg-[#F4F4F4] px-[10px] text-sm lg:px-[20px]">専用URL:<a
+                      class="text-blue-500"
+                      href="{{ route('public-timecard.login') }}">　{{ 'https://' . request()->getHost() . '/public-timecard/login' }}</a>
+                  </div>
                 </div>
-              </div>
-              <div class="mt-5 grid grid-cols-[20%,80%] lg:items-center">
-                <div></div>
-                <div class="flex h-[35px] items-center bg-[#F4F4F4] px-[20px]">PIN CODE：{{ $pin }}</div>
-              </div>
-            @endif
+                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
+                  <div></div>
+                  <div class="flex h-[35px] items-center bg-[#F4F4F4] px-[10px] text-sm lg:px-[20px]">PIN
+                    CODE：{{ $pin }}</div>
+                </div>
+              @endif
+            </div>
 
             <div class="mt-5 flex w-full justify-center">
               <button class="mb-5 h-[45px] w-[150px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
@@ -54,21 +58,51 @@
 
         <form method="POST" action="{{ route('setting.pay_unit.update') }}">
           @csrf
+
+          @error('overtimeRate')
+            <div class="mt-2 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2">
+              <svg class="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-9-4a1 1 0 112 0v4a1 1 0 11-2 0V6zm1 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                  clip-rule="evenodd" />
+              </svg>
+              <p class="text-sm text-red-600">
+                {{ $message }}
+              </p>
+            </div>
+          @enderror
+
+          @error('nightRate')
+            <div class="mt-2 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2">
+              <svg class="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-9-4a1 1 0 112 0v4a1 1 0 11-2 0V6zm1 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                  clip-rule="evenodd" />
+              </svg>
+              <p class="text-sm text-red-600">
+                {{ $message }}
+              </p>
+            </div>
+          @enderror
+
           <div class="py-[30px]">
             <div class="font-bold">給与算出設定</div>
-            <div class="mt-[30px] grid grid-cols-[20%,80%] items-center">
+            <div class="mt-[30px] grid grid-cols-[35%,65%] items-center lg:grid-cols-[20%,80%]">
               <div class="text-[11px] font-bold">時給発生タイミング</div>
-              <div class="flex items-center justify-between lg:justify-start lg:space-x-[72px]">
+
+              <div class="flex flex-wrap items-center gap-x-6 gap-y-2 lg:justify-start">
                 <label class="flex cursor-pointer items-center space-x-2">
                   <input name="pay_unit" type="radio" value="1"
                     @if ($wagePremium->pay_unit === 1) checked @endif />
                   <div>1分</div>
                 </label>
+
                 <label class="flex cursor-pointer items-center space-x-2">
                   <input name="pay_unit" type="radio" value="15"
                     @if ($wagePremium->pay_unit === 15) checked @endif />
                   <div>15分</div>
                 </label>
+
                 <label class="flex cursor-pointer items-center space-x-2">
                   <input name="pay_unit" type="radio" value="30"
                     @if ($wagePremium->pay_unit === 30) checked @endif />

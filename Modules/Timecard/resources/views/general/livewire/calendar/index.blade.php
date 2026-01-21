@@ -117,16 +117,16 @@
             </div>
           </div>
           <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[20px]">
-            <div class="text-sm font-bold">130万</div>
+            <div class="text-sm font-bold">150万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1300000 - $totalYearPay) }}</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1500000 - $totalYearPay) }}</div>
               <div class="text-xs">円以上で超過</div>
             </div>
           </div>
           <div class="flex items-center justify-between rounded bg-[#F7F7F7] px-[10px] py-[20px]">
-            <div class="text-sm font-bold">150万</div>
+            <div class="text-sm font-bold">178万</div>
             <div class="flex items-center space-x-[2px]">
-              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1500000 - $totalYearPay) }}</div>
+              <div class="text-sm font-bold text-[#FF4A62]">{{ number_format(1780000 - $totalYearPay) }}</div>
               <div class="text-xs">円以上で超過</div>
             </div>
           </div>
