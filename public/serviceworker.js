@@ -1,14 +1,17 @@
 "use strict";
 
 // ===============================
-// 📦 キャッシュするファイル
+// 📦 キャッシュ設定
 // ===============================
 const CACHE_NAME = "offline-v1";
 const OFFLINE_URL = "/offline.html";
 
+// キャッシュすべき静的ファイル（これらはCache Firstで高速化する）
 const filesToCache = [
   "/",
   OFFLINE_URL,
+  "/css/app.css", // プロジェクトに合わせてパスを調整してください
+  "/js/app.js",
 ];
 
 // ===============================
@@ -27,65 +30,77 @@ self.addEventListener("install", function (event) {
 // 🚀 activate
 // ===============================
 self.addEventListener("activate", function (event) {
-  event.waitUntil(self.clients.claim());
+  // 古いキャッシュの削除処理を入れるとより安全です
+  event.waitUntil(
+    Promise.all([
+      self.clients.claim(),
+      caches.keys().then(function (keys) {
+        return Promise.all(
+          keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
+        );
+      })
+    ])
+  );
 });
 
 // ===============================
-// 🌐 fetch（超重要）
+// 🌐 fetch（最適化済み）
 // ===============================
 self.addEventListener("fetch", function (event) {
+  const url = new URL(event.request.url);
 
-  // http(s) 以外は無視
+  // 🚨 【重要】LivewireおよびPOSTリクエストは一切干渉せず、スルーさせる
+  // これにより、Livewireの更新がService Workerによって遅延するのを防ぎます
+  if (
+    event.request.method !== "GET" || 
+    url.pathname.includes("/livewire/") ||
+    url.pathname.includes("/api/")
+  ) {
+    return; // ブラウザ標準の通信に任せる
+  }
+
+  // http(s) 以外（chrome-extension等）は無視
   if (!event.request.url.startsWith("http")) return;
 
-  /**
-   * 🚨 ページ遷移（通知クリック含む）
-   * → 404でも offline.html に差し替えない！
-   */
+  // 📄 ページ遷移（ナビゲーション）
   if (event.request.mode === "navigate") {
     event.respondWith(
       fetch(event.request).catch(function () {
-        // ネット完全死亡時のみ
         return caches.match(OFFLINE_URL);
       })
     );
     return;
   }
 
-  /**
-   * 📦 画像・CSS・JS・API 用
-   */
+  // 🖼️ 静的リソース（画像・CSS・JSなど）
+  // ネットワークを優先しつつ、バックグラウンドでキャッシュを更新する戦略
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
-
-        // GETだけキャッシュ
-        if (event.request.method === "GET" && response.ok) {
+        // 正常なレスポンスのみキャッシュに保存
+        if (response.ok) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(function (cache) {
             cache.put(event.request, clone);
           });
         }
-
         return response;
       })
       .catch(function () {
-        // キャッシュがあれば返す
+        // オフライン時はキャッシュから返す
         return caches.match(event.request);
       })
   );
 });
 
 // ===============================
-// 🔔 push
+// 🔔 push通知
 // ===============================
 self.addEventListener("push", function (event) {
   if (!(self.Notification && self.Notification.permission === "granted")) return;
 
   const payload = event.data ? event.data.json() : {};
-
-  const notificationUrl =
-    payload?.data?.url ?? "/";
+  const notificationUrl = payload?.data?.url ?? "/";
 
   event.waitUntil(
     self.registration.showNotification(payload.title ?? "通知", {
@@ -103,12 +118,7 @@ self.addEventListener("push", function (event) {
 // ===============================
 self.addEventListener("notificationclick", function (event) {
   event.preventDefault();
-
   const url = event.notification.data.url;
-
-  event.waitUntil(
-    clients.openWindow(url)
-  );
-
+  event.waitUntil(clients.openWindow(url));
   event.notification.close();
 });
