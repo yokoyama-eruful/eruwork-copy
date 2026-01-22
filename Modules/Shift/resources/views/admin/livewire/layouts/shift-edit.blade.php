@@ -1,5 +1,5 @@
 <x-modal name="edit-modal" title="確定シフト編集">
-  <div class="p-10 text-center" wire:loading wire:target="setDate">
+  <div class="p-10 text-center" wire:loading wire:target="setSchedule">
     <i class="fa-solid fa-spinner fa-spin"></i> 読み込み中...
   </div>
 
