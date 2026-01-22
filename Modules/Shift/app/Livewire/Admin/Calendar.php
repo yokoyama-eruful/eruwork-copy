@@ -124,7 +124,7 @@ class Calendar extends Component
         $this->form->date = $date;
         $this->form->save();
 
-        $this->dispatch('close-modal', 'create-modal-' . $date->format('Y-m-d'));
+        $this->dispatch('close-modal', 'create-modal');
         $this->reloadSchedule($date);
     }
 
@@ -145,12 +145,18 @@ class Calendar extends Component
         $this->dispatch('refreshShiftTable');
     }
 
+    public function setDate($date)
+    {
+        $this->selectedDate = CarbonImmutable::parse($date);
+        // $this->dispatch('open-modal', 'create-modal');
+    }
+
     public function setSchedule($scheduleId)
     {
         $this->selectedSchedule = Schedule::find($scheduleId);
         if ($this->selectedSchedule) {
             $this->form->setSchedule($this->selectedSchedule);
-            $this->dispatch('open-modal', 'edit-modal');
+            // $this->dispatch('open-modal', 'edit-modal');
         }
     }
 
@@ -160,7 +166,7 @@ class Calendar extends Component
         if ($this->selectedDraft) {
             $this->draftStartTime = $this->selectedDraft->start_time->format('H:i');
             $this->draftEndTime = $this->selectedDraft->end_time->format('H:i');
-            $this->dispatch('open-modal', 'confirm-shift-modal');
+            // $this->dispatch('open-modal', 'confirm-shift-modal');
         }
     }
 

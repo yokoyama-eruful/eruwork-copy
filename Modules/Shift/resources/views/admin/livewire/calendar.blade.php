@@ -185,9 +185,15 @@
           <div class="hidden items-center justify-between px-[15px] lg:flex">
             <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('D日') }}</div>
             @if ($content['type'] != '期間外')
-              <div>
-                @include('shift::admin.livewire.layouts.shift-create')
-              </div>
+              <button class="hover:opacity-40" type="button" x-on:click="$dispatch('open-modal', 'create-modal')"
+                wire:click="setDate('{{ $content['date']->format('Y-m-d') }}')">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M9 6.5V11.5M11.5 9H6.5M16.5 9C16.5 9.98491 16.306 10.9602 15.9291 11.8701C15.5522 12.7801 14.9997 13.6069 14.3033 14.3033C13.6069 14.9997 12.7801 15.5522 11.8701 15.9291C10.9602 16.306 9.98491 16.5 9 16.5C8.01509 16.5 7.03982 16.306 6.12987 15.9291C5.21993 15.5522 4.39314 14.9997 3.6967 14.3033C3.00026 13.6069 2.44781 12.7801 2.0709 11.8701C1.69399 10.9602 1.5 9.98491 1.5 9C1.5 7.01088 2.29018 5.10322 3.6967 3.6967C5.10322 2.29018 7.01088 1.5 9 1.5C10.9891 1.5 12.8968 2.29018 14.3033 3.6967C15.7098 5.10322 16.5 7.01088 16.5 9Z"
+                    stroke="#3289FA" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
             @endif
           </div>
 
@@ -202,8 +208,7 @@
               @foreach ($content['shifts'] as $shiftKey => $shift)
                 <div
                   class="mr-[11px] flex cursor-pointer items-center space-x-[6px] rounded-lg border border-[#39A338] bg-[#F6FFF6] px-[10px] py-[7px]"
-                  x-on:click="$dispatch('open-modal','edit-modal-{{ $shift->id }}')"
-                  wire:click="setSchedule({{ $shift->id }})"
+                  x-on:click="$dispatch('open-modal', 'edit-modal')" wire:click="setSchedule({{ $shift->id }})"
                   wire:key="confirmed-{{ $content['date']->format('Y-m-d') }}-{{ $shift->id }}-{{ $shiftKey }}">
                   <div
                     class="flex h-[22px] w-[22px] items-center justify-center rounded bg-[#39A338] text-xs text-white">
@@ -221,6 +226,7 @@
               @foreach ($content['drafts'] as $draftKey => $draft)
                 <div
                   class="mr-[11px] flex cursor-pointer items-center space-x-[6px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] px-[10px] py-[7px]"
+                  x-on:click="$dispatch('open-modal', 'confirm-shift-modal')"
                   wire:click="selectDraftShift({{ $draft->id }})"
                   wire:key="draft-{{ $content['date']->format('Y-m-d') }}-{{ $draft->id }}-{{ $draftKey }}">
                   <div
@@ -248,9 +254,15 @@
       @endforeach
     </div>
 
+    @include('shift::admin.livewire.layouts.shift-create', ['selectedDate' => $selectedDate])
+
     @include('shift::admin.livewire.layouts.shift-edit', ['schedule' => $selectedSchedule])
 
     <x-modal name="confirm-shift-modal" title="希望シフト">
+      <div class="p-10 text-center" wire:loading wire:target="selectDraftShift">
+        <i class="fa-solid fa-spinner fa-spin"></i> 読み込み中...
+      </div>
+
       @if ($selectedDraft)
         <div>
           @csrf

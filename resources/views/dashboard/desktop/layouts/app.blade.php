@@ -18,6 +18,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
   <!-- Scripts -->
   @vite(['resources/css/app.css', 'resources/css/common.css', 'resources/js/app.js', 'resources/js/top.js', 'resources/js/notification.js'])
+  @livewireStyles
 </head>
 
 <body class="m-0 grid h-screen w-screen grid-rows-[50px,1fr] p-0 lg:block" x-data="{ sideMenu: false }" x-cloak>

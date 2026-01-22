@@ -1,4 +1,8 @@
 <x-modal name="edit-modal" title="確定シフト編集">
+  <div class="p-10 text-center" wire:loading wire:target="setDate">
+    <i class="fa-solid fa-spinner fa-spin"></i> 読み込み中...
+  </div>
+
   @if ($selectedSchedule)
     @if ($errors->any())
       <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
