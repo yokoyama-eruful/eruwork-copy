@@ -1,6 +1,8 @@
 <x-modal name="create-modal" title="確定シフト登録">
-  <div class="p-10 text-center" wire:loading wire:target="setDate">
-    <i class="fa-solid fa-spinner fa-spin"></i> 読み込み中...
+  <div class="absolute inset-0 top-14 flex w-full items-center justify-center bg-black/30 backdrop-blur-md" wire:loading
+    wire:target="setDate">
+    <i class="fa-solid fa-spinner fa-spin mr-2 text-blue-500"></i>
+    <span class="text-black">読み込み中...</span>
   </div>
 
   @if ($selectedDate)
