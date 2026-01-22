@@ -1,5 +1,5 @@
-<div>
-  <x-modal name="edit-modal" title="確定シフト編集">
+<x-modal name="edit-modal" title="確定シフト編集">
+  @if ($selectedSchedule)
     @if ($errors->any())
       <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
         <ul class="list-disc pl-5">
@@ -39,7 +39,8 @@
           <div
             class="mt-2 grid grid-cols-[15%,65%,20%] items-center rounded-lg border border-[#DE993A] bg-[#FFF7EC] px-[10px] py-3 text-[#DE993A]">
             <div
-              class="flex h-[35px] w-[35px] items-center justify-center rounded bg-[#DE993A] font-semibold text-white">希
+              class="flex h-[35px] w-[35px] items-center justify-center rounded bg-[#DE993A] font-semibold text-white">
+              希
             </div>
             <div class="font-semibold">
               {{ $schedule->draftSchedule->start_time->format('H:i') }} 〜
@@ -76,6 +77,5 @@
         </x-primary-button>
       </div>
     </form>
-  </x-modal>
-
-</div>
+  @endif
+</x-modal>

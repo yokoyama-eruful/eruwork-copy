@@ -248,12 +248,10 @@
       @endforeach
     </div>
 
-    @if ($selectedSchedule)
-      @include('shift::admin.livewire.layouts.shift-edit', ['schedule' => $selectedSchedule])
-    @endif
+    @include('shift::admin.livewire.layouts.shift-edit', ['schedule' => $selectedSchedule])
 
-    @if ($selectedDraft)
-      <x-modal name="confirm-shift-modal" title="希望シフト">
+    <x-modal name="confirm-shift-modal" title="希望シフト">
+      @if ($selectedDraft)
         <div>
           @csrf
 
@@ -302,8 +300,8 @@
             </x-primary-button>
           </div>
         </div>
-      </x-modal>
-    @endif
+      @endif
+    </x-modal>
 
   </x-dashboard.container>
 </x-dashboard.index>
