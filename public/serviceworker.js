@@ -3,15 +3,13 @@
 // ===============================
 // 📦 キャッシュ設定
 // ===============================
-const CACHE_NAME = "offline-v1";
+const CACHE_NAME = "offline-v2"; // 更新を確実にするためv2に変更
 const OFFLINE_URL = "/offline.html";
 
-// キャッシュすべき静的ファイル（これらはCache Firstで高速化する）
+// 起動時にキャッシュしておく最小限のファイル
 const filesToCache = [
   "/",
   OFFLINE_URL,
-  "/css/app.css", // プロジェクトに合わせてパスを調整してください
-  "/js/app.js",
 ];
 
 // ===============================
@@ -30,10 +28,10 @@ self.addEventListener("install", function (event) {
 // 🚀 activate
 // ===============================
 self.addEventListener("activate", function (event) {
-  // 古いキャッシュの削除処理を入れるとより安全です
   event.waitUntil(
     Promise.all([
       self.clients.claim(),
+      // 古いバージョンのキャッシュを自動削除
       caches.keys().then(function (keys) {
         return Promise.all(
           keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
@@ -44,25 +42,49 @@ self.addEventListener("activate", function (event) {
 });
 
 // ===============================
-// 🌐 fetch（最適化済み）
+// 🌐 fetch（Vite最適化版）
 // ===============================
 self.addEventListener("fetch", function (event) {
   const url = new URL(event.request.url);
 
-  // 🚨 【重要】LivewireおよびPOSTリクエストは一切干渉せず、スルーさせる
-  // これにより、Livewireの更新がService Workerによって遅延するのを防ぎます
+  // 1. Livewire、API、POSTリクエストは一切干渉せずにネットワークへ直通
   if (
     event.request.method !== "GET" || 
     url.pathname.includes("/livewire/") ||
     url.pathname.includes("/api/")
   ) {
-    return; // ブラウザ標準の通信に任せる
+    return; 
   }
 
-  // http(s) 以外（chrome-extension等）は無視
+  // http(s) 以外は無視
   if (!event.request.url.startsWith("http")) return;
 
-  // 📄 ページ遷移（ナビゲーション）
+  // 2. Viteビルド済みアセットの判定 (Cache First)
+  // パスに /build/assets/ が含まれるか、ファイル名にVite特有のハッシュがある場合
+  const isViteAsset = url.pathname.includes("/build/assets/") || 
+                      url.pathname.match(/-[a-zA-Z0-9]{8,}\.(js|css|png|jpg|jpeg|svg|woff2?)$/);
+
+  if (isViteAsset) {
+    event.respondWith(
+      caches.match(event.request).then((cachedResponse) => {
+        // キャッシュがあれば即座に返す (0ms)
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        // なければ取得してキャッシュに保存
+        return fetch(event.request).then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          }
+          return response;
+        });
+      })
+    );
+    return;
+  }
+
+  // 3. ページ遷移（ナビゲーション）
   if (event.request.mode === "navigate") {
     event.respondWith(
       fetch(event.request).catch(function () {
@@ -72,53 +94,39 @@ self.addEventListener("fetch", function (event) {
     return;
   }
 
-  // 🖼️ 静的リソース（画像・CSS・JSなど）
-  // ネットワークを優先しつつ、バックグラウンドでキャッシュを更新する戦略
+  // 4. その他のリソース（Network First）
   event.respondWith(
     fetch(event.request)
       .then(function (response) {
-        // 正常なレスポンスのみキャッシュに保存
         if (response.ok) {
           const clone = response.clone();
-          caches.open(CACHE_NAME).then(function (cache) {
-            cache.put(event.request, clone);
-          });
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
         return response;
       })
       .catch(function () {
-        // オフライン時はキャッシュから返す
         return caches.match(event.request);
       })
   );
 });
 
 // ===============================
-// 🔔 push通知
+// 🔔 push通知 / 🖱️ クリック
 // ===============================
 self.addEventListener("push", function (event) {
   if (!(self.Notification && self.Notification.permission === "granted")) return;
-
   const payload = event.data ? event.data.json() : {};
-  const notificationUrl = payload?.data?.url ?? "/";
-
   event.waitUntil(
     self.registration.showNotification(payload.title ?? "通知", {
       body: payload.body ?? "",
       icon: payload.icon ?? "/icons/icon-192x192.png",
-      data: {
-        url: notificationUrl,
-      },
+      data: { url: payload?.data?.url ?? "/" },
     })
   );
 });
 
-// ===============================
-// 👉 通知クリック
-// ===============================
 self.addEventListener("notificationclick", function (event) {
   event.preventDefault();
-  const url = event.notification.data.url;
-  event.waitUntil(clients.openWindow(url));
+  event.waitUntil(clients.openWindow(event.notification.data.url));
   event.notification.close();
 });
