@@ -1,5 +1,5 @@
 <div>
-  <x-modal name="edit-modal-{{ $schedule->id }}" title="確定シフト編集">
+  <x-modal name="edit-modal" title="確定シフト編集">
     @if ($errors->any())
       <div class="mb-4 rounded border border-red-300 bg-red-50 p-3 text-xs text-red-600">
         <ul class="list-disc pl-5">

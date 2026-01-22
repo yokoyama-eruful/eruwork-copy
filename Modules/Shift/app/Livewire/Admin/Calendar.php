@@ -8,7 +8,6 @@ use App\Models\User;
 use App\Notifications\WebPushNotification;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Request;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
@@ -20,8 +19,6 @@ use Modules\Shift\Models\Schedule;
 class Calendar extends Component
 {
     public Manager $manager;
-
-    public Collection $users;
 
     public CarbonImmutable $selectedDate;
 
@@ -35,36 +32,51 @@ class Calendar extends Component
 
     public $draftEndTime;
 
-    public function mount()
-    {
-        $this->users = User::orderBy('id')->get();
-    }
+    public ?Schedule $selectedSchedule = null;
+
+    public ?DraftSchedule $selectedDraft = null;
 
     #[Computed] #[On('refreshShiftTable')]
     public function calendar()
     {
-        $calendarViewTerm = CarbonPeriodImmutable::create(
-            $this->manager->start_date->startOfWeek(CarbonImmutable::MONDAY),
-            $this->manager->end_date->endOfWeek(CarbonImmutable::SUNDAY)
-        );
+        $start = $this->manager->start_date->startOfWeek(CarbonImmutable::MONDAY);
+        $end = $this->manager->end_date->endOfWeek(CarbonImmutable::SUNDAY);
 
-        $managerTerm = CarbonPeriodImmutable::create(
-            $this->manager->start_date,
-            $this->manager->end_date
-        );
+        // 1. 期間内のデータを一括取得（Eager LoadingでN+1を防止）
+        $allShifts = Schedule::with(['draftSchedule', 'user'])
+            ->whereBetween('date', [$start, $end])
+            ->orderBy('start_time', 'asc')
+            ->get()
+            ->groupBy(fn ($item) => $item->date->format('Y-m-d'));
 
-        $calendarContents =
-            $calendarViewTerm
-                ->map(function ($date) use ($managerTerm) {
-                    return [
-                        'date' => $date,
-                        'type' => $this->getDateType($managerTerm, $date),
-                        'shifts' => $this->getShifts($date),
-                        'drafts' => $this->getDraftShifts($date),
-                    ];
-                });
+        $allDrafts = DraftSchedule::with(['shiftSchedule', 'user'])
+            ->whereBetween('date', [$start, $end])
+            ->where('status', '未承認')
+            ->where('manager_id', $this->manager->id)
+            ->whereHas('user.managers', function ($query) {
+                $query->where('shift__manager_user.status', '提出済');
+            })
+            ->orderBy('start_time', 'asc')
+            ->get()
+            ->groupBy(fn ($item) => $item->date->format('Y-m-d'));
 
-        return iterator_to_array($calendarContents);
+        // 2. 期間内の全日付を一旦「配列」として取得する
+        $calendarViewTerm = CarbonPeriodImmutable::create($start, $end);
+        $dates = $calendarViewTerm->toArray(); // ここで CarbonImmutable の配列になる
+
+        $managerTerm = CarbonPeriodImmutable::create($this->manager->start_date, $this->manager->end_date);
+
+        // 3. 配列に対して map を回す
+        return collect($dates)->map(function (CarbonImmutable $date) use ($allShifts, $allDrafts, $managerTerm) {
+            $dateStr = $date->format('Y-m-d');
+
+            return [
+                'date' => $date,
+                'type' => $this->getDateType($managerTerm, $date),
+                'shifts' => $allShifts->get($dateStr, collect()),
+                'drafts' => $allDrafts->get($dateStr, collect()),
+            ];
+        })->all();
     }
 
     private function getDateType($managerTerm, CarbonImmutable $date): string
@@ -135,21 +147,21 @@ class Calendar extends Component
 
     public function setSchedule($scheduleId)
     {
-        $schedule = Schedule::find($scheduleId);
-        if ($schedule) {
-            $this->form->setSchedule($schedule);
-            $this->dispatch('open-modal', 'edit-modal-' . $scheduleId);
+        $this->selectedSchedule = Schedule::find($scheduleId);
+        if ($this->selectedSchedule) {
+            $this->form->setSchedule($this->selectedSchedule);
+            $this->dispatch('open-modal', 'edit-modal');
         }
     }
 
     public function selectDraftShift($draftId)
     {
-        $draft = DraftSchedule::find($draftId);
-
-        $this->draftStartTime = $draft->start_time->format('H:i');
-        $this->draftEndTime = $draft->end_time->format('H:i');
-
-        $this->dispatch('open-modal', 'confirm-shift-modal-' . $draftId);
+        $this->selectedDraft = DraftSchedule::with('user')->find($draftId);
+        if ($this->selectedDraft) {
+            $this->draftStartTime = $this->selectedDraft->start_time->format('H:i');
+            $this->draftEndTime = $this->selectedDraft->end_time->format('H:i');
+            $this->dispatch('open-modal', 'confirm-shift-modal');
+        }
     }
 
     public function upShift(int $draftId)
@@ -170,7 +182,7 @@ class Calendar extends Component
             'status' => '承認',
         ]);
 
-        $this->dispatch('close-modal', 'confirm-shift-modal-' . $draft->id);
+        $this->dispatch('close-modal', 'confirm-shift-modal');
 
         $this->reloadSchedule($draft->date);
     }
@@ -178,7 +190,8 @@ class Calendar extends Component
     public function downShift($date)
     {
         $this->form->delete();
-        $this->dispatch('close-modal', 'edit-modal-' . $this->form->schedule->id);
+        $this->dispatch('close-modal', 'edit-modal');
+        $this->selectedSchedule = null;
         $this->reloadSchedule($date);
     }
 
@@ -258,6 +271,8 @@ class Calendar extends Component
 
     public function render()
     {
-        return view('shift::admin.livewire.calendar');
+        return view('shift::admin.livewire.calendar', [
+            'users' => User::orderBy('id')->get(),
+        ]);
     }
 }
