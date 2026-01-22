@@ -10,12 +10,17 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Modules\Timecard\Livewire\General\Dto\totalWorkingTimeDto;
 
 class TimecardCalendar extends Component
 {
-    #[Url(as: 'user')]
-    public User $user;
+    use WithPagination;
+
+    #[Url(as: 'user_id')]
+    public ?int $selectedId = null;
+
+    public ?User $user;
 
     public $year;
 
@@ -29,6 +34,7 @@ class TimecardCalendar extends Component
     public function mount()
     {
         $this->user = Auth::user();
+        $this->selectedId = $this->user->id;
 
         $this->selectDate = now();
         $this->year = $this->selectDate->year;
@@ -66,9 +72,13 @@ class TimecardCalendar extends Component
         $this->selectDate = CarbonImmutable::create($this->year, $this->month, $this->day);
     }
 
-    public function selectUser(User $selectedUser)
+    public function selectUser(int $id)
     {
-        $this->user = $selectedUser;
+        $this->selectedId = $id;
+        $this->user =
+            $this->users
+                ->where('id', $id)
+                ->first();
     }
 
     public function getWorkTimeList($user)

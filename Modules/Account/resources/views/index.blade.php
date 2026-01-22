@@ -24,16 +24,16 @@
         @foreach ($users as $user)
           <div onclick="window.location='{{ route('account.show', ['account' => $user->login_id]) }}'"
             @class([
-                'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+                'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
                 'border-b' => !$loop->last,
             ])>
             <div
-              class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[45px] lg:w-[45px]">
+              class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[40px] lg:w-[40px]">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image"></i>
+                    class="fa-solid fa-image scale-50"></i>
                 </div>
               @endif
             </div>

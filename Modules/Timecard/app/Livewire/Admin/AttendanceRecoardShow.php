@@ -11,6 +11,7 @@ use Exception;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Modules\Shift\Models\Schedule;
 use Modules\Timecard\Livewire\General\Dto\totalWorkingTimeDto;
 use Modules\Timecard\Models\BreakTime;
@@ -20,8 +21,11 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class AttendanceRecoardShow extends Component
 {
+    use WithPagination;
+
     public CarbonImmutable $date;
 
+    #[Url(history: true)]
     public array $selectUsers = [];
 
     #[Url]
@@ -246,6 +250,26 @@ class AttendanceRecoardShow extends Component
     public function users()
     {
         return User::orderBy('id', 'asc')->paginate(10);
+    }
+
+    // AttendanceRecoardShow.php
+
+    public function toggleSelectAll()
+    {
+        // 1. システム上の全ユーザーIDを文字列配列で取得（ページネーションに関係なく全員）
+        $allUserIds = User::pluck('id')->map(fn ($id) => (string) $id)->toArray();
+
+        // 2. 現在の選択状態を取得
+        $currentSelected = collect($this->selectUsers)->map(fn ($id) => (string) $id)->toArray();
+
+        // 3. 全員がすでに選択されているか判定
+        if (count($allUserIds) > 0 && count($allUserIds) === count($currentSelected)) {
+            // 全員選択済みなら、空にする（全解除）
+            $this->selectUsers = [];
+        } else {
+            // 全員を選択状態にする
+            $this->selectUsers = $allUserIds;
+        }
     }
 
     public function render()

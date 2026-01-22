@@ -18,7 +18,7 @@
       <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid tablet:grid-cols-[15%,58%,13%,14%] grid-cols-[20%,45%,16%,19%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid tablet:grid-cols-[15%,58%,13%,14%] grid-cols-[20%,45%,16%,19%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'bg-[#F9FAFF] border border-[#3289FA]' => $selectedUser->id === $user->id,
               'rounded-t-lg' => $loop->first,
@@ -26,12 +26,12 @@
           ]) wire:click="selectUser('{{ $user->id }}')">
 
             <div
-              class="ml-[25px] mr-[20px] flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+              class="ml-[25px] mr-[20px] flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image"></i>
+                    class="fa-solid fa-image scale-50"></i>
                 </div>
               @endif
             </div>
@@ -51,6 +51,7 @@
 
           </div>
         @endforeach
+        {{ $this->users->links('vendor.pagination.tailwind') }}
       </div>
     </div>
     <div
@@ -110,6 +111,7 @@
             </div>
           </a>
         @endforeach
+        {{ $this->users->links('vendor.pagination.livewire') }}
       </div>
     </div>
   </div>

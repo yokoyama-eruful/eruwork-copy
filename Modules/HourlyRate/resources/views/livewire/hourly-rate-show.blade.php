@@ -5,12 +5,12 @@
   </div>
   <div class="mx-5 flex items-center space-x-[20px] border-b pb-[20px] lg:mx-0 lg:mt-[10px] lg:pt-[20px]">
     <div
-      class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+      class="flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
       @if ($user->icon)
         <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
       @else
         <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-            class="fa-solid fa-image"></i>
+            class="fa-solid fa-image scale-50"></i>
         </div>
       @endif
     </div>

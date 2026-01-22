@@ -10,9 +10,12 @@ use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Url;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class HourlyRate extends Component
 {
+    use WithPagination;
+
     #[Url(as: 'user_id')]
     public ?int $selectedId = null;
 
@@ -43,7 +46,7 @@ class HourlyRate extends Component
     #[Computed] #[On('reloadRate')]
     public function users()
     {
-        return User::orderBy('id')->get();
+        return User::orderBy('id')->paginate(10);
     }
 
     #[Computed]

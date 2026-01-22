@@ -1,18 +1,14 @@
 <x-dashboard.index>
   <div x-data="{
-      selectAll: false,
-      selectUsers: [],
-      init() {
-          this.selectUsers = @entangle('selectUsers').live;
-      },
       submitForm() {
-          if (this.selectUsers.length === 0) {
-              {{-- alert('選択してください'); --}}
+          {{-- $wire.selectUsers を直接参照 --}}
+          if ($wire.selectUsers.length === 0) {
+              alert('ユーザーを選択してください');
           } else {
-              @this.call('downloadExcel');
+              $wire.downloadExcel();
           }
       }
-  }" x-init="init()">
+  }">
     <form @submit.prevent="submitForm">
       <x-dashboard.top>
         <div class="hidden items-center lg:flex">
@@ -97,7 +93,7 @@
         <div
           class="mt-[30px] hidden grid-cols-[10%,10%,30%,25%,25%] items-end lg:grid tablet:grid-cols-[8%,6.5%,30.5%,26%,30%]">
           <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
-            @click="selectAll = !selectAll; document.querySelectorAll('.checkbox').forEach(checkbox => checkbox.checked = selectAll); selectUsers = Array.from(document.querySelectorAll('.checkbox:checked')).map(checkbox => parseInt(checkbox.value)); $wire.set('selectUsers', selectUsers);">
+            wire:click="toggleSelectAll">
             全選択</button>
           <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
@@ -107,21 +103,21 @@
         </div>
         <div class="mt-[24px] rounded-lg lg:-mx-0 lg:mt-[8px] lg:border lg:border-b">
           @foreach ($this->users as $user)
-            <div @class([
-                'lg:grid grid-cols-[10%,10%,30%,25%,25%] tablet:grid-cols-[8%,6.5%,30.5%,26%,30%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
+            <div wire:key="user-row-{{ $user->id }}" @class([
+                'lg:grid grid-cols-[10%,10%,30%,25%,25%] tablet:grid-cols-[8%,6.5%,30.5%,26%,30%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
 
               <input class="checkbox ml-[30px] h-[18px] w-[18px] rounded border-[#DDDDDD]" type="checkbox"
-                value="{{ $user->id }}" wire:model="selectUsers">
+                value="{{ $user->id }}" wire:key="checkbox-{{ $user->id }}" wire:model.live="selectUsers">
 
               <div
-                class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+                class="flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
                 @if ($user->icon)
                   <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
                 @else
                   <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                      class="fa-solid fa-image"></i>
+                      class="fa-solid fa-image scale-50"></i>
                   </div>
                 @endif
               </div>
@@ -201,7 +197,7 @@
             @endforeach
           </div>
 
-          {{ $this->users->links('vendor.pagination.tailwind') }}
+          {{ $this->users->links('vendor.pagination.livewire') }}
       </x-dashboard.container>
     </form>
   </div>

@@ -20,65 +20,69 @@
 
       <div class="font-bold">シフト表</div>
 
-      <div class="mt-5">
-        <x-input-label for="start_date" value="開始日" />
+      <div class="mt-5 flex items-center justify-center space-x-4">
+        <div>
+          <x-input-label for="start_date" value="開始日" />
 
-        <div class="relative w-full" wire:ignore.self>
-          <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="start_date" name="start_date" type="text"
-            wire:model="form.startDate" required />
-          <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
-            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+          <div class="relative w-full" wire:ignore.self>
+            <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="start_date" name="start_date" type="text"
+              wire:model="form.startDate" required />
+            <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
         002-2V7a2 2 0 00-2-2H5a2 2 0
         00-2 2v12a2 2 0 002 2z" />
-          </svg>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      <div class="mt-5" wire:ignore.self>
-        <x-input-label for="end_date" value="終了日" />
+        <div wire:ignore.self>
+          <x-input-label for="end_date" value="終了日" />
 
-        <div class="relative w-full">
-          <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="end_date" name="end_date" type="text"
-            wire:model="form.endDate" required />
-          <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
-            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+          <div class="relative w-full">
+            <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="end_date" name="end_date" type="text"
+              wire:model="form.endDate" required />
+            <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
         002-2V7a2 2 0 00-2-2H5a2 2 0
         00-2 2v12a2 2 0 002 2z" />
-          </svg>
+            </svg>
+          </div>
         </div>
       </div>
 
       <div class="mt-5 font-bold">シフト掲載期間</div>
 
-      <div class="mt-5" wire:ignore.self>
-        <x-input-label for="submission_start_date" value="開始日" />
+      <div class="mt-5 flex items-center justify-center space-x-4">
+        <div wire:ignore.self>
+          <x-input-label for="submission_start_date" value="開始日" />
 
-        <div class="relative w-full">
-          <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="submission_start_date"
-            name="submission_start_date" type="text" wire:model="form.submissionStartDate" required />
-          <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
-            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+          <div class="relative w-full">
+            <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="submission_start_date"
+              name="submission_start_date" type="text" wire:model="form.submissionStartDate" required />
+            <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
         002-2V7a2 2 0 00-2-2H5a2 2 0
         00-2 2v12a2 2 0 002 2z" />
-          </svg>
+            </svg>
+          </div>
         </div>
-      </div>
 
-      <div class="mt-5" wire:ignore.self>
-        <x-input-label for="submission_end_date" value="終了日" />
+        <div wire:ignore.self>
+          <x-input-label for="submission_end_date" value="終了日" />
 
-        <div class="relative w-full">
-          <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="submission_end_date"
-            name="submission_end_date" type="text" wire:model="form.submissionEndDate" required />
-          <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
-            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
+          <div class="relative w-full">
+            <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="submission_end_date"
+              name="submission_end_date" type="text" wire:model="form.submissionEndDate" required />
+            <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
+              xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0
         002-2V7a2 2 0 00-2-2H5a2 2 0
         00-2 2v12a2 2 0 002 2z" />
-          </svg>
+            </svg>
+          </div>
         </div>
       </div>
 

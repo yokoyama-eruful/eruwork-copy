@@ -48,7 +48,7 @@
     </form>
   </x-modal-alert>
 
-  <div class="h-[calc(var(--vh)*100)] overflow-y-auto lg:ml-[250px] lg:flex lg:w-[calc(100%-250px)]">
+  <div class="h-[calc(var(--vh)*100)] overflow-y-auto lg:ml-[240px] lg:flex lg:w-[calc(100%-240px)]">
     {{ $slot }}
   </div>
   @livewireScripts

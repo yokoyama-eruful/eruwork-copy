@@ -60,7 +60,7 @@
       <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid hidden tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-[18px] lg:py-3 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid hidden tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-[18px] lg:py-2 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'lg:bg-[#F9FAFF] border lg:border-[#3289FA]' =>
                   $this->user->id === $user->id,
@@ -69,12 +69,12 @@
           ]) wire:click="selectUser('{{ $user->id }}')">
 
             <div
-              class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[45px] lg:w-[45px]">
+              class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image"></i>
+                    class="fa-solid fa-image scale-50"></i>
                 </div>
               @endif
             </div>
@@ -118,12 +118,12 @@
             ]) wire:click="selectUser('{{ $user->id }}')">
 
             <div
-              class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[45px] lg:w-[45px]">
+              class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image"></i>
+                    class="fa-solid fa-image scale-50"></i>
                 </div>
               @endif
             </div>
@@ -157,12 +157,12 @@
       <h5 class="hidden text-xl font-bold lg:block">タイムカード詳細</h5>
       <div class="mt-[30px] flex items-center space-x-5">
         <div
-          class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+          class="flex h-[40px] w-[40px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
           @if ($this->user->icon)
             <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $this->user->id]) }}">
           @else
             <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                class="fa-solid fa-image"></i>
+                class="fa-solid fa-image scale-50"></i>
             </div>
           @endif
         </div>
