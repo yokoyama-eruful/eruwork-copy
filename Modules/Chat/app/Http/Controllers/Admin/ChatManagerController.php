@@ -15,8 +15,8 @@ class ChatManagerController extends Controller
      */
     public function index()
     {
-        $groups =
-        Group::where('is_dm', false)
+        $groups = Group::with(['users'])
+            ->where('is_dm', false)
             ->orderBy('id')
             ->paginate(10);
 

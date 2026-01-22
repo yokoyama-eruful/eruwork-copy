@@ -62,6 +62,7 @@ self.addEventListener("fetch", function (event) {
   // 2. Viteビルド済みアセットの判定 (Cache First)
   // パスに /build/assets/ が含まれるか、ファイル名にVite特有のハッシュがある場合
   const isViteAsset = url.pathname.includes("/build/assets/") || 
+                      url.pathname.endsWith("manifest.json") ||
                       url.pathname.match(/-[a-zA-Z0-9]{8,}\.(js|css|png|jpg|jpeg|svg|woff2?)$/);
 
   if (isViteAsset) {
