@@ -26,8 +26,7 @@
           @foreach ($files as $file)
             <a href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}"
               @class([
-                  'hidden lg:grid grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr]
-                                                                                                                 py-[20px] text-[15px] items-center min-h-[121px] px-5',
+                  'hidden lg:grid grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr] py-[20px] text-[15px] items-center min-h-[121px] px-5',
                   'border-b' => !$loop->last,
               ])>
 
@@ -38,7 +37,7 @@
                 </div>
               @else
                 <div class="flex h-[80px] w-[145px] justify-center rounded-md bg-black">
-                  <img class="max-h-[80px] max-w-[145px] rounded" src="{{ global_asset('img/icon/NoImage.png') }}" />
+                  <img class="max-h-[80px] max-w-[145px] rounded" src="{{ asset('img/icon/NoImage.png') }}" />
                 </div>
               @endif
 

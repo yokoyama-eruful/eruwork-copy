@@ -24,7 +24,7 @@ class ManagerEdit extends Component
         $this->dispatch('updated');
 
         return redirect()->route('shiftManager.index');
-        // $this->dispatch('close-modal', 'edit-modal-' . $this->manager->id);
+        $this->dispatch('close-modal', 'edit-modal');
     }
 
     public function render()

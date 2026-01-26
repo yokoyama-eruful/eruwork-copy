@@ -60,7 +60,7 @@
       <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid hidden tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-[18px] lg:py-2 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid hidden tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-4 lg:py-2 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'lg:bg-[#F9FAFF] border lg:border-[#3289FA]' =>
                   $this->user->id === $user->id,

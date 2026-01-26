@@ -131,7 +131,7 @@ class Calendar extends Component
     public function update(): void
     {
         $this->form->update();
-        $this->dispatch('close-modal', 'edit-modal-' . $this->form->schedule->id);
+        $this->dispatch('close-modal', 'edit-modal');
         $this->reloadSchedule($this->form->date);
     }
 

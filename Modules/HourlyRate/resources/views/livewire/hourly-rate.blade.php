@@ -4,7 +4,7 @@
   </x-dashboard.top>
   <div class="hidden min-h-[calc(var(--vh)*100-100px)] lg:flex lg:space-x-5">
     <div
-      class="top-container mt-[20px] min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-3/5 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      class="top-container mt-[20px] min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-2/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <div class="flex items-center justify-between">
         <h5 class="hidden text-xl font-bold lg:block">時給管理</h5>
         <livewire:hourlyrate::wage-premiums-create :key="'desktop-create-wage-' . $selectedId" />
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div
-      class="top-container mt-[20px] hidden min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:w-2/5 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
+      class="top-container mt-[20px] hidden min-h-full w-full rounded-[10px] lg:mt-[13px] lg:block lg:w-1/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <livewire:hourlyrate::hourly-rate-show :$selectedUser :key="'desktop-show-' . $selectedId" />
     </div>
   </div>
