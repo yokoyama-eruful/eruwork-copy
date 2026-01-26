@@ -24,7 +24,7 @@
         <div>
           <x-input-label for="start_date" value="開始日" />
 
-          <div class="relative w-full" wire:ignore.self>
+          <div class="relative w-full" wire:ignore>
             <x-text-input class="js-datepicker mt-1 block w-full pr-10" id="start_date" name="start_date" type="text"
               wire:model="form.startDate" required />
             <svg class="pointer-events-none absolute right-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-[#3289FA]"
@@ -55,7 +55,7 @@
       <div class="mt-5 font-bold">シフト掲載期間</div>
 
       <div class="mt-5 flex items-center justify-center space-x-4">
-        <div wire:ignore.self>
+        <div wire:ignore>
           <x-input-label for="submission_start_date" value="開始日" />
 
           <div class="relative w-full">
