@@ -90,12 +90,12 @@
           <div class="border-r"></div>
           <div></div>
 
-          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7]" style="width: {{ $this->barWidth() }};">
+          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7]" style="width: {{ $this->barWidth }};">
           </div>
 
           <div
             class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240]"
-            style="left: {{ $this->barWidth() }}; transform: translateX(8px);">
+            style="left: {{ $this->barWidth }}; transform: translateX(8px);">
             {{ number_format($totalYearPay) }}円
           </div>
 
@@ -145,14 +145,14 @@
           <p>前月</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
-          <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
-            @foreach (range(2000, 2050) as $year)
-              <option value="{{ $year }}">{{ $year }}年</option>
+          <select class="rounded border border-[#DDDDDD]" wire:model="year" wire:change="updateCalendar">
+            @foreach (range(now()->year - 5, now()->year + 5) as $y)
+              <option value="{{ $y }}">{{ $y }}年</option>
             @endforeach
           </select>
-          <select class="rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
-            @foreach (range(1, 12) as $month)
-              <option value="{{ $month }}">{{ $month }}月</option>
+          <select class="rounded border border-[#DDDDDD]" wire:model="month" wire:change="updateCalendar">
+            @foreach (range(1, 12) as $m)
+              <option value="{{ $m }}">{{ $m }}月</option>
             @endforeach
           </select>
         </div>
@@ -184,12 +184,11 @@
       <div class="mt-[15px] divide-y border lg:grid lg:grid-cols-7 lg:divide-x lg:rounded-lg">
         @foreach ($this->calendar as $content)
           <div @class([
-              'lg:min-h-[170px] min-h-[78px] lg:block flex items-center justify-between',
-              'bg-[#F9FAFF]' =>
-                  $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
+              'lg:min-h-[170px] min-h-[78px] lg:block flex items-center justify-between cursor-pointer',
+              'bg-[#F9FAFF]' => $content['date']->isSameDay($selectedDate),
               'bg-gray-100 hidden lg:block' => $content['type'] == '補助日',
-          ]) wire:click="clickDate('{{ $content['date'] }}')"
-            wire:key="calendar-box-{{ $content['date']->format('Y-m-d') }}">
+          ]) wire:click="clickDate('{{ $content['date']->toDateString() }}')"
+            wire:key="calendar-box-{{ $content['date']->toDateString() }}">
             <div @class([
                 'pl-[15px] text-[15px] py-[15px] lg:text-base text-xs flex items-center',
                 'font-bold text-[#3289FA]' =>
@@ -242,88 +241,4 @@
       </div>
     </x-main.container>
   </div>
-
-  {{-- モバイル版メイン --}}
-  {{-- <div class="block px-[15px] pb-[30px] pt-[50px] lg:hidden">
-    <div class="flex items-center justify-center space-x-[22px] md:ml-0">
-      <button class="flex items-center rounded-l text-[15px]"
-        wire:click="selectedMonth('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
-        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
-        <p class="text-[15px] text-[#5E5E5E]">前月</p>
-      </button>
-      <div class="flex h-[35px] flex-row space-x-[5px]">
-        <select class="w-[115px] rounded border border-[#DDDDDD] p-0 px-[11px]" wire:model.live="year"
-          wire:change="updateCalendar">
-          @foreach (range(2000, 2050) as $year)
-            <option value="{{ $year }}">{{ $year }}年</option>
-          @endforeach
-        </select>
-        <select class="w-[96px] rounded border border-[#DDDDDD] p-0 px-[11px]" wire:model.live="month"
-          wire:change="updateCalendar">
-          @foreach (range(1, 12) as $month)
-            <option value="{{ $month }}">{{ $month }}月</option>
-          @endforeach
-        </select>
-      </div>
-      <button class="flex items-center rounded-r text-[15px]"
-        wire:click="selectedMonth('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
-        <p class="text-[15px] text-[#5E5E5E]">翌月</p>
-        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
-      </button>
-    </div>
-    <div class="mt-5 text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
-    <div class="-mx-[15px]">
-      @foreach ($this->calendar as $content)
-        @if ($content['type'] !== '補助日')
-          <div @class([
-              'flex min-h-[78px] h-auto items-center justify-between border-y px-4',
-              'bg-[#F9FAFF]' =>
-                  $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
-          ]) wire:click="clickDate('{{ $content['date'] }}')"
-            wire:key="mobile-calendar-box-{{ $content['date']->format('Y-m-d') }}">
-            <div @class([
-                'text-xs',
-                'text-[#3289FA] font-bold' =>
-                    $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
-                'text-[#48CBFF]' =>
-                    $content['date']->format('Y-m-d') !== $selectedDate->format('Y-m-d') &&
-                    $content['date']->isoFormat('ddd') === '土',
-                'text-[#FF0000]' =>
-                    $content['date']->format('Y-m-d') !== $selectedDate->format('Y-m-d') &&
-                    $content['date']->isoFormat('ddd') === '日',
-            ])>{{ $content['date']->isoFormat('D日（ddd曜）') }}</div>
-
-            @if ($content['workTimes']->isNotEmpty())
-              <div class="my-2 min-w-[256px] rounded-lg border border-[#DE993A] bg-[#FFF7EC] p-[9px] text-[#DE993A]">
-                <div class="flex flex-row items-start space-x-[37px]">
-                  <div class="text-xs font-bold">勤務時間</div>
-                  <div class="flex flex-col">
-                    @foreach ($content['workTimes'] as $key => $time)
-                      <div class="text-xs font-bold">
-                        {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
-                      </div>
-                    @endforeach
-                  </div>
-                </div>
-                <div class="mt-[7px] flex flex-row items-start space-x-[37px]">
-                  <div class="text-xs font-bold">休憩時間</div>
-                  <div class="flex flex-col">
-                    @if ($content['breakTimes']->isEmpty())
-                      <div class="text-xs font-bold">休憩なし</div>
-                    @else
-                      @foreach ($content['breakTimes'] as $key => $time)
-                        <div class="text-xs font-bold">
-                          {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
-                        </div>
-                      @endforeach
-                    @endif
-                  </div>
-                </div>
-              </div>
-            @endif
-          </div>
-        @endif
-      @endforeach
-    </div>
-  </div> --}}
 </div>
