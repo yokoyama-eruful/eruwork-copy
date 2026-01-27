@@ -177,7 +177,7 @@
         @endforeach
       </div>
       <div class="mb-5 lg:mb-0">
-        {{ $posts->links('vendor.pagination.tailwind') }}
+        {{ $posts->links('vendor.pagination.livewire') }}
       </div>
     @endif
   </x-main.container>

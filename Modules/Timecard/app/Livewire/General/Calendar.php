@@ -50,8 +50,6 @@ class Calendar extends Component
 
     public BreakTimeData $breakData;
 
-    public $users;
-
     public int $selectUserId;
 
     public $workTimeList;
@@ -60,7 +58,6 @@ class Calendar extends Component
 
     public function mount(): void
     {
-        $this->users = User::get();
         $this->selectUserId = Auth::id();
 
         $this->clickDate(CarbonImmutable::now());
@@ -140,48 +137,44 @@ class Calendar extends Component
     #[Computed()] #[On('refreshCalendar')]
     public function calendar()
     {
-        $workTimes = WorkTime::where('user_id', $this->selectUserId)
+        // 1. 勤務データを一括取得し、日付(YYYY-MM-DD)をキーにしてグループ化しておく
+        $workTimesGrouped = WorkTime::where('user_id', $this->selectUserId)
             ->where(function ($q) {
                 $q->whereBetween('in_time', [$this->startDate, $this->endDate])
-                    ->orWhereBetween('out_time', [$this->startDate, $this->endDate])
-                    ->orWhere(function ($q2) {
-                        $q2->where('in_time', '<', $this->startDate)
-                            ->where('out_time', '>', $this->endDate);
-                    });
+                    ->orWhereBetween('out_time', [$this->startDate, $this->endDate]);
             })
             ->orderBy('in_time', 'asc')
-            ->get();
+            ->get()
+            ->groupBy(fn ($work) => $work->in_time->toDateString());
 
-        $breakTimes = BreakTime::where('user_id', $this->selectUserId)
-            ->whereNotNull('timecard__work_time_id') // 勤務に紐づくものだけ
-            ->whereIn('timecard__work_time_id', $workTimes->pluck('id'))
+        // 2. 休憩データを一括取得し、勤務IDをキーにしてグループ化しておく
+        $breakTimesGrouped = BreakTime::where('user_id', $this->selectUserId)
+            ->whereNotNull('timecard__work_time_id')
+            ->whereIn('timecard__work_time_id', $workTimesGrouped->flatten()->pluck('id'))
             ->orderBy('in_time', 'asc')
-            ->get();
+            ->get()
+            ->groupBy('timecard__work_time_id');
 
+        // 3. 表示範囲の生成
         $period = CarbonPeriodImmutable::create(
             $this->selectedDate->startOfMonth()->startOfWeek(CarbonImmutable::MONDAY),
             $this->selectedDate->endOfMonth()->endOfWeek(CarbonImmutable::SUNDAY)
         );
 
-        return iterator_to_array($period->map(function ($date) use ($workTimes, $breakTimes) {
-            $type = $this->getDayType($date);
+        return iterator_to_array($period->map(function ($date) use ($workTimesGrouped, $breakTimesGrouped) {
+            $dateString = $date->toDateString();
 
-            // 勤務は in_time の日付でのみ表示
-            $workTimeRecords = $workTimes->filter(function ($work) use ($date) {
-                return $work->in_time->toDateString() === $date->toDateString();
+            // 当日の勤務を取得（なければ空のコレクション）
+            $workTimeRecords = $workTimesGrouped->get($dateString, collect());
+
+            // 当日の勤務に紐づく休憩を、索引から一気に取り出す
+            $breakTimeRecords = $workTimeRecords->flatMap(function ($work) use ($breakTimesGrouped) {
+                return $breakTimesGrouped->get($work->id, collect());
             });
-
-            // その勤務に紐づく休憩だけ取得
-            $breakTimeRecords = collect();
-            foreach ($workTimeRecords as $work) {
-                $breakTimeRecords = $breakTimeRecords->merge(
-                    $breakTimes->where('timecard__work_time_id', $work->id)
-                );
-            }
 
             return [
                 'date' => $date,
-                'type' => $type,
+                'type' => $this->getDayType($date),
                 'workTimes' => $workTimeRecords,
                 'breakTimes' => $breakTimeRecords,
             ];

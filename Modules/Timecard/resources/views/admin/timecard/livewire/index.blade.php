@@ -149,7 +149,7 @@
 
           </a>
         @endforeach
-        {{ $this->users->links('vendor.pagination.tailwind') }}
+        {{ $this->users->links('vendor.pagination.livewire') }}
       </div>
     </div>
     <div
