@@ -60,11 +60,22 @@ class Calendar extends Component
     {
         $this->selectUserId = (int) Auth::id();
 
-        // URLパラメータがない場合は現在時刻、ある場合はその年月で初期化
-        $initialDate = ($this->year && $this->month)
-            ? CarbonImmutable::create($this->year, $this->month, 1)
-            : CarbonImmutable::now();
+        // 1. まず現在の時刻を取得
+        $now = CarbonImmutable::now();
 
+        // 2. URLパラメータ等で値がセットされていない（未初期化）場合に備え、
+        // isset() や property_exists() ではなく、初期値を代入して確実に初期化する
+        if (! isset($this->year)) {
+            $this->year = $now->year;
+        }
+        if (! isset($this->month)) {
+            $this->month = $now->month;
+        }
+
+        // 3. 初期化された値を使って日付オブジェクトを作成
+        $initialDate = CarbonImmutable::create($this->year, $this->month, 1);
+
+        // 4. データ読み込み
         $this->refreshAllData($initialDate);
     }
 
