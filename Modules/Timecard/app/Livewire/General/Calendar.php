@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Modules\Timecard\Livewire\General;
 
-use App\Models\User;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonPeriodImmutable;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +54,9 @@ class Calendar extends Component
     public $workTimeList;
 
     public $breakTimeList;
+
+    #[Computed]
+    private $calendarCache;
 
     public function mount(): void
     {
@@ -140,16 +142,40 @@ class Calendar extends Component
     }
 
     /**
-     * DTOを使用した集計処理（ボトルネック箇所）
+     * DTOを使用した集計処理（計算結果を自動キャッシュ）
      */
+    #[Computed]
+    public function totalMonthWorkingTimeComputed(): string
+    {
+        $selectUser = Auth::user();
+
+        return totalWorkingTimeDto::month($selectUser, $this->selectedDate);
+    }
+
+    #[Computed]
+    public function totalYearWorkingTimeComputed(): string
+    {
+        $selectUser = Auth::user();
+
+        return totalWorkingTimeDto::year($selectUser, $this->selectedDate);
+    }
+
+    #[Computed]
+    public function totalYearPayComputed(): string
+    {
+        $selectUser = Auth::user();
+
+        return totalWorkingTimeDto::yearPay($selectUser, $this->selectedDate);
+    }
+
     private function calculateSummaries(): void
     {
-        $selectUser = Auth::user(); // User::findを節約
-
-        // 月間・年間の集計を一括で行う
-        $this->totalMonthWorkingTime = totalWorkingTimeDto::month($selectUser, $this->selectedDate);
-        $this->totalYearWorkingTime = totalWorkingTimeDto::year($selectUser, $this->selectedDate);
-        $this->totalYearPay = totalWorkingTimeDto::yearPay($selectUser, $this->selectedDate);
+        // #[Computed] プロパティとして計算済みなので、
+        // ビューから直接 $this->totalMonthWorkingTimeComputed() などを呼び出す
+        // または古い $this->totalMonthWorkingTime 等も互換性のため保持
+        $this->totalMonthWorkingTime = $this->totalMonthWorkingTimeComputed();
+        $this->totalYearWorkingTime = $this->totalYearWorkingTimeComputed();
+        $this->totalYearPay = $this->totalYearPayComputed();
     }
 
     public function setWorkTimeList(CarbonImmutable $date): void
@@ -181,18 +207,22 @@ class Calendar extends Component
         $periodStart = $this->selectedDate->startOfMonth()->startOfWeek(CarbonImmutable::MONDAY);
         $periodEnd = $this->selectedDate->endOfMonth()->endOfWeek(CarbonImmutable::SUNDAY);
 
-        // クエリ範囲をカレンダー全域に広げる（補助日のデータも表示するため）
-        $workTimesGrouped = WorkTime::where('user_id', $this->selectUserId)
+        // 勤務データを一度だけ取得してグループ化
+        $allWorkTimes = WorkTime::where('user_id', $this->selectUserId)
             ->where(function ($q) use ($periodStart, $periodEnd) {
                 $q->whereBetween('in_time', [$periodStart, $periodEnd])
                     ->orWhereBetween('out_time', [$periodStart, $periodEnd]);
             })
+            ->with('breakTimes') // リレーション読み込みで N+1 回避
             ->orderBy('in_time', 'asc')
-            ->get()
-            ->groupBy(fn ($work) => $work->in_time->toDateString());
+            ->get();
 
+        $workTimesGrouped = $allWorkTimes->groupBy(fn ($work) => $work->in_time->toDateString());
+        $workTimeIds = $allWorkTimes->pluck('id')->toArray();
+
+        // ブレークタイムを一度だけ取得
         $breakTimesGrouped = BreakTime::where('user_id', $this->selectUserId)
-            ->whereIn('timecard__work_time_id', $workTimesGrouped->flatten()->pluck('id'))
+            ->whereIn('timecard__work_time_id', $workTimeIds)
             ->orderBy('in_time', 'asc')
             ->get()
             ->groupBy('timecard__work_time_id');
