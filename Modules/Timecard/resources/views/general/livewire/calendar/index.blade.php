@@ -90,12 +90,11 @@
           <div class="border-r"></div>
           <div></div>
 
-          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7] transition-all duration-1000 ease-out"
-            x-data="{ width: '0%' }" x-init="setTimeout(() => { width = '{{ $this->barWidth() }}' }, 50)" :style="'width:' + width">
+          <div class="absolute left-0 top-[70px] h-9 rounded-r bg-[#6ed0f7]" style="width: {{ $this->barWidth() }};">
           </div>
 
           <div
-            class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240] transition-[left] duration-1000 ease-out"
+            class="absolute top-10 z-[6] whitespace-nowrap rounded bg-white py-1 pl-[6px] pr-[10px] text-xs font-bold shadow-[0_4px_13px_0_#5D5F6240]"
             style="left: {{ $this->barWidth() }}; transform: translateX(8px);">
             {{ number_format($totalYearPay) }}円
           </div>
