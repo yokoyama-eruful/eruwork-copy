@@ -100,48 +100,29 @@
         @enderror
       </div>
 
-      {{-- ボタン --}}
-      <div class="mt-10 hidden justify-center space-x-5 lg:flex">
-        <a class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md border-2 border-[#3289FA] bg-white font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
-          href="{{ route('board.index') }}">
-          キャンセル
-        </a>
-
-        <button
-          class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
-          id="updateButton" type="button">
-          更新する
-        </button>
+      <div class="mt-10 space-y-5 lg:flex lg:justify-center lg:gap-5 lg:space-y-0">
 
         @if ($status == '下書き')
           <button
-            class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#3289FA] font-bold uppercase tracking-widest text-white hover:bg-blue-100"
-            id="postButton" type="button">
-            投稿する
-          </button>
-        @endif
-      </div>
-
-      <div class="my-5 block w-full lg:hidden">
-        @if ($status == '下書き')
-          <button
-            class="inline-flex h-[50px] w-full items-center justify-center rounded-md bg-[#3289FA] font-bold uppercase tracking-widest text-white hover:bg-blue-100"
+            class="block h-[50px] w-full rounded-md bg-[#3289FA] font-bold uppercase tracking-widest text-white hover:bg-blue-100 lg:order-3 lg:w-[230px]"
             id="postButton" type="button">
             投稿する
           </button>
         @endif
 
-        <div class="mt-5 flex items-center justify-between space-x-5">
-          <a class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md border-2 border-[#3289FA] bg-white font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
+        <div class="flex gap-5 lg:order-1">
+
+          <a class="inline-flex h-[50px] w-full items-center justify-center rounded-md border-2 border-[#3289FA] bg-white font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100 lg:w-[230px]"
             href="{{ route('board.index') }}">
             キャンセル
           </a>
 
           <button
-            class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
+            class="inline-flex h-[50px] w-full items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100 lg:w-[230px]"
             id="updateButton" type="button">
             更新する
           </button>
+
         </div>
       </div>
 

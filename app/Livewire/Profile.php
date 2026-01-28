@@ -23,9 +23,15 @@ class Profile extends Component
 
     public function update()
     {
+        $this->resetErrorBag();
+
         $this->form->update();
 
-        if ($this->form->notifyMessage) {
+        if ($this->getErrorBag()->isNotEmpty()) {
+            return;
+        }
+
+        if ($this->form->notifyMessage && ! Auth::user()->notify_message) {
             $this->dispatch('enablePush');
         } else {
             $this->dispatch('disablePush');

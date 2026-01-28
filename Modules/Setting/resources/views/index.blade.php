@@ -113,18 +113,18 @@
 
             <div class="mt-[30px] items-center space-y-2 lg:grid lg:grid-cols-[50%,50%] lg:space-y-0">
               <div class="grid grid-cols-[40%,60%] items-center">
-                <div class="text-[11px] font-bold">残業割増設定</div>
-                <label class="flex cursor-pointer items-center space-x-2">
-                  <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="overtimeRate" type="text"
-                    value="{{ old('overtimeRate', $wagePremium->overtime_rate) }}" />
-                  <div>%</div>
-                </label>
-              </div>
-              <div class="grid grid-cols-[40%,60%] items-center">
                 <div class="text-[11px] font-bold">深夜割増設定</div>
                 <label class="flex cursor-pointer items-center space-x-2">
                   <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="nightRate" type="text"
                     value="{{ old('nightRate', $wagePremium->night_rate) }}" />
+                  <div>%</div>
+                </label>
+              </div>
+              <div class="grid grid-cols-[40%,60%] items-center">
+                <div class="text-[11px] font-bold">残業割増設定</div>
+                <label class="flex cursor-pointer items-center space-x-2">
+                  <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="overtimeRate" type="text"
+                    value="{{ old('overtimeRate', $wagePremium->overtime_rate) }}" />
                   <div>%</div>
                 </label>
               </div>

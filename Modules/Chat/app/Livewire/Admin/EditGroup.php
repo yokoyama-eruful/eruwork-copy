@@ -6,7 +6,6 @@ namespace Modules\Chat\Livewire\Admin;
 
 use App\Events\ChatEvent;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Computed;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -30,7 +29,7 @@ class EditGroup extends Component
     #[Computed()]
     public function users()
     {
-        return User::orderBy('id')->whereNot('id', Auth::id())->get();
+        return User::orderBy('id')->get();
     }
 
     public function update()

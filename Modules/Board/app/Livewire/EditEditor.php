@@ -57,9 +57,9 @@ class EditEditor extends Component
     {
         $this->validate();
 
-        if ($this->status) {
-            $branchStatus = '掲載';
-        }
+        // if ($this->status) {
+        //     $branchStatus = '掲載';
+        // }
 
         if (! empty($this->dropFiles)) {
             foreach ($this->dropFiles as $file) {
