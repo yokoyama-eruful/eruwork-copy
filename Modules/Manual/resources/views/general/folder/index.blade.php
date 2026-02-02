@@ -47,6 +47,7 @@
           </svg>
         </div>
       @endif
+      {{ $folders->links('vendor.pagination.tailwind') }}
     </x-main.container>
   </x-main.index>
 </x-app-layout>

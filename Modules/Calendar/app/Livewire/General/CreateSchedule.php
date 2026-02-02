@@ -21,7 +21,7 @@ class CreateSchedule extends Component
         $this->form->save();
 
         $this->dispatch('added');
-        $this->dispatch('close', 'create-modal-' . $this->date->format('Y-m-d'));
+        $this->dispatch('close-modal', 'create-modal-' . $this->date->format('Y-m-d'));
     }
 
     public function cancel()

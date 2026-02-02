@@ -27,7 +27,7 @@
         <div class="grid w-full grid-cols-[25%,75%] items-center px-[20px] lg:grid-cols-[22%,78%] lg:px-[30px]">
           <x-input-label for="login_id" :value="__('login_id')" />
           <x-text-input class="mt-1 block w-full placeholder:text-[14px]" id="login_id" name="login_id" type="text"
-            :value="old('name')" placeholder="IDを入力してください" required />
+            :value="old('login_id')" placeholder="IDを入力してください" required autocomplete="username" />
           <x-input-error class="mt-2" :messages="$errors->get('login_id')" />
         </div>
         <div class="mt-5 grid w-full grid-cols-[25%,75%] items-center px-[20px] lg:grid-cols-[22%,78%] lg:px-[30px]">

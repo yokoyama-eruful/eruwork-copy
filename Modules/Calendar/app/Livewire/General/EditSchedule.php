@@ -25,7 +25,7 @@ class EditSchedule extends Component
         $this->form->update();
 
         $this->dispatch('updated');
-        $this->dispatch('close', 'schedule-edit-modal-' . $this->schedule->id);
+        $this->dispatch('close-modal', 'schedule-edit-modal-' . $this->schedule->id);
     }
 
     public function overlappingSchedules()

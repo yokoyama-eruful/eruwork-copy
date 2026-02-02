@@ -196,9 +196,8 @@
               </div>
             @endforeach
           </div>
-
-          {{ $this->users->links('vendor.pagination.livewire') }}
       </x-dashboard.container>
+      {{ $this->users->links('vendor.pagination.livewire') }}
     </form>
   </div>
 </x-dashboard.index>

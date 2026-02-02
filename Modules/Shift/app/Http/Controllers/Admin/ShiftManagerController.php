@@ -14,7 +14,17 @@ class ShiftManagerController extends Controller
      */
     public function index()
     {
-        $managers = Manager::orderByDesc('start_date')->paginate(10);
+        $managers = Manager::orderByRaw('
+            CASE
+                WHEN submission_start_date <= NOW()
+                AND submission_end_date >= NOW() THEN 1  -- 受付中
+
+                WHEN submission_start_date > NOW() THEN 2  -- 準備中
+
+                ELSE 3                                    -- 終了
+            END ASC
+        ')->orderBy('start_date', 'asc')
+            ->paginate(10);
 
         return view('shift::admin.index', ['managers' => $managers]);
     }

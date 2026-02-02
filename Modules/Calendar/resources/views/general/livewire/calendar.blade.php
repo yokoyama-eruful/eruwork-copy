@@ -1,62 +1,42 @@
 <x-main.index>
 
   <x-main.top>
-    <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
-    <livewire:calendar::general.multi-create-schedule />
-    <div class="ml-5 hidden items-center lg:flex tablet:ml-0">
-      <button class="hidden items-center space-x-1 rounded-l pl-[30px] pr-[11px] text-[15px] tablet:flex"
-        wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
-        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
-        <p class="hidden lg:block">前月</p>
-      </button>
-      <div class="flex flex-row space-x-[5px]">
-        <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
-          @foreach (range(2000, 2050) as $year)
-            <option value="{{ $year }}">{{ $year }}年</option>
-          @endforeach
-        </select>
-        <select class="rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
-          @foreach (range(1, 12) as $month)
-            <option value="{{ $month }}">{{ $month }}月</option>
-          @endforeach
-        </select>
+    <div class="flex w-full flex-col items-center justify-between lg:flex-row">
+      <div class="flex w-full items-center justify-between lg:w-auto">
+        <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
+        <livewire:calendar::general.multi-create-schedule />
       </div>
-      <button class="hidden items-center space-x-1 rounded-r pl-[11px] text-[15px] tablet:flex"
-        wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
-        <p class="hidden lg:block">翌月</p>
-        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
-      </button>
-      <div class="">
-        <button class="mx-2 h-[25px] rounded border bg-[#77829C] px-2 text-[14px] text-white"
-          wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
+      <div class="mt-5 flex w-full items-center justify-center lg:ml-5 lg:mt-0 lg:w-auto tablet:ml-0">
+        <button class="flex items-center space-x-1 rounded-l pr-[11px] text-[15px] lg:pl-[30px]"
+          wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
+          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
+          <p>前月</p>
+        </button>
+        <div class="flex flex-row space-x-[5px]">
+          <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
+            @foreach (range(2000, 2050) as $year)
+              <option value="{{ $year }}">{{ $year }}年</option>
+            @endforeach
+          </select>
+          <select class="rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
+            @foreach (range(1, 12) as $month)
+              <option value="{{ $month }}">{{ $month }}月</option>
+            @endforeach
+          </select>
+        </div>
+        <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[15px]"
+          wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
+          <p>翌月</p>
+          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
+        </button>
+        <div class="">
+          <button class="mx-2 hidden h-[25px] rounded border bg-[#77829C] px-2 text-[14px] text-white lg:block"
+            wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
+        </div>
       </div>
     </div>
   </x-main.top>
   <x-main.container>
-    <div class="mt-5 flex items-center justify-between px-5 lg:hidden">
-      <button class="flex items-center space-x-1 rounded-l text-[15px]"
-        wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
-        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
-        <p class="text-[15px]">前月</p>
-      </button>
-      <div class="flex flex-row space-x-[5px]">
-        <select class="w-[115px] rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
-          @foreach (range(2000, 2050) as $year)
-            <option value="{{ $year }}">{{ $year }}年</option>
-          @endforeach
-        </select>
-        <select class="w-[96px] rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
-          @foreach (range(1, 12) as $month)
-            <option value="{{ $month }}">{{ $month }}月</option>
-          @endforeach
-        </select>
-      </div>
-      <button class="flex items-center space-x-1 rounded-r text-[15px]"
-        wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
-        <p class="text-[15px]">翌月</p>
-        <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
-      </button>
-    </div>
 
     <h5 class="hidden text-xl font-bold lg:block">カレンダー</h5>
 
@@ -170,11 +150,9 @@
                   class="absolute right-0 z-10 min-w-[300px] max-w-[300px] rounded-xl bg-white py-[15px] pl-[30px] pr-[15px] shadow-[0_4px_13px_rgba(93,95,98,0.25)]"
                   x-show="openModalSchedule{{ $schedule->id }} === true"
                   x-transition:enter="transition ease-out duration-300"
-                  x-transition:enter-start="opacity-0 translate-y-2"
-                  x-transition:enter-end="opacity-100 translate-y-0"
+                  x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
                   x-transition:leave="transition ease-in duration-200"
-                  x-transition:leave-start="opacity-100 translate-y-0"
-                  x-transition:leave-end="opacity-0 translate-y-2">
+                  x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 translate-y-2">
 
                   <div class="flex items-center justify-between space-x-7">
                     <div class="text-xs text-[#777777]">{{ $schedule->date->format('Y/m/d') }}</div>

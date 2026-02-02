@@ -14,7 +14,7 @@ class ManualFolderController extends Controller
      */
     public function index()
     {
-        $folders = ManualFolder::get();
+        $folders = ManualFolder::paginate(10);
 
         return view('manual::general.folder.index', ['folders' => $folders]);
     }

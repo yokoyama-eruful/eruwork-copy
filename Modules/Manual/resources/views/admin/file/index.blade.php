@@ -52,8 +52,7 @@
                     <span style="display:inline-block; transform: rotate(-45deg);">
                       下書き
                     </span>
-                  </div
-                </div>
+                  </div </div>
               @endif
 
               @if ($file->type)
@@ -181,6 +180,7 @@
           </svg>
         </div>
       @endif
+      {{ $files->links('vendor.pagination.tailwind') }}
     </x-dashboard.container>
   </x-dashboard.index>
 </x-dashboard-layout>

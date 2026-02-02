@@ -23,7 +23,7 @@ class DeleteSchedule extends Component
         $this->form->delete();
 
         $this->dispatch('updated');
-        $this->dispatch('close', 'schedule-delete-modal-' . $this->schedule->id);
+        $this->dispatch('close-modal', 'schedule-delete-modal-' . $this->schedule->id);
     }
 
     public function render()

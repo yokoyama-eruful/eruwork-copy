@@ -5,7 +5,7 @@
     <livewire:calendar::admin.multi-create-public-holiday />
     <div class="hidden items-center md:ml-0 lg:flex">
       <button class="flex items-center space-x-1 rounded-l pl-[30px] pr-[11px] text-[15px]"
-        wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
+        wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
         <p class="hidden lg:block">前月</p>
       </button>
@@ -22,7 +22,7 @@
         </select>
       </div>
       <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[15px]"
-        wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
+        wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
         <p class="hidden lg:block">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
       </button>
@@ -35,7 +35,7 @@
   <x-dashboard.container>
     <div class="mt-5 flex items-center justify-between px-5 lg:hidden">
       <button class="flex items-center space-x-1 rounded-l text-[15px]"
-        wire:click="clickDate('{{ $selectedDate->subMonth()->format('Y-m-d') }}')">
+        wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
         <p class="text-[15px]">前月</p>
       </button>
@@ -52,7 +52,7 @@
         </select>
       </div>
       <button class="flex items-center space-x-1 rounded-r text-[15px]"
-        wire:click="clickDate('{{ $selectedDate->addMonth()->format('Y-m-d') }}')">
+        wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
         <p class="text-[15px]">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
       </button>

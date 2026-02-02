@@ -38,7 +38,7 @@ class Profile extends Component
         }
 
         if ($this->getErrorBag()->isEmpty()) {
-            $this->dispatch('close', 'profile');
+            $this->dispatch('close-modal', 'profile');
         }
     }
 

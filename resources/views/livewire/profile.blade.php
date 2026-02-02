@@ -9,17 +9,15 @@
         </ul>
       </div>
     @endif
+
     <div class="grid grid-cols-[30%,70%] items-center">
       <button
         class="relative flex h-[70px] w-[70px] items-center justify-center rounded-full bg-[#000000] bg-opacity-30 hover:opacity-50"
         type="button" onclick="document.getElementById('iconInput').click()">
         @if ($form->icon)
-          <!-- 選択中のファイルをプレビュー -->
           <img class="h-full w-full rounded-full object-cover" src="{{ $form->icon->temporaryUrl() }}">
         @elseif (Auth::user()->icon)
-          <!-- 既存のアイコン -->
           <img class="h-full w-full rounded-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}">
-        @else
         @endif
         <div class="absolute">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,18 +35,19 @@
       </div>
     </div>
 
-    <!-- 現在のパスワード -->
     <div class="relative mt-5 items-center">
-
-      <x-input-label name="current_password">
-        <p class="block lg:hidden">現在のパスワード</p>
-        <p class="hidden lg:block">現在のパスワード</p>
-      </x-input-label>
-      <div class="relative w-full">
-        <x-text-input class="w-full pr-5 lg:pr-10" id="current_password" name="current_password" type="password"
-          autocomplete="current-password" wire:model="form.currentPassword" />
-        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" id="current_togglePassword" type="button">
-          <svg id="current_icon-hide" width="18" height="18" viewBox="0 0 18 18" fill="none"
+      <x-input-label name="current_password">現在のパスワード</x-input-label>
+      <div class="relative w-full" x-data="{ show: false }">
+        <x-text-input class="w-full pr-5 lg:pr-10" id="current_password" name="current_password"
+          x-bind:type="show ? 'text' : 'password'" autocomplete="current-password" wire:model="form.currentPassword" />
+        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" type="button" @click="show = !show">
+          <svg x-show="!show" width="18" height="18" viewBox="0 0 18 18" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2.98494 6.16725C2.28328 6.99538 1.7608 7.9599 1.45044 9C2.41944 12.2535 5.43294 14.625 8.99994 14.625C9.74469 14.625 10.4647 14.5215 11.1472 14.3287M4.67094 4.671C5.95542 3.8234 7.461 3.37266 8.99994 3.375C12.5669 3.375 15.5797 5.7465 16.5487 8.9985C16.0177 10.7755 14.8777 12.3087 13.3289 13.329M4.67094 4.671L2.24994 2.25M4.67094 4.671L7.40844 7.4085M13.3289 13.329L15.7499 15.75M13.3289 13.329L10.5914 10.5915C10.8004 10.3826 10.9661 10.1345 11.0792 9.86149C11.1923 9.58848 11.2505 9.29587 11.2505 9.00037C11.2505 8.70488 11.1923 8.41227 11.0792 8.13926C10.9661 7.86626 10.8004 7.6182 10.5914 7.40925C10.3825 7.2003 10.1344 7.03455 9.86143 6.92147C9.58842 6.80839 9.29581 6.75018 9.00032 6.75018C8.70482 6.75018 8.41221 6.80839 8.1392 6.92147C7.8662 7.03455 7.61814 7.2003 7.40919 7.40925M10.5907 10.5908L7.40994 7.41"
+              stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <svg x-show="show" x-cloak width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
               d="M1.5271 9.2415C1.47534 9.08594 1.47534 8.91781 1.5271 8.76225C2.56735 5.6325 5.5201 3.375 9.0001 3.375C12.4786 3.375 15.4298 5.63025 16.4723 8.7585C16.5248 8.91375 16.5248 9.08175 16.4723 9.23775C15.4328 12.3675 12.4801 14.625 9.0001 14.625C5.5216 14.625 2.5696 12.3697 1.5271 9.2415Z"
@@ -57,28 +56,23 @@
               d="M11.25 9C11.25 9.59674 11.0129 10.169 10.591 10.591C10.169 11.0129 9.59674 11.25 9 11.25C8.40326 11.25 7.83097 11.0129 7.40901 10.591C6.98705 10.169 6.75 9.59674 6.75 9C6.75 8.40326 6.98705 7.83097 7.40901 7.40901C7.83097 6.98705 8.40326 6.75 9 6.75C9.59674 6.75 10.169 6.98705 10.591 7.40901C11.0129 7.83097 11.25 8.40326 11.25 9Z"
               stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <svg class="hidden" id="current_icon-show" width="18" height="18" viewBox="0 0 18 18" fill="none"
+        </button>
+      </div>
+    </div>
+
+    <div class="relative mt-5 items-center">
+      <x-input-label name="new_password">新しいパスワード</x-input-label>
+      <div class="relative w-full" x-data="{ show: false }">
+        <x-text-input class="w-full pr-5 lg:pr-10" id="new_password" name="new_password"
+          x-bind:type="show ? 'text' : 'password'" autocomplete="new-password" wire:model="form.newPassword" />
+        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" type="button" @click="show = !show">
+          <svg x-show="!show" width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
               d="M2.98494 6.16725C2.28328 6.99538 1.7608 7.9599 1.45044 9C2.41944 12.2535 5.43294 14.625 8.99994 14.625C9.74469 14.625 10.4647 14.5215 11.1472 14.3287M4.67094 4.671C5.95542 3.8234 7.461 3.37266 8.99994 3.375C12.5669 3.375 15.5797 5.7465 16.5487 8.9985C16.0177 10.7755 14.8777 12.3087 13.3289 13.329M4.67094 4.671L2.24994 2.25M4.67094 4.671L7.40844 7.4085M13.3289 13.329L15.7499 15.75M13.3289 13.329L10.5914 10.5915C10.8004 10.3826 10.9661 10.1345 11.0792 9.86149C11.1923 9.58848 11.2505 9.29587 11.2505 9.00037C11.2505 8.70488 11.1923 8.41227 11.0792 8.13926C10.9661 7.86626 10.8004 7.6182 10.5914 7.40925C10.3825 7.2003 10.1344 7.03455 9.86143 6.92147C9.58842 6.80839 9.29581 6.75018 9.00032 6.75018C8.70482 6.75018 8.41221 6.80839 8.1392 6.92147C7.8662 7.03455 7.61814 7.2003 7.40919 7.40925M10.5907 10.5908L7.40994 7.41"
               stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- 新しいパスワード -->
-    <div class="relative mt-5 items-center">
-      <x-input-label name="new_password">
-        <p class="block lg:hidden">新しいパスワード</p>
-        <p class="hidden lg:block">新しいパスワード</p>
-
-      </x-input-label>
-      <div class="relative w-full">
-        <x-text-input class="w-full pr-5 lg:pr-10" id="new_password" name="new_password" type="password"
-          autocomplete="new-password" wire:model="form.newPassword" />
-        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" id="new_togglePassword" type="button">
-          <svg id="new_icon-hide" width="18" height="18" viewBox="0 0 18 18" fill="none"
+          <svg x-show="show" x-cloak width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
               d="M1.5271 9.2415C1.47534 9.08594 1.47534 8.91781 1.5271 8.76225C2.56735 5.6325 5.5201 3.375 9.0001 3.375C12.4786 3.375 15.4298 5.63025 16.4723 8.7585C16.5248 8.91375 16.5248 9.08175 16.4723 9.23775C15.4328 12.3675 12.4801 14.625 9.0001 14.625C5.5216 14.625 2.5696 12.3697 1.5271 9.2415Z"
@@ -87,41 +81,30 @@
               d="M11.25 9C11.25 9.59674 11.0129 10.169 10.591 10.591C10.169 11.0129 9.59674 11.25 9 11.25C8.40326 11.25 7.83097 11.0129 7.40901 10.591C6.98705 10.169 6.75 9.59674 6.75 9C6.75 8.40326 6.98705 7.83097 7.40901 7.40901C7.83097 6.98705 8.40326 6.75 9 6.75C9.59674 6.75 10.169 6.98705 10.591 7.40901C11.0129 7.83097 11.25 8.40326 11.25 9Z"
               stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <svg class="hidden" id="new_icon-show" width="18" height="18" viewBox="0 0 18 18" fill="none"
-            xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M2.98494 6.16725C2.28328 6.99538 1.7608 7.9599 1.45044 9C2.41944 12.2535 5.43294 14.625 8.99994 14.625C9.74469 14.625 10.4647 14.5215 11.1472 14.3287M4.67094 4.671C5.95542 3.8234 7.461 3.37266 8.99994 3.375C12.5669 3.375 15.5797 5.7465 16.5487 8.9985C16.0177 10.7755 14.8777 12.3087 13.3289 13.329M4.67094 4.671L2.24994 2.25M4.67094 4.671L7.40844 7.4085M13.3289 13.329L15.7499 15.75M13.3289 13.329L10.5914 10.5915C10.8004 10.3826 10.9661 10.1345 11.0792 9.86149C11.1923 9.58848 11.2505 9.29587 11.2505 9.00037C11.2505 8.70488 11.1923 8.41227 11.0792 8.13926C10.9661 7.86626 10.8004 7.6182 10.5914 7.40925C10.3825 7.2003 10.1344 7.03455 9.86143 6.92147C9.58842 6.80839 9.29581 6.75018 9.00032 6.75018C8.70482 6.75018 8.41221 6.80839 8.1392 6.92147C7.8662 7.03455 7.61814 7.2003 7.40919 7.40925M10.5907 10.5908L7.40994 7.41"
-              stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
         </button>
       </div>
     </div>
 
-    <!-- 確認用パスワード -->
     <div class="relative mt-5 items-center">
-      <x-input-label name="new_password_confirmation">
-        <p class="block lg:hidden">新しいパスワード確認</p>
-        <p class="hidden lg:block">新しいパスワード確認</p>
-      </x-input-label>
-
-      <div class="relative w-full">
+      <x-input-label name="new_password_confirmation">新しいパスワード確認</x-input-label>
+      <div class="relative w-full" x-data="{ show: false }">
         <x-text-input class="w-full pr-5 lg:pr-10" id="new_password_confirmation" name="new_password_confirmation"
-          type="password" autocomplete="new-password" wire:model="form.newPasswordConfirmation" />
-        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" id="confirm_togglePassword"
-          type="button">
-          <svg id="confirm_icon-hide" width="18" height="18" viewBox="0 0 18 18" fill="none"
+          x-bind:type="show ? 'text' : 'password'" autocomplete="new-password"
+          wire:model="form.newPasswordConfirmation" />
+        <button class="absolute right-5 top-1/2 -translate-y-1/2 lg:right-3" type="button" @click="show = !show">
+          <svg x-show="!show" width="18" height="18" viewBox="0 0 18 18" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M2.98494 6.16725C2.28328 6.99538 1.7608 7.9599 1.45044 9C2.41944 12.2535 5.43294 14.625 8.99994 14.625C9.74469 14.625 10.4647 14.5215 11.1472 14.3287M4.67094 4.671C5.95542 3.8234 7.461 3.37266 8.99994 3.375C12.5669 3.375 15.5797 5.7465 16.5487 8.9985C16.0177 10.7755 14.8777 12.3087 13.3289 13.329M4.67094 4.671L2.24994 2.25M4.67094 4.671L7.40844 7.4085M13.3289 13.329L15.7499 15.75M13.3289 13.329L10.5914 10.5915C10.8004 10.3826 10.9661 10.1345 11.0792 9.86149C11.1923 9.58848 11.2505 9.29587 11.2505 9.00037C11.2505 8.70488 11.1923 8.41227 11.0792 8.13926C10.9661 7.86626 10.8004 7.6182 10.5914 7.40925C10.3825 7.2003 10.1344 7.03455 9.86143 6.92147C9.58842 6.80839 9.29581 6.75018 9.00032 6.75018C8.70482 6.75018 8.41221 6.80839 8.1392 6.92147C7.8662 7.03455 7.61814 7.2003 7.40919 7.40925M10.5907 10.5908L7.40994 7.41"
+              stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <svg x-show="show" x-cloak width="18" height="18" viewBox="0 0 18 18" fill="none"
             xmlns="http://www.w3.org/2000/svg">
             <path
               d="M1.5271 9.2415C1.47534 9.08594 1.47534 8.91781 1.5271 8.76225C2.56735 5.6325 5.5201 3.375 9.0001 3.375C12.4786 3.375 15.4298 5.63025 16.4723 8.7585C16.5248 8.91375 16.5248 9.08175 16.4723 9.23775C15.4328 12.3675 12.4801 14.625 9.0001 14.625C5.5216 14.625 2.5696 12.3697 1.5271 9.2415Z"
               stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
             <path
               d="M11.25 9C11.25 9.59674 11.0129 10.169 10.591 10.591C10.169 11.0129 9.59674 11.25 9 11.25C8.40326 11.25 7.83097 11.0129 7.40901 10.591C6.98705 10.169 6.75 9.59674 6.75 9C6.75 8.40326 6.98705 7.83097 7.40901 7.40901C7.83097 6.98705 8.40326 6.75 9 6.75C9.59674 6.75 10.169 6.98705 10.591 7.40901C11.0129 7.83097 11.25 8.40326 11.25 9Z"
-              stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-          <svg class="hidden" id="confirm_icon-show" width="18" height="18" viewBox="0 0 18 18"
-            fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path
-              d="M2.98494 6.16725C2.28328 6.99538 1.7608 7.9599 1.45044 9C2.41944 12.2535 5.43294 14.625 8.99994 14.625C9.74469 14.625 10.4647 14.5215 11.1472 14.3287M4.67094 4.671C5.95542 3.8234 7.461 3.37266 8.99994 3.375C12.5669 3.375 15.5797 5.7465 16.5487 8.9985C16.0177 10.7755 14.8777 12.3087 13.3289 13.329M4.67094 4.671L2.24994 2.25M4.67094 4.671L7.40844 7.4085M13.3289 13.329L15.7499 15.75M13.3289 13.329L10.5914 10.5915C10.8004 10.3826 10.9661 10.1345 11.0792 9.86149C11.1923 9.58848 11.2505 9.29587 11.2505 9.00037C11.2505 8.70488 11.1923 8.41227 11.0792 8.13926C10.9661 7.86626 10.8004 7.6182 10.5914 7.40925C10.3825 7.2003 10.1344 7.03455 9.86143 6.92147C9.58842 6.80839 9.29581 6.75018 9.00032 6.75018C8.70482 6.75018 8.41221 6.80839 8.1392 6.92147C7.8662 7.03455 7.61814 7.2003 7.40919 7.40925M10.5907 10.5908L7.40994 7.41"
               stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
@@ -129,41 +112,20 @@
     </div>
 
     <div class="mt-5 items-center">
-      <x-input-label name="new_password">通知設定</x-input-label>
+      <x-input-label name="notification_setting">通知設定</x-input-label>
       <div class="flex items-center space-x-[30px] text-xs">
         <div class="flex items-center space-x-2">
-          <input id="allow" name="notification" type="radio" value="1" wire:model="form.notifyMessage"
-            @if ($form->notifyMessage == true) checked @endif />
+          <input id="allow" name="notification" type="radio" value="1"
+            wire:model="form.notifyMessage" />
           <label for="allow">通知を許可</label>
         </div>
         <div class="flex items-center space-x-2">
-          <input id="deny" name="notification" type="radio" value="0" wire:model="form.notifyMessage"
-            @if ($form->notifyMessage == false) checked @endif />
+          <input id="deny" name="notification" type="radio" value="0"
+            wire:model="form.notifyMessage" />
           <label for="deny">通知を許可しない</label>
         </div>
       </div>
     </div>
-
-    <script>
-      function setupPasswordToggle(inputId, toggleBtnId, iconHideId, iconShowId) {
-        const input = document.getElementById(inputId);
-        const btn = document.getElementById(toggleBtnId);
-        const iconHide = document.getElementById(iconHideId);
-        const iconShow = document.getElementById(iconShowId);
-
-        btn.addEventListener('click', () => {
-          const isHidden = input.type === 'password';
-          input.type = isHidden ? 'text' : 'password';
-          iconHide.classList.toggle('hidden', !isHidden); // 非表示アイコンは非表示の時だけ見せる
-          iconShow.classList.toggle('hidden', isHidden); // 表示アイコンは表示の時だけ見せる
-        });
-      }
-
-      // 設定
-      setupPasswordToggle('current_password', 'current_togglePassword', 'current_icon-hide', 'current_icon-show');
-      setupPasswordToggle('new_password', 'new_togglePassword', 'new_icon-hide', 'new_icon-show');
-      setupPasswordToggle('new_password_confirmation', 'confirm_togglePassword', 'confirm_icon-hide', 'confirm_icon-show');
-    </script>
 
     <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">

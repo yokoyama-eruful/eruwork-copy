@@ -110,6 +110,7 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">マニュアルがありません</div>
         </div>
       @endif
+      {{ $folders->links('vendor.pagination.tailwind') }}
     </x-dashboard.container>
   </x-dashboard.index>
 </x-dashboard-layout>

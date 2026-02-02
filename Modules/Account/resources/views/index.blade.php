@@ -117,7 +117,7 @@
 
           </div>
         @endforeach
-        {{ $users->links('vendor.pagination.tailwind') }}
     </x-dashboard.container>
+    {{ $users->links('vendor.pagination.tailwind') }}
   </x-dashboard.index>
 </x-dashboard-layout>

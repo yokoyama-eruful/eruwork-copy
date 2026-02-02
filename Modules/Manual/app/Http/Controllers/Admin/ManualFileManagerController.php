@@ -16,7 +16,7 @@ class ManualFileManagerController extends Controller
     public function index($id)
     {
         $folder = ManualFolder::find($id);
-        $files = $folder->files->where('status', '掲載');
+        $files = $folder->files()->where('status', '掲載')->paginate(10);
 
         return view('manual::admin.file.index', ['folder' => $folder, 'files' => $files]);
     }

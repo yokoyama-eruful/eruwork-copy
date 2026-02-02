@@ -40,6 +40,13 @@ class ProfileForm extends Form
         $values = [];
 
         if ($this->currentPassword || $this->newPassword || $this->newPasswordConfirmation) {
+
+            if (! $this->currentPassword || ! $this->newPassword || ! $this->newPasswordConfirmation) {
+                $this->addError('newPassword', 'パスワード変更には全ての項目を入力してください');
+
+                return;
+            }
+
             if (! Hash::check($this->currentPassword, $user->password)) {
                 $this->addError('currentPassword', '現在のパスワードが違います');
 
@@ -52,8 +59,8 @@ class ProfileForm extends Form
                 return;
             }
 
-            if ($this->newPassword != $this->newPasswordConfirmation) {
-                $this->addError('currentPassword', '新しいパスワードと確認用パスワードが一致しません');
+            if ($this->newPassword !== $this->newPasswordConfirmation) {
+                $this->addError('newPasswordConfirmation', '確認用パスワードが一致しません');
 
                 return;
             }

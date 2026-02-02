@@ -25,7 +25,7 @@ class EditPublicHoliday extends Component
         $this->form->update();
 
         $this->dispatch('updated');
-        $this->dispatch('close', 'edit-modal-' . $this->publicHoliday->id);
+        $this->dispatch('close-modal', 'edit-modal-' . $this->publicHoliday->id);
     }
 
     public function delete()
@@ -33,7 +33,7 @@ class EditPublicHoliday extends Component
         $this->form->delete();
 
         $this->dispatch('updated');
-        $this->dispatch('close', 'edit-modal' . $this->publicHoliday->id);
+        $this->dispatch('close-modal', 'edit-modal' . $this->publicHoliday->id);
     }
 
     public function render()
