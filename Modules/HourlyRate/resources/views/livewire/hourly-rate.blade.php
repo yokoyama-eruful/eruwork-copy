@@ -7,7 +7,6 @@
       class="top-container mt-[20px] min-h-full w-full rounded-[10px] lg:mt-[13px] lg:w-2/3 lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <div class="flex items-center justify-between">
         <h5 class="hidden text-xl font-bold lg:block">時給管理</h5>
-        <livewire:hourlyrate::wage-premiums-create :key="'desktop-create-wage-' . $selectedId" />
       </div>
       <div class="mt-[30px] hidden grid-cols-[20%,45%,16%,19%] lg:grid tablet:grid-cols-[15%,58%,13%,14%]">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
@@ -67,8 +66,6 @@
       class="top-container mt-[20px] h-full w-full rounded-[10px] lg:mt-[13px] lg:min-w-[960px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]">
       <div class="flex items-center justify-between">
         <h5 class="hidden text-xl font-bold lg:block">時給管理</h5>
-
-        <livewire:hourlyrate::wage-premiums-create />
       </div>
 
       <!-- ユーザー一覧 -->
