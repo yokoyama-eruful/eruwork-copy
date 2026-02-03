@@ -176,6 +176,7 @@ class Calendar extends Component
 
         $params = [
             'user_id' => $draft->user_id,
+            'shift__manager_id' => $draft->manager_id,
             'shift_draft_schedule_id' => $draft->id,
             'date' => $draft->date,
             'start_time' => $this->draftStartTime,
@@ -216,6 +217,17 @@ class Calendar extends Component
     public function returnSubmission($userId, $managerId)
     {
         $user = User::find($userId);
+
+        DraftSchedule::where('user_id', $userId)
+            ->where('manager_id', $managerId)
+            ->update([
+                'status' => '未承認',
+            ]);
+
+        Schedule::where('shift__manager_id', $managerId)
+            ->where('user_id', $userId)
+            ->whereNotNull('shift_draft_schedule_id')
+            ->delete();
 
         $user->managers()->updateExistingPivot($managerId, ['status' => '未提出']);
 

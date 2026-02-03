@@ -29,6 +29,7 @@ class Schedule extends Model
         'date',
         'start_time',
         'end_time',
+        'shift__manager_id',
         'shift_draft_schedule_id',
     ];
 

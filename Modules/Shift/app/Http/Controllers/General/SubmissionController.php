@@ -13,6 +13,7 @@ class SubmissionController extends Controller
     {
         $managers = Manager::where('submission_start_date', '<=', now())
             ->where('submission_end_date', '>=', now())
+            ->orderBy('start_date', 'asc')
             ->paginate(10);
 
         return view('shift::general.submission.index', ['managers' => $managers]);
