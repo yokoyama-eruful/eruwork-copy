@@ -1,4 +1,4 @@
-<x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="予定登録">
+<x-modal name="create-modal" title="予定登録">
   <form method="post" wire:submit="add">
     @csrf
 
@@ -17,7 +17,7 @@
 
       <div class="relative w-full">
         <x-text-input class="js-datepicker block w-full appearance-none rounded border border-gray-300 py-1 pl-3 pr-8"
-          type="text" wire:model="date" required />
+          type="text" wire:model="form.date" required />
         <!-- カレンダーアイコン（青 #3289FA） -->
         <svg class="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
           xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

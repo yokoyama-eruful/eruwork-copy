@@ -3,14 +3,14 @@
     <x-main.top>
       <button
         class="mr-5 flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-[14px] font-bold text-white hover:bg-[#3289fa4d]"
-        type="button" x-on:click="$dispatch('open-modal', 'create-modal-{{ $startDate->format('Y-m-d') }}')">
+        type="button" x-on:click="$dispatch('open-modal', 'create-modal')">
         <img class="mr-[5px] h-[14px] w-[14px]" src="img/icon/add-schedule.png" />
         <p>予定</p>
         <p class="hidden tablet:block">を</p>
         <p>追加</p>
         <p class="hidden tablet:block">する</p>
       </button>
-      <livewire:calendar::general.create-schedule @added="$refresh" :date="$startDate" />
+      <livewire:calendar::general.create-schedule @added="$refresh" />
       <div class="flex items-center">
         <button class="mr-2.5 hidden items-center space-x-1 bg-transparent text-[15px] text-gray-500 tablet:flex"
           wire:click="setPreviousWeek">
