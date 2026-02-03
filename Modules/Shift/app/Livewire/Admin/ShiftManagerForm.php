@@ -28,11 +28,14 @@ final class ShiftManagerForm extends Form
                 'required',
                 'date_format:Y-m-d',
                 function ($attribute, $value, $fail) {
-                    $exists = Manager::where('start_date', '<=', $this->endDate)
-                        ->where('end_date', '>=', $this->startDate)
-                        ->exists();
+                    $query = Manager::where('start_date', '<=', $this->endDate)
+                        ->where('end_date', '>=', $this->startDate);
 
-                    if ($exists) {
+                    if ($this->manager->id) {
+                        $query->where('id', '!=', $this->manager->id);
+                    }
+
+                    if ($query->exists()) {
                         $fail('指定した期間は、すでに登録されている期間と重複しています。');
                     }
                 },
@@ -41,17 +44,17 @@ final class ShiftManagerForm extends Form
                 'required',
                 'date_format:Y-m-d',
                 'after:startDate',
-          ],
+            ],
 
             'submissionStartDate' => [
                 'required',
                 'date_format:Y-m-d',
-          ],
+            ],
             'submissionEndDate' => [
                 'required',
                 'date_format:Y-m-d',
                 'after:submissionStartDate',
-          ],
+            ],
         ];
     }
 

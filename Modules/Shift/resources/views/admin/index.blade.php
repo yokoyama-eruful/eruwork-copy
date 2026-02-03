@@ -19,19 +19,19 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[24%,45%,14%,10%,7%] lg:grid tablet:grid-cols-[14%,60%,14%,8%,4%]">
+        <div class="mt-[30px] hidden grid-cols-[24%,45%,14%,10%,7%] lg:grid tablet:grid-cols-[14%,60%,22%,4%]">
           <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
-          <div class="text-center text-xs font-normal text-[#AAB0B6]"></div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
         </div>
         <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
           @foreach ($managers as $manager)
-            <div @class([
-                'grid-cols-[24%,45%,14%,10%,7%] lg:grid tablet:grid-cols-[14%,60%,14%,8%,4%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
-                'border-b' => !$loop->last,
-            ])>
+            <div onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'"
+              @class([
+                  'grid-cols-[24%,45%,14%,10%,7%] lg:grid tablet:grid-cols-[14%,60%,22%,4%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
+                  'border-b' => !$loop->last,
+              ])>
               <div @class([
                   'hidden truncate px-[12px] w-fit font-bold lg:block text-xs text-white mx-[30px] rounded-full py-1',
                   'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
@@ -47,10 +47,7 @@
 
               <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
 
-              <a class="text-[#3289FA] hover:opacity-40"
-                href="{{ route('shiftManager.show', ['manager' => $manager]) }}">表示する</a>
-
-              <div class="relative hidden lg:block" x-data="{ openDialog{{ $manager->id }}: false }">
+              <div class="relative hidden lg:block" x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $manager->id }} = !openDialog{{ $manager->id }};">
                   <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />

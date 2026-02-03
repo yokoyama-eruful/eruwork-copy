@@ -8,15 +8,34 @@ window.Japanese = Japanese;
 /* =========================
    flatpickr 初期化関数
    すでに対象となっている要素を二重に初期化しないよう
-   :not(.flatpickr-input) セレクタを追加しています
+   :not(.flatpickr-input) セレクタを追加
 ========================= */
 function initializeFlatpickr() {
+
+    // 共通：modal 誤爆防止
+    const stopPropagationOnCalendar = (instance) => {
+        if (!instance?.calendarContainer) return;
+
+        // Alpine / modal は mousedown で外クリック判定することが多い
+        instance.calendarContainer.addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+        });
+
+        // 念のため click も止める（環境差対策）
+        instance.calendarContainer.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
+    };
+
     // 通常のデイトピッカー
     document.querySelectorAll('.js-datepicker:not(.flatpickr-input)').forEach(el => {
         flatpickr(el, {
             locale: { ...Japanese, firstDayOfWeek: 1 },
             dateFormat: 'Y-m-d',
             disableMobile: true,
+            onReady: function (_, __, instance) {
+                stopPropagationOnCalendar(instance);
+            },
         });
     });
 
@@ -27,6 +46,9 @@ function initializeFlatpickr() {
             mode: "multiple",
             dateFormat: 'Y-m-d',
             disableMobile: true,
+            onReady: function (_, __, instance) {
+                stopPropagationOnCalendar(instance);
+            },
         });
     });
 
@@ -37,6 +59,9 @@ function initializeFlatpickr() {
             mode: "range",
             dateFormat: 'Y-m-d',
             disableMobile: true,
+            onReady: function (_, __, instance) {
+                stopPropagationOnCalendar(instance);
+            },
         });
     });
 }
@@ -45,22 +70,23 @@ function initializeFlatpickr() {
    Livewire 連携 (v3 対応)
 ========================= */
 document.addEventListener('livewire:init', () => {
-    // ページロード時の初回実行
+
+    // 初回ロード
     initializeFlatpickr();
 
-    // Livewireのコンポーネントが更新（バリデーションエラー等）されるたびに再実行
-    Livewire.hook('morph.updated', ({ el, component }) => {
+    // Livewire の DOM 差し替え後（バリデーション・更新時）
+    Livewire.hook('morph.updated', () => {
         initializeFlatpickr();
     });
 
-    // カスタムイベント経由での実行用（既存の互換性維持）
+    // 明示的に再初期化したい場合用
     Livewire.on('refreshFlatpickr', () => {
         initializeFlatpickr();
     });
 });
 
 /* =========================
-   iOS対策 vh fix
+   iOS 対策 vh fix
 ========================= */
 function setVh() {
     const vh = window.innerHeight * 0.01;
