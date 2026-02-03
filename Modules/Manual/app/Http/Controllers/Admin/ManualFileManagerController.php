@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Modules\Manual\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Modules\Manual\Models\ManualFile;
 use Modules\Manual\Models\ManualFolder;
 
@@ -15,7 +16,7 @@ class ManualFileManagerController extends Controller
      */
     public function index($id)
     {
-        $folder = ManualFolder::find($id);
+        $folder = ManualFolder::findOrFail($id);
         $files = $folder->files()->where('status', '掲載')->paginate(10);
 
         return view('manual::admin.file.index', ['folder' => $folder, 'files' => $files]);
@@ -23,15 +24,15 @@ class ManualFileManagerController extends Controller
 
     public function create($id)
     {
-        $folder = ManualFolder::find($id);
+        $folder = ManualFolder::findOrFail($id);
 
         return view('manual::admin.file.create', ['folder' => $folder]);
     }
 
     public function edit($folderId, $fileId)
     {
-        $folder = ManualFolder::find($folderId);
-        $file = ManualFile::find($fileId);
+        $folder = ManualFolder::findOrFail($folderId);
+        $file = ManualFile::findOrFail($fileId);
 
         return view('manual::admin.file.edit', ['file' => $file]);
     }
@@ -45,22 +46,37 @@ class ManualFileManagerController extends Controller
 
     public function thumbnail($id)
     {
-        $file = ManualFile::find($id);
+        $file = ManualFile::findOrFail($id);
+        $path = $file->thumbnail_path;
 
-        return response()->file(storage_path('app/' . $file->thumbnail_path));
+        if (! $path || ! Storage::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::path($path));
     }
 
     public function movie($id)
     {
-        $file = ManualFile::find($id);
+        $file = ManualFile::findOrFail($id);
+        $path = $file->movie_path;
 
-        return response()->file(storage_path('app/' . $file->movie_path));
+        if (! $path || ! Storage::exists($path)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::path($path));
     }
 
     public function step($id, $index)
     {
-        $file = ManualFile::find($id);
+        $file = ManualFile::findOrFail($id);
+        $step = $file->steps[$index]['file'] ?? null;
 
-        return response()->file(storage_path('app/' . $file->steps[$index]['file']));
+        if (! $step || ! Storage::exists($step)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::path($step));
     }
 }

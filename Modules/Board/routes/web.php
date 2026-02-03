@@ -19,6 +19,7 @@ use Modules\Board\Http\Controllers\DraftController;
 
 Route::middleware([
     'web',
+    'auth',
 ])->group(function () {
     Route::group([], function () {
         Route::controller(BoardController::class)
@@ -27,14 +28,14 @@ Route::middleware([
             ->group(function (): void {
                 Route::get('/', 'index')->name('index');
                 Route::get('/create', 'create')->name('create');
-                Route::post('/', 'store')->name('store');
                 Route::get('/{id}', 'show')->name('show');
                 Route::get('/{id}/edit', 'edit')->name('edit');
-                Route::post('/{id}', 'update')->name('update');
                 Route::delete('/{id}', 'destroy')->name('destroy');
                 Route::get('/{id}/download', 'download')->name('download');
             });
 
-        Route::resource('draft', DraftController::class)->names('draft');
+        Route::resource('draft', DraftController::class)
+            ->only(['index'])
+            ->names('draft');
     });
 });

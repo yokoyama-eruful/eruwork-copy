@@ -20,7 +20,8 @@ export default defineConfig({
                 'Modules/Board/resources/js/tiptap.js',
                 'Modules/Chat/resources/js/tiptap.js',
                 'Modules/Manual/resources/assets/js/procedure.js',
-                'Modules/Manual/resources/assets/css/procedure.css'
+                'Modules/Manual/resources/assets/css/procedure.css',
+                'Modules/Timecard/resources/js/timecard-clock.js'
             ],
             refresh: true,
         }),

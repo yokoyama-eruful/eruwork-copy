@@ -18,6 +18,8 @@ use Modules\Account\Http\Controllers\AccountController;
 
 Route::middleware([
     'web',
+    'auth',
+    'can:register',
 ])->group(function () {
     Route::resource('account', AccountController::class)->names('account');
 });

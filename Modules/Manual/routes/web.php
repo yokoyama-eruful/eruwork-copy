@@ -19,6 +19,7 @@ use Modules\Manual\Http\Controllers\General\ManualFolderController;
 
 Route::middleware([
     'web',
+    'auth',
 ])->group(function () {
     Route::controller(ManualFolderController::class)
         ->name('manualFolder.')

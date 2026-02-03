@@ -7,6 +7,7 @@ use Modules\Timecard\Http\Controllers\General\TimecardController;
 
 Route::middleware([
     'web',
+    'auth',
 ])->group(function () {
     Route::controller(TimecardController::class)
         ->prefix('timecard')

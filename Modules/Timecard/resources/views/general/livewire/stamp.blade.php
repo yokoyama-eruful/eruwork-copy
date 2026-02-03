@@ -1,5 +1,5 @@
 <div>
-  @vite(['Modules/Timecard/resources/css/general/stamp.css'])
+  @vite(['Modules/Timecard/resources/css/general/stamp.css', 'Modules/Timecard/resources/js/timecard-clock.js'])
   <div class="flex items-center justify-between px-3">
     <h5 class="font-bold">タイムカード</h5>
     <a class="flex items-center text-xs text-[#3289FA] hover:opacity-40" href="{{ route('timecard.index') }}">
@@ -7,9 +7,9 @@
       <img class="h-4 w-4" src="img/icon/transition-link.png" />
     </a>
   </div>
-  <div class="timecard-area" wire:poll.1s="updateClock">
-    <p class="date">{{ $currentDate }}</p>
-    <p class="time-display">{{ $currentTime }}</p>
+  <div class="timecard-area">
+    <p class="date" id="js-current-date">{{ $currentDate }}</p>
+    <p class="time-display" id="js-current-time">{{ $currentTime }}</p>
   </div>
 
   @if ($rule === 'public')

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Modules\Timecard\Models;
 
 use Carbon\CarbonImmutable;
-use Modules\HourlyRate\Models\WagePremium;
 use Modules\Timecard\Enums\StampStatus;
 
 class Stamp

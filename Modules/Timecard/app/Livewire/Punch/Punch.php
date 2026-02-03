@@ -41,12 +41,6 @@ class Punch extends Component
         $this->user = $user;
     }
 
-    public function updateClock()
-    {
-        $this->currentDate = Carbon::now()->isoFormat('Y/M/D (ddd)');
-        $this->currentTime = Carbon::now()->format('H:i');
-    }
-
     public function push(string $status)
     {
         Stamp::push(

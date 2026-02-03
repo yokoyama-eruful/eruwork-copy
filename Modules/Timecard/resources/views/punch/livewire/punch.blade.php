@@ -1,4 +1,5 @@
 <div class="flex h-[90%] w-[550px] flex-col items-center rounded-xl bg-white px-[60px] py-[30px] shadow">
+  @vite(['Modules/Timecard/resources/js/timecard-clock.js'])
   <div @class([
       'relative flex max-h-[80px] min-h-[80px] min-w-[80px] max-w-[80px] items-center justify-center rounded-full border-[2px] ',
       'border-[#48CBFF]' => in_array('in', $buttonStatus, true) === false,
@@ -18,9 +19,9 @@
   <div class="h-full w-full">
     @vite(['Modules/Timecard/resources/css/punch/stamp.css'])
 
-    <div class="timecard-area" wire:poll.1s="updateClock">
-      <p class="date">{{ $currentDate }}</p>
-      <p class="time-display">{{ $currentTime }}</p>
+    <div class="timecard-area">
+      <p class="date" id="js-current-date">{{ $currentDate }}</p>
+      <p class="time-display" id="js-current-time">{{ $currentTime }}</p>
     </div>
 
     <div class="timerecord-button-area">

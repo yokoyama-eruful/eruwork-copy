@@ -8,6 +8,7 @@ use Modules\Setting\Http\Controllers\SettingController;
 Route::middleware([
     'web',
     'auth',
+    'can:register',
 ])->group(function () {
     Route::controller(SettingController::class)
         ->prefix('setting')

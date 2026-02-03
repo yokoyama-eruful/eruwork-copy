@@ -18,6 +18,7 @@ use Modules\Calendar\Http\Controllers\General\CalendarController;
 
 Route::middleware([
     'web',
+    'auth',
 ])->group(function () {
     Route::resource('calendar', CalendarController::class)->names('calendar');
 });

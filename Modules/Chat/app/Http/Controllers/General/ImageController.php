@@ -6,20 +6,31 @@ namespace Modules\Chat\Http\Controllers\General;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ImageController extends Controller
 {
     public function show(Request $request)
     {
-        $fileName = $request->fileName;
-        $groupId = $request->groupId;
+        $fileName = (string) $request->query('fileName', '');
+        $groupId = (string) $request->query('groupId', '');
 
-        $filePath = storage_path('app/chat/files/' . $groupId . '/' . $fileName);
-
-        if (! file_exists($filePath)) {
+        if ($groupId === '' || ! ctype_digit($groupId)) {
             abort(404);
         }
 
-        return response()->file($filePath);
+        if ($fileName === '' || Str::contains($fileName, ['/', '\\'])) {
+            abort(404);
+        }
+
+        $safeFileName = basename($fileName);
+        $relativePath = 'chat/files/' . $groupId . '/' . $safeFileName;
+
+        if (! Storage::exists($relativePath)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::path($relativePath));
     }
 }
