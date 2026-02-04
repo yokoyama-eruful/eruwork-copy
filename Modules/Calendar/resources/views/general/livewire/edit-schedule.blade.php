@@ -13,6 +13,7 @@
         </svg>
         <p class="text-sm text-[#FF4A62]">削除する</p>
       </button>
+      <livewire:calendar::general.delete-schedule :schedule="$schedule" />
     </form>
   </div>
   @if ($this->overlappingSchedules() || $this->overlappingShifts())
