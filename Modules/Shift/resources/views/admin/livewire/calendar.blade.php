@@ -30,7 +30,7 @@
                 <p class="text-[18px] font-bold">
                   {{ $manager->alreadySubmissionUsers->count() }}
                 </p>
-                <p class="text-sm">/{{ $users->count() }}名</p>
+                <p class="text-sm">/{{ $users->count() - 1 }}名</p>
               </div>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -153,7 +153,7 @@
             <p class="text-[18px] font-bold">
               {{ $manager->alreadySubmissionUsers->count() }}
             <p>
-            <p class="text-sm">/{{ $users->count() }}名</p>
+            <p class="text-sm">/{{ $users->count() - 1 }}名</p>
           </div>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
