@@ -11,13 +11,20 @@ class CreateSchedule extends Component
 {
     public ScheduleForm $form;
 
+    public $date;
+
+    public function mount()
+    {
+        $this->form->date = $this->date->format('Y-m-d');
+    }
+
     public function add()
     {
         $this->form->userId = Auth::id();
         $this->form->save();
 
         $this->dispatch('added');
-        $this->dispatch('close-modal', 'create-modal');
+        $this->dispatch('close-modal', 'create-modal-' . $this->date->format('Y-m-d'));
     }
 
     public function cancel()
