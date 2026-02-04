@@ -19,7 +19,7 @@ final class ShiftManagerForm extends Form
 
     public ?string $submissionEndDate = null;
 
-    public Manager $manager;
+    public ?Manager $manager = null;
 
     public function rules()
     {
@@ -31,7 +31,7 @@ final class ShiftManagerForm extends Form
                     $query = Manager::where('start_date', '<=', $this->endDate)
                         ->where('end_date', '>=', $this->startDate);
 
-                    if ($this->manager->id) {
+                    if ($this->manager?->id) {
                         $query->where('id', '!=', $this->manager->id);
                     }
 
