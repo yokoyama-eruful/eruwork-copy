@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Modules\Chat\Providers;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use Modules\Chat\Models\Group;
+use Modules\Chat\Policies\ChatGroupPolicy;
 use Nwidart\Modules\Traits\PathNamespace;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -29,6 +32,7 @@ class ChatServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->name, 'database/migrations'));
+        Gate::policy(Group::class, ChatGroupPolicy::class);
     }
 
     /**

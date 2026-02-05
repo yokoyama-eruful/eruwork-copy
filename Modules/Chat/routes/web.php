@@ -29,7 +29,7 @@ Route::middleware([
             Route::controller(ChatController::class)
                 ->group(function () {
                     Route::get('/', 'index')->name('index');
-                    Route::get('{group}', 'show')->name('show');
+                    Route::get('{group:uuid}', 'show')->name('show');
                 });
         });
 });

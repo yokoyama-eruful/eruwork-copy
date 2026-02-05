@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Modules\Chat\Database\Factories\GroupFactory;
 
 // use Modules\Chat\Database\Factories\GroupFactory;
@@ -23,6 +24,13 @@ class Group extends Model
         'name',
         'icon',
     ];
+
+    protected static function booted()
+    {
+        static::creating(function ($group) {
+            $group->uuid ??= (string) Str::uuid();
+        });
+    }
 
     public function users()
     {
