@@ -15,6 +15,9 @@ class CreateSchedule extends Component
 
     public function mount()
     {
+        if (! $this->date) {
+            $this->date = now();
+        }
         $this->form->date = $this->date->format('Y-m-d');
     }
 

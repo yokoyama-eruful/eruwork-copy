@@ -79,8 +79,10 @@ class totalWorkingTimeDto
     {
         $wagePremium = WagePremium::first();
         $sortedHourlyRates = $user->hourlyRate->sortByDesc('effective_date');
-        $overtimePremiumRate = $wagePremium?->overtime_rate / 100 ?? 0.0;
-        $nightPremiumRate = $wagePremium?->night_rate / 100 ?? 0.0;
+
+        // 割増率をBCMath用に準備
+        $overtimePremiumRate = (string) ($wagePremium?->overtime_rate / 100 ?? 0.0);
+        $nightPremiumRate = (string) ($wagePremium?->night_rate / 100 ?? 0.0);
 
         $workTimes = WorkTime::with('breakTimes')
             ->where('user_id', $user->id)
@@ -88,136 +90,145 @@ class totalWorkingTimeDto
             ->get()
             ->filter(fn ($work) => $work->in_time && $work->out_time);
 
-        $totalPay = 0;
-        $dailyData = [];
+        $totalPay = '0';
 
-        // 勤務データを日付別にグループ化
-        foreach ($workTimes as $work) {
-            $date = $work->in_time->toDateString();
-            if (! isset($dailyData[$date])) {
-                $dailyData[$date] = [];
-            }
-            $dailyData[$date][] = $work;
-        }
-
-        foreach ($dailyData as $date => $dayWorks) {
+        foreach ($workTimes->groupBy(fn ($w) => $w->in_time->toDateString()) as $date => $dayWorks) {
             $currentWorkDate = CarbonImmutable::parse($date);
-            $applicableRate = $sortedHourlyRates->first(function ($rate) use ($currentWorkDate) {
-                return CarbonImmutable::parse($rate->effective_date)->lte($currentWorkDate);
-            });
+            $applicableRate = $sortedHourlyRates->first(fn ($r) => CarbonImmutable::parse($r->effective_date)->lte($currentWorkDate));
 
             if (! $applicableRate) {
                 continue;
             }
 
-            $minuteWage = $applicableRate->rate / 60;
-
-            // 勤務時間をすべて処理して、時間帯別に分類
-            $timeSegments = self::buildTimeSegments(collect($dayWorks));
-
-            $categorizedMinutes = [
-                'regular' => 0,
-                'night' => 0,
-                'overtime' => 0,
-                'night_overtime' => 0,
-            ];
+            $hourlyRate = (string) $applicableRate->rate;
+            $timeSegments = self::buildTimeSegments($dayWorks);
 
             $totalWorkMinutesToday = 0;
+            $dailyPay = '0';
 
             foreach ($timeSegments as $segment) {
                 $minutes = $segment['minutes'];
                 $isNight = $segment['isNight'];
-                $isOvertime = ($totalWorkMinutesToday + $minutes) > 8 * 60;
-                $wasPreviouslyOvertime = $totalWorkMinutesToday >= 8 * 60;
 
-                // 通常勤務から残業に切り替わる場合の処理
-                if (! $wasPreviouslyOvertime && $isOvertime) {
-                    $regularMinutes = max(0, 8 * 60 - $totalWorkMinutesToday);
-                    $overtimeMinutes = $minutes - $regularMinutes;
+                // 残業判定のロジック
+                $regularLimit = 8 * 60;
+                $currentSegmentRegularMinutes = 0;
+                $currentSegmentOvertimeMinutes = 0;
 
-                    if ($isNight) {
-                        $categorizedMinutes['night'] += $regularMinutes;
-                        $categorizedMinutes['night_overtime'] += $overtimeMinutes;
-                    } else {
-                        $categorizedMinutes['regular'] += $regularMinutes;
-                        $categorizedMinutes['overtime'] += $overtimeMinutes;
-                    }
+                if ($totalWorkMinutesToday >= $regularLimit) {
+                    $currentSegmentOvertimeMinutes = $minutes;
+                } elseif ($totalWorkMinutesToday + $minutes > $regularLimit) {
+                    $currentSegmentRegularMinutes = $regularLimit - $totalWorkMinutesToday;
+                    $currentSegmentOvertimeMinutes = $minutes - $currentSegmentRegularMinutes;
                 } else {
-                    if ($isNight && $isOvertime) {
-                        $categorizedMinutes['night_overtime'] += $minutes;
-                    } elseif ($isOvertime) {
-                        $categorizedMinutes['overtime'] += $minutes;
-                    } elseif ($isNight) {
-                        $categorizedMinutes['night'] += $minutes;
-                    } else {
-                        $categorizedMinutes['regular'] += $minutes;
-                    }
+                    $currentSegmentRegularMinutes = $minutes;
+                }
+
+                // --- 金額計算 (BCMath) ---
+                // 1分あたりの単価 = 時給 / 60
+                $minuteWage = bcdiv($hourlyRate, '60', 10);
+
+                // 通常/深夜の倍率計算
+                $rateMultiplier = '1.0';
+                if ($isNight) {
+                    $rateMultiplier = bcadd($rateMultiplier, $nightPremiumRate, 4);
+                }
+
+                // 1. 通常/深夜分
+                if ($currentSegmentRegularMinutes > 0) {
+                    $amount = bcmul($minuteWage, (string) $currentSegmentRegularMinutes, 10);
+                    $amount = bcmul($amount, $rateMultiplier, 10);
+                    $dailyPay = bcadd($dailyPay, $amount, 10);
+                }
+
+                // 2. 残業（通常残業/深夜残業）分
+                if ($currentSegmentOvertimeMinutes > 0) {
+                    $otMultiplier = bcadd($rateMultiplier, $overtimePremiumRate, 4);
+                    $amount = bcmul($minuteWage, (string) $currentSegmentOvertimeMinutes, 10);
+                    $amount = bcmul($amount, $otMultiplier, 10);
+                    $dailyPay = bcadd($dailyPay, $amount, 10);
                 }
 
                 $totalWorkMinutesToday += $minutes;
             }
-
-            $dailyPay = 0;
-            $dailyPay += $categorizedMinutes['regular'] * $minuteWage;
-            $dailyPay += $categorizedMinutes['night'] * ($minuteWage * (1 + $nightPremiumRate));
-            $dailyPay += $categorizedMinutes['overtime'] * ($minuteWage * (1 + $overtimePremiumRate));
-            $dailyPay += $categorizedMinutes['night_overtime'] * ($minuteWage * (1 + $nightPremiumRate + $overtimePremiumRate));
-
-            $totalPay += $dailyPay;
+            $totalPay = bcadd($totalPay, $dailyPay, 10);
         }
 
-        return (string) ceil($totalPay);
+        // 最後に切り上げ
+        return self::bcceil($totalPay);
     }
 
     /**
-     * 勤務時間をセグメント化し、夜間判定付きで返す
-     * （分単位ループを排除）
+     * 22:00と05:00の境界でセグメントを強制分割する
      */
     private static function buildTimeSegments($dayWorks)
     {
         $segments = [];
-
         foreach ($dayWorks->sortBy('in_time') as $work) {
-            $workStart = CarbonImmutable::parse($work->in_time);
-            $workEnd = CarbonImmutable::parse($work->out_time);
+            $start = CarbonImmutable::parse($work->in_time);
+            $end = CarbonImmutable::parse($work->out_time);
+            $breaks = $work->breakTimes->map(fn ($b) => ['s' => CarbonImmutable::parse($b->in_time), 'e' => CarbonImmutable::parse($b->out_time)]);
 
-            $breaks = $work->breakTimes
-                ->map(fn ($bt) => [
-                    'start' => CarbonImmutable::parse($bt->in_time),
-                    'end' => CarbonImmutable::parse($bt->out_time),
-                ])
-                ->sortBy('start')
-                ->values()
-                ->all();
+            $current = $start;
+            while ($current->lt($end)) {
+                // 休憩時間中かチェック
+                $inBreak = $breaks->first(fn ($b) => $current->gte($b['s']) && $current->lt($b['e']));
+                if ($inBreak) {
+                    $current = $inBreak['e'];
 
-            $current = $workStart;
+                    continue;
+                }
 
-            foreach ($breaks as $break) {
-                if ($current->lt($break['start'])) {
-                    $minutes = $current->diffInMinutes($break['start']);
-                    // 時間帯を判定：開始時刻と終了時刻どちらかが夜間なら夜間扱い
-                    $isNight = ($current->hour >= 22 || $current->hour < 5) ||
-                               ($break['start']->subMinute()->hour >= 22 || $break['start']->subMinute()->hour < 5);
+                // 次の「イベント」までの時間を切り出す
+                // イベント：休憩開始、勤務終了、または深夜/日中の境界(05:00, 22:00)
+                $nextEvent = $end;
+
+                // 休憩開始が先ならそこまで
+                foreach ($breaks as $b) {
+                    if ($b['s']->gt($current) && $b['s']->lt($nextEvent)) {
+                        $nextEvent = $b['s'];
+                    }
+                }
+
+                // 境界線(05:00, 22:00)が先ならそこまで
+                $boundaries = [$current->setTime(5, 0), $current->setTime(22, 0), $current->addDay()->setTime(5, 0)];
+                foreach ($boundaries as $bd) {
+                    if ($bd->gt($current) && $bd->lt($nextEvent)) {
+                        $nextEvent = $bd;
+                    }
+                }
+
+                $minutes = $current->diffInMinutes($nextEvent);
+                if ($minutes > 0) {
                     $segments[] = [
                         'minutes' => $minutes,
-                        'isNight' => $isNight,
+                        'isNight' => ($current->hour >= 22 || $current->hour < 5),
                     ];
                 }
-                $current = $break['end'];
-            }
-
-            // 最後の勤務セグメント
-            if ($current->lt($workEnd)) {
-                $minutes = $current->diffInMinutes($workEnd);
-                $isNight = ($current->hour >= 22 || $current->hour < 5) ||
-                           ($workEnd->subMinute()->hour >= 22 || $workEnd->subMinute()->hour < 5);
-                $segments[] = [
-                    'minutes' => $minutes,
-                    'isNight' => $isNight,
-                ];
+                $current = $nextEvent;
             }
         }
 
         return $segments;
+    }
+
+    // bcceil ヘルパー（BCMathには直接のceilがないため）
+    private static function bcceil(string $number): string
+    {
+        if (mb_strpos($number, '.') !== false) {
+            // 小数点以下がすべて0（例: "100.000"）なら、そのまま整数部を返す
+            if (preg_match('/\.0+$/', $number)) {
+                return bcadd($number, '0', 0);
+            }
+            // 正の数の場合、1を足して小数点以下を切り捨てる
+            if (bccomp($number, '0', 10) >= 0) {
+                return bcadd($number, '1', 0);
+            }
+
+            // 負の数の場合、単に小数点以下を切り捨てる（-1.5 -> -1）
+            return bcadd($number, '0', 0);
+        }
+
+        return $number;
     }
 }
