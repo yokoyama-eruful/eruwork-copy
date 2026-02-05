@@ -21,15 +21,28 @@ class SettingController extends Controller
     {
         $rule = Rule::first();
 
+        // $ruleがnullならデフォルトでpersonalにする
+        if (! $rule) {
+            $rule = new Rule;
+            $rule->rule = 'personal';
+        }
+
         $wagePremium = WagePremium::first();
 
         $pin = '';
 
-        if ($rule->rule == 'public') {
-            $pin = Crypt::decryptString(TimecardUser::first()->pin_encrypted);
+        if ($rule->rule === 'public') {
+            $firstUser = TimecardUser::first();
+            if ($firstUser) {
+                $pin = Crypt::decryptString($firstUser->pin_encrypted);
+            }
         }
 
-        return view('setting::index', ['rule' => $rule, 'wagePremium' => $wagePremium, 'pin' => $pin]);
+        return view('setting::index', [
+            'rule' => $rule,
+            'wagePremium' => $wagePremium,
+            'pin' => $pin,
+        ]);
     }
 
     /**

@@ -102,6 +102,18 @@ class FileForm extends Form
         $this->validate();
 
         $data = [];
+        if (is_null($this->existingFile) && ! $this->uploadFile) {
+            if (! empty($this->file->thumbnail_path)) {
+                Storage::delete($this->file->thumbnail_path);
+            }
+            if (! empty($this->file->movie_path)) {
+                Storage::delete($this->file->movie_path);
+            }
+
+            $data['thumbnail_path'] = null;
+            $data['movie_path'] = null;
+            $data['type'] = null;
+        }
         if (is_null($this->existingFile) && $this->uploadFile) {
             $filePath = $this->uploadFile->store('manual/' . $this->folder->id);
 
@@ -118,14 +130,21 @@ class FileForm extends Form
                 $data['type'] = $this->uploadFile->getMimeType();
             }
 
-            Storage::delete($this->file->thumbnail_path);
+            if (! empty($this->file->thumbnail_path)) {
+                Storage::delete($this->file->thumbnail_path);
+            }
+            if (! empty($this->file->movie_path)) {
+                Storage::delete($this->file->movie_path);
+            }
         }
 
         $filteredDetails = $this->filterDetails();
         $filteredSteps = $this->filterSteps();
 
         foreach ($this->deleteDetailFiles as $deleteFile) {
-            Storage::delete($deleteFile);
+            if (! empty($deleteFile)) {
+                Storage::delete($deleteFile);
+            }
         }
 
         $data['title'] = $this->title;

@@ -92,6 +92,11 @@ class Group extends Model
         return $this->users->count();
     }
 
+    public function getRouteKeyName(): string
+    {
+        return 'uuid';
+    }
+
     public static function open(array $member, ?string $name = null, bool $isDM = true)
     {
         $userIds = array_map(function ($user) {
