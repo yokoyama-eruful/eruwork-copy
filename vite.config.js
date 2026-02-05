@@ -21,7 +21,8 @@ export default defineConfig({
                 'Modules/Chat/resources/js/tiptap.js',
                 'Modules/Manual/resources/assets/js/procedure.js',
                 'Modules/Manual/resources/assets/css/procedure.css',
-                'Modules/Timecard/resources/js/timecard-clock.js'
+                'Modules/Timecard/resources/js/timecard-clock.js',
+                'Modules/Timecard/resources/css/punch/stamp.css'
             ],
             refresh: true,
         }),

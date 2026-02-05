@@ -96,8 +96,8 @@
       @endif
 
       @if ($item === 'pattern')
-        <div class="mr-[20px] mt-4 grid w-full grid-cols-[20%,80%] items-start">
-          <x-input-label value="パターン設定" />
+        <div class="mt-5">
+          <x-input-label class="font-normal" value="パターン設定" />
           <div class="flex flex-col justify-center space-y-3">
             @forelse (Auth::user()->patterns as $pattern)
               @if (!is_null($pattern->start_time) && !is_null($pattern->end_time))

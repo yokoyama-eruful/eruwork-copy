@@ -19,6 +19,8 @@ use Modules\Manual\Models\ManualFolder;
 use Modules\Shift\Models\DraftSchedule;
 use Modules\Shift\Models\Manager as ShiftManager;
 use Modules\Timecard\Database\Seeders\TimecardDatabaseSeeder;
+use Modules\Timecard\Models\Rule;
+use Modules\Timecard\Models\WagePremium;
 use Modules\Timecard\Models\WorkTime;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -35,6 +37,8 @@ class TestSeeder extends Seeder
         $this->board();
         $this->chat();
         $this->manual();
+        $this->wagePremium();
+        $this->punch();
     }
 
     private function user()
@@ -576,6 +580,22 @@ class TestSeeder extends Seeder
                     'file' => '',
                 ],
             ],
+        ]);
+    }
+
+    private function wagePremium(): void
+    {
+        WagePremium::create([
+            'pay_unit' => 1,
+            'night_rate' => 25,
+            'overtime_rate' => 30,
+        ]);
+    }
+
+    private function punch(): void
+    {
+        Rule::create([
+            'rule' => 'public',
         ]);
     }
 }
