@@ -1,4 +1,4 @@
-<x-modal name="create-modal-{{ $date->format('Y-m-d') }}" title="予定登録">
+<x-modal name="create-modal" title="予定登録">
   <form method="post" wire:submit="add">
     @csrf
 

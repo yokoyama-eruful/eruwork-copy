@@ -10,7 +10,8 @@
         <p>追加</p>
         <p class="hidden tablet:block">する</p>
       </button>
-      <livewire:calendar::general.create-schedule @added="$refresh" />
+      <livewire:calendar::general.create-schedule @added="$refresh" :date="$startDate"
+        key="{{ $startDate->format('Y-m-d') }}" />
       <div class="flex items-center">
         <button class="mr-2.5 hidden items-center space-x-1 bg-transparent text-[15px] text-gray-500 tablet:flex"
           wire:click="setPreviousWeek">
