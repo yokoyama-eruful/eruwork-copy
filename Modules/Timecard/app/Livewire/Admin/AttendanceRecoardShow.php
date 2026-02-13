@@ -50,15 +50,19 @@ class AttendanceRecoardShow extends Component
             $selectedUsers = User::whereIn('id', $this->selectUsers)
                 ->orderBy('id')
                 ->get();
+
+            $start = CarbonImmutable::parse($this->startDate)->startOfDay();
+            $end = CarbonImmutable::parse($this->endDate)->endOfDay();
+
             $workTimes = WorkTime::query()
-                ->whereBetween('in_time', [$this->startDate, $this->endDate])
+                ->whereBetween('in_time', [$start, $end])
                 ->whereNotNull('in_time')
                 ->whereNotNull('out_time')
                 ->orderBy('in_time', 'asc')
                 ->get();
 
             $breakTimes = BreakTime::query()
-                ->whereBetween('in_time', [$this->startDate, $this->endDate])
+                ->whereBetween('in_time', [$start, $end])
                 ->whereNotNull('in_time')
                 ->whereNotNull('out_time')
                 ->orderBy('in_time', 'asc')
