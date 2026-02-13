@@ -29,7 +29,7 @@
       <div class="mt-[30px] hidden grid-cols-[66%,10%,8%,14%,2%] lg:grid">
         <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">表題</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">作成者</div>
-        <div class="text-left text-xs font-normal text-[#AAB0B6]">作成日時</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6]">更新日時</div>
         <div class="text-center text-xs font-normal text-[#AAB0B6]">添付ファイル</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
       </div>
