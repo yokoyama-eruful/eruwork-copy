@@ -2,6 +2,45 @@
   const GAP_FIXED = 15; // “ずらし”の上限(px)
   const MIN_W     = 80; // カード最小幅(px)
 
+  function getCardStart(card) {
+    return parseFloat(card.style.top || getComputedStyle(card).top) || 0;
+  }
+
+  function getCardEnd(card) {
+    const top = getCardStart(card);
+    const h = parseFloat(card.style.height || getComputedStyle(card).height) || card.offsetHeight || 0;
+    return top + h;
+  }
+
+  function overlaps(a, b) {
+    return getCardStart(a) < getCardEnd(b) && getCardStart(b) < getCardEnd(a);
+  }
+
+  function getOverlapGroup(card) {
+    const deckEl = card.closest(".deck");
+    if (!deckEl) return [];
+
+    const cards = Array.from(deckEl.querySelectorAll(".card"));
+    const group = new Set([card]);
+    let changed = true;
+
+    while (changed) {
+      changed = false;
+      for (const c of cards) {
+        if (group.has(c)) continue;
+        for (const g of group) {
+          if (overlaps(c, g)) {
+            group.add(c);
+            changed = true;
+            break;
+          }
+        }
+      }
+    }
+
+    return cards.filter((c) => group.has(c));
+  }
+
   // ====== カード内 <p> の可視制御 ======
   function updateSecondPVisibility(card) {
     const ps = card.querySelectorAll("p");
@@ -30,6 +69,7 @@
     const cards = Array.from(deckEl.querySelectorAll(".card"));
     const n = cards.length;
     if (!n) return;
+    const domOrder = new Map(cards.map((c, i) => [c, i]));
 
     // deck の内側幅（padding を考慮）
     const st   = getComputedStyle(deckEl);
@@ -40,23 +80,81 @@
     // ★ 非表示中/初期描画前などで inner が 0 のときはスキップ（異常値レイアウトを防止）
     if (inner <= 0) return;
 
-    // gap を自動調整
-    let gapMax = n > 1 ? (inner - MIN_W) / (n - 1) : 0;
-    gapMax = Math.max(0, gapMax);
-    const gap   = Math.min(GAP_FIXED, gapMax);
-    const cardW = Math.max(MIN_W, inner - gap * (n - 1));
+    const items = cards
+      .map((card) => ({ card, start: getCardStart(card), end: getCardEnd(card) }))
+      .sort((a, b) =>
+        (a.start - b.start) ||
+        (a.end - b.end) ||
+        ((domOrder.get(a.card) ?? 0) - (domOrder.get(b.card) ?? 0))
+      );
 
-    cards.forEach((c, i) => {
-      c.style.left      = padL + "px";
-      c.style.width     = cardW + "px";
-      c.style.transform = `translateX(${i * gap}px)`;
-      c.style.zIndex    = String(i + 1);
+    const clusters = [];
+    let current = null;
+    for (const item of items) {
+      if (!current || item.start >= current.maxEnd) {
+        current = { items: [item], maxEnd: item.end };
+        clusters.push(current);
+      } else {
+        current.items.push(item);
+        current.maxEnd = Math.max(current.maxEnd, item.end);
+      }
+    }
 
-      if (!c.hasAttribute("tabindex"))      c.setAttribute("tabindex", "0");
-      if (!c.hasAttribute("role"))          c.setAttribute("role", "button");
-      if (!c.hasAttribute("aria-selected")) c.setAttribute("aria-selected", "false");
+    clusters.forEach((cluster) => {
+      const activeByCol = [];
+      let maxCols = 1;
 
-      updateSecondPVisibility(c);
+      cluster.items.forEach((item) => {
+        for (let col = 0; col < activeByCol.length; col += 1) {
+          if (activeByCol[col] <= item.start) activeByCol[col] = null;
+        }
+
+        let col = activeByCol.findIndex((end) => end == null);
+        if (col === -1) {
+          col = activeByCol.length;
+          activeByCol.push(item.end);
+        } else {
+          activeByCol[col] = item.end;
+        }
+
+        item.col = col;
+        maxCols = Math.max(maxCols, activeByCol.length);
+      });
+
+      const selected = cluster.items.find((item) => item.card.getAttribute("aria-selected") === "true");
+      if (selected) {
+        const overlapItems = cluster.items.filter((item) =>
+          item.card === selected.card || overlaps(item.card, selected.card)
+        );
+        if (overlapItems.length > 1) {
+          const targetCol = Math.max(...overlapItems.map((item) => item.col));
+          if (selected.col !== targetCol) {
+            const swapWith = overlapItems.find((item) => item.col === targetCol);
+            if (swapWith) {
+              const tmp = selected.col;
+              selected.col = swapWith.col;
+              swapWith.col = tmp;
+            }
+          }
+        }
+      }
+
+      const gap = maxCols > 1 ? Math.min(GAP_FIXED, Math.max(0, (inner - MIN_W) / (maxCols - 1))) : 0;
+      const cardW = Math.max(MIN_W, inner - gap * (maxCols - 1));
+
+      cluster.items.forEach((item) => {
+        const c = item.card;
+        c.style.left = padL + "px";
+        c.style.width = cardW + "px";
+        c.style.transform = `translateX(${item.col * gap}px)`;
+        c.style.zIndex = String((domOrder.get(c) ?? 0) + 1);
+
+        if (!c.hasAttribute("tabindex")) c.setAttribute("tabindex", "0");
+        if (!c.hasAttribute("role")) c.setAttribute("role", "button");
+        if (!c.hasAttribute("aria-selected")) c.setAttribute("aria-selected", "false");
+
+        updateSecondPVisibility(c);
+      });
     });
   }
 
@@ -66,9 +164,9 @@
 
   // ====== 右端へ移動 ======
   function isRightmost(card) {
-    const deckEl = card.closest(".deck");
-    if (!deckEl) return false;
-    const last = Array.from(deckEl.querySelectorAll(".card")).pop();
+    const group = getOverlapGroup(card);
+    if (!group.length) return false;
+    const last = group[group.length - 1];
     return last === card;
   }
 
