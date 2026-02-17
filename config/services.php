@@ -37,4 +37,9 @@ return [
         ],
     ],
 
+    'central' => [
+        'url' => env('CENTRAL_API_URL'),
+        'token' => env('CENTRAL_API_TOKEN'),
+    ],
+
 ];

@@ -6,6 +6,8 @@ namespace Modules\Account\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\UserLimit;
+use Illuminate\Validation\ValidationException;
 use Modules\Account\Http\Requests\AccountStoreRequest;
 use Modules\Account\Http\Requests\AccountUpdateRequest;
 use Modules\Chat\Models\Group;
@@ -36,6 +38,15 @@ class AccountController extends Controller
      */
     public function store(AccountStoreRequest $request)
     {
+        $limit = UserLimit::first()->user_limit ?? 0;
+        $currentCount = User::count();
+
+        if ($currentCount >= $limit) {
+            throw ValidationException::withMessages([
+                'login_id' => 'ユーザー作成上限に達しています。',
+            ]);
+        }
+
         $params = $request->params();
 
         $user = User::create($params['user']);
