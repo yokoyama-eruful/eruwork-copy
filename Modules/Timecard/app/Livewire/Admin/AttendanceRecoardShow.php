@@ -40,6 +40,22 @@ class AttendanceRecoardShow extends Component
         $this->endDate ??= CarbonImmutable::now()->format('Y-m-d');
     }
 
+    public function updated($property)
+    {
+        if ($this->startDate && $this->endDate) {
+            $start = CarbonImmutable::parse($this->startDate);
+            $end = CarbonImmutable::parse($this->endDate);
+
+            if ($start->gt($end)) {
+                if ($property === 'startDate') {
+                    $this->endDate = $this->startDate;
+                } else {
+                    $this->startDate = $this->endDate;
+                }
+            }
+        }
+    }
+
     public function downloadExcel()
     {
         try {
