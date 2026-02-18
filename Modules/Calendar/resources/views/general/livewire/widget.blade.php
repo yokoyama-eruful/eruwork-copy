@@ -3,7 +3,7 @@
     <x-main.top>
       <button
         class="mr-5 flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-[14px] font-bold text-white hover:bg-[#3289fa4d]"
-        type="button" x-on:click="$dispatch('open-modal', 'create-modal')">
+        type="button" x-on:click="$dispatch('open-modal', 'create-modal-{{ $startDate->format('Y-m-d') }}')">
         <img class="mr-[5px] h-[14px] w-[14px]" src="img/icon/add-schedule.png" />
         <p>予定</p>
         <p class="hidden tablet:block">を</p>
