@@ -29,10 +29,21 @@ class SyncCentralSetting extends Command
      */
     public function handle()
     {
+        sleep(random_int(0, 60));
+
+        $setting = UserLimit::first();
+        $lastCentralUpdatedAt = $setting?->central_updated_at;
+
         $response = Http::timeout(3)
-            ->retry(2, 100)
+            ->retry(2, 300)
             ->withToken(config('services.central.token'))
-            ->get(rtrim(config('services.central.url'), '/') . '/api/settings');
+            ->get(rtrim(config('services.central.url'), '/') . '/api/settings', [
+                'since' => $lastCentralUpdatedAt,
+            ]);
+
+        if ($response->status() === 204) {
+            return;
+        }
 
         if (! $response->successful()) {
             logger()->warning('Central sync failed');
@@ -42,7 +53,7 @@ class SyncCentralSetting extends Command
 
         $data = $response->json();
 
-        if (! isset($data['user_limit'])) {
+        if (! isset($data['user_limit'], $data['updated_at'])) {
             logger()->warning('Central response invalid');
 
             return;
@@ -52,6 +63,7 @@ class SyncCentralSetting extends Command
             ['id' => 1],
             [
                 'user_limit' => $data['user_limit'],
+                'central_updated_at' => $data['updated_at'],
                 'synced_at' => now(),
             ]
         );
