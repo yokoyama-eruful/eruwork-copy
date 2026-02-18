@@ -1,20 +1,22 @@
 <div>
-  <div class="mx-5 flex items-center space-x-[8px] lg:mx-0 lg:space-x-[10px]">
+  <div class="mx-5 flex flex-col items-center space-y-[8px] lg:mx-0 lg:flex-row lg:space-x-[10px] lg:space-y-0">
     {{-- <div class="flex h-10 w-[170px] items-center justify-center space-x-1 rounded bg-[#F7F7F7]">
       <p class="text-[11px]">端数処理方法：</p>
       <p class="text-sm font-semibold">{{ $fraction ?? '--' }}</p>
     </div> --}}
-    <div class="flex h-10 w-[170px] items-center justify-center space-x-1 rounded bg-[#F7F7F7]">
+    <div class="flex h-10 w-full items-center justify-center space-x-1 rounded bg-[#F7F7F7] lg:w-[170px]">
       <p class="text-[11px]">時給発生の単位：</p>
       <p class="text-sm font-semibold">{{ $payUnit ? $payUnit . '分' : '--分' }}</p>
     </div>
-    <div class="flex h-10 w-1/2 items-center justify-center space-x-1 rounded bg-[#F7F7F7] lg:w-[170px]">
-      <p class="text-[11px]">深夜割増料金：</p>
-      <p class="text-sm font-semibold">{{ $nightRate ? $nightRate . '%割増' : '--%割増' }}</p>
-    </div>
-    <div class="flex h-10 w-1/2 items-center justify-center space-x-1 rounded bg-[#F7F7F7] lg:w-[170px]">
-      <p class="text-[11px]">残業料金：</p>
-      <p class="text-sm font-semibold">{{ $overtimeRate ? $overtimeRate . '%割増' : '--%割増' }}</p>
+    <div class="flex w-full items-center space-x-[8px] lg:w-auto">
+      <div class="flex h-10 w-1/2 items-center justify-center space-x-1 rounded bg-[#F7F7F7] lg:w-[170px]">
+        <p class="text-[11px]">深夜割増料金：</p>
+        <p class="text-sm font-semibold">{{ $nightRate ? $nightRate . '%割増' : '--%割増' }}</p>
+      </div>
+      <div class="flex h-10 w-1/2 items-center justify-center space-x-1 rounded bg-[#F7F7F7] lg:w-[170px]">
+        <p class="text-[11px]">残業料金：</p>
+        <p class="text-sm font-semibold">{{ $overtimeRate ? $overtimeRate . '%割増' : '--%割増' }}</p>
+      </div>
     </div>
   </div>
   <x-modal name="wage-premium-modal" title="給与計算設定">

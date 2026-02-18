@@ -45,6 +45,7 @@ class Calendar extends Component
         // 1. 期間内のデータを一括取得（Eager LoadingでN+1を防止）
         $allShifts = Schedule::with(['draftSchedule', 'user'])
             ->whereBetween('date', [$this->manager->start_date, $this->manager->end_date])
+            ->whereHas('user')
             ->orderBy('start_time', 'asc')
             ->get()
             ->groupBy(fn ($item) => $item->date->format('Y-m-d'));
@@ -53,6 +54,7 @@ class Calendar extends Component
             ->whereBetween('date', [$this->manager->start_date, $this->manager->end_date])
             ->where('status', '未承認')
             ->where('manager_id', $this->manager->id)
+            ->whereHas('user')
             ->whereHas('user.managers', function ($query) {
                 $query->where('shift__manager_user.status', '提出済');
             })
