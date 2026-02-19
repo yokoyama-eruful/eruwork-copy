@@ -139,7 +139,7 @@
     </div>
     <div class="flex items-center space-x-2 px-5 lg:mt-[20px] lg:border-b lg:px-0 lg:pb-[10px]">
       <div class="hidden text-xs text-[#AAB0B6] lg:block">期間:</div>
-      <div class="text-[20px] font-semibold lg:text-[20px]">
+      <div class="whitespace-nowrap text-[clamp(15px,4.3vw,17px)] font-semibold lg:text-[20px]">
         {{ $manager->start_date->isoFormat('Y/M/D（ddd）') }}　～　{{ $manager->end_date->isoFormat('Y/M/D（ddd）') }}
       </div>
     </div>
