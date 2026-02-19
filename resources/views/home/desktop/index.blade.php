@@ -1,5 +1,5 @@
 <x-app-layout>
-  {{-- top.cssの読み込み --}}
+
   @vite(['resources/css/top.css'])
   <div class="sidebar hidden lg:block">
     <livewire:timecard::general.stamp />
