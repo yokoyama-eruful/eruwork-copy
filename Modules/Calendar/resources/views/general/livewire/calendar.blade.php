@@ -280,15 +280,15 @@
               @foreach ($content['schedules'] as $schedule)
                 @if ($content['type'] != '補助日')
                   <div @class([
-                      'relative flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#00A1FF] bg-[#F2FBFF] pb-[15px] pl-5 pr-[13px] pt-3 text-[#00A1FF]',
+                      'relative flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#00A1FF] bg-[#F2FBFF] py-3 pl-5 pr-[13px] text-[#00A1FF]',
                   ]) x-data="{ openModalSchedule{{ $schedule->id }}: false }"
                     @click="openModalSchedule{{ $schedule->id }}=true"
                     @click.away="openModalSchedule{{ $schedule->id }}=false"
                     wire:key="schedule-{{ $schedule->id }}">
-                    <div class="text-[13px] font-bold">
+                    <div class="flex items-center text-[13px] font-bold">
                       {{ $schedule->title }}
                     </div>
-                    <div class="pt-[4px] text-xs">
+                    <div class="flex items-center text-xs">
                       {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                     </div>
                     <div

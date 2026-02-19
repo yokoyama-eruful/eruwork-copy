@@ -225,7 +225,7 @@
             @if ($content['workTimes']->isNotEmpty())
               <div
                 class="my-2 -ml-[15px] mr-[15px] min-w-[256px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
-                <div class="flex items-start space-x-[37px] lg:block lg:space-x-0">
+                <div class="flex items-center space-x-[37px] lg:block lg:space-x-0">
                   <div class="text-[12px] font-bold leading-tight">勤務時間</div>
                   <div class="flex flex-col lg:block">
                     @foreach ($content['workTimes'] as $key => $time)
@@ -236,10 +236,10 @@
                   </div>
                 </div>
                 <div class="my-[10px] border-t border-[#00A1FF]"></div>
-                <div class="flex items-start space-x-[37px] lg:block lg:space-x-0">
+                <div class="flex items-center space-x-[37px] lg:block lg:space-x-0">
                   <div class="text-[12px] font-bold leading-tight">休憩時間</div>
                   @if ($content['breakTimes']->isEmpty())
-                    <div class="pt-[4px] text-[12px] leading-tight">休憩なし</div>
+                    <div class="text-[12px] leading-tight lg:pt-[4px]">休憩なし</div>
                   @else
                     <div class="flex flex-col lg:block">
                       @foreach ($content['breakTimes'] as $key => $time)
