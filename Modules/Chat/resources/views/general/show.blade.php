@@ -25,7 +25,7 @@
         class="flex h-full flex-col rounded-[10px] bg-white shadow-[0_4px_13px_rgba(93,95,98,0.25)] lg:mt-[13px] lg:h-[calc(var(--vh)*100-100px)]">
         <!-- 上のエリア -->
         <div class="border-b px-5 py-[10px]">
-          <div class="grid grid-cols-[35px,auto,200px] lg:grid-cols-[50px,auto,200px]" x-data="{ showMemberList: false }">
+          <div class="grid grid-cols-[35px,auto,auto] lg:grid-cols-[50px,auto,200px]" x-data="{ showMemberList: false }">
             @if ($selectGroup->is_dm)
               @if ($selectGroup->partnerUser?->icon)
                 <img class="h-[30px] w-[30px] rounded-full border bg-white lg:h-10 lg:w-10"
@@ -50,7 +50,7 @@
             <div class="flex items-center truncate font-bold lg:text-xl">{{ $selectGroup->NameLabel }}</div>
             @if (!$selectGroup->is_dm)
               <div class="flex items-center justify-end space-x-[10px]" @click="$dispatch('open-modal', 'view-member')">
-                <div class="text-sm">{{ Auth::user()->name }}</div>
+                <div class="hidden text-sm lg:block">{{ Auth::user()->name }}</div>
                 <div class="text-xs text-[#AAB0B6]">他{{ $selectGroup->CountUser }}名</div>
                 <div class="flex -space-x-3">
                   @foreach ($selectGroup->users->take(4) as $user)
