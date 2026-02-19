@@ -35,15 +35,16 @@
               @if ($rule->rule === 'public')
                 <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
                   <div></div>
-                  <div class="flex h-[35px] items-center bg-[#F4F4F4] px-[10px] text-sm lg:px-[20px]">専用URL:<a
-                      class="text-blue-500"
-                      href="{{ route('public-timecard.login') }}">　{{ 'https://' . request()->getHost() . '/public-timecard/login' }}</a>
+                  <div class="flex min-w-0 items-center gap-1 bg-[#F4F4F4] px-[10px] py-[4px] text-[12px] lg:px-[20px]">
+                    <span class="shrink-0 whitespace-nowrap">専用URL:</span><a class="ml-[4px] min-w-0 break-all text-blue-500"
+                      href="{{ route('public-timecard.login') }}">{{ 'https://' . request()->getHost() . '/public-timecard/login' }}</a>
                   </div>
                 </div>
                 <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
                   <div></div>
-                  <div class="flex h-[35px] items-center bg-[#F4F4F4] px-[10px] text-sm lg:px-[20px]">PIN
-                    CODE：{{ $pin }}</div>
+                  <div class="flex min-w-0 items-center gap-1 bg-[#F4F4F4] px-[10px] py-[4px] text-[12px] lg:px-[20px]">
+                    <span class="shrink-0 whitespace-nowrap">PIN CODE：</span><span>{{ $pin }}</span>
+                  </div>
                 </div>
               @endif
             </div>
