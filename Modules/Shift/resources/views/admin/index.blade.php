@@ -88,7 +88,7 @@
                     <div>{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
                   </div>
                 </div>
-                <div class="mt-3 text-sm font-bold">
+                <div class="mt-3 whitespace-nowrap text-[clamp(13px,2.8vw,14px)] font-bold leading-tight">
                   {{ $manager->start_date->isoFormat('YYYY/MM/DD（ddd）') }}　～　{{ $manager->end_date->isoFormat('MM/DD（ddd）') }}
                 </div>
               </div>

@@ -105,7 +105,14 @@
             @if ($content['date']->isoFormat('D') === '1' || $loop->first)
               <div class="flex flex-col items-start">
                 <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('M/D日') }}</div>
-                <div class="text-center text-[12px] font-normal leading-tight text-[#222222] lg:hidden">
+                <div @class([
+                    'text-center text-[12px] font-normal leading-tight lg:hidden',
+                    'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
+                    'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
+                    'text-[#222222]' =>
+                        $content['date']->isoFormat('ddd') !== '土' &&
+                        $content['date']->isoFormat('ddd') !== '日',
+                ])>
                   <div>{{ $content['date']->isoFormat('D日') }}</div>
                   <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
                 </div>
@@ -113,7 +120,14 @@
             @else
               <div class="flex flex-col items-start">
                 <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('D日') }}</div>
-                <div class="text-center text-[12px] font-normal leading-tight text-[#222222] lg:hidden">
+                <div @class([
+                    'text-center text-[12px] font-normal leading-tight lg:hidden',
+                    'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
+                    'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
+                    'text-[#222222]' =>
+                        $content['date']->isoFormat('ddd') !== '土' &&
+                        $content['date']->isoFormat('ddd') !== '日',
+                ])>
                   <div>{{ $content['date']->isoFormat('D日') }}</div>
                   <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
                 </div>

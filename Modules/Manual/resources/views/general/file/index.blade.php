@@ -1,7 +1,7 @@
 <x-app-layout :url="route('manualFolder.index')">
   <x-main.index>
     <x-main.top>
-      <h5 class="block text-xl font-bold lg:hidden">{{ $folder->title }}</h5>
+      <h5 class="block pl-[10px] text-xl font-bold lg:hidden">{{ $folder->title }}</h5>
       <a class="hidden items-center space-x-[2px] text-[#3289FA] hover:opacity-40 lg:flex"
         href="{{ route('manualFolder.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -76,7 +76,7 @@
               </div>
 
               <div>
-                <div class="flex items-center space-x-1">
+                <div class="flex items-center space-x-1 pl-[12px]">
                   @if (str_contains($file->type, 'video'))
                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none"
                       xmlns="http://www.w3.org/2000/svg">
@@ -87,7 +87,7 @@
                   @endif
                   <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
                 </div>
-                <div class="text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
+                <div class="pl-[12px] text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>
               <div class="flex items-center justify-end hover:opacity-40">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

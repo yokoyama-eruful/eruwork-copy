@@ -154,11 +154,12 @@
   <div
     class="flex-1 overflow-x-hidden overflow-y-hidden bg-white lg:h-screen lg:overflow-y-auto lg:bg-[#f4f4f4] lg:p-6">
     <x-main.top>
-      <div class="flex w-full items-center justify-between lg:justify-start">
-        <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-4"
+      <div class="flex w-full items-center justify-center lg:justify-start">
+        <button
+          class="mr-[5px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-l pl-[10px] pr-[5px] text-[15px] leading-none"
           wire:click="selectedMonth('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
-          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
-          <p>前月</p>
+          <img class="block h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
+          <p class="leading-none">前月</p>
         </button>
         <div class="flex flex-row space-x-[5px]">
           <select class="rounded border border-[#DDDDDD]" wire:model="year" wire:change="updateCalendar">
@@ -172,10 +173,11 @@
             @endforeach
           </select>
         </div>
-        <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-4"
+        <button
+          class="ml-[5px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-r pl-[5px] pr-[10px] text-[15px] leading-none"
           wire:click="selectedMonth('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
-          <p>翌月</p>
-          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
+          <p class="leading-none">翌月</p>
+          <img class="block h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
         </button>
         <div class="hidden lg:block">
           <button class="mx-[15px] h-[30px] rounded border bg-[#77829C] px-3 text-[14px] text-white"
@@ -206,30 +208,28 @@
           ]) wire:click="clickDate('{{ $content['date']->toDateString() }}')"
             wire:key="calendar-box-{{ $content['date']->toDateString() }}">
             <div @class([
-                'pl-[15px] text-[15px] py-[15px] lg:text-base text-xs flex items-center',
+                'px-[15px] py-[15px] text-[15px] flex items-center',
+                'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
+                'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                 'font-bold text-[#3289FA]' =>
-                    $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
-                'text-[#3289FA] font-bold' =>
-                    $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
-                'text-[#48CBFF]' =>
-                    $content['date']->format('Y-m-d') !== $selectedDate->format('Y-m-d') &&
-                    $content['date']->isoFormat('ddd') === '土',
-                'text-[#FF0000]' =>
-                    $content['date']->format('Y-m-d') !== $selectedDate->format('Y-m-d') &&
-                    $content['date']->isoFormat('ddd') === '日',
+                    $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d') &&
+                    !in_array($content['date']->isoFormat('ddd'), ['土', '日']),
             ])>
-              <p>{{ $content['date']->isoFormat('D日') }}</p>
-              <p class="block lg:hidden">{{ $content['date']->isoFormat('（ddd曜）') }}</p>
+              <p class="hidden lg:block">{{ $content['date']->isoFormat('D日') }}</p>
+              <div class="text-center text-[12px] font-normal leading-tight lg:hidden">
+                <div>{{ $content['date']->isoFormat('D日') }}</div>
+                <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
+              </div>
             </div>
 
             @if ($content['workTimes']->isNotEmpty())
               <div
-                class="my-2 mr-1 min-w-[256px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
+                class="my-2 -ml-[15px] mr-[15px] min-w-[256px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
                 <div class="flex items-start space-x-[37px] lg:block lg:space-x-0">
-                  <div class="text-[13px] font-bold">勤務時間</div>
+                  <div class="text-[12px] font-bold leading-tight">勤務時間</div>
                   <div class="flex flex-col lg:block">
                     @foreach ($content['workTimes'] as $key => $time)
-                      <div class="text-xs font-bold lg:pt-[4px] lg:font-normal">
+                      <div class="text-[12px] font-bold leading-tight lg:pt-[4px] lg:font-normal">
                         {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                       </div>
                     @endforeach
@@ -237,13 +237,13 @@
                 </div>
                 <div class="my-[10px] border-t border-[#00A1FF]"></div>
                 <div class="flex items-start space-x-[37px] lg:block lg:space-x-0">
-                  <div class="text-[13px] font-bold">休憩時間</div>
+                  <div class="text-[12px] font-bold leading-tight">休憩時間</div>
                   @if ($content['breakTimes']->isEmpty())
-                    <div class="pt-[4px] text-xs">休憩なし</div>
+                    <div class="pt-[4px] text-[12px] leading-tight">休憩なし</div>
                   @else
                     <div class="flex flex-col lg:block">
                       @foreach ($content['breakTimes'] as $key => $time)
-                        <div class="text-xs font-bold lg:pt-[4px] lg:font-normal">
+                        <div class="text-[12px] font-bold leading-tight lg:pt-[4px] lg:font-normal">
                           {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                         </div>
                       @endforeach

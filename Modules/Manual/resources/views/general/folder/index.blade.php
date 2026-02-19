@@ -1,7 +1,7 @@
 <x-app-layout>
   <x-main.index>
     <x-main.top>
-      <h5 class="block text-xl font-bold lg:hidden">マニュアル</h5>
+      <h5 class="block pl-[10px] text-xl font-bold lg:hidden">マニュアル</h5>
     </x-main.top>
     <x-main.container>
       <div class="flex items-center justify-between">
