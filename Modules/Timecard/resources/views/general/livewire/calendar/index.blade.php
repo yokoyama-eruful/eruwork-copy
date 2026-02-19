@@ -202,7 +202,9 @@
       <div class="mt-[15px] divide-y border lg:grid lg:grid-cols-7 lg:divide-x lg:rounded-lg">
         @foreach ($this->calendar as $content)
           <div @class([
-              'lg:min-h-[170px] min-h-[78px] lg:block flex items-center justify-between cursor-pointer',
+              'lg:min-h-[170px] min-h-[78px] lg:block flex items-center cursor-pointer',
+              'justify-between' => $content['workTimes']->isEmpty(),
+              'gap-[30px]' => $content['workTimes']->isNotEmpty(),
               'bg-[#F9FAFF]' => $content['date']->isSameDay($selectedDate),
               'bg-gray-100 hidden lg:block' => $content['type'] == '補助日',
           ]) wire:click="clickDate('{{ $content['date']->toDateString() }}')"
@@ -224,7 +226,7 @@
 
             @if ($content['workTimes']->isNotEmpty())
               <div
-                class="my-2 -ml-[15px] mr-[15px] min-w-[256px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
+                class="my-2 mr-[15px] min-w-[256px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
                 <div class="flex items-center space-x-[37px] lg:block lg:space-x-0">
                   <div class="text-[12px] font-bold leading-tight">勤務時間</div>
                   <div class="flex flex-col lg:block">
@@ -235,7 +237,7 @@
                     @endforeach
                   </div>
                 </div>
-                <div class="my-[10px] border-t border-[#00A1FF]"></div>
+                <div class="my-[10px] border-t-[0.5px] border-[#88D3FF]"></div>
                 <div class="flex items-center space-x-[37px] lg:block lg:space-x-0">
                   <div class="text-[12px] font-bold leading-tight">休憩時間</div>
                   @if ($content['breakTimes']->isEmpty())
