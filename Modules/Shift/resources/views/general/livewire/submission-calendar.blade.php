@@ -97,20 +97,26 @@
     <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'lg:min-h-[170px] min-h-[90px] lg:block grid grid-cols-[20%,60%,20%] items-center',
+            'lg:min-h-[170px] min-h-[90px] lg:block grid grid-cols-[72px,minmax(0,1fr),48px] items-center',
             'bg-[#E6E6E6] hidden lg:block' => $content['type'] === '期間外',
         ]) wire:key="calendar-box-desktop-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="flex items-center justify-between pl-[15px] pr-[10px]">
             @if ($content['date']->isoFormat('D') === '1' || $loop->first)
               <div class="flex flex-col items-start">
-                <div @class(['text-[15px] lg:py-[15px]'])>{{ $content['date']->isoFormat('M/D日') }}</div>
-                <div class="text-xs lg:hidden">{{ $content['date']->isoFormat('ddd') }}曜</div>
+                <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('M/D日') }}</div>
+                <div class="text-center text-[12px] font-normal leading-tight text-[#222222] lg:hidden">
+                  <div>{{ $content['date']->isoFormat('D日') }}</div>
+                  <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
+                </div>
               </div>
             @else
               <div class="flex flex-col items-start">
-                <div @class(['text-[15px] lg:py-[15px]'])>{{ $content['date']->isoFormat('D日') }}</div>
-                <div class="text-xs lg:hidden">{{ $content['date']->isoFormat('ddd') }}曜</div>
+                <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('D日') }}</div>
+                <div class="text-center text-[12px] font-normal leading-tight text-[#222222] lg:hidden">
+                  <div>{{ $content['date']->isoFormat('D日') }}</div>
+                  <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
+                </div>
               </div>
             @endif
             @if ($content['type'] !== '期間外')
@@ -132,7 +138,7 @@
                 :manager="$manager" />
             @endif
           </div>
-          <div class="my-3 flex flex-col space-y-1 lg:my-0 lg:mb-1 lg:pr-1 lg:text-sm">
+          <div class="my-3 flex flex-col space-y-1 pr-[11px] lg:my-0 lg:mb-1 lg:pr-1 lg:text-sm">
             @foreach ($content['draftShifts'] as $key => $schedule)
               @if (!$schedule->shiftStatus)
                 @if ($this->submissionStatus($manager) === '未提出')
@@ -182,7 +188,7 @@
             @endforeach
           </div>
 
-          <div class="flex items-center justify-center lg:hidden">
+          <div class="flex shrink-0 items-center justify-center lg:hidden">
             @if ($content['type'] !== '期間外' && $manager->OverSubmissionPeriod && $this->submissionStatus($manager) === '未提出')
               <button class="hover:opacity-40" type="button"
                 x-on:click="$dispatch('open-modal', 'create-modal-{{ $content['date']->format('Y-m-d') }}')">
