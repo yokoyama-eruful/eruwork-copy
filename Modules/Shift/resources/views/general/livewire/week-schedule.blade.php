@@ -119,7 +119,7 @@
     <div class="mb-[12px] mt-[20px] flex items-center justify-between px-5 lg:mb-[14px] lg:mt-[17px] lg:px-0">
       <div class="flex items-center">
         <p class="text-xs text-[#AAB0B6]">期間：</p>
-        <div class="pl-1 text-sm font-semibold lg:text-xl">
+        <div class="pl-1 text-[0.9375rem] font-semibold lg:text-xl">
           {{ $startDate->isoFormat('M/D（ddd）') }} ～ {{ $endDate->isoFormat('M/D（ddd）') }}</div>
       </div>
       <div class="hidden items-center space-x-5 lg:flex">
