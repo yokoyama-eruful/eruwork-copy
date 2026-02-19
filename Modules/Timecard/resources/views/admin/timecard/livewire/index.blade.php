@@ -107,9 +107,9 @@
           </div>
 
           <!-- タイムカード管理アイコン・名前出勤時間調整 -->
-          <a href="{{ route('timecardManager.show', ['id' => $user->id, 'date' => $selectDate?->format('Y-m-d')]) }}"
+            <a href="{{ route('timecardManager.show', ['id' => $user->id, 'date' => $selectDate?->format('Y-m-d')]) }}"
             @class([
-                'grid lg:grid-cols-[10%,40%,20%,20%,10%] grid-cols-[12%,48%,32%,5%] lg:py-[18px] lg:py-3 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center lg:hidden',
+                'grid lg:grid-cols-[10%,40%,20%,20%,10%] grid-cols-[12%,48%,minmax(0,1fr),28px] lg:py-[18px] lg:py-3 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center lg:hidden',
                 'border-b' => !$loop->last,
                 'lg:bg-[#F9FAFF] border lg:border-[#3289FA]' =>
                     $this->user->id === $user->id,
@@ -118,12 +118,12 @@
             ]) wire:click="selectUser('{{ $user->id }}')">
 
             <div
-              class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
+              class="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
-                <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image scale-50"></i>
+                <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white lg:h-full lg:w-full"><i
+                    class="fa-solid fa-image text-[30px]"></i>
                 </div>
               @endif
             </div>
@@ -139,8 +139,8 @@
             </div>
 
             <!-- アローアイコン入れる -->
-            <div class="flex items-center lg:hidden">
-              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <div class="flex items-center justify-end justify-self-end lg:hidden">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round" />
               </svg>
