@@ -11,11 +11,11 @@
           <img class="h-[25px] w-[25px] rounded-full border bg-white" src="{{ $group->IconImage }}" alt="アイコン">
         @else
           <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
-              class="fa-solid fa-image"></i>
+              class="fa-solid fa-image text-[25px]"></i>
           </div>
         @endif
       </div>
-      <div class="flex items-center truncate text-[15px] font-semibold">{{ $group->name }}</div>
+      <div class="ml-[10px] flex items-center truncate text-[15px] font-semibold">{{ $group->name }}</div>
       <div class="flex items-center justify-center">
         @if ($group->group_notification_count)
           <div
@@ -41,11 +41,11 @@
               src="{{ route('profile.icon', ['id' => $group->partnerUser->id]) }}" alt="アイコン">
           @else
             <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
-                class="fa-solid fa-image"></i>
+                class="fa-solid fa-image text-[25px]"></i>
             </div>
           @endif
         </div>
-        <div class="truncate text-[15px] font-semibold">{{ $group->NameLabel }}</div>
+        <div class="ml-[10px] truncate text-[15px] font-semibold">{{ $group->NameLabel }}</div>
         <div class="flex items-center justify-center">
           @if ($group->group_notification_count)
             <div
