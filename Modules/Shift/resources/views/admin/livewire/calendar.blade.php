@@ -183,7 +183,11 @@
           wire:key="calendar-{{ $key }}-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="hidden items-center justify-between px-[15px] lg:flex">
-            <div @class(['text-[15px] py-[15px]'])>{{ $content['date']->isoFormat('D日') }}</div>
+            <div @class([
+                'text-[15px] py-[15px]',
+                'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
+                'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
+            ])>{{ $content['date']->isoFormat('D日') }}</div>
             @if ($content['type'] != '期間外')
               <button class="hover:opacity-40" type="button" x-on:click="$dispatch('open-modal', 'create-modal')"
                 wire:click="setDate('{{ $content['date']->format('Y-m-d') }}')">
@@ -199,9 +203,13 @@
 
           <div class="grid w-full grid-cols-[10%,80%,10%] items-center lg:grid-cols-1">
 
-            <div @class(['lg:hidden flex justify-center items-center flex-col'])>
+            <div @class([
+                'lg:hidden flex justify-center items-center flex-col text-center text-[12px] font-normal leading-tight',
+                'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
+                'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
+            ])>
               <div>{{ $content['date']->isoFormat('D') }}</div>
-              <div class="text-xs">{{ $content['date']->isoFormat('(ddd)') }}</div>
+              <div>{{ $content['date']->isoFormat('(ddd)') }}</div>
             </div>
 
             <div class="my-[15px] flex flex-col space-y-[10px] lg:my-0 lg:mb-5">

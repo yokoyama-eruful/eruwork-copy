@@ -1,6 +1,6 @@
 <div>
   <button
-    class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
+    class='flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-[12px] py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
     type="button" x-on:click="$dispatch('open-modal','multi-create-modal')">
     <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
     複数日登録
@@ -97,11 +97,11 @@
 
       @if ($item === 'pattern')
         <div class="mt-5">
-          <x-input-label class="font-normal" value="パターン設定" />
+          <x-input-label class="font-normal mb-[10px]" value="パターン設定" />
           <div class="flex flex-col justify-center space-y-3">
             @forelse (Auth::user()->patterns as $pattern)
               @if (!is_null($pattern->start_time) && !is_null($pattern->end_time))
-                <div class="flex items-center space-x-1">
+                <div class="flex items-center space-x-1 py-[5px]">
                   <label class="flex cursor-pointer items-center space-x-1">
                     <input name="pattern_id" type="radio"
                       wire:click="selectPattern('{{ $pattern->start_time->format('H:i') }}','{{ $pattern->end_time->format('H:i') }}')">

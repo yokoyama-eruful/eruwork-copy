@@ -51,11 +51,11 @@
 
     @if ($item === 'pattern')
       <div class="mt-5">
-        <x-input-label class="font-normal" value="パターン設定" />
+        <x-input-label class="font-normal mb-[10px]" value="パターン設定" />
         <div class="flex flex-col justify-center space-y-3">
           @forelse (Auth::user()->patterns as $pattern)
             @if (!is_null($pattern->start_time) && !is_null($pattern->end_time))
-              <div class="flex items-center space-x-1">
+              <div class="flex items-center space-x-1 py-[5px]">
                 <label class="flex cursor-pointer items-center space-x-1">
                   <input name="pattern_id" type="radio"
                     wire:click="selectPattern('{{ $pattern->start_time->format('H:i') }}','{{ $pattern->end_time->format('H:i') }}')">
