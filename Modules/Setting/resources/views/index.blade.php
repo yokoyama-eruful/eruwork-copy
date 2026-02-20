@@ -49,7 +49,7 @@
               @endif
             </div>
 
-            <div class="mt-5 flex w-full justify-center">
+            <div class="mt-[30px] flex w-full justify-center lg:mt-5">
               <button class="mb-5 h-[45px] w-[150px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
@@ -130,7 +130,7 @@
                 </label>
               </div>
             </div>
-            <div class="mt-5 flex w-full justify-center">
+            <div class="mt-[30px] flex w-full justify-center lg:mt-5">
               <button class="mb-5 h-[45px] w-[150px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
