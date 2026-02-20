@@ -19,7 +19,7 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[24%,45%,21%,10%] lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[24%,45%,21%,10%] lg:grid lg:pr-[20px]">
           <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
@@ -29,7 +29,7 @@
           @foreach ($managers as $manager)
             <div onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'"
               @class([
-                  'grid-cols-[24%,45%,21%,10%] lg:grid lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
+                  'grid-cols-[24%,45%,21%,10%] lg:grid lg:relative lg:pr-[20px] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden items-center',
                   'border-b' => !$loop->last,
               ])>
               <div @class([
@@ -47,7 +47,7 @@
 
               <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
 
-              <div class="relative hidden lg:block" x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
+              <div class="relative hidden lg:block lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2" x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $manager->id }} = !openDialog{{ $manager->id }};">
                   <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />

@@ -25,8 +25,8 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">ルームがありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[13%,20%,45%,14%,8%] lg:grid tablet:grid-cols-[10%,27%,45%,14%,4%]">
-          <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
+        <div class="mt-[30px] hidden grid-cols-[10%,23%,45%,14%,8%] lg:grid lg:pr-[20px] tablet:grid-cols-[10%,27%,45%,14%,4%]">
+          <div class="pl-[20px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
           <div class="pr-[20px] text-left text-xs font-normal text-[#AAB0B6]">グループ名</div>
           <div class="pr-[87px] text-left text-xs font-normal text-[#AAB0B6]">メンバー</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">更新日</div>
@@ -35,11 +35,11 @@
         <div class="mt-[24px] border border-b lg:-mx-0 lg:mt-[8px] lg:rounded-lg">
           @foreach ($groups as $group)
             <div @class([
-                'lg:grid grid-cols-[13%,20%,45%,14%,8%] tablet:grid-cols-[10%,27%,45%,14%,4%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid grid-cols-[10%,23%,45%,14%,8%] tablet:grid-cols-[10%,27%,45%,14%,4%] lg:relative lg:pr-[20px] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
               <div
-                class="ml-[25px] mr-[20px] flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+                class="flex h-[45px] w-[45px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:mx-[20px]">
                 @if ($group->icon)
                   <img class="h-full w-full object-cover" src="{{ $group->icon }}">
                 @else
@@ -52,7 +52,7 @@
               <div class="break-words pr-[87px] text-[15px]">{{ $group->users->implode('name', '　') }}</div>
               <div class="text-[15px]">{{ $group->updated_at->format('Y/m/d') }}</div>
 
-              <div class="relative block" x-data="{ openDialog{{ $group->id }}: false }">
+              <div class="relative block lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2" x-data="{ openDialog{{ $group->id }}: false }">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $group->id }} = !openDialog{{ $group->id }};"><img
                     class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" /></div>
