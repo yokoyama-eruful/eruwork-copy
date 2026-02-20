@@ -86,7 +86,7 @@
             x-on:click="hourlyRateShow = true" wire:click="selectUser('{{ $user->id }}')">
 
             <div
-              class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
+              class="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
