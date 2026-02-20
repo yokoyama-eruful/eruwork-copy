@@ -59,13 +59,25 @@
 
 
 @media (max-width: 1023px) {
+  .slider .slides-wrapper {
+    padding-left: 10px !important;
+  }
+
+  .slider .slides-wrapper > a {
+    flex: 0 0 350px;
+  }
+
   .bulletin-board-area {
     width: 100%;
     margin: 5px auto;
   }
 
+  .bulletin-board-area.slide {
+    width: 350px;
+  }
+
   .bulletin-board-box {
-    width: 100%;
+    width: 350px;
     height: 60px;
     padding: 10px 20px;
   }

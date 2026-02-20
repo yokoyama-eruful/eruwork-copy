@@ -587,21 +587,28 @@ dialog::backdrop {
   .calendar-sp-day-box {
     border: solid 1px #ddd;
     border-radius: 5px;
-    padding: 5px;
-    font-size: 20px;
+    padding: 0;
+    font-size: 16px;
     width: 48px;
     height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
   }
 
   .calendar-sp-day-box .calendar-sp-ddd {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transform: translateY(1px);
   }
 
   .calendar-sp-day-box span {
     font-size: 10px;
-    line-height: 1.2;
+    line-height: 1;
   }
 
   .schedule-box-area {

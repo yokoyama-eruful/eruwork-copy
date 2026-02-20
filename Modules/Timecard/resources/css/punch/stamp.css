@@ -12,7 +12,10 @@
 .time-display {
   font-size: 36px;
   font-weight: bold;
-  margin: 0 12px 0 0;
+  margin: 0;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
 }
 
 .timerecord-button-area {
@@ -139,7 +142,10 @@
   .time-display {
     font-size: 42px;
     font-weight: bold;
-    margin: 0 12px 0 0;
+    margin: 0;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
   }
 
   .timerecord-button-area {
