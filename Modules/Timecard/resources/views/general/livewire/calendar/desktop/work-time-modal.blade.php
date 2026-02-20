@@ -25,7 +25,7 @@
       <x-input-error class="mt-2" :messages="$errors->get('workData.outTime')" />
     </div>
     <x-input-error class="mt-2" :messages="$errors->get('workError')" />
-    <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
+    <div class="-mx-4 -mb-[30px] mt-5 lg:mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>

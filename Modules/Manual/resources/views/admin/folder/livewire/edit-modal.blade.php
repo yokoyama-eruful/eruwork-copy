@@ -6,7 +6,7 @@
         <x-text-input class="w-full" type="text" wire:model="form.title" required />
       </div>
 
-      <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 -mb-[30px] mt-5 lg:mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click.stop="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

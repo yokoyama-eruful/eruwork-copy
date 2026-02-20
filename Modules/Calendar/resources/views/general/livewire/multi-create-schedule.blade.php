@@ -83,7 +83,7 @@
         <x-text-area class="min-h-[130px] w-full" id="description" name="description" type="text"
           wire:model="form.description" placeholder="説明"></x-text-area>
       </div>
-      <div class="-mx-4 -mb-[30px] mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
+      <div class="-mx-4 -mb-[30px] mt-5 lg:mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>

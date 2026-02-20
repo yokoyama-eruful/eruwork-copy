@@ -72,7 +72,7 @@
         </button>
       </div>
       <hr class="border-t">
-      <div class="bg-[#F7F7F7] px-5 py-[30px]">
+      <div class="bg-[#F7F7F7] px-5 pt-5 pb-[30px]">
         {{ $slot }}
       </div>
       @if (isset($footer))
