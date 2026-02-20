@@ -31,7 +31,7 @@
     <x-dashboard.container>
       <h5 class="hidden text-xl font-bold lg:block">{{ $folder->title }}</h5>
       @if ($files->isNotEmpty())
-        <div class="mt-[30px] hidden grid-cols-[1fr_0.3fr_8fr_2fr_0.7fr] px-5 lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[145px_24px_minmax(0,1fr)_110px_36px] px-5 lg:grid">
           <div class="text-xs text-[#AAB0B6]">サムネイル</div>
           <div class="text-xs text-[#AAB0B6]"></div>
           <div class="text-xs text-[#AAB0B6]">表題</div>
@@ -41,7 +41,7 @@
         <div class="mt-[30px] border-b lg:mt-[10px] lg:rounded-xl lg:border">
           @foreach ($files as $file)
             <div @class([
-                'hidden lg:grid grid-cols-[1fr_0.3fr_8fr_2fr_0.7fr]  py-[20px] text-[15px] items-center min-h-[121px] px-5 relative',
+                'hidden lg:grid grid-cols-[145px_24px_minmax(0,1fr)_110px_36px] py-[20px] text-[15px] items-center min-h-[121px] px-5 relative',
                 'border-b' => !$loop->last,
             ])>
               @if ($file->status == '下書き')
@@ -77,7 +77,7 @@
                 @endif
               </div>
 
-              <div class="font-bold">{{ $file->title }}</div>
+              <div class="min-w-0 truncate font-bold">{{ $file->title }}</div>
 
               <div>{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
 
