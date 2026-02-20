@@ -156,7 +156,7 @@
     <x-main.top>
       <div class="flex w-full items-center justify-center lg:justify-start">
         <button
-          class="mr-[5px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-l pl-[10px] pr-[5px] text-[15px] leading-none"
+          class="mr-[10px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-l pl-[10px] pr-[5px] text-[15px] leading-none lg:mr-[5px]"
           wire:click="selectedMonth('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
           <img class="block h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
           <p class="leading-none">前月</p>
@@ -174,7 +174,7 @@
           </select>
         </div>
         <button
-          class="ml-[5px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-r pl-[5px] pr-[10px] text-[15px] leading-none"
+          class="ml-[10px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-r pl-[5px] pr-[10px] text-[15px] leading-none lg:ml-[5px]"
           wire:click="selectedMonth('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
           <p class="leading-none">翌月</p>
           <img class="block h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
