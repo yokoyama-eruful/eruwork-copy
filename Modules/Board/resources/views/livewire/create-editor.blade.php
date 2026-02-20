@@ -89,10 +89,10 @@
 
       {{-- ボタン --}}
       <div class="mt-10 hidden justify-center space-x-5 lg:flex">
-        <a class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md border-2 border-[#3289FA] bg-white font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
+        <a class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md outline outline-1 outline-[#5E5E5E] bg-white font-bold uppercase tracking-widest text-[#5E5E5E] hover:opacity-40"
           href="{{ route('board.index') }}">
-          キャンセル
-        </a>
+            キャンセル
+          </a>
 
         <button
           class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
@@ -115,10 +115,10 @@
         </button>
 
         <div class="mt-5 flex items-center justify-between space-x-5">
-          <a class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md border-2 border-[#3289FA] bg-white font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
+          <a class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md outline outline-1 outline-[#5E5E5E] bg-white font-bold uppercase tracking-widest text-[#5E5E5E] hover:opacity-40"
             href="{{ route('board.index') }}">
-            キャンセル
-          </a>
+              キャンセル
+            </a>
           <button
             class="inline-flex h-[50px] w-[230px] items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
             id="mobile-draftButton" type="button">
