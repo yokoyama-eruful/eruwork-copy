@@ -10,7 +10,7 @@
           <div class="text-xs">（扶養控除）</div>
         </div>
 
-        <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-2">
+        <div class="mt-[30px] flex items-center justify-between rounded bg-[#F7F7F7] py-[10px]">
           <div class="flex flex-col items-start">
             <div class="flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('Y年度') }}
             </div>

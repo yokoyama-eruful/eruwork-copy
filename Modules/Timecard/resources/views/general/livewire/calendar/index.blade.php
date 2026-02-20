@@ -226,7 +226,7 @@
 
             @if ($content['workTimes']->isNotEmpty())
               <div
-                class="my-2 mr-[15px] min-w-[256px] rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
+                class="my-[12px] mr-[20px] min-w-0 flex-1 rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
                 <div class="flex items-center space-x-[37px] lg:block lg:space-x-0">
                   <div class="text-[12px] font-bold leading-tight">勤務時間</div>
                   <div class="flex flex-col lg:block">
