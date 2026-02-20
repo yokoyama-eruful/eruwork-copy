@@ -31,28 +31,26 @@
       :class="sideMenu ? '-rotate-45 -translate-y-[7px]' : ''"></span>
   </button>
 
-  <div class="lg:account-modal-box account-mobile-modal-box absolute" id="accountModal" x-show="accountModal"
+  <div class="lg:account-modal-box account-mobile-modal-box absolute" style="padding: 10px 5px 10px 10px;" id="accountModal" x-show="accountModal"
     x-on:click.away="accountModal=false">
     <div class="modal-content">
-      <button class="flex items-center text-xs text-[#777777] hover:opacity-40" type="button"
+      <button class="flex w-full items-center gap-[1px] leading-none text-[13px] text-[#777777] hover:opacity-40" type="button"
         x-on:click="$dispatch('open-modal','profile'); accountModal=false">
-        <img class="h-6 w-6" src="{{ asset('img/icon/account-modal-icon.png') }}" />
+        <img class="mr-0 h-[20px] w-[20px] shrink-0" src="{{ asset('img/icon/account-modal-icon.png') }}" />
         アカウント
-        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-          <path fill-rule="evenodd"
-            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-            clip-rule="evenodd" />
+        <svg class="ml-auto h-[20px] w-[20px] shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
+          <path d="M8 6L12 10L8 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round" />
         </svg>
       </button>
       <div>
-        <button class="flex items-center text-xs text-[#F76E80] hover:opacity-40" type="button"
+        <button class="flex w-full items-center gap-[1px] leading-none text-[13px] text-[#F76E80] hover:opacity-40" type="button"
           x-on:click="$dispatch('open-modal','logout')">
-          <img class="h-6 w-6" src="{{ asset('img/icon/logout.png') }}" />
+          <img class="mr-0 h-[20px] w-[20px] shrink-0" src="{{ asset('img/icon/logout.png') }}" />
           ログアウト
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#f76e80">
-            <path fill-rule="evenodd"
-              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-              clip-rule="evenodd" />
+          <svg class="ml-auto h-[20px] w-[20px] shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none">
+            <path d="M8 6L12 10L8 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round" />
           </svg>
         </button>
       </div>
