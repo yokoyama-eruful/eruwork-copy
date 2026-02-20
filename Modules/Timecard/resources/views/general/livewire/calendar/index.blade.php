@@ -188,7 +188,7 @@
     <x-main.container>
       <div class="grid grid-cols-7">
         <div class="flex items-center justify-between">
-          <div class="mx-auto text-xl font-bold lg:mx-0">{{ $selectedDate->isoFormat('M月') }}</div>
+          <div class="ml-5 text-xl font-bold lg:ml-0">{{ $selectedDate->isoFormat('M月') }}</div>
           <div class="hidden text-[15px] lg:block">月</div>
           <div></div>
         </div>
