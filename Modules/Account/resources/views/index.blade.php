@@ -28,7 +28,7 @@
                 'border-b' => !$loop->last,
             ])>
             <div
-              class="flex h-[35px] w-[35px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[40px] lg:w-[40px]">
+              class="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[30px] lg:w-[30px]">
               @if ($user->icon)
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
