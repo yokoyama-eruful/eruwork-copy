@@ -26,7 +26,7 @@
       </div>
 
       @if ($folders->isNotEmpty())
-        <div class="mt-[30px] hidden grid-cols-[60%,15%,15%,5%,5%] lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[60%,15%,15%,5%,5%] lg:grid lg:pr-[70px]">
           <div class="pl-[30px] text-xs text-[#AAB0B6]">表題</div>
           <div class="text-xs text-[#AAB0B6]">メンバー</div>
           <div class="text-xs text-[#AAB0B6]">更新日</div>
@@ -36,13 +36,14 @@
         <div class="mt-[10px] border-b lg:rounded-xl lg:border">
           @foreach ($folders as $folder)
             <a href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}" @class([
-                'grid lg:grid-cols-[60%,15%,15%,5%,5%] grid-cols-[77%,13%,10%] lg:py-[30px] py-5 text-[15px] flex items-center cursor-pointer',
+                'grid lg:grid-cols-[60%,15%,15%,5%,5%] grid-cols-[77%,13%,10%] lg:relative lg:pr-[70px] lg:py-[30px] py-5 text-[15px] flex items-center cursor-pointer',
                 'border-b' => !$loop->last,
             ])>
               <div class="pl-[30px] font-bold">{{ $folder->title }}</div>
               <div class="hidden lg:block">{{ $folder->user->name ?? 'NoName' }}</div>
               <div class="hidden lg:block">{{ $folder->updated_at?->format('Y/m/d') }}</div>
-              <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
+              <div class="relative lg:absolute lg:right-[70px] lg:top-1/2 lg:-translate-y-1/2"
+                x-data="{ openDialog{{ $folder->id }}: false }">
                 <button class="flex items-center" type="button"
                   @click.prevent.stop="openDialog{{ $folder->id }} = !openDialog{{ $folder->id }};">
                   <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
@@ -83,8 +84,8 @@
                   </button>
                 </div>
               </div>
-              <div>
-                <svg class="h-[18px] w-[18px] lg:h-6 lg:w-6" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              <div class="lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2">
+                <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
