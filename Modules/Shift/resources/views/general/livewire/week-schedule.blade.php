@@ -149,7 +149,7 @@
       </button>
     </div>
 
-    <div class="mt-[15px] w-full overflow-x-auto lg:mt-6">
+    <div class="mt-[10px] w-full overflow-x-auto lg:mt-[10px]">
       <!-- ここに横スクロールを任せる -->
 
       <!-- テーブル：画面幅にフィット（小さい時）／中身に伸びる（大きい時） -->
@@ -158,20 +158,22 @@
           <tr>
             <th class="w-[100px] min-w-[100px] text-xs font-normal text-[#3289FA] lg:w-32"></th>
             @foreach ($this->calendar as $content)
-              <th
-                class="{{ $content['date']->format('Ymd') === now()->format('Ymd')
-                    ? 'font-bold text-[#3289FA] bg-[#3289FA] bg-opacity-10 rounded-lg'
-                    : ($content['type'] === '土曜日'
-                        ? 'font-normal text-[#48CBFF]'
-                        : ($content['type'] === '日曜日'
-                            ? 'font-normal text-[#FF0000]'
-                            : ($content['type'] === '公休日'
-                                ? 'font-normal text-orange-200'
-                                : 'font-normal text-black'))) }} w-[100px] min-w-[100px] py-[6px] text-[15px] lg:w-32">
-                <p class="hidden lg:block">{{ $content['date']->isoFormat('M/D(ddd)') }}</p>
-                <div class="block lg:hidden">
-                  <p>{{ $content['date']->isoFormat('ddd') }}</p>
-                  <p>{{ $content['date']->isoFormat('D') }}</p>
+              <th class="w-[100px] min-w-[100px] text-[15px] lg:w-32">
+                <div
+                  class="{{ $content['date']->format('Ymd') === now()->format('Ymd')
+                      ? 'my-[6px] py-[6px] rounded-lg bg-[#3289FA] bg-opacity-10 font-bold text-[#3289FA]'
+                      : ($content['type'] === '土曜日'
+                          ? 'my-[6px] py-[6px] font-normal text-[#48CBFF]'
+                          : ($content['type'] === '日曜日'
+                              ? 'my-[6px] py-[6px] font-normal text-[#FF0000]'
+                              : ($content['type'] === '公休日'
+                                  ? 'my-[6px] py-[6px] font-normal text-orange-200'
+                                  : 'my-[6px] py-[6px] font-normal text-black'))) }}">
+                  <p class="hidden lg:block">{{ $content['date']->isoFormat('M/D(ddd)') }}</p>
+                  <div class="block lg:hidden">
+                    <p>{{ $content['date']->isoFormat('ddd') }}</p>
+                    <p>{{ $content['date']->isoFormat('D') }}</p>
+                  </div>
                 </div>
               </th>
             @endforeach
