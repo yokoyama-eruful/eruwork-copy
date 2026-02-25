@@ -127,12 +127,12 @@
         </div>
       </div>
 
-      <div class="-mx-4 -mb-[30px] mt-5 flex flex-col items-center justify-center gap-[10px] rounded-b bg-white py-4 lg:mt-[30px] sm:flex-row sm:gap-0 sm:space-x-[10px]">
+      <div class="-mx-4 -mb-[30px] mt-5 flex items-center justify-center space-x-[10px] rounded-b bg-white py-4 lg:mt-[30px]">
         <x-secondary-button x-on:click="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3">
+        <x-primary-button class="w-[150px]">
           登録
         </x-primary-button>
       </div>
@@ -146,7 +146,7 @@
       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
         <div class="pt-[13px] text-[0.9375rem] font-bold">早朝料金設定を削除します</div>
       </div>
-      <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
+      <div class="my-5 flex items-center justify-center space-x-[10px]">
         <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
           @click="$dispatch('close-modal', 'morning-delete-modal')">キャンセル</div>
         <button class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
@@ -162,7 +162,7 @@
       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
         <div class="pt-[13px] text-[0.9375rem] font-bold">深夜料金設定を削除します</div>
       </div>
-      <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
+      <div class="my-5 flex items-center justify-center space-x-[10px]">
         <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
           @click="$dispatch('close-modal', 'night-delete-modal')">キャンセル</div>
         <button class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"

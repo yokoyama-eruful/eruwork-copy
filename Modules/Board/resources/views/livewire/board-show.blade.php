@@ -166,7 +166,7 @@
               <p class="text-xs">以下のタイトルを削除いたします</p>
               <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $post->title }}</div>
             </div>
-            <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
+            <div class="my-5 flex items-center justify-center space-x-[10px]">
               <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
                 @click="$dispatch('close-modal', 'delete-modal-{{ $post->id }}')">キャンセル</div>
               <div

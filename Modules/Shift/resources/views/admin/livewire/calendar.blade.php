@@ -117,7 +117,7 @@
           @endif
         </div>
 
-        <div class="-mx-4 -mb-[30px] mt-5 flex flex-col items-center justify-center gap-[10px] rounded-b bg-white py-4 lg:mt-[30px] sm:flex-row sm:gap-0 sm:space-x-[10px]">
+        <div class="-mx-4 -mb-[30px] mt-5 flex items-center justify-center space-x-[10px] rounded-b bg-white py-4 lg:mt-[30px]">
           <button class="flex h-11 w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white"
             x-on:click="$dispatch('close-modal', 'submission-list-modal')">
             閉じる
@@ -313,12 +313,12 @@
               @input="$event.target.style.color = $event.target.value > '{{ $draftEndTime }}' ? 'red' : 'black'" />
           </div>
 
-          <div class="-mx-4 -mb-[30px] mt-5 flex flex-col items-center justify-center gap-[10px] rounded-b bg-white py-4 lg:mt-[30px] sm:flex-row sm:gap-0 sm:space-x-[10px]">
+          <div class="-mx-4 -mb-[30px] mt-5 flex items-center justify-center space-x-[10px] rounded-b bg-white py-4 lg:mt-[30px]">
             <x-secondary-button x-on:click="$dispatch('close')">
               {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-primary-button class="ms-3" wire:click="upShift({{ $selectedDraft->id }})">
+            <x-primary-button class="w-[150px]" wire:click="upShift({{ $selectedDraft->id }})">
               確定する
             </x-primary-button>
           </div>

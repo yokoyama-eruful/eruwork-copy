@@ -6,12 +6,12 @@
         <x-text-input class="w-full" type="text" wire:model="form.title" required />
       </div>
 
-      <div class="-mx-4 -mb-[30px] mt-5 flex flex-col items-center justify-center gap-[10px] rounded-b bg-white py-4 lg:mt-[30px] sm:flex-row sm:gap-0 sm:space-x-[10px]">
+      <div class="-mx-4 -mb-[30px] mt-5 flex items-center justify-center space-x-[10px] rounded-b bg-white py-4 lg:mt-[30px]">
         <x-secondary-button x-on:click.stop="$dispatch('close')">
           {{ __('Cancel') }}
         </x-secondary-button>
 
-        <x-primary-button class="ms-3" @click.stop>
+        <x-primary-button class="w-[150px]" @click.stop>
           更新
         </x-primary-button>
       </div>

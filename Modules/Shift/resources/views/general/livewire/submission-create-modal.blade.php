@@ -68,12 +68,12 @@
       </div>
     @endif
 
-    <div class="-mx-4 -mb-[30px] mt-5 flex flex-col items-center justify-center gap-[10px] rounded-b bg-white py-4 lg:mt-[30px] sm:flex-row sm:gap-0 sm:space-x-[10px]">
+    <div class="-mx-4 -mb-[30px] mt-5 flex items-center justify-center space-x-[10px] rounded-b bg-white py-4 lg:mt-[30px]">
       <x-secondary-button x-on:click="$dispatch('close')">
         {{ __('Cancel') }}
       </x-secondary-button>
 
-      <x-primary-button class="ms-3">
+      <x-primary-button class="w-[150px]">
         登録
       </x-primary-button>
     </div>
