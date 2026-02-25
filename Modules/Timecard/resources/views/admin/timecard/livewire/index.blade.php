@@ -51,8 +51,7 @@
       <div class="block px-5 font-bold lg:hidden">{{ $selectDate?->format('Y/m/d') }}出勤者</div>
       <div
         class="mb-[9px] mt-4 grid grid-cols-[15%,44%,36%,5%] lg:mb-0 lg:mt-[30px] lg:grid-cols-[20%,25%,19%,19%,17%] tablet:grid-cols-[15%,35%,18%,18%,14%]">
-        <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
-        <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
+        <div class="col-span-2 pl-[50px] text-left text-xs font-normal text-[#AAB0B6] lg:pl-[85px]">名前</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">勤務時間</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">休憩時間</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block"></div>
@@ -60,7 +59,7 @@
       <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid hidden tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-4 lg:py-2 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid hidden lg:relative tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-4 lg:py-2 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'lg:bg-[#F9FAFF] border lg:border-[#3289FA]' =>
                   $this->user->id === $user->id,
@@ -68,18 +67,20 @@
               'lg:rounded-b-lg' => $loop->last,
           ]) wire:click="selectUser('{{ $user->id }}')">
 
-            <div
-              class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
-              @if ($user->icon)
-                <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
-              @else
-                <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image scale-50"></i>
-                </div>
-              @endif
-            </div>
+            <div class="col-span-2 flex items-center gap-[20px]">
+              <div
+                class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[40px] lg:w-[40px]">
+                @if ($user->icon)
+                  <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
+                @else
+                  <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
+                      class="fa-solid fa-image scale-50"></i>
+                  </div>
+                @endif
+              </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
+              <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
+            </div>
 
             <div class="truncate text-[15px]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
@@ -99,7 +100,7 @@
 
             @if ($this->user->id === $user->id)
               <div
-                class="hidden w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-[12px] font-bold text-[#3289FA] lg:block">
+                class="hidden w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-[12px] font-bold text-[#3289FA] lg:absolute lg:right-[30px] lg:top-1/2 lg:block lg:-translate-y-1/2">
                 表示中
               </div>
             @endif
@@ -117,18 +118,20 @@
                 'lg:rounded-b-lg' => $loop->last,
             ]) wire:click="selectUser('{{ $user->id }}')">
 
-            <div
-              class="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
-              @if ($user->icon)
-                <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
-              @else
-                <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white lg:h-full lg:w-full"><i
-                    class="fa-solid fa-image text-[30px]"></i>
-                </div>
-              @endif
-            </div>
+            <div class="col-span-2 flex items-center gap-[20px]">
+              <div
+                class="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[40px] lg:w-[40px]">
+                @if ($user->icon)
+                  <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
+                @else
+                  <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white lg:h-full lg:w-full"><i
+                      class="fa-solid fa-image text-[30px]"></i>
+                  </div>
+                @endif
+              </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
+              <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
+            </div>
 
             <div class="truncate text-[12px] lg:text-[15px]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
