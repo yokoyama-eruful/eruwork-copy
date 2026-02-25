@@ -11,7 +11,7 @@
     <x-dashboard.container>
       <h5 class="hidden text-xl font-bold lg:block">アカウント管理</h5>
       <div
-        class="mt-[30px] grid grid-cols-[15%,60%,20%,5%] border-b px-5 pb-2 lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] lg:border-none lg:px-0 lg:pr-[70px] lg:pb-0">
+        class="mt-[30px] grid grid-cols-[15%,60%,20%,5%] border-b px-5 pb-2 lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] lg:border-none lg:px-0 lg:pb-0">
         <div class="text-left text-xs font-normal text-[#AAB0B6] lg:pl-[25px]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">ログインID</div>
@@ -24,7 +24,7 @@
         @foreach ($users as $user)
           <div onclick="window.location='{{ route('account.show', ['account' => $user->login_id]) }}'"
             @class([
-                'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:relative lg:pr-[70px] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+                'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
                 'border-b' => !$loop->last,
             ])>
             <div
@@ -46,8 +46,7 @@
 
             <div class="hidden text-[15px] lg:block">{{ $user->last_login_at?->format('Y/m/d') }}</div>
 
-            <div class="relative hidden lg:block lg:absolute lg:right-[70px] lg:top-1/2 lg:-translate-y-1/2"
-              x-data="{ openDialog{{ $user->id }}: false }">
+            <div class="relative hidden lg:block" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
                 @click="openDialog{{ $user->id }} = !openDialog{{ $user->id }};">
                 <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
@@ -109,7 +108,7 @@
               </div>
             </div>
 
-            <div class="lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+            <div><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                   stroke-linejoin="round" />
