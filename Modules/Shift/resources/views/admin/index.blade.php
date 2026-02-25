@@ -19,7 +19,7 @@
           <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[24%,45%,21%,10%] lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[19%,50%,21%,10%] lg:grid">
           <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
@@ -29,7 +29,7 @@
           @foreach ($managers as $manager)
             <div onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'"
               @class([
-                  'grid-cols-[24%,45%,21%,10%] lg:grid lg:relative lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
+                  'grid-cols-[19%,50%,21%,10%] lg:grid lg:relative lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
                   'border-b' => !$loop->last,
               ])>
               <div @class([
