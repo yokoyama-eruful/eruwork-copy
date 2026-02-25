@@ -32,12 +32,12 @@
               <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
                 <div class="pt-[13px] text-[0.9375rem] font-bold">提出しますか？</div>
               </div>
-              <div class="my-5 flex items-center justify-center space-x-[10px]">
+              <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
                 <div
-                  class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                  class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                   @click="$dispatch('close-modal', 'submission-confirm-alert')">キャンセル</div>
                 <button
-                  class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
+                  class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
                   type="button" wire:click="submission({{ $manager->id }})">提出する</button>
               </div>
             </div>
@@ -50,9 +50,9 @@
               <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
                 <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
               </div>
-              <div class="my-5 flex items-center justify-center space-x-[10px]">
+              <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
                 <div
-                  class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                  class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                   @click="$dispatch('close-modal', 'already-submission-alert')">閉じる</div>
               </div>
             </div>
@@ -192,9 +192,9 @@
                   <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
                     <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みの為変更できません。<br>提出の取り下げは管理者に問い合わせてください。</div>
                   </div>
-                  <div class="my-5 flex items-center justify-center space-x-[10px]">
+                  <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
                     <div
-                      class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                      class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                       @click="$dispatch('close-modal', 'already-schedule-modal-{{ $schedule->id }}')">閉じる</div>
                   </div>
                 </div>
@@ -229,12 +229,12 @@
             <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
               <div class="pt-[13px] text-[0.9375rem] font-bold">提出しますか？</div>
             </div>
-            <div class="my-5 flex items-center justify-center space-x-[10px]">
+            <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
               <div
-                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                 @click="$dispatch('close-modal', 'submission-confirm-alert')">キャンセル</div>
               <button
-                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
+                class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
                 type="button" wire:click="submission({{ $manager->id }})">提出する</button>
             </div>
           </div>
@@ -247,9 +247,9 @@
             <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
               <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
             </div>
-            <div class="my-5 flex items-center justify-center space-x-[10px]">
+            <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
               <div
-                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                 @click="$dispatch('close-modal', 'already-submission-alert')">閉じる</div>
             </div>
           </div>

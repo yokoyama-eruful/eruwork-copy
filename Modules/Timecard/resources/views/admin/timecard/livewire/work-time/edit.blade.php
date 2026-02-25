@@ -38,10 +38,10 @@
        <div class="pt-[13px] text-[0.9375rem] font-bold">
          {{ $workTime->in_time?->format('Y-m-d H:i') }}~{{ $workTime->out_time?->format('Y-m-d H:i') }}</div>
      </div>
-     <div class="my-5 flex items-center justify-center space-x-[10px]">
-       <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+     <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
+       <div class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
          @click="$dispatch('close-modal', 'delete-work-time-modal-{{ $workTime->id }}')">キャンセル</div>
-       <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+       <div class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
          wire:click="deleteWorkTime">削除する</div>
      </div>
    </x-modal-alert>
@@ -103,7 +103,7 @@
        </div>
 
        <x-input-error class="mt-2" :messages="$errors->get('form.out_time')" />
-       <div class="-mx-4 -mb-[30px] mt-5 lg:mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
+       <div class="-mx-4 -mb-[30px] mt-5 flex flex-col items-center justify-center gap-[10px] rounded-b bg-white py-4 lg:mt-[30px] sm:flex-row sm:gap-0 sm:space-x-[10px]">
          <x-secondary-button x-on:click="$dispatch('close')">
            {{ __('Cancel') }}
          </x-secondary-button>

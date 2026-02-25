@@ -38,7 +38,7 @@
 
           <x-input-error class="mt-2 lg:col-span-2" :messages="$errors->get('password')" />
         </div>
-        <button class="my-10 h-[45px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+        <button class="my-10 h-[45px] w-[230px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
           type="submit">ログイン</button>
       </form>
     </div>

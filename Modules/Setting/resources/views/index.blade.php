@@ -10,21 +10,21 @@
           @csrf
           <div class="font-bold">打刻設定</div>
           <div class="border-b pb-[32px] pt-[26px]">
-            <div class="grid grid-cols-[20%,80%] lg:items-center">
+            <div class="grid grid-cols-[20%,80%] lg:grid-cols-[180px_minmax(0,1fr)] lg:items-start">
               <div class="text-[0.6875rem] font-bold">打刻方法</div>
-              <div class="flex flex-col items-center space-y-[15px] lg:flex-row lg:space-x-[72px] lg:space-y-0">
-                <label class="flex cursor-pointer space-x-2 lg:items-center">
-                  <input class="mt-1 lg:mt-0" name="rule" type="radio" value="personal"
+              <div class="flex flex-col items-center space-y-[15px] lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-6 lg:gap-y-2 lg:space-y-0">
+                <label class="flex cursor-pointer space-x-2 lg:items-start">
+                  <input class="mt-[2px]" name="rule" type="radio" value="personal"
                     @if ($rule->rule === 'personal') checked @endif />
-                  <div class="flex flex-col text-sm lg:flex-row lg:text-base">
+                  <div class="flex flex-col text-sm">
                     <div class="text-sm">パーソナル打刻</div>
                     <div class="text-xs">（自分のスマホ・PCなどの端末から打刻）</div>
                   </div>
                 </label>
-                <label class="flex cursor-pointer space-x-2 text-sm lg:items-center lg:text-base">
-                  <input class="mt-1 lg:mt-0" name="rule" type="radio" value="public"
+                <label class="flex cursor-pointer space-x-2 text-sm lg:items-start xl:text-base">
+                  <input class="mt-[2px]" name="rule" type="radio" value="public"
                     @if ($rule->rule === 'public') checked @endif />
-                  <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col">
                     <div class="text-sm">パブリック打刻</div>
                     <div class="text-xs">（1台の端末を全スタッフで共有して打刻）</div>
                   </div>
@@ -33,14 +33,14 @@
             </div>
             <div>
               @if ($rule->rule === 'public')
-                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
+                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:grid-cols-[180px_minmax(0,1fr)] lg:items-center">
                   <div></div>
                   <div class="flex min-w-0 items-center gap-1 bg-[#F4F4F4] px-[10px] py-[4px] text-[0.75rem] lg:px-[20px]">
                     <span class="shrink-0 whitespace-nowrap">専用URL:</span><a class="ml-[4px] min-w-0 break-all text-blue-500"
                       href="{{ route('public-timecard.login') }}">{{ 'https://' . request()->getHost() . '/public-timecard/login' }}</a>
                   </div>
                 </div>
-                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
+                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:grid-cols-[180px_minmax(0,1fr)] lg:items-center">
                   <div></div>
                   <div class="flex min-w-0 items-center gap-1 bg-[#F4F4F4] px-[10px] py-[4px] text-[0.75rem] lg:px-[20px]">
                     <span class="shrink-0 whitespace-nowrap">PIN CODE：</span><span>{{ $pin }}</span>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="mt-[30px] flex w-full justify-center lg:mt-5">
-              <button class="mb-5 h-[45px] w-[150px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
+              <button class="mb-5 h-[45px] w-full sm:w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
 
@@ -131,7 +131,7 @@
               </div>
             </div>
             <div class="mt-[30px] flex w-full justify-center lg:mt-5">
-              <button class="mb-5 h-[45px] w-[150px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
+              <button class="mb-5 h-[45px] w-full sm:w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
           </div>
@@ -151,7 +151,7 @@
               <div class="text-[0.6875rem] font-bold">プランの解約</div>
               <div class="">
                 <button
-                  class="h-[45px] w-[150px] rounded bg-[#FF4A62] text-sm font-bold text-white hover:opacity-40">解約する</button>
+                  class="h-[45px] w-full sm:w-[150px] whitespace-nowrap rounded bg-[#FF4A62] text-sm font-bold text-white hover:opacity-40">解約する</button>
                 <div class="mt-[11px] text-sm">※解約をご希望の場合は、解約希望日の1ヶ月前までに申請をお願いいたします。</div>
               </div>
             </div>

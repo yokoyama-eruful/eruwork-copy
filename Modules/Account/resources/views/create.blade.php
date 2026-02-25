@@ -161,10 +161,10 @@
         </div>
 
         <div class="mb-[60px] flex items-center justify-center space-x-[10px] lg:mb-0 lg:mt-10">
-          <a class="h-[45px] w-[150px] flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
+          <a class="h-[45px] w-full sm:w-[150px] whitespace-nowrap flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
             href="{{ route('account.index') }}">キャンセル</a>
           <button
-            class="flex h-[45px] w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+            class="flex h-[45px] w-full sm:w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
             type="submit">登録する</button>
         </div>
 
