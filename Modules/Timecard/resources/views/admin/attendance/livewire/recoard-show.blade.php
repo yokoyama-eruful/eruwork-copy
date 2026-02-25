@@ -20,10 +20,10 @@
                 d="M0.5 11.5V10C0.5 9.72386 0.723858 9.5 1 9.5C1.27614 9.5 1.5 9.72386 1.5 10V11.5C1.5 11.7652 1.60543 12.0195 1.79297 12.207C1.98051 12.3946 2.23478 12.5 2.5 12.5H11.5L11.599 12.4948C11.8278 12.472 12.043 12.3711 12.207 12.207C12.3946 12.0195 12.5 11.7652 12.5 11.5V10C12.5 9.72386 12.7239 9.5 13 9.5C13.2761 9.5 13.5 9.72386 13.5 10V11.5C13.5 12.0304 13.2891 12.539 12.9141 12.9141C12.539 13.2891 12.0304 13.5 11.5 13.5H2.5C1.96957 13.5 1.46101 13.2891 1.08594 12.9141C0.710865 12.539 0.5 12.0304 0.5 11.5ZM6.5 1C6.5 0.723858 6.72386 0.5 7 0.5C7.27614 0.5 7.5 0.723858 7.5 1V8.79297L9.64648 6.64648C9.84175 6.45122 10.1583 6.45122 10.3535 6.64648C10.5488 6.84175 10.5488 7.15825 10.3535 7.35352L7.35352 10.3535C7.15825 10.5488 6.84175 10.5488 6.64648 10.3535L3.64648 7.35352C3.45122 7.15825 3.45122 6.84175 3.64648 6.64648C3.84175 6.45122 4.15825 6.45122 4.35352 6.64648L6.5 8.79297V1Z"
                 fill="white" />
             </svg>
-            <div class="text-[14px]">ダウンロード</div>
+            <div class="text-[0.875rem]">ダウンロード</div>
           </button>
 
-          <div class="ml-[30px] text-[15px] text-[#5E5E5E]">勤怠管理：</div>
+          <div class="ml-[30px] text-[0.9375rem] text-[#5E5E5E]">勤怠管理：</div>
 
           <div class="flex items-center gap-2">
             <!-- 開始日 -->
@@ -104,7 +104,7 @@
         <div class="mt-[24px] rounded-lg lg:-mx-0 lg:mt-[8px] lg:border lg:border-b">
           @foreach ($this->users as $user)
             <div wire:key="user-row-{{ $user->id }}" @class([
-                'lg:grid grid-cols-[10%,10%,30%,25%,25%] tablet:grid-cols-[8%,6.5%,30.5%,26%,30%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid grid-cols-[10%,10%,30%,25%,25%] tablet:grid-cols-[8%,6.5%,30.5%,26%,30%] lg:py-4 py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
 
@@ -122,15 +122,15 @@
                 @endif
               </div>
 
-              <div class="text-[15px] font-bold">{{ $user->profile?->name }}</div>
+              <div class="text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
 
-              <div class="text-[15px]">{{ $this->workingTime($user->id) }}</div>
+              <div class="text-[0.9375rem]">{{ $this->workingTime($user->id) }}</div>
 
-              <div class="text-[15px]">
+              <div class="text-[0.9375rem]">
                 {{ $this->getTotalPay($user->id) == 0 ? '--' : $this->getTotalPay($user->id) . '円' }}
               </div>
 
-              {{-- <div class="text-[15px]">{{ $this->prospectHourlyRate($user->id) }}</div> --}}
+              {{-- <div class="text-[0.9375rem]">{{ $this->prospectHourlyRate($user->id) }}</div> --}}
             </div>
           @endforeach
 
@@ -173,7 +173,7 @@
                       </div>
                     @endif
                   </div>
-                  <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
+                  <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
                 </div>
                 <div class="mt-5 rounded border">
                   <div class="flex items-center justify-between px-3 py-[15px]">
@@ -183,14 +183,14 @@
                   <div class="flex items-center justify-between border-t px-3 py-[15px]">
                     <div class="flex flex-col items-start text-sm text-[#5E5E5E]">
                       <div>支給額</div>
-                      <div class="text-[11px]">勤怠時間×時給(割増時間含む)</div>
+                      <div class="text-[0.6875rem]">勤怠時間×時給(割増時間含む)</div>
                     </div>
                     <div>{{ $this->getTotalPay($user->id) }}円</div>
                   </div>
                 </div>
 
                 {{-- <div class="flex items-center space-x-2">
-                    <div class="text-[10px] text-[#AAB0B6]">見込(確定シフト×時給):</div>
+                    <div class="text-[0.625rem] text-[#AAB0B6]">見込(確定シフト×時給):</div>
                     <div class="text-xs">{{ $this->prospectHourlyRate($user->id) }}</div>
                   </div> --}}
               </div>

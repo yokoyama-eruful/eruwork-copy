@@ -49,7 +49,7 @@
           <div class="text-xs text-[#AAB0B6]">{{ $message->readStatuses }}</div>
         </div>
         <div class="w-fit break-all rounded-bl-xl rounded-br-xl rounded-tr-xl bg-[#F7F7F7] px-5 py-[11px]">
-          <div class="text-[15px] lg:text-base">{!! $message->message !!}</div>
+          <div class="text-[0.9375rem] lg:text-base">{!! $message->message !!}</div>
           <div class="flex flex-row space-x-2">
             @foreach ($message->images as $image)
               <div x-data="{ viewImage{{ $image->id }}: false }">

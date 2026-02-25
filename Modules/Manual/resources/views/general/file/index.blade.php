@@ -26,7 +26,7 @@
           @foreach ($files as $file)
             <a href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}"
               @class([
-                  'hidden lg:grid grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr] py-[20px] text-[15px] items-center min-h-[121px] px-5',
+                  'hidden lg:grid grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr] py-[20px] text-[0.9375rem] items-center min-h-[121px] px-5',
                   'border-b' => !$loop->last,
               ])>
 
@@ -85,7 +85,7 @@
                         stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   @endif
-                  <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
+                  <div class="break-words text-[0.9375rem] font-bold">{{ $file->title }}</div>
                 </div>
                 <div class="pl-[12px] text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>

@@ -4,7 +4,7 @@
     <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
     <livewire:calendar::admin.multi-create-public-holiday />
     <div class="hidden items-center md:ml-0 lg:flex">
-      <button class="flex items-center space-x-1 rounded-l pl-[30px] pr-[11px] text-[15px]"
+      <button class="flex items-center space-x-1 rounded-l pl-[30px] pr-[11px] text-[0.9375rem]"
         wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
         <p class="hidden lg:block">前月</p>
@@ -21,23 +21,23 @@
           @endforeach
         </select>
       </div>
-      <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[15px]"
+      <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[0.9375rem]"
         wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
         <p class="hidden lg:block">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
       </button>
       <div class="">
-        <button class="mx-5 h-[35px] rounded border bg-[#77829C] px-2 text-[14px] text-white"
+        <button class="mx-5 h-[35px] rounded border bg-[#77829C] px-2 text-[0.875rem] text-white"
           wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
       </div>
     </div>
   </x-dashboard.top>
   <x-dashboard.container>
     <div class="mt-5 flex items-center justify-between px-5 lg:hidden">
-      <button class="flex items-center space-x-1 rounded-l text-[15px]"
+      <button class="flex items-center space-x-1 rounded-l text-[0.9375rem]"
         wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
-        <p class="text-[15px]">前月</p>
+        <p class="text-[0.9375rem]">前月</p>
       </button>
       <div class="flex flex-row space-x-[5px]">
         <select class="w-[115px] rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
@@ -51,9 +51,9 @@
           @endforeach
         </select>
       </div>
-      <button class="flex items-center space-x-1 rounded-r text-[15px]"
+      <button class="flex items-center space-x-1 rounded-r text-[0.9375rem]"
         wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
-        <p class="text-[15px]">翌月</p>
+        <p class="text-[0.9375rem]">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
       </button>
     </div>
@@ -63,15 +63,15 @@
     <div class="mt-[25px] hidden grid-cols-7 lg:grid">
       <div class="flex items-center justify-between">
         <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
-        <div class="text-[15px]">月</div>
+        <div class="text-[0.9375rem]">月</div>
         <div></div>
       </div>
-      <div class="flex items-center justify-center text-[15px]">火</div>
-      <div class="flex items-center justify-center text-[15px]">水</div>
-      <div class="flex items-center justify-center text-[15px]">木</div>
-      <div class="flex items-center justify-center text-[15px]">金</div>
-      <div class="flex items-center justify-center text-[15px] text-[#48CBFF]">土</div>
-      <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">火</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">水</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">木</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">金</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#48CBFF]">土</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
     <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border lg:grid">
@@ -85,7 +85,7 @@
 
           <div class="flex items-center justify-between px-[15px]">
             <div @class([
-                'text-[15px] py-[15px]',
+                'text-[0.9375rem] py-[15px]',
                 'font-bold text-[#3289FA]' =>
                     $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
             ])>{{ $content['date']->isoFormat('D日') }}</div>

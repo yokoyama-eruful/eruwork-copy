@@ -1,6 +1,6 @@
 <div>
   <div class="flex items-center justify-between px-[15px]">
-    <div @class(['text-[15px] py-[15px]'])>{{ $date->isoFormat('D日') }}</div>
+    <div @class(['text-[0.9375rem] py-[15px]'])>{{ $date->isoFormat('D日') }}</div>
     @if ($type != '期間外')
       <div>
         @include('shift::admin.livewire.layouts.shift-create')

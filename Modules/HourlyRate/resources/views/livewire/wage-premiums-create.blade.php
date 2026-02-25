@@ -1,6 +1,6 @@
 <div>
-  {{-- <div class="mx-5 mb-2 text-[11px] font-bold lg:hidden">割増料金率</div>
-  <div class="mx-5 flex items-center rounded-lg bg-[#F7F7F7] px-5 py-3 text-[13px] font-bold lg:rounded-none lg:px-5">
+  {{-- <div class="mx-5 mb-2 text-[0.6875rem] font-bold lg:hidden">割増料金率</div>
+  <div class="mx-5 flex items-center rounded-lg bg-[#F7F7F7] px-5 py-3 text-[0.8125rem] font-bold lg:rounded-none lg:px-5">
     <div class="hidden text-[#AAB0B6] lg:block">割増料金率：</div>
     <div class="lg:ps-[10px]">
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -46,7 +46,7 @@
       @endif
 
       <div class="flex items-center justify-between">
-        <h5 class="text-[15px] font-bold">早朝料金</h5>
+        <h5 class="text-[0.9375rem] font-bold">早朝料金</h5>
         <button class="flex items-center space-x-1 hover:opacity-40" type="button"
           x-on:click="$dispatch('open-modal','morning-delete-modal')">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +60,7 @@
 
       <div class="mt-5 space-y-[6px]">
         <div class="grid grid-cols-[30%,70%] items-center">
-          <label class="text-[11px] font-bold" for="morningPremium">料金割増率</label>
+          <label class="text-[0.6875rem] font-bold" for="morningPremium">料金割増率</label>
           <input name="morningPremium" type="number" @class([
               'relative rounded border-[#DDDDDD] bg-[#FFFFFF] pr-9 text-sm focus:bg-white',
               'border-red-600' => $errors->has('morningPremium'),
@@ -70,14 +70,14 @@
           </input>
         </div>
         <div class="grid grid-cols-[30%,70%] items-center">
-          <label class="text-[11px] font-bold" for="morningStartTime">開始時間</label>
+          <label class="text-[0.6875rem] font-bold" for="morningStartTime">開始時間</label>
           <input name="morningStartTime" type="time" @class([
               'rounded border-[#DDDDDD] bg-[#FFFFFF] text-sm focus:bg-white',
               'border-red-600' => $errors->has('morningStartTime'),
           ]) wire:model="morningStartTime">
         </div>
         <div class="grid grid-cols-[30%,70%] items-center">
-          <label class="text-[11px] font-bold" for="morningEndTime">終了時間</label>
+          <label class="text-[0.6875rem] font-bold" for="morningEndTime">終了時間</label>
           <input name="morningEndTime" type="time" @class([
               'rounded border-[#DDDDDD] bg-[#FFFFFF] text-sm focus:bg-white',
               'border-red-600' => $errors->has('morningEndTime'),
@@ -88,7 +88,7 @@
       <hr class="my-5 border-b">
 
       <div class="flex items-center justify-between">
-        <h5 class="text-[15px] font-bold">深夜料金</h5>
+        <h5 class="text-[0.9375rem] font-bold">深夜料金</h5>
         <button class="flex items-center space-x-1 hover:opacity-40" type="button"
           x-on:click="$dispatch('open-modal','night-delete-modal')">
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +102,7 @@
 
       <div class="mt-5 space-y-[6px]">
         <div class="grid grid-cols-[30%,70%] items-center">
-          <label class="text-[11px] font-bold" for="nightPremium">料金割増率</label>
+          <label class="text-[0.6875rem] font-bold" for="nightPremium">料金割増率</label>
           <input name="nightPremium" type="number" @class([
               'relative rounded border-[#DDDDDD] bg-[#FFFFFF] pr-9 text-sm focus:bg-white',
               'border-red-600' => $errors->has('nightPremium'),
@@ -112,14 +112,14 @@
           </input>
         </div>
         <div class="grid grid-cols-[30%,70%] items-center">
-          <label class="text-[11px] font-bold" for="nightStartTime">開始時間</label>
+          <label class="text-[0.6875rem] font-bold" for="nightStartTime">開始時間</label>
           <input name="nightStartTime" type="time" @class([
               'rounded border-[#DDDDDD] bg-[#FFFFFF] text-sm focus:bg-white',
               'border-red-600' => $errors->has('nightStartTime'),
           ]) wire:model="nightStartTime">
         </div>
         <div class="grid grid-cols-[30%,70%] items-center">
-          <label class="text-[11px] font-bold" for="nightEndTime">終了時間</label>
+          <label class="text-[0.6875rem] font-bold" for="nightEndTime">終了時間</label>
           <input name="nightEndTime" type="time" @class([
               'rounded border-[#DDDDDD] bg-[#FFFFFF] text-sm focus:bg-white',
               'border-red-600' => $errors->has('nightEndTime'),
@@ -144,7 +144,7 @@
       @csrf
       @method('delete')
       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-        <div class="pt-[13px] text-[15px] font-bold">早朝料金設定を削除します</div>
+        <div class="pt-[13px] text-[0.9375rem] font-bold">早朝料金設定を削除します</div>
       </div>
       <div class="my-5 flex items-center justify-center space-x-[10px]">
         <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
@@ -160,7 +160,7 @@
       @csrf
       @method('delete')
       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-        <div class="pt-[13px] text-[15px] font-bold">深夜料金設定を削除します</div>
+        <div class="pt-[13px] text-[0.9375rem] font-bold">深夜料金設定を削除します</div>
       </div>
       <div class="my-5 flex items-center justify-center space-x-[10px]">
         <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"

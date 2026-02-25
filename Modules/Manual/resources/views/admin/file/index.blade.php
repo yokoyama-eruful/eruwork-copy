@@ -41,7 +41,7 @@
         <div class="mt-[30px] border-b lg:mt-[10px] lg:rounded-xl lg:border">
           @foreach ($files as $file)
             <div @class([
-                'hidden lg:grid grid-cols-[145px_24px_minmax(0,1fr)_110px_36px] py-[20px] text-[15px] items-center min-h-[121px] px-5 relative',
+                'hidden lg:grid grid-cols-[145px_24px_minmax(0,1fr)_110px_36px] py-[20px] text-[0.9375rem] items-center min-h-[121px] px-5 relative',
                 'border-b' => !$loop->last,
             ])>
               @if ($file->status == '下書き')
@@ -129,7 +129,7 @@
                         stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   @endif
-                  <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
+                  <div class="break-words text-[0.9375rem] font-bold">{{ $file->title }}</div>
                 </div>
                 <div class="text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>

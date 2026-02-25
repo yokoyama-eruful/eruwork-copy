@@ -59,8 +59,8 @@
     </div>
     <div class="h-full flex-1 overflow-y-auto pb-4">
       <div class="grid grid-cols-[70%,30%] px-[20px]">
-        <div class="text-[11px] font-bold text-[#FFFFFF]">メンバー</div>
-        <div class="text-end text-[11px] font-bold text-[#FFFFFF]">ステータス</div>
+        <div class="text-[0.6875rem] font-bold text-[#FFFFFF]">メンバー</div>
+        <div class="text-end text-[0.6875rem] font-bold text-[#FFFFFF]">ステータス</div>
       </div>
       <div class="flex flex-col space-y-[10px] pl-[10px]">
         @foreach ($users as $user)

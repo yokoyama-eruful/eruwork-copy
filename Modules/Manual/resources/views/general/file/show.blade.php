@@ -49,7 +49,7 @@
                   'border-t' => !$loop->first,
                   'border-b' => !$loop->last,
               ])>{{ $detail['title'] }}</div>
-              <div class="whitespace-pre-wrap p-5 text-[15px]">{{ $detail['content'] }}</div>
+              <div class="whitespace-pre-wrap p-5 text-[0.9375rem]">{{ $detail['content'] }}</div>
             @endforeach
           </div>
         @endif
@@ -69,7 +69,7 @@
                       </div>
                       <div class="form-area-general">
                         {{-- <textarea class="auto-resize-textarea h-0 border-none bg-[#F7F7F7]">{{ $step['content'] }}</textarea> --}}
-                        <div class="whitespace-pre-wrap text-[15px]">{{ $step['content'] }}</div>
+                        <div class="whitespace-pre-wrap text-[0.9375rem]">{{ $step['content'] }}</div>
                         @if ($step['file'])
                           <div class="mt-5 flex h-[220px] w-full justify-center rounded-lg bg-black">
                             <img class="h-full lg:rounded-lg"

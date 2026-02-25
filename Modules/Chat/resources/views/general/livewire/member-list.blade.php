@@ -1,5 +1,5 @@
 <div class="mb-10 mt-[30px] lg:mb-0 lg:mt-[50px]">
-  <div class="mb-6 text-[11px] font-bold lg:mb-[7px]">グループ一覧</div>
+  <div class="mb-6 text-[0.6875rem] font-bold lg:mb-[7px]">グループ一覧</div>
   @foreach ($this->groups->where('is_dm', false) as $group)
     <a href="{{ route('chat.show', ['group' => $group]) }}" @class([
         'grid grid-cols-[30px,auto,30px] items-center lg:py-2 py-[20px] rounded gap-1 my-1 lg:border-none border-b lg:-mx-0 -mx-[15px] lg:px-0 px-[20px]',
@@ -12,15 +12,15 @@
             src="{{ $group->IconImage }}" alt="アイコン">
         @else
           <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
-              class="fa-solid fa-image text-[25px]"></i>
+              class="fa-solid fa-image text-[1.5625rem]"></i>
           </div>
         @endif
       </div>
-      <div class="ml-[10px] flex items-center truncate text-[15px] font-semibold">{{ $group->name }}</div>
+      <div class="ml-[10px] flex items-center truncate text-[0.9375rem] font-semibold">{{ $group->name }}</div>
       <div class="flex items-center justify-center">
         @if ($group->group_notification_count)
           <div
-            class="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#FF4A62] text-[9px] font-bold text-white">
+            class="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#FF4A62] text-[0.5625rem] font-bold text-white">
             {{ $group->group_notification_count }}
           </div>
         @endif
@@ -28,7 +28,7 @@
     </a>
   @endforeach
 
-  <div class="mb-6 mt-[60px] text-[11px] font-bold lg:mb-[7px]">メンバー</div>
+  <div class="mb-6 mt-[60px] text-[0.6875rem] font-bold lg:mb-[7px]">メンバー</div>
   @foreach ($this->groups->where('is_dm', true) as $group)
     @if ($group->partnerUser !== null)
       <a href="{{ route('chat.show', ['group' => $group]) }}" @class([
@@ -42,15 +42,15 @@
               src="{{ route('profile.icon', ['id' => $group->partnerUser->id]) }}" alt="アイコン">
           @else
             <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
-                class="fa-solid fa-image text-[25px]"></i>
+                class="fa-solid fa-image text-[1.5625rem]"></i>
             </div>
           @endif
         </div>
-        <div class="ml-[10px] flex items-center truncate text-[15px] font-semibold">{{ $group->NameLabel }}</div>
+        <div class="ml-[10px] flex items-center truncate text-[0.9375rem] font-semibold">{{ $group->NameLabel }}</div>
         <div class="flex items-center justify-center">
           @if ($group->group_notification_count)
             <div
-              class="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#FF4A62] text-[9px] font-bold text-white">
+              class="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-[#FF4A62] text-[0.5625rem] font-bold text-white">
               {{ $group->group_notification_count }}
             </div>
           @endif

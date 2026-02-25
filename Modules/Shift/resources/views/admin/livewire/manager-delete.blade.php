@@ -15,7 +15,7 @@
   <x-modal-alert name="delete-modal-{{ $manager->id }}" title="削除" maxWidth="sm">
     <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
       <p class="text-xs">以下の期間のシフト表を削除いたします</p>
-      <div class="pt-[13px] text-[15px] font-bold">
+      <div class="pt-[13px] text-[0.9375rem] font-bold">
         {{ $manager->start_date?->isoFormat('YYYY/MM/DD（ddd）') }}～{{ $manager->end_date?->isoFormat('YYYY/MM/DD（ddd）') }}
       </div>
     </div>

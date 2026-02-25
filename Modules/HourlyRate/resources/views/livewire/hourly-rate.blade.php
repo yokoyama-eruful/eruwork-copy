@@ -17,7 +17,7 @@
       <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid tablet:grid-cols-[15%,58%,13%,14%] grid-cols-[20%,45%,16%,19%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid tablet:grid-cols-[15%,58%,13%,14%] grid-cols-[20%,45%,16%,19%] lg:py-4 py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'bg-[#F9FAFF] border border-[#3289FA]' => $selectedUser->id === $user->id,
               'rounded-t-lg' => $loop->first,
@@ -35,9 +35,9 @@
               @endif
             </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
+            <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
 
-            <div class="text-[15px]">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
+            <div class="text-[0.9375rem]">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
 
             <div>
               @if ($selectedUser->id === $user->id)
@@ -79,7 +79,7 @@
       <div class="mt-2 border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <a href="{{ route('hourlyRate.show', $user->id) }}" @class([
-              'grid grid-cols-[15%,55%,25%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'grid grid-cols-[15%,55%,25%,5%] lg:py-[18px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'border-t' => $loop->first,
           ])
@@ -96,8 +96,8 @@
               @endif
             </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
-            <div class="text-[15px]">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
+            <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
+            <div class="text-[0.9375rem]">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
 
             <div>
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

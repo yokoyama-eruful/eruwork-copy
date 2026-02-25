@@ -15,7 +15,7 @@
   @if ($rule === 'public')
     <div
       class="mx-[15px] flex flex-row items-center justify-between rounded-[10px] bg-[#F7F7F7] px-[15px] py-2 lg:flex-col lg:justify-center lg:py-0">
-      <div class="flex flex-col text-[15px] font-bold lg:flex-row lg:py-2 lg:text-xs">
+      <div class="flex flex-col text-[0.9375rem] font-bold lg:flex-row lg:py-2 lg:text-xs">
         <div>共通端末で</div>
         <div>打刻をしてください</div>
       </div>

@@ -14,7 +14,7 @@
         </div>
       @endif
     </div>
-    <div class="truncate text-[20px] font-bold">{{ $user->profile?->name }}</div>
+    <div class="truncate text-[1.25rem] font-bold">{{ $user->profile?->name }}</div>
   </div>
 
   <div class="mx-5 mt-[30px] grid grid-cols-[30%,35%,25%,10%] lg:mx-0">
@@ -29,8 +29,8 @@
           'grid-cols-[30%,35%,25%,10%] py-[30px] grid items-center',
           'border-b' => !$loop->last,
       ])>
-        <div class="pl-[20px] pr-[5px] text-[15px] font-bold lg:pr-[30px]">{{ $hourlyRate->rate }}円</div>
-        <div class="text-left text-[12px]">{{ $hourlyRate->effective_date->format('Y/m/d') }}</div>
+        <div class="pl-[20px] pr-[5px] text-[0.9375rem] font-bold lg:pr-[30px]">{{ $hourlyRate->rate }}円</div>
+        <div class="text-left text-[0.75rem]">{{ $hourlyRate->effective_date->format('Y/m/d') }}</div>
         @if ($this->getApplyRate()?->id == $hourlyRate->id)
           <div class="w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-xs font-bold text-[#3289FA]">
             適用中

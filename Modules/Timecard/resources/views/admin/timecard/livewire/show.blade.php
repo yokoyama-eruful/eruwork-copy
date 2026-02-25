@@ -20,7 +20,7 @@
       <div class="mt-[30px] flex items-center justify-between bg-[#F7F7F7] px-5 py-[18px]">
         <div class="flex flex-col items-start">
           <div class="font-bold">{{ $this->month }}月度</div>
-          <div class="text-[11px]">勤怠時間合計</div>
+          <div class="text-[0.6875rem]">勤怠時間合計</div>
         </div>
         <div class="text-2xl font-bold">{{ $this->totalWorkTime() }}</div>
       </div>
@@ -28,7 +28,7 @@
         {{ $this->date?->isoFormat('YYYY/MM/DD（ddd曜）') }}
       </div>
       <div class="mt-6">
-        <div class="text-[11px] font-bold">本日の勤務時間</div>
+        <div class="text-[0.6875rem] font-bold">本日の勤務時間</div>
       </div>
       <div class="mt-[9px] flex flex-col justify-center space-y-[10px]">
         @foreach ($this->getWorkTimeList($this->user) as $workTime)
@@ -51,7 +51,7 @@
       </div>
 
       <div class="mt-5">
-        <div class="text-[11px] font-bold">本日の休憩時間</div>
+        <div class="text-[0.6875rem] font-bold">本日の休憩時間</div>
       </div>
       <div class="mt-[9px] flex flex-col justify-center space-y-[10px]">
         @foreach ($this->getBreakTimeList($this->user) as $breakTime)

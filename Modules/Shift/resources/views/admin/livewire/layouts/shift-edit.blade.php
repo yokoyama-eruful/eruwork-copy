@@ -52,7 +52,7 @@
               {{ $schedule->draftSchedule->start_time->format('H:i') }} 〜
               {{ $schedule->draftSchedule->end_time->format('H:i') }}
             </div>
-            <div class="text-end text-[15px] font-bold">{{ $schedule->draftSchedule->user->name }}</div>
+            <div class="text-end text-[0.9375rem] font-bold">{{ $schedule->draftSchedule->user->name }}</div>
           </div>
         </div>
 

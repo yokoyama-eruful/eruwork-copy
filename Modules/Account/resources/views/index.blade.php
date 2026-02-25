@@ -24,7 +24,7 @@
         @foreach ($users as $user)
           <div onclick="window.location='{{ route('account.show', ['account' => $user->login_id]) }}'"
             @class([
-                'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+                'grid lg:grid-cols-[11%,20%,20%,15%,27.2%,3.8%,3%] grid-cols-[15%,60%,20%,5%] lg:py-4 py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center',
                 'border-b' => !$loop->last,
             ])>
             <div
@@ -38,13 +38,13 @@
               @endif
             </div>
 
-            <div class="text-[15px] font-bold">{{ $user->profile?->name }}</div>
+            <div class="text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
 
-            <div class="hidden text-[15px] lg:block">{{ $user->login_id }}</div>
+            <div class="hidden text-[0.9375rem] lg:block">{{ $user->login_id }}</div>
 
-            <div class="text-[12px] lg:text-[15px]">{{ $user->profile?->contract_type }}</div>
+            <div class="text-[0.75rem] lg:text-[0.9375rem]">{{ $user->profile?->contract_type }}</div>
 
-            <div class="hidden text-[15px] lg:block">{{ $user->last_login_at?->format('Y/m/d') }}</div>
+            <div class="hidden text-[0.9375rem] lg:block">{{ $user->last_login_at?->format('Y/m/d') }}</div>
 
             <div class="relative hidden lg:block" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
@@ -93,7 +93,7 @@
                     @method('delete')
                     <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
                       <p class="text-xs">以下のユーザーを削除いたします</p>
-                      <div class="pt-[13px] text-[15px] font-bold">{{ $user->name }}</div>
+                      <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $user->name }}</div>
                     </div>
                     <div class="my-5 flex items-center justify-center space-x-[10px]">
                       <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"

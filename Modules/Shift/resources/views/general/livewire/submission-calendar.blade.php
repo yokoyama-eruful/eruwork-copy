@@ -30,7 +30,7 @@
           <x-modal-alert name="submission-confirm-alert">
             <div>
               <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-                <div class="pt-[13px] text-[15px] font-bold">提出しますか？</div>
+                <div class="pt-[13px] text-[0.9375rem] font-bold">提出しますか？</div>
               </div>
               <div class="my-5 flex items-center justify-center space-x-[10px]">
                 <div
@@ -48,7 +48,7 @@
           <x-modal-alert name="already-submission-alert">
             <div>
               <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-                <div class="pt-[13px] text-[15px] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
+                <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
               </div>
               <div class="my-5 flex items-center justify-center space-x-[10px]">
                 <div
@@ -67,9 +67,9 @@
     </div>
 
     <div class="mt-[19px] flex items-center space-x-[5px] px-5 lg:space-x-2 lg:px-0">
-      <div class="block text-[10px] text-[#AAB0B6] lg:hidden">募集期限：</div>
+      <div class="block text-[0.625rem] text-[#AAB0B6] lg:hidden">募集期限：</div>
       <div @class([
-          'text-[12px] text-white w-[60px] py-1 mr-[10px] text-center rounded-full lg:block hidden',
+          'text-[0.75rem] text-white w-[60px] py-1 mr-[10px] text-center rounded-full lg:block hidden',
           'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
           'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
           'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
@@ -83,15 +83,15 @@
       <div class="flex items-center justify-between">
         {{-- <div class="text-xl font-bold">{{ $content['date']->isoFormat('M月') }}</div> --}}
         <div class="text-xl font-bold"></div>
-        <div class="text-[15px]">月</div>
+        <div class="text-[0.9375rem]">月</div>
         <div></div>
       </div>
-      <div class="flex items-center justify-center text-[15px]">火</div>
-      <div class="flex items-center justify-center text-[15px]">水</div>
-      <div class="flex items-center justify-center text-[15px]">木</div>
-      <div class="flex items-center justify-center text-[15px]">金</div>
-      <div class="flex items-center justify-center text-[15px] text-[#48CBFF]">土</div>
-      <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">火</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">水</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">木</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">金</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#48CBFF]">土</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
     <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
@@ -104,9 +104,9 @@
           <div class="flex items-center justify-between pl-[15px] pr-[10px]">
             @if ($content['date']->isoFormat('D') === '1' || $loop->first)
               <div class="flex flex-col items-start">
-                <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('M/D日') }}</div>
+                <div @class(['text-[0.9375rem] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('M/D日') }}</div>
                 <div @class([
-                    'text-center text-[12px] font-normal leading-tight lg:hidden',
+                    'text-center text-[0.75rem] font-normal leading-tight lg:hidden',
                     'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                     'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
                     'text-[#222222]' =>
@@ -119,9 +119,9 @@
               </div>
             @else
               <div class="flex flex-col items-start">
-                <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('D日') }}</div>
+                <div @class(['text-[0.9375rem] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('D日') }}</div>
                 <div @class([
-                    'text-center text-[12px] font-normal leading-tight lg:hidden',
+                    'text-center text-[0.75rem] font-normal leading-tight lg:hidden',
                     'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                     'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
                     'text-[#222222]' =>
@@ -190,7 +190,7 @@
               <x-modal-alert name="already-schedule-modal-{{ $schedule->id }}">
                 <div>
                   <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-                    <div class="pt-[13px] text-[15px] font-bold">すでに提出済みの為変更できません。<br>提出の取り下げは管理者に問い合わせてください。</div>
+                    <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みの為変更できません。<br>提出の取り下げは管理者に問い合わせてください。</div>
                   </div>
                   <div class="my-5 flex items-center justify-center space-x-[10px]">
                     <div
@@ -227,7 +227,7 @@
         <x-modal-alert name="submission-confirm-alert">
           <div>
             <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-              <div class="pt-[13px] text-[15px] font-bold">提出しますか？</div>
+              <div class="pt-[13px] text-[0.9375rem] font-bold">提出しますか？</div>
             </div>
             <div class="my-5 flex items-center justify-center space-x-[10px]">
               <div
@@ -245,7 +245,7 @@
         <x-modal-alert name="already-submission-alert">
           <div>
             <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-              <div class="pt-[13px] text-[15px] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
+              <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
             </div>
             <div class="my-5 flex items-center justify-center space-x-[10px]">
               <div

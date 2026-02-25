@@ -22,7 +22,7 @@
                 fill="black" />
             </g>
           </svg>
-          <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">ルームがありません</div>
+          <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">ルームがありません</div>
         </div>
       @else
         <div class="mt-[30px] hidden grid-cols-[13%,20%,45%,14%,8%] lg:grid tablet:grid-cols-[10%,27%,45%,14%,4%]">
@@ -35,7 +35,7 @@
         <div class="mt-[24px] border border-b lg:-mx-0 lg:mt-[8px] lg:rounded-lg">
           @foreach ($groups as $group)
             <div @class([
-                'lg:grid grid-cols-[13%,20%,45%,14%,8%] tablet:grid-cols-[10%,27%,45%,14%,4%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid grid-cols-[13%,20%,45%,14%,8%] tablet:grid-cols-[10%,27%,45%,14%,4%] lg:py-[18px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
               <div
@@ -48,9 +48,9 @@
                   </div>
                 @endif
               </div>
-              <div class="truncate pr-[20px] text-[15px] font-bold">{{ $group->name }}</div>
-              <div class="break-words pr-[87px] text-[15px]">{{ $group->users->implode('name', '　') }}</div>
-              <div class="text-[15px]">{{ $group->updated_at->format('Y/m/d') }}</div>
+              <div class="truncate pr-[20px] text-[0.9375rem] font-bold">{{ $group->name }}</div>
+              <div class="break-words pr-[87px] text-[0.9375rem]">{{ $group->users->implode('name', '　') }}</div>
+              <div class="text-[0.9375rem]">{{ $group->updated_at->format('Y/m/d') }}</div>
 
               <div class="relative block" x-data="{ openDialog{{ $group->id }}: false }">
                 <div onclick="event.stopPropagation();"
@@ -100,7 +100,7 @@
                       @method('delete')
                       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
                         <p class="text-xs">以下のグループを削除いたします</p>
-                        <div class="pt-[13px] text-[15px] font-bold">{{ $group->name }}</div>
+                        <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $group->name }}</div>
                       </div>
                       <div class="my-5 flex items-center justify-center space-x-[10px]">
                         <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
@@ -130,9 +130,9 @@
                   @endif
                 </div>
                 <div>
-                  <div class="text-[15px] font-bold">{{ $group->name }}</div>
+                  <div class="text-[0.9375rem] font-bold">{{ $group->name }}</div>
                   <div class="flex items-center">
-                    <div class="text-[10px] text-[#AAB0B6]">メンバー：</div>
+                    <div class="text-[0.625rem] text-[#AAB0B6]">メンバー：</div>
                     <div class="text-xs">{{ $group->users->count() }}人</div>
                   </div>
                 </div>
@@ -185,7 +185,7 @@
                       @method('delete')
                       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
                         <p class="text-xs">以下のグループを削除いたします</p>
-                        <div class="pt-[13px] text-[15px] font-bold">{{ $group->name }}</div>
+                        <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $group->name }}</div>
                       </div>
                       <div class="my-5 flex items-center justify-center space-x-[10px]">
                         <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"

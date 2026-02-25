@@ -36,7 +36,7 @@
         <div class="mt-[10px] border-b lg:rounded-xl lg:border">
           @foreach ($folders as $folder)
             <a href="{{ route('manualFileManager.index', ['folder_id' => $folder->id]) }}" @class([
-                'grid lg:grid-cols-[60%,15%,15%,5%,5%] grid-cols-[77%,13%,10%] lg:relative lg:pr-[70px] lg:py-[30px] py-5 text-[15px] flex items-center cursor-pointer',
+                'grid lg:grid-cols-[60%,15%,15%,5%,5%] grid-cols-[77%,13%,10%] lg:relative lg:pr-[70px] lg:py-[30px] py-5 text-[0.9375rem] flex items-center cursor-pointer',
                 'border-b' => !$loop->last,
             ])>
               <div class="pl-[30px] font-bold">{{ $folder->title }}</div>
@@ -108,7 +108,7 @@
                 fill="#070707" />
             </g>
           </svg>
-          <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">マニュアルがありません</div>
+          <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">マニュアルがありません</div>
         </div>
       @endif
       {{ $folders->links('vendor.pagination.tailwind') }}

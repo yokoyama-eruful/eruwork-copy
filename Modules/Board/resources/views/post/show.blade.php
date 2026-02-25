@@ -11,29 +11,29 @@
       </a>
       <div class="w-full lg:hidden">
         <div class="flex items-center justify-between">
-          <h5 class="text-[15px] text-[#AAB0B6]">{{ $post->created_at?->format('Y/m/d') }}</h5>
+          <h5 class="text-[0.9375rem] text-[#AAB0B6]">{{ $post->created_at?->format('Y/m/d') }}</h5>
           <div class="flex items-center">
             <div class="text-xs text-[#AAB0B6]">作成者:</div>
-            <div class="pl-[6px] text-[15px]">{{ $post->user->name ?? 'NoName' }}</div>
+            <div class="pl-[6px] text-[0.9375rem]">{{ $post->user->name ?? 'NoName' }}</div>
           </div>
         </div>
         <div class="mt-2 flex items-center justify-between">
-          <div class="break-words text-[22px] font-bold">{{ $post->title }}</div>
+          <div class="break-words text-[1.375rem] font-bold">{{ $post->title }}</div>
         </div>
       </div>
     </x-main.top>
     <x-main.container>
       <div class="mx-auto flex flex-col lg:max-w-[70%]">
-        <h5 class="hidden text-[15px] text-[#AAB0B6] lg:block">{{ $post->created_at?->format('Y/m/d') }}</h5>
+        <h5 class="hidden text-[0.9375rem] text-[#AAB0B6] lg:block">{{ $post->created_at?->format('Y/m/d') }}</h5>
         <div class="mt-2 hidden grid-cols-[90%,10%] items-end justify-between lg:grid">
-          <div class="break-words text-[22px] font-bold">{{ $post->title }}</div>
+          <div class="break-words text-[1.375rem] font-bold">{{ $post->title }}</div>
           <div class="flex items-center justify-end">
             <div class="text-xs text-[#AAB0B6]">作成者:</div>
-            <div class="pl-[6px] text-[15px]">{{ $post->user->name ?? 'NoName' }}</div>
+            <div class="pl-[6px] text-[0.9375rem]">{{ $post->user->name ?? 'NoName' }}</div>
           </div>
         </div>
         <div class="mt-[19px] border-t"></div>
-        <div class="p-5 text-[15px] leading-8 lg:p-0 lg:pb-[10px] lg:pt-5" x-ref="element" readonly>
+        <div class="p-5 text-[0.9375rem] leading-8 lg:p-0 lg:pb-[10px] lg:pt-5" x-ref="element" readonly>
           {!! $post->contents !!}
         </div>
         <livewire:board::download :post="$post" :canBeDeleted="false" />

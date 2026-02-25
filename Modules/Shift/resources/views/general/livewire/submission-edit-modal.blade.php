@@ -106,7 +106,7 @@
     <form wire:submit="delete">
       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
         <p class="text-xs">以下のシフトを削除いたします</p>
-        <div class="pt-[13px] text-[15px] font-bold">
+        <div class="pt-[13px] text-[0.9375rem] font-bold">
           {{ $schedule->date->format('Y/m/d') }}<br>{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time->format('H:i') }}
         </div>
       </div>

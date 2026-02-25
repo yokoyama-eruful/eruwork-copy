@@ -2,7 +2,7 @@
   <div class="hidden lg:block">
     <x-main.top>
       <button
-        class="mr-5 flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-[14px] font-bold text-white hover:bg-[#3289fa4d]"
+        class="mr-5 flex h-[35px] items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-[0.875rem] font-bold text-white hover:bg-[#3289fa4d]"
         type="button" x-on:click="$dispatch('open-modal', 'create-modal-{{ $startDate->format('Y-m-d') }}')">
         <img class="mr-[5px] h-[14px] w-[14px]" src="img/icon/add-schedule.png" />
         <p>予定</p>
@@ -13,7 +13,7 @@
       <livewire:calendar::general.create-schedule @added="$refresh" :date="$startDate"
         key="{{ $startDate->format('Y-m-d') }}" />
       <div class="flex items-center">
-        <button class="mr-2.5 hidden items-center space-x-1 bg-transparent text-[15px] text-gray-500 tablet:flex"
+        <button class="mr-2.5 hidden items-center space-x-1 bg-transparent text-[0.9375rem] text-gray-500 tablet:flex"
           wire:click="setPreviousWeek">
           <i class="fa-solid fa-angle-left"></i>
           <p>先週</p>
@@ -35,7 +35,7 @@
             @endforeach
           </select>
         </div>
-        <button class="ml-2.5 mr-5 hidden items-center space-x-1 bg-transparent text-[15px] text-gray-500 tablet:flex"
+        <button class="ml-2.5 mr-5 hidden items-center space-x-1 bg-transparent text-[0.9375rem] text-gray-500 tablet:flex"
           wire:click="setNextWeek">
           <p>翌週</p>
           <i class="fa-solid fa-angle-right"></i>
@@ -104,9 +104,9 @@
                       class="card absolute cursor-pointer rounded-[10px] border border-[#00A1FF] bg-[#F2FBFF] p-2 text-[#00A1FF] transition-all"
                       x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')"
                       :style="'top: {{ $top }}px; height: {{ $height }}px;'">
-                      <p class="truncate text-[14px] font-bold">{{ $schedule->title }}</p>
+                      <p class="truncate text-[0.875rem] font-bold">{{ $schedule->title }}</p>
                       {{-- @if ($height > 50) --}}
-                      <p class="text-[14px]">
+                      <p class="text-[0.875rem]">
                         {{ $schedule->start_time->format('H:i') . '～' . $schedule->end_time?->format('H:i') }}</p>
                       {{-- @endif --}}
                     </div>
@@ -120,9 +120,9 @@
                     <div
                       class="card absolute cursor-pointer rounded-[10px] border border-[#39A338] bg-[#F6FFF6] p-2 text-[#39A338] transition-all"
                       :style="'top: 0px; height: {{ $this->getYesterdayHeight($content['date']->format('Y-m-d')) }}px;'">
-                      <p class="text-[14px] font-bold">出勤日</p>
+                      <p class="text-[0.875rem] font-bold">出勤日</p>
                       {{-- @if ($height > 50) --}}
-                      <p class="text-[14px]">
+                      <p class="text-[0.875rem]">
                         {{ $this->getYesterday($content['date']->format('Y-m-d'))->start_time->format('H:i') . '～' . $this->getYesterday($content['date']->format('Y-m-d'))->end_time?->format('H:i') }}
                       </p>
                       {{-- @endif --}}
@@ -135,9 +135,9 @@
                     <div
                       class="card absolute cursor-pointer rounded-[10px] border border-[#39A338] bg-[#F6FFF6] p-2 text-[#39A338] transition-all"
                       :style="'top: {{ $this->getShiftHeight($shift)['top'] }}px; height: {{ $this->getShiftHeight($shift)['height'] }}px;'">
-                      <p class="text-[14px] font-bold">出勤日</p>
+                      <p class="text-[0.875rem] font-bold">出勤日</p>
                       {{-- @if ($height > 50) --}}
-                      <p class="text-[14px]">
+                      <p class="text-[0.875rem]">
                         {{ $shift->start_time->format('H:i') . '～' . $shift->end_time?->format('H:i') }}</p>
                       {{-- @endif --}}
                     </div>
@@ -179,7 +179,7 @@
         @if ($mobileSchedules->isNotEmpty() || $mobileShiftSchedules->isNotEmpty())
           @foreach ($mobileShiftSchedules as $shift)
             <div class="rounded-[10px] border border-[#39A338] bg-[#F6FFF6] px-[10px] py-4 text-[#39A338]">
-              <div class="text-[15px] font-bold">出勤</div>
+              <div class="text-[0.9375rem] font-bold">出勤</div>
               <div class="text-sm font-bold">
                 {{ $shift->start_time->isoFormat('H:mm') }}～
                 {{ $shift->end_time->isoFormat('H:mm') }}
@@ -189,7 +189,7 @@
           @foreach ($mobileSchedules as $schedule)
             <div class="rounded-[10px] border border-[#00A1FF] bg-[#F2FBFF] px-[10px] py-4 text-[#00A1FF]"
               x-on:click="$dispatch('open-modal','schedule-edit-modal-{{ $schedule->id }}')">
-              <div class="text-[15px] font-bold">{{ $schedule->title }}</div>
+              <div class="text-[0.9375rem] font-bold">{{ $schedule->title }}</div>
               <div class="text-sm font-bold">
                 {{ $schedule->start_time->isoFormat('H:mm') }}～
                 {{ $schedule->end_time->isoFormat('H:mm') }}

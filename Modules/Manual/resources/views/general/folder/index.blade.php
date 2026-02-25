@@ -16,7 +16,7 @@
           </div>
           <div class="border-b border-[#DDDDDD] lg:mt-2 lg:rounded-lg lg:border">
             @foreach ($folders as $folder)
-              <div class="grid grid-cols-[95%,5%] px-[20px] text-[15px] py-5 cursor-pointer lg:py-[30px] {{ !$loop->last ? 'border-b' : '' }}"
+              <div class="grid grid-cols-[95%,5%] px-[20px] text-[0.9375rem] py-5 cursor-pointer lg:py-[30px] {{ !$loop->last ? 'border-b' : '' }}"
                 onclick="window.location='{{ route('manualFile.index', ['folder_id' => $folder->id]) }}'">
                 <div class="break-words font-bold">{{ $folder->title }}</div>
                 <div class="flex items-center justify-end hover:opacity-40">

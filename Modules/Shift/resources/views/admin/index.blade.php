@@ -16,7 +16,7 @@
                 fill="black" />
             </g>
           </svg>
-          <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
+          <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
         <div class="mt-[30px] hidden grid-cols-[19%,50%,21%,10%] lg:grid">
@@ -29,7 +29,7 @@
           @foreach ($managers as $manager)
             <div onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'"
               @class([
-                  'grid-cols-[19%,50%,21%,10%] lg:grid lg:relative lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
+                  'grid-cols-[19%,50%,21%,10%] lg:grid lg:relative lg:py-[30px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer hidden',
                   'border-b' => !$loop->last,
               ])>
               <div @class([
@@ -41,11 +41,11 @@
                 {{ $manager->ReceptionStatus }}
               </div>
 
-              <div class="text-[15px] font-bold">
+              <div class="text-[0.9375rem] font-bold">
                 {{ $manager->start_date->isoFormat('YYYY/MM/DD（ddd）') }}～{{ $manager->end_date->isoFormat('MM/DD（ddd）') }}
               </div>
 
-              <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
+              <div class="text-[0.9375rem]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
 
               <div class="relative hidden lg:absolute lg:inset-y-0 lg:right-[70px] lg:flex lg:items-center"
                 x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
@@ -87,7 +87,7 @@
               <div>
                 <div class="flex items-center space-x-3">
                   <div @class([
-                      'px-[15px] py-1 flex items-center justify-center rounded-full text-[10px] font-bold text-white',
+                      'px-[15px] py-1 flex items-center justify-center rounded-full text-[0.625rem] font-bold text-white',
                       'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                       'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                       'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',

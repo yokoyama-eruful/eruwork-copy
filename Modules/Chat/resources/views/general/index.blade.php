@@ -32,7 +32,7 @@
                 fill="black" />
             </g>
           </svg>
-          <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">ルームを選択してください</div>
+          <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">ルームを選択してください</div>
         </div>
       </x-main.container>
     </x-main.index>

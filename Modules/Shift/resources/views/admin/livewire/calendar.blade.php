@@ -27,7 +27,7 @@
             <div class="text-xs">シフト提出人数</div>
             <div class="flex items-center space-x-3">
               <div class="flex items-center">
-                <p class="text-[18px] font-bold">
+                <p class="text-[1.125rem] font-bold">
                   {{ $manager->alreadySubmissionUsers->count() }}
                 </p>
                 <p class="text-sm">/{{ $users->count() - 1 }}名</p>
@@ -86,7 +86,7 @@
                     <i class="fa-solid fa-image"></i>
                   </div>
                 @endif
-                <div class="truncate text-[15px] font-bold">{{ $user->name }}</div>
+                <div class="truncate text-[0.9375rem] font-bold">{{ $user->name }}</div>
                 <button
                   class="flex w-full items-center justify-center rounded py-1 text-center text-xs font-bold text-[#FF4A62] outline outline-1 outline-[#FF4A62] hover:opacity-40"
                   type="button" wire:click="returnSubmission({{ $user->id }},{{ $manager->id }})">
@@ -106,7 +106,7 @@
                       <i class="fa-solid fa-image"></i>
                     </div>
                   @endif
-                  <div class="truncate text-[15px] font-bold">{{ $user->name }}</div>
+                  <div class="truncate text-[0.9375rem] font-bold">{{ $user->name }}</div>
                   <button
                     class="flex w-full items-center justify-center rounded py-1 text-center text-xs font-bold text-[#3289FA] outline outline-1 outline-[#3289FA] hover:opacity-40"
                     type="button" wire:click="remindSubmission({{ $user->id }},{{ $manager->id }})">
@@ -139,7 +139,7 @@
     </div>
     <div class="flex items-center space-x-2 px-5 lg:mt-[20px] lg:border-b lg:px-0 lg:pb-[10px]">
       <div class="hidden text-xs text-[#AAB0B6] lg:block">期間:</div>
-      <div class="whitespace-nowrap text-[clamp(15px,4.3vw,17px)] font-semibold lg:text-[20px]">
+      <div class="whitespace-nowrap text-[clamp(15px,4.3vw,17px)] font-semibold lg:text-[1.25rem]">
         {{ $manager->start_date->isoFormat('Y/M/D（ddd）') }}　～　{{ $manager->end_date->isoFormat('Y/M/D（ddd）') }}
       </div>
     </div>
@@ -150,7 +150,7 @@
         <div class="text-xs">シフト提出人数</div>
         <div class="flex items-center space-x-3">
           <div class="flex items-center">
-            <p class="text-[18px] font-bold">
+            <p class="text-[1.125rem] font-bold">
               {{ $manager->alreadySubmissionUsers->count() }}
             <p>
             <p class="text-sm">/{{ $users->count() - 1 }}名</p>
@@ -165,13 +165,13 @@
     </div>
 
     <div class="mt-[25px] hidden grid-cols-7 lg:grid">
-      <div class="flex items-center justify-center text-[15px]">月</div>
-      <div class="flex items-center justify-center text-[15px]">火</div>
-      <div class="flex items-center justify-center text-[15px]">水</div>
-      <div class="flex items-center justify-center text-[15px]">木</div>
-      <div class="flex items-center justify-center text-[15px]">金</div>
-      <div class="flex items-center justify-center text-[15px] text-[#48CBFF]">土</div>
-      <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">月</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">火</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">水</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">木</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">金</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#48CBFF]">土</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
     <div class="grid-cols-7 divide-x divide-y border lg:mt-[15px] lg:grid lg:rounded-lg">
@@ -184,7 +184,7 @@
 
           <div class="hidden items-center justify-between px-[15px] lg:flex">
             <div @class([
-                'text-[15px] py-[15px]',
+                'text-[0.9375rem] py-[15px]',
                 'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                 'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
             ])>{{ $content['date']->isoFormat('D日') }}</div>
@@ -204,7 +204,7 @@
           <div class="grid w-full grid-cols-[10%,80%,10%] items-center lg:grid-cols-1">
 
             <div @class([
-                'lg:hidden flex justify-center items-center flex-col text-center text-[12px] font-normal leading-tight',
+                'lg:hidden flex justify-center items-center flex-col text-center text-[0.75rem] font-normal leading-tight',
                 'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                 'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
             ])>
