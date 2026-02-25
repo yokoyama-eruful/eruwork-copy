@@ -29,7 +29,7 @@
           @foreach ($managers as $manager)
             <div onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'"
               @class([
-                  'grid-cols-[24%,45%,21%,10%] lg:grid lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
+                  'grid-cols-[24%,45%,21%,10%] lg:grid lg:relative lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer hidden',
                   'border-b' => !$loop->last,
               ])>
               <div @class([
@@ -47,7 +47,8 @@
 
               <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
 
-              <div class="relative hidden lg:block" x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
+              <div class="relative hidden lg:absolute lg:inset-y-0 lg:right-[30px] lg:flex lg:items-center"
+                x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $manager->id }} = !openDialog{{ $manager->id }};">
                   <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
