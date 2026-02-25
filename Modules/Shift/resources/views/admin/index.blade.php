@@ -47,7 +47,7 @@
 
               <div class="text-[15px]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
 
-              <div class="relative hidden lg:absolute lg:inset-y-0 lg:right-[30px] lg:flex lg:items-center"
+              <div class="relative hidden lg:absolute lg:inset-y-0 lg:right-[70px] lg:flex lg:items-center"
                 x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $manager->id }} = !openDialog{{ $manager->id }};">
@@ -62,6 +62,14 @@
                   <livewire:shift::admin.manager-delete :manager="$manager"
                     key="desktop-manager-delete-{{ $manager->id }}" />
                 </div>
+              </div>
+
+              <div class="hidden lg:absolute lg:right-[20px] lg:top-1/2 lg:block lg:-translate-y-1/2">
+                <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                </svg>
               </div>
             </div>
           @endforeach
