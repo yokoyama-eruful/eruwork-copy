@@ -118,7 +118,7 @@
         </div>
 
         <div class="-mx-4 -mb-[30px] mt-5 flex flex-col items-center justify-center gap-[10px] rounded-b bg-white py-4 lg:mt-[30px] sm:flex-row sm:gap-0 sm:space-x-[10px]">
-          <button class="flex h-11 w-full sm:w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white"
+          <button class="flex h-11 w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white"
             x-on:click="$dispatch('close-modal', 'submission-list-modal')">
             閉じる
           </button>

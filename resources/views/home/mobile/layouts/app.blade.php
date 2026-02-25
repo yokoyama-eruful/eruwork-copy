@@ -32,9 +32,9 @@
         <div class="pt-[13px] text-[0.9375rem] font-bold">ログアウトしますか</div>
       </div>
       <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
-        <div class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
+        <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
           @click="$dispatch('close-modal', 'logout')">キャンセル</div>
-        <button class="flex h-11 w-full sm:w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#FF4A62] text-white" type="submit">
+        <button class="flex h-11 w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#FF4A62] text-white" type="submit">
           ログアウト
         </button>
 

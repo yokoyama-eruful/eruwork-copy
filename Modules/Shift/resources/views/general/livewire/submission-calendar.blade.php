@@ -34,10 +34,10 @@
               </div>
               <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
                 <div
-                  class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                  class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                   @click="$dispatch('close-modal', 'submission-confirm-alert')">キャンセル</div>
                 <button
-                  class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
+                  class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
                   type="button" wire:click="submission({{ $manager->id }})">提出する</button>
               </div>
             </div>
@@ -52,7 +52,7 @@
               </div>
               <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
                 <div
-                  class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                  class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                   @click="$dispatch('close-modal', 'already-submission-alert')">閉じる</div>
               </div>
             </div>
@@ -194,7 +194,7 @@
                   </div>
                   <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
                     <div
-                      class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                      class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                       @click="$dispatch('close-modal', 'already-schedule-modal-{{ $schedule->id }}')">閉じる</div>
                   </div>
                 </div>
@@ -231,10 +231,10 @@
             </div>
             <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
               <div
-                class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                 @click="$dispatch('close-modal', 'submission-confirm-alert')">キャンセル</div>
               <button
-                class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
+                class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
                 type="button" wire:click="submission({{ $manager->id }})">提出する</button>
             </div>
           </div>
@@ -249,7 +249,7 @@
             </div>
             <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
               <div
-                class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                 @click="$dispatch('close-modal', 'already-submission-alert')">閉じる</div>
             </div>
           </div>

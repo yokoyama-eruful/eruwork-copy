@@ -193,10 +193,10 @@
         </div>
 
         <div class="mb-[60px] flex items-center justify-center space-x-[10px] lg:mt-10">
-          <a class="h-[45px] w-full sm:w-[150px] whitespace-nowrap flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
+          <a class="h-[45px] w-[150px] whitespace-nowrap flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
             href="{{ route('account.index') }}">キャンセル</a>
           <button
-            class="flex h-[45px] w-full sm:w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+            class="flex h-[45px] w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
             type="submit">更新する</button>
         </div>
 
@@ -211,10 +211,10 @@
             <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $user->name }}</div>
           </div>
           <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
-            <div class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
+            <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
               @click="$dispatch('close-modal', 'delete-modal-{{ $user->id }}')">キャンセル</div>
             <button
-              class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+              class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
               type="submit">削除する</button>
           </div>
         </form>

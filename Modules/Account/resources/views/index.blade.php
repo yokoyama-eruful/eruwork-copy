@@ -96,11 +96,11 @@
                       <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $user->name }}</div>
                     </div>
                     <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
-                      <div class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
+                      <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
                         onclick="event.stopPropagation();"
                         @click="$dispatch('close-modal', 'delete-modal-{{ $user->id }}')">キャンセル</div>
                       <button
-                        class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+                        class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
                         type="submit" onclick="event.stopPropagation();">削除する</button>
                     </div>
                   </form>

@@ -40,9 +40,9 @@
         {{ $breakTime->in_time?->format('Y-m-d H:i') }}~{{ $breakTime->out_time?->format('Y-m-d H:i') }}</div>
     </div>
     <div class="my-5 flex flex-col gap-[10px] sm:flex-row sm:items-center sm:justify-center sm:space-x-[10px] sm:gap-0">
-      <div class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
+      <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
         @click="$dispatch('close-modal', 'delete-break-time-modal-{{ $breakTime->id }}')">キャンセル</div>
-      <div class="flex h-11 w-full sm:w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+      <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
         wire:click="deleteBreakTime">削除する</div>
     </div>
   </x-modal-alert>

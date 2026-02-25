@@ -50,7 +50,7 @@
             </div>
 
             <div class="mt-[30px] flex w-full justify-center lg:mt-5">
-              <button class="mb-5 h-[45px] w-full sm:w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
+              <button class="mb-5 h-[45px] w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
 
@@ -131,7 +131,7 @@
               </div>
             </div>
             <div class="mt-[30px] flex w-full justify-center lg:mt-5">
-              <button class="mb-5 h-[45px] w-full sm:w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
+              <button class="mb-5 h-[45px] w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
           </div>
@@ -151,7 +151,7 @@
               <div class="text-[0.6875rem] font-bold">プランの解約</div>
               <div class="">
                 <button
-                  class="h-[45px] w-full sm:w-[150px] whitespace-nowrap rounded bg-[#FF4A62] text-sm font-bold text-white hover:opacity-40">解約する</button>
+                  class="h-[45px] w-[150px] whitespace-nowrap rounded bg-[#FF4A62] text-sm font-bold text-white hover:opacity-40">解約する</button>
                 <div class="mt-[11px] text-sm">※解約をご希望の場合は、解約希望日の1ヶ月前までに申請をお願いいたします。</div>
               </div>
             </div>
