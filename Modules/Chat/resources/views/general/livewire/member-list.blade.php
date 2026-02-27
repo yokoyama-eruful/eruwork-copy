@@ -12,7 +12,7 @@
             src="{{ $group->IconImage }}" alt="アイコン">
         @else
           <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
-              class="fa-solid fa-image text-[1.5625rem]"></i>
+              class="fa-solid fa-image text-[1.125rem]"></i>
           </div>
         @endif
       </div>
@@ -42,7 +42,7 @@
               src="{{ route('profile.icon', ['id' => $group->partnerUser->id]) }}" alt="アイコン">
           @else
             <div class="flex h-[25px] w-[25px] items-center justify-center rounded-full border bg-white"><i
-                class="fa-solid fa-image text-[1.5625rem]"></i>
+                class="fa-solid fa-image text-[1.125rem]"></i>
             </div>
           @endif
         </div>
