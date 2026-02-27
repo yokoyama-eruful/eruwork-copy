@@ -17,7 +17,7 @@
       @endif
     </div>
   </x-main.top>
-  <x-main.container mobileTopMarginClass="mt-[30px]">
+  <x-main.container mobileTopMarginClass="mt-[30px]" mobileBottomMarginClass="mb-0">
     <div class="hidden items-center justify-between lg:flex">
       <h5 class="text-xl font-bold">シフト表提出</h5>
       <div class="flex items-center space-x-[10px]">
