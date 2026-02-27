@@ -117,7 +117,7 @@
                   <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
                 @else
                   <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                      class="fa-solid fa-image scale-50"></i>
+                      class="fa-solid fa-image text-[1.125rem]"></i>
                   </div>
                 @endif
               </div>

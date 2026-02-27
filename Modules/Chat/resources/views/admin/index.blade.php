@@ -44,7 +44,7 @@
                   <img class="h-full w-full object-cover" src="{{ $group->icon }}">
                 @else
                   <div class="flex h-[45px] w-[45px] items-center justify-center rounded-full border bg-white"><i
-                      class="fa-solid fa-image"></i>
+                      class="fa-solid fa-image text-[1.125rem]"></i>
                   </div>
                 @endif
               </div>
@@ -125,7 +125,7 @@
                     <img class="h-full w-full object-cover" src="{{ $group->icon }}">
                   @else
                     <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                        class="fa-solid fa-image"></i>
+                        class="fa-solid fa-image text-[1.125rem]"></i>
                     </div>
                   @endif
                 </div>
