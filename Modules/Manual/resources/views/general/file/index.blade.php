@@ -71,13 +71,13 @@
                   'border-b' => !$loop->last,
               ])>
               @if ($file->type)
-                <div class="flex h-[55px] w-[100px] justify-center rounded bg-black">
-                  <img class="max-h-[55px] max-w-[100px] rounded"
+                <div class="flex h-[55px] w-[100px] justify-center rounded-md bg-black">
+                  <img class="max-h-[55px] max-w-[100px] rounded-md"
                     src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
                 </div>
               @else
-                <div class="flex h-[55px] w-[100px] justify-center rounded bg-black">
-                  <img class="max-h-[55px] max-w-[100px] rounded" src="{{ asset('img/icon/NoImage.png') }}" />
+                <div class="flex h-[55px] w-[100px] justify-center rounded-md bg-black">
+                  <img class="max-h-[55px] max-w-[100px] rounded-md" src="{{ asset('img/icon/NoImage.png') }}" />
                 </div>
               @endif
 
