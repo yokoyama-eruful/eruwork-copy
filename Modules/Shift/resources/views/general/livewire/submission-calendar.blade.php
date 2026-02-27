@@ -94,10 +94,10 @@
       <div class="flex items-center justify-center text-[0.9375rem] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
-    <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
+    <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] border-y lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'lg:min-h-[170px] min-h-[90px] lg:block grid grid-cols-[72px,minmax(0,1fr),48px] items-center',
+            'lg:min-h-[170px] min-h-[72px] lg:block grid grid-cols-[72px,minmax(0,1fr),48px] items-center',
             'bg-[#E6E6E6] hidden lg:block' => $content['type'] === '期間外',
         ]) wire:key="calendar-box-desktop-{{ $content['date']->format('Y-m-d') }}">
 

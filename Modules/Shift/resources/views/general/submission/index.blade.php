@@ -1,6 +1,6 @@
 <x-app-layout :url="route('shift.schedule', ['category' => 'week'])">
   <x-main.index>
-    <x-main.top>
+    <x-main.top contentClass="flex w-full items-center justify-between px-[20px] lg:w-auto lg:justify-normal lg:px-0">
       <a class="hidden items-center hover:opacity-40 lg:flex"
         href="{{ route('shift.schedule', ['category' => 'week']) }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
