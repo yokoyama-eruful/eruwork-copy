@@ -39,7 +39,7 @@
                 'grid lg:grid-cols-[60%,15%,15%,5%,5%] grid-cols-[77%,13%,10%] lg:relative lg:pr-[70px] lg:py-[30px] py-5 text-[0.9375rem] flex items-center cursor-pointer',
                 'border-b' => !$loop->last,
             ])>
-              <div class="pl-[30px] font-bold">{{ $folder->title }}</div>
+              <div class="pl-[20px] font-bold">{{ $folder->title }}</div>
               <div class="hidden lg:block">{{ $folder->user->name ?? 'NoName' }}</div>
               <div class="hidden lg:block">{{ $folder->updated_at?->format('Y/m/d') }}</div>
               <div class="relative lg:absolute lg:right-[70px] lg:top-1/2 lg:-translate-y-1/2"

@@ -20,7 +20,7 @@
       <div class="flex w-full items-center justify-between lg:hidden">
         <h5 class="text-xl font-bold lg:hidden">{{ $folder->title }}</h5>
         <div class="lg:hidden">
-          <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
+          <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-[8px] py-[4px] text-sm font-bold text-[#fff] hover:bg-[#3289fa4d] lg:px-5 lg:py-2'
             href="{{ route('manualFileManager.create', ['folder_id' => $folder->id]) }}">
             <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
             新規作成

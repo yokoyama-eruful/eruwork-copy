@@ -139,7 +139,7 @@
               <div class="text-xs font-bold text-[#5E5E5E]">勤怠管理</div>
               <div class="mt-2 flex items-center justify-between">
                 <div class="relative flex items-center">
-                  <input class="js-datepicker w-[150px] rounded border-[#DDDDDD] px-6 py-1" type="text"
+                  <input class="js-datepicker w-[150px] rounded border-[#DDDDDD] py-1 pl-3 pr-8" type="text"
                     wire:model.live="startDate">
                   <svg class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -149,7 +149,7 @@
                 </div>
                 <div>　～　</div>
                 <div class="relative flex items-center">
-                  <input class="js-datepicker w-[150px] rounded border-[#DDDDDD] px-6 py-1" type="text"
+                  <input class="js-datepicker w-[150px] rounded border-[#DDDDDD] py-1 pl-3 pr-8" type="text"
                     wire:model.live="endDate">
                   <svg class="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-[#3289FA]"
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
