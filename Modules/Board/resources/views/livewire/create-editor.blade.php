@@ -1,5 +1,5 @@
 <x-main.index>
-  <x-main.top>
+  <x-main.top contentClass="flex w-full items-center justify-between px-[20px] lg:w-auto lg:justify-normal lg:px-0">
     <div class="flex items-center justify-between lg:hidden">
       <h5 class="text-xl font-bold">新規投稿</h5>
     </div>
@@ -100,7 +100,7 @@
         <button
           class="inline-flex h-[50px] w-[230px] whitespace-nowrap items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
           id="desktop-draftButton" type="button">
-          下書きとして保存
+          下書き保存
         </button>
 
         <button
@@ -110,7 +110,7 @@
         </button>
       </div>
 
-      <div class="my-5 block w-full lg:hidden">
+      <div class="mt-[40px] mb-5 block w-full lg:hidden">
         <button
           class="inline-flex h-[50px] w-full items-center justify-center rounded-md bg-[#3289FA] font-bold uppercase tracking-widest text-white hover:bg-blue-100"
           id="mobile-postButton" type="button">
@@ -125,7 +125,7 @@
           <button
             class="inline-flex h-[50px] w-[230px] whitespace-nowrap items-center justify-center rounded-md bg-[#F7F7F7] font-bold uppercase tracking-widest text-[#3289FA] hover:bg-blue-100"
             id="mobile-draftButton" type="button">
-            下書きとして保存
+            下書き保存
           </button>
         </div>
       </div>

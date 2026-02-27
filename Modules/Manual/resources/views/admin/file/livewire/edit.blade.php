@@ -324,7 +324,7 @@
         <button class="h-[50px] w-[230px] whitespace-nowrap rounded hover:opacity-40" id="draftButton" type="button"
           wire:click="edit('下書き')" wire:loading.attr="disabled" wire:target="edit">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
-            下書きとして保存
+            下書き保存
           </p>
         </button>
         <button class="h-[50px] w-[230px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
@@ -344,7 +344,7 @@
           <button class="h-[50px] w-[230px] whitespace-nowrap rounded hover:opacity-40" id="draftButton" type="button"
             wire:click="edit('下書き')" wire:loading.attr="disabled" wire:target="edit">
             <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
-              下書きとして保存
+              下書き保存
             </p>
           </button>
         </div>
