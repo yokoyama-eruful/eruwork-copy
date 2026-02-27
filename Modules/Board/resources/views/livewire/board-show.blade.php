@@ -1,7 +1,9 @@
 <x-main.index>
   <x-main.top>
-    <h5 class="block text-xl font-bold lg:hidden">掲示板</h5>
-    <x-main.add-a href="{{ route('board.create') }}">新規投稿</x-main.add-a>
+    <div class="flex w-full items-center justify-between px-[10px] lg:px-0">
+      <h5 class="block text-xl font-bold lg:hidden">掲示板</h5>
+      <x-main.add-a href="{{ route('board.create') }}">新規投稿</x-main.add-a>
+    </div>
   </x-main.top>
   <x-main.container>
     <div class="flex items-center justify-between">
