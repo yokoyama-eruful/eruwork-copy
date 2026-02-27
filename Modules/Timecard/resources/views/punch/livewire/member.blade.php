@@ -1,6 +1,6 @@
 <a href="{{ route('punch.index', ['user' => $user->id]) }}" @class([
     'grid grid-cols-[70%,30%] rounded-s-[20px] p-[10px]',
-    'bg-white' => $user->id === $selectUser?->id,
+    'bg-[#f7f7f7]' => $user->id === $selectUser?->id,
 ])>
   <div class="flex items-center space-x-[10px]">
     <div @class([
