@@ -1,35 +1,40 @@
-<header class="flex items-center justify-between bg-[#363b46] px-5 text-white lg:hidden" x-data="{ accountModal: false }">
-  @if ($url)
-    <a href="{{ $url }}"><img class="h-6 w-6" src="{{ asset('img/icon/arrow-l-w.png') }}" /></a>
-  @else
-    <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
-      @if (Auth::user()->icon)
-        <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
-          x-on:click="accountModal=!accountModal" />
-      @else
-        <img class="h-full w-full object-cover" src="{{ asset('img/icon/user.png') }}"
-          x-on:click="accountModal=!accountModal" />
-      @endif
-    </div>
-  @endif
+<header class="flex items-center bg-[#363b46] px-5 text-white lg:hidden" x-data="{ accountModal: false }">
+  <div class="flex w-[30px] items-center justify-start">
+    @if ($url)
+      <a class="flex h-[30px] w-[30px] items-center justify-center" href="{{ $url }}"><img class="h-6 w-6"
+          src="{{ asset('img/icon/arrow-l-w.png') }}" /></a>
+    @else
+      <div class="h-[30px] w-[30px] overflow-hidden rounded-full border bg-white">
+        @if (Auth::user()->icon)
+          <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => Auth::id()]) }}"
+            x-on:click="accountModal=!accountModal" />
+        @else
+          <img class="h-full w-full object-cover" src="{{ asset('img/icon/user.png') }}"
+            x-on:click="accountModal=!accountModal" />
+        @endif
+      </div>
+    @endif
+  </div>
 
-  <a class="h-[28px] w-[35px]" href="{{ route('home.index') }}">
+  <a class="mx-auto h-[28px] w-[35px] shrink-0" href="{{ route('home.index') }}">
     <img src="{{ asset('img/eruwork_white_logo.png') }}" />
   </a>
 
-  <button class="relative flex h-4 w-4 flex-col items-center justify-between" @click="sideMenu = !sideMenu">
-    <!-- 上の線 -->
-    <span class="block h-[2px] w-full origin-center transform rounded bg-white transition-all duration-300"
-      :class="sideMenu ? 'rotate-45 translate-y-[7px]' : ''"></span>
+  <div class="flex w-[30px] items-center justify-end">
+    <button class="relative flex h-4 w-4 flex-col items-center justify-between" @click="sideMenu = !sideMenu">
+      <!-- 上の線 -->
+      <span class="block h-[2px] w-full origin-center transform rounded bg-white transition-all duration-300"
+        :class="sideMenu ? 'rotate-45 translate-y-[7px]' : ''"></span>
 
-    <!-- 真ん中の線 -->
-    <span class="block h-[2px] w-full rounded bg-white transition-all duration-300"
-      :class="sideMenu ? 'opacity-0' : 'opacity-100'"></span>
+      <!-- 真ん中の線 -->
+      <span class="block h-[2px] w-full rounded bg-white transition-all duration-300"
+        :class="sideMenu ? 'opacity-0' : 'opacity-100'"></span>
 
-    <!-- 下の線 -->
-    <span class="block h-[2px] w-full origin-center transform rounded bg-white transition-all duration-300"
-      :class="sideMenu ? '-rotate-45 -translate-y-[7px]' : ''"></span>
-  </button>
+      <!-- 下の線 -->
+      <span class="block h-[2px] w-full origin-center transform rounded bg-white transition-all duration-300"
+        :class="sideMenu ? '-rotate-45 -translate-y-[7px]' : ''"></span>
+    </button>
+  </div>
 
   <div class="lg:account-modal-box account-mobile-modal-box absolute" style="padding: 10px 5px 10px 10px;" id="accountModal" x-show="accountModal"
     x-on:click.away="accountModal=false">
