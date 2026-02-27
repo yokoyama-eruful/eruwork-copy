@@ -8,7 +8,7 @@
           <livewire:calendar::general.multi-create-schedule />
         </div>
         <div class="mt-5 flex w-full items-center justify-center lg:ml-5 lg:mt-0 lg:w-auto tablet:ml-0">
-          <button class="flex items-center space-x-1 rounded-l pr-[11px] text-[0.9375rem] lg:pl-[30px]"
+          <button class="flex items-center space-x-0.5 whitespace-nowrap rounded-l pr-[11px] text-[0.875rem] tracking-[-0.02em] lg:space-x-1 lg:pl-[30px] lg:text-[0.9375rem]"
             wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
             <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
             <p>前月</p>
@@ -25,7 +25,7 @@
               @endforeach
             </select>
           </div>
-          <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[0.9375rem]"
+          <button class="flex items-center space-x-0.5 whitespace-nowrap rounded-r pl-[11px] text-[0.875rem] tracking-[-0.02em] lg:space-x-1 lg:text-[0.9375rem]"
             wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
             <p>翌月</p>
             <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
