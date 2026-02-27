@@ -60,11 +60,12 @@
 
 @media (max-width: 1023px) {
   .slider .slides-wrapper {
-    padding-left: 10px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
   }
 
   .slider .slides-wrapper > a {
-    flex: 0 0 350px;
+    flex: 0 0 340px;
   }
 
   .bulletin-board-area {
@@ -73,19 +74,29 @@
   }
 
   .bulletin-board-area.slide {
-    width: 350px;
+    width: 340px;
   }
 
   .bulletin-board-box {
-    width: 350px;
+    width: 340px;
     height: 60px;
     padding: 10px 20px;
   }
 
   .board-text {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 20px;
+  }
+
+  .board-text h4 {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+  }
+
+  .board-text p {
+    flex-shrink: 0;
   }
 
 
