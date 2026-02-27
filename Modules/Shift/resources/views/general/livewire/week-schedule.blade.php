@@ -198,7 +198,7 @@
                       <div class="hidden text-sm lg:block">
                         {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time->isoFormat('H:mm') }}
                       </div>
-                      <div class="block text-sm lg:hidden">
+                      <div class="block text-[12px] lg:hidden">
                         {{ $schedule->start_time->isoFormat('H:mm') }}<br>
                         {{ '～' . $schedule->end_time->isoFormat('H:mm') }}
                       </div>
