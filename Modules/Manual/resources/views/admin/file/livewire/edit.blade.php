@@ -142,7 +142,7 @@
             </svg>
 
             <p class="mt-[10px] hidden text-xs font-bold text-[#AAB0B6] lg:block">ファイルをエリア内にドラッグ＆ドロップしてください</p>
-            <button class="mt-5 font-bold text-[#3289FA] hover:opacity-40" type="button"
+            <button class="mt-[10px] font-bold text-[#3289FA] hover:opacity-40 lg:mt-5" type="button"
               x-on:click="$refs.fileInput.click()">
               ファイルを選択する
             </button>

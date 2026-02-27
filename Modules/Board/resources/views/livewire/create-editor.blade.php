@@ -45,9 +45,10 @@
             $refs.fileInput.files = dt.files;
             $refs.fileInput.dispatchEvent(new Event('change', { bubbles: true }));
           ">
-          <div class="flex h-[80px] w-full cursor-pointer flex-col items-center justify-center lg:h-[130px]"
+          <div class="relative flex h-[80px] w-full cursor-pointer flex-col items-center justify-center lg:h-[130px]"
             @click="$refs.fileInput.click()">
-            <div class="mb-3 flex h-[35px] w-[35px] items-center justify-center rounded-full bg-[#EBEDF4] lg:mb-0">
+            <div
+              class="absolute left-1/2 top-1/2 flex h-[35px] w-[35px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-[#EBEDF4] lg:static lg:translate-x-0 lg:translate-y-0">
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M1 10.75V12.375C1 12.806 1.1712 13.2193 1.47595 13.524C1.7807 13.8288 2.19402 14 2.625 14H12.375C12.806 14 13.2193 13.8288 13.524 13.524C13.8288 13.2193 14 12.806 14 12.375V10.75M4.25 4.25L7.5 1M7.5 1L10.75 4.25M7.5 1V10.75"
@@ -57,7 +58,9 @@
             <p class="mb-[7px] mt-4 hidden text-xs font-bold text-[#AAB0B6] lg:block">
               ファイルをドラッグ＆ドロップ、またはクリックで選択
             </p>
-            <div class="text-xs font-bold text-[#3289FA]" type="button">ファイルを選択する</div>
+            <div
+              class="absolute left-1/2 top-[calc(50%+28px)] -translate-x-1/2 text-xs font-bold text-[#3289FA] lg:static lg:top-auto lg:translate-x-0"
+              type="button">ファイルを選択する</div>
             <input type="file" x-ref="fileInput" wire:model="files" multiple hidden
               @change="
                 files = Array.from($event.target.files);
