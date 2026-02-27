@@ -19,57 +19,64 @@
           <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[13%,64%,13%,10%] lg:grid">
-          <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
-          <div class="text-left text-xs font-normal text-[#AAB0B6]">期間</div>
-          <div class="text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
-          <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
+        <div class="mt-[30px] hidden items-center px-[30px] lg:flex">
+          <div class="w-[120px] text-left text-xs font-normal text-[#AAB0B6]">ステータス</div>
+          <div class="min-w-0 flex-1 text-left text-xs font-normal text-[#AAB0B6]">期間</div>
+          <div class="ml-auto flex shrink-0 items-center">
+            <div class="w-[140px] text-left text-xs font-normal text-[#AAB0B6]">受付終了日</div>
+            <div class="ml-[28px] w-6"></div>
+            <div class="ml-[20px] w-[18px]"></div>
+          </div>
         </div>
         <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
           @foreach ($managers as $manager)
             <div onclick="window.location='{{ route('shiftManager.show', ['manager' => $manager]) }}'"
               @class([
-                  'grid-cols-[13%,64%,13%,10%] lg:grid lg:relative lg:py-[30px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer hidden',
+                  'hidden cursor-pointer py-3 text-[0.9375rem] px-5 lg:flex lg:items-center lg:px-[30px] lg:py-[30px]',
                   'border-b' => !$loop->last,
               ])>
-              <div @class([
-                  'hidden truncate px-[12px] w-fit font-bold lg:block text-xs text-white ml-[30px] mr-[3px] rounded-full py-1',
+              <div class="w-[120px]">
+                <div @class([
+                  'hidden w-fit truncate rounded-full px-[12px] py-1 text-xs font-bold text-white lg:block',
                   'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                   'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                   'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
               ])>
-                {{ $manager->ReceptionStatus }}
+                  {{ $manager->ReceptionStatus }}
+                </div>
               </div>
 
-              <div class="text-[0.9375rem] font-bold">
+              <div class="min-w-0 flex-1 pr-4 text-[0.9375rem] font-bold">
                 {{ $manager->start_date->isoFormat('YYYY/MM/DD（ddd）') }}～{{ $manager->end_date->isoFormat('MM/DD（ddd）') }}
               </div>
 
-              <div class="text-[0.9375rem]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
+              <div class="ml-auto flex shrink-0 items-center">
+                <div class="w-[140px] text-[0.9375rem]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}</div>
 
-              <div class="relative hidden lg:absolute lg:inset-y-0 lg:right-[70px] lg:flex lg:items-center"
-                x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
-                <div onclick="event.stopPropagation();"
-                  @click="openDialog{{ $manager->id }} = !openDialog{{ $manager->id }};">
-                  <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
+                <div class="relative ml-[28px] flex w-6 items-center justify-center"
+                  x-data="{ openDialog{{ $manager->id }}: false }" onclick="event.stopPropagation();">
+                  <div onclick="event.stopPropagation();"
+                    @click="openDialog{{ $manager->id }} = !openDialog{{ $manager->id }};">
+                    <img class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" />
+                  </div>
+                  <div
+                    class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
+                    @click.away="openDialog{{ $manager->id }} = false" x-show="openDialog{{ $manager->id }}===true"
+                    x-cloak>
+                    <livewire:shift::admin.manager-edit :manager="$manager" @updated="$refresh"
+                      key="desktop-manager-edit-{{ $manager->id }}" />
+                    <livewire:shift::admin.manager-delete :manager="$manager"
+                      key="desktop-manager-delete-{{ $manager->id }}" />
+                  </div>
                 </div>
-                <div
-                  class="absolute -left-20 top-7 z-10 flex flex-col space-y-[10px] rounded-xl bg-white px-3 py-[10px] shadow-[0_4px_13px_0_#5D5F6240]"
-                  @click.away="openDialog{{ $manager->id }} = false" x-show="openDialog{{ $manager->id }}===true"
-                  x-cloak>
-                  <livewire:shift::admin.manager-edit :manager="$manager" @updated="$refresh"
-                    key="desktop-manager-edit-{{ $manager->id }}" />
-                  <livewire:shift::admin.manager-delete :manager="$manager"
-                    key="desktop-manager-delete-{{ $manager->id }}" />
-                </div>
-              </div>
 
-              <div class="hidden lg:absolute lg:right-[20px] lg:top-1/2 lg:block lg:-translate-y-1/2">
-                <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
-                    stroke-linejoin="round" />
-                </svg>
+                <div class="ml-[20px] flex w-[18px] items-center justify-center">
+                  <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </svg>
+                </div>
               </div>
             </div>
           @endforeach
