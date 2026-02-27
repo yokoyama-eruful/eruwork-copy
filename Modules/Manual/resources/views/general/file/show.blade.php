@@ -15,7 +15,7 @@
         <h5 class="text-xl font-bold lg:hidden">{{ $file->title }}</h5>
       </div>
     </x-main.top>
-    <div class="lg:flex lg:h-auto lg:min-h-[calc(var(--vh)*100-100px)] lg:space-x-5">
+    <div class="pb-[50px] lg:flex lg:h-auto lg:min-h-[calc(var(--vh)*100-100px)] lg:space-x-5 lg:pb-0">
       <div @class([
           'mt-5 h-auto min-h-full w-full rounded-[10px] lg:mt-[13px] lg:bg-white lg:p-[20px] lg:shadow-[0_4px_13px_rgba(93,95,98,0.25)]',
           'lg:w-3/5' => !empty($file->steps),
