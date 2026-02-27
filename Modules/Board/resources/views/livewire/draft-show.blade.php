@@ -27,7 +27,7 @@
         <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">下書きがありません</div>
       </div>
     @else
-      <div class="mt-[30px] hidden grid-cols-[65%,10%,10%,10%,5%] lg:grid">
+      <div class="mt-[30px] hidden grid-cols-[64%,12%,10%,10%,4%] lg:grid">
         <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">表題</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">作成者</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">更新日時</div>
@@ -38,7 +38,7 @@
       <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($posts as $post)
           <div onclick="window.location='{{ route('board.show', ['id' => $post->id]) }}'" @class([
-              'lg:grid lg:grid-cols-[66%,10%,10%,10%,4%] lg:py-[30px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer',
+              'lg:grid lg:grid-cols-[64%,12%,10%,10%,4%] lg:py-[30px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer',
               'border-b' => !$loop->last,
           ])>
             <div class="hidden truncate px-[30px] font-bold lg:block">{!! nl2br(e($post->title)) !!}</div>
