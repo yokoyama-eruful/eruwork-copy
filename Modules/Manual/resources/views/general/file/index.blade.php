@@ -70,10 +70,16 @@
                   'grid grid-cols-[30%,60%,10%] items-center px-[20px] py-[15px] lg:hidden',
                   'border-b' => !$loop->last,
               ])>
-              <div class="flex h-[55px] w-[100px] justify-center rounded bg-black">
-                <img class="max-h-[55px] max-w-[100px] rounded"
-                  src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
-              </div>
+              @if ($file->type)
+                <div class="flex h-[55px] w-[100px] justify-center rounded bg-black">
+                  <img class="max-h-[55px] max-w-[100px] rounded"
+                    src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
+                </div>
+              @else
+                <div class="flex h-[55px] w-[100px] justify-center rounded bg-black">
+                  <img class="max-h-[55px] max-w-[100px] rounded" src="{{ asset('img/icon/NoImage.png') }}" />
+                </div>
+              @endif
 
               <div>
                 <div class="flex items-center space-x-1 pl-[12px]">
