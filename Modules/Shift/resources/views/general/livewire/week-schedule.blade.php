@@ -53,7 +53,7 @@
             <div class="grid grid-rows-2">
               <div class="flex items-center">
                 <div @class([
-                    'truncate px-[10px] w-fit font-bold text-xs text-white rounded-full py-[3px]',
+                    'truncate w-fit font-bold text-[0.625rem] lg:text-xs text-white rounded-full px-[8px] lg:px-[10px] py-[2px] lg:py-[3px]',
                     'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                     'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                     'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',

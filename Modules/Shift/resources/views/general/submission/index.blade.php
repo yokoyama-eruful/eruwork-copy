@@ -80,7 +80,7 @@
               onclick="window.location='{{ route('shift.submission.show', ['manager' => $manager]) }}'">
               <div class="flex items-center justify-between">
                 <div @class([
-                    'px-[15px] py-1 flex items-center justify-center rounded-full text-[0.625rem] font-bold text-white',
+                    'px-[8px] py-[2px] flex items-center justify-center rounded-full text-[0.625rem] font-bold text-white',
                     'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                     'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                     'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
