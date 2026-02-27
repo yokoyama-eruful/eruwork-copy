@@ -1,37 +1,39 @@
 <x-main.index>
 
   <x-main.top>
-    <div class="flex w-full flex-col items-center justify-between lg:flex-row">
-      <div class="flex w-full items-center justify-between lg:w-auto">
-        <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
-        <livewire:calendar::general.multi-create-schedule />
-      </div>
-      <div class="mt-5 flex w-full items-center justify-center lg:ml-5 lg:mt-0 lg:w-auto tablet:ml-0">
-        <button class="flex items-center space-x-1 rounded-l pr-[11px] text-[0.9375rem] lg:pl-[30px]"
-          wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
-          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
-          <p>前月</p>
-        </button>
-        <div class="flex flex-row space-x-[5px]">
-          <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
-            @foreach (range(2000, 2050) as $year)
-              <option value="{{ $year }}">{{ $year }}年</option>
-            @endforeach
-          </select>
-          <select class="rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
-            @foreach (range(1, 12) as $month)
-              <option value="{{ $month }}">{{ $month }}月</option>
-            @endforeach
-          </select>
+    <div class="-mx-[10px] w-[calc(100%+20px)] px-[20px] lg:mx-0 lg:w-full lg:px-0">
+      <div class="flex w-full flex-col items-center justify-between lg:flex-row">
+        <div class="flex w-full items-center justify-between lg:w-auto">
+          <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
+          <livewire:calendar::general.multi-create-schedule />
         </div>
-        <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[0.9375rem]"
-          wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
-          <p>翌月</p>
-          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
-        </button>
-        <div class="">
-          <button class="mx-2 hidden h-[25px] rounded border bg-[#77829C] px-2 text-[0.875rem] text-white lg:block"
-            wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
+        <div class="mt-5 flex w-full items-center justify-center lg:ml-5 lg:mt-0 lg:w-auto tablet:ml-0">
+          <button class="flex items-center space-x-1 rounded-l pr-[11px] text-[0.9375rem] lg:pl-[30px]"
+            wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
+            <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
+            <p>前月</p>
+          </button>
+          <div class="flex flex-row space-x-[5px]">
+            <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
+              @foreach (range(2000, 2050) as $year)
+                <option value="{{ $year }}">{{ $year }}年</option>
+              @endforeach
+            </select>
+            <select class="rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
+              @foreach (range(1, 12) as $month)
+                <option value="{{ $month }}">{{ $month }}月</option>
+              @endforeach
+            </select>
+          </div>
+          <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[0.9375rem]"
+            wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
+            <p>翌月</p>
+            <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
+          </button>
+          <div class="">
+            <button class="mx-2 hidden h-[25px] rounded border bg-[#77829C] px-2 text-[0.875rem] text-white lg:block"
+              wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
+          </div>
         </div>
       </div>
     </div>
@@ -236,8 +238,8 @@
             <div class="flex flex-col space-y-1">
               @if (!empty($content['shifts']))
                 <div
-                  class="my-1 flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#39A338] bg-[#F6FFF6] pb-[15px] pl-5 pr-[13px] pt-3 text-[#39A338]">
-                  <div class="flex items-start text-sm font-bold">勤務時間</div>
+                  class="my-1 flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#39A338] bg-[#F6FFF6] py-3 pl-5 pr-[13px] text-[#39A338]">
+                  <div class="flex items-center text-sm font-bold">勤務時間</div>
                   @foreach ($content['shifts'] as $shift)
                     <div class="relative text-xs" x-data="{ openModalShift{{ $shift->id }}: false }"
                       @click="openModalShift{{ $shift->id }}=true"
@@ -285,10 +287,10 @@
                     @click="openModalSchedule{{ $schedule->id }}=true"
                     @click.away="openModalSchedule{{ $schedule->id }}=false"
                     wire:key="schedule-{{ $schedule->id }}">
-                    <div class="flex items-center text-[0.8125rem] font-bold">
+                    <div class="flex items-center text-[0.8125rem] font-bold leading-none">
                       {{ $schedule->title }}
                     </div>
-                    <div class="flex items-center text-xs">
+                    <div class="flex items-center text-xs leading-none">
                       {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                     </div>
                     <div
