@@ -42,7 +42,7 @@
       </div>
     </div>
 
-    <div class="flex w-full flex-col lg:hidden">
+    <div class="flex w-full flex-col px-[10px] lg:hidden">
       <div class="flex items-center justify-between">
         <div class="text-xl font-bold">シフト表</div>
       </div>
@@ -66,7 +66,7 @@
               <div class="mt-1 text-[1rem] font-bold">{{ $manager->start_date->isoFormat('YYYY/MM/DD') }}～
                 {{ $manager->end_date->isoFormat('MM/DD') }}</div>
             </div>
-            <a class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40"
+            <a class="flex items-center justify-end text-[0.75rem] text-[#3289FA] hover:opacity-40"
               href="{{ route('shift.submission.show', ['manager' => $manager->id]) }}">入力する</a>
           </div>
         </div>
@@ -119,7 +119,7 @@
     <div class="mb-[12px] mt-[20px] flex items-center justify-between px-5 lg:mb-[14px] lg:mt-[17px] lg:px-0">
       <div class="flex items-center">
         <p class="text-xs text-[#AAB0B6]">期間：</p>
-        <div class="pl-1 text-[0.9375rem] font-semibold lg:text-xl">
+        <div class="pl-1 text-[1rem] font-semibold lg:text-xl">
           {{ $startDate->isoFormat('M/D（ddd）') }} ～ {{ $endDate->isoFormat('M/D（ddd）') }}</div>
       </div>
       <div class="hidden items-center space-x-5 lg:flex">
