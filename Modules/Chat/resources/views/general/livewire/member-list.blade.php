@@ -16,7 +16,7 @@
           </div>
         @endif
       </div>
-      <div class="ml-[10px] flex items-center truncate text-[0.9375rem] font-semibold">{{ $group->name }}</div>
+      <div class="ml-[5px] flex items-center truncate text-[0.9375rem] font-semibold">{{ $group->name }}</div>
       <div class="flex items-center justify-center">
         @if ($group->group_notification_count)
           <div
@@ -46,7 +46,7 @@
             </div>
           @endif
         </div>
-        <div class="ml-[10px] flex items-center truncate text-[0.9375rem] font-semibold">{{ $group->NameLabel }}</div>
+        <div class="ml-[5px] flex items-center truncate text-[0.9375rem] font-semibold">{{ $group->NameLabel }}</div>
         <div class="flex items-center justify-center">
           @if ($group->group_notification_count)
             <div
