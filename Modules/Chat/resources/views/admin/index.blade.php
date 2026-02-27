@@ -25,17 +25,17 @@
           <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">ルームがありません</div>
         </div>
       @else
-        <div class="mt-[30px] hidden grid-cols-[13%,20%,45%,14%,8%] lg:grid tablet:grid-cols-[10%,27%,45%,14%,4%]">
+        <div class="mt-[30px] hidden lg:grid lg:grid-cols-[90px_220px_minmax(0,1fr)_140px_65px] tablet:grid-cols-[90px_220px_minmax(0,1fr)_132px_57px]">
           <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
           <div class="pr-[20px] text-left text-xs font-normal text-[#AAB0B6]">グループ名</div>
           <div class="pr-[87px] text-left text-xs font-normal text-[#AAB0B6]">メンバー</div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">更新日</div>
-          <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
+          <div class="pr-[25px] text-left text-xs font-normal text-[#AAB0B6]"></div>
         </div>
         <div class="mt-[24px] border border-b lg:-mx-0 lg:mt-[8px] lg:rounded-lg">
           @foreach ($groups as $group)
             <div @class([
-                'lg:grid grid-cols-[13%,20%,45%,14%,8%] tablet:grid-cols-[10%,27%,45%,14%,4%] lg:py-[18px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center hidden',
+                'lg:grid lg:grid-cols-[90px_220px_minmax(0,1fr)_140px_65px] tablet:grid-cols-[90px_220px_minmax(0,1fr)_132px_57px] lg:py-[18px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center hidden',
                 'border-b' => !$loop->last,
             ])>
               <div
@@ -52,7 +52,7 @@
               <div class="break-words pr-[87px] text-[0.9375rem]">{{ $group->users->implode('name', '　') }}</div>
               <div class="text-[0.9375rem]">{{ $group->updated_at->format('Y/m/d') }}</div>
 
-              <div class="relative block" x-data="{ openDialog{{ $group->id }}: false }">
+              <div class="relative block pr-[25px]" x-data="{ openDialog{{ $group->id }}: false }">
                 <div onclick="event.stopPropagation();"
                   @click="openDialog{{ $group->id }} = !openDialog{{ $group->id }};"><img
                     class="h-6 w-6 hover:opacity-40" src="{{ asset('img/icon/dot_gray.png') }}" /></div>

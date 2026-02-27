@@ -91,24 +91,26 @@
           </div>
         </div>
         <div
-          class="mt-[30px] hidden grid-cols-[10%,10%,30%,25%,25%] items-end lg:grid tablet:grid-cols-[8%,6.5%,30.5%,26%,30%]">
+          class="mt-[30px] hidden items-end lg:grid lg:grid-cols-[90px_64px_minmax(120px,1fr)_auto]">
           <button class="pl-[20px] text-left text-xs font-normal text-[#3289FA] hover:opacity-40" type="button"
             wire:click="toggleSelectAll">
             全選択</button>
           <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
           <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
-          <div class="text-left text-xs font-normal text-[#AAB0B6]">勤務時間</div>
-          <div class="text-left text-xs font-normal text-[#AAB0B6]">支給額（勤怠時間×時給）</div>
+          <div class="grid grid-cols-[140px_220px] gap-x-[80px] justify-self-end">
+            <div class="text-left text-xs font-normal text-[#AAB0B6]">勤務時間</div>
+            <div class="text-left text-xs font-normal text-[#AAB0B6]">支給額（勤怠時間×時給）</div>
+          </div>
           {{-- <div class="text-left text-xs font-normal text-[#AAB0B6]">※休憩を考慮しない<br>見込（確定シフト×時給）</div> --}}
         </div>
         <div class="mt-[24px] rounded-lg lg:-mx-0 lg:mt-[8px] lg:border lg:border-b">
           @foreach ($this->users as $user)
             <div wire:key="user-row-{{ $user->id }}" @class([
-                'lg:grid grid-cols-[10%,10%,30%,25%,25%] tablet:grid-cols-[8%,6.5%,30.5%,26%,30%] lg:py-4 py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center hidden',
+                'hidden cursor-pointer items-center px-5 py-3 text-[0.9375rem] lg:grid lg:grid-cols-[90px_64px_minmax(120px,1fr)_auto] lg:px-0 lg:py-4',
                 'border-b' => !$loop->last,
             ])>
 
-              <input class="checkbox ml-[30px] h-[18px] w-[18px] rounded border-[#DDDDDD]" type="checkbox"
+              <input class="checkbox h-[18px] w-[18px] justify-self-center rounded border-[#DDDDDD]" type="checkbox"
                 value="{{ $user->id }}" wire:key="checkbox-{{ $user->id }}" wire:model.live="selectUsers">
 
               <div
@@ -122,12 +124,13 @@
                 @endif
               </div>
 
-              <div class="text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
+              <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
 
-              <div class="text-[0.9375rem]">{{ $this->workingTime($user->id) }}</div>
-
-              <div class="text-[0.9375rem]">
-                {{ $this->getTotalPay($user->id) == 0 ? '--' : $this->getTotalPay($user->id) . '円' }}
+              <div class="grid grid-cols-[140px_220px] gap-x-[80px] justify-self-end">
+                <div class="text-left text-[0.9375rem]">{{ $this->workingTime($user->id) }}</div>
+                <div class="text-[0.9375rem]">
+                  {{ $this->getTotalPay($user->id) == 0 ? '--' : $this->getTotalPay($user->id) . '円' }}
+                </div>
               </div>
 
               {{-- <div class="text-[0.9375rem]">{{ $this->prospectHourlyRate($user->id) }}</div> --}}
