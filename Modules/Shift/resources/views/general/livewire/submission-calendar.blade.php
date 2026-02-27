@@ -1,7 +1,7 @@
 <x-main.index>
 
   <x-main.top>
-    <div class="flex w-full items-center justify-between lg:justify-normal lg:space-x-[30px]">
+    <div class="flex w-full items-center justify-between px-[10px] lg:justify-normal lg:space-x-[30px] lg:px-0">
       <a class="hidden items-center hover:opacity-40 lg:flex" href="{{ route('shift.submission.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" clip-rule="evenodd"
@@ -17,7 +17,7 @@
       @endif
     </div>
   </x-main.top>
-  <x-main.container>
+  <x-main.container mobileTopMarginClass="mt-[30px]">
     <div class="hidden items-center justify-between lg:flex">
       <h5 class="text-xl font-bold">シフト表提出</h5>
       <div class="flex items-center space-x-[10px]">
@@ -63,7 +63,7 @@
 
     <div class="flex w-full items-center justify-center bg-[#F7F7F7] py-1 lg:hidden">
       <div class="text-xs text-[#6F6C6C]">提出期限：</div>
-      <div class="font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd曜）まで') }}</div>
+      <div class="text-[0.75rem] font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd曜）まで') }}</div>
     </div>
 
     <div class="mt-[19px] flex items-center space-x-[5px] px-5 lg:space-x-2 lg:px-0">
