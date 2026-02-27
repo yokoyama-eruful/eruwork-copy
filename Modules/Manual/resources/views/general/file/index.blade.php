@@ -57,7 +57,7 @@
               <div>{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
 
               <div class="flex items-center justify-end hover:opacity-40">
-                <svg class="h-[18px] w-[18px] shrink-0 lg:h-6 lg:w-6" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
@@ -96,7 +96,7 @@
                 <div class="pl-[12px] text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>
               <div class="flex items-center justify-end hover:opacity-40">
-                <svg class="h-[18px] w-[18px] shrink-0 lg:h-6 lg:w-6" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
