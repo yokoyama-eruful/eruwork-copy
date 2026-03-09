@@ -1,37 +1,39 @@
 <x-main.index>
 
   <x-main.top>
-    <div class="flex w-full flex-col items-center justify-between lg:flex-row">
-      <div class="flex w-full items-center justify-between lg:w-auto">
-        <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
-        <livewire:calendar::general.multi-create-schedule />
-      </div>
-      <div class="mt-5 flex w-full items-center justify-center lg:ml-5 lg:mt-0 lg:w-auto tablet:ml-0">
-        <button class="flex items-center space-x-1 rounded-l pr-[11px] text-[15px] lg:pl-[30px]"
-          wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
-          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
-          <p>前月</p>
-        </button>
-        <div class="flex flex-row space-x-[5px]">
-          <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
-            @foreach (range(2000, 2050) as $year)
-              <option value="{{ $year }}">{{ $year }}年</option>
-            @endforeach
-          </select>
-          <select class="rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
-            @foreach (range(1, 12) as $month)
-              <option value="{{ $month }}">{{ $month }}月</option>
-            @endforeach
-          </select>
+    <div class="-mx-[10px] w-[calc(100%+20px)] px-[20px] lg:mx-0 lg:w-full lg:px-0">
+      <div class="flex w-full flex-col items-center justify-between lg:flex-row">
+        <div class="flex w-full items-center justify-between lg:w-auto">
+          <h5 class="block text-xl font-bold lg:hidden">カレンダー</h5>
+          <livewire:calendar::general.multi-create-schedule />
         </div>
-        <button class="flex items-center space-x-1 rounded-r pl-[11px] text-[15px]"
-          wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
-          <p>翌月</p>
-          <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
-        </button>
-        <div class="">
-          <button class="mx-2 hidden h-[25px] rounded border bg-[#77829C] px-2 text-[14px] text-white lg:block"
-            wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
+        <div class="mt-5 flex w-full items-center justify-center lg:ml-5 lg:mt-0 lg:w-auto tablet:ml-0">
+          <button class="flex items-center space-x-0.5 whitespace-nowrap rounded-l pr-[11px] text-[0.875rem] tracking-[-0.02em] lg:space-x-1 lg:pl-[30px] lg:text-[0.9375rem]"
+            wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
+            <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
+            <p>前月</p>
+          </button>
+          <div class="flex flex-row space-x-[5px]">
+            <select class="rounded border border-[#DDDDDD]" wire:model.live="year" wire:change="updateCalendar">
+              @foreach (range(2000, 2050) as $year)
+                <option value="{{ $year }}">{{ $year }}年</option>
+              @endforeach
+            </select>
+            <select class="rounded border border-[#DDDDDD]" wire:model.live="month" wire:change="updateCalendar">
+              @foreach (range(1, 12) as $month)
+                <option value="{{ $month }}">{{ $month }}月</option>
+              @endforeach
+            </select>
+          </div>
+          <button class="flex items-center space-x-0.5 whitespace-nowrap rounded-r pl-[11px] text-[0.875rem] tracking-[-0.02em] lg:space-x-1 lg:text-[0.9375rem]"
+            wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
+            <p>翌月</p>
+            <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
+          </button>
+          <div class="">
+            <button class="mx-2 hidden h-[25px] rounded border bg-[#77829C] px-2 text-[0.875rem] text-white lg:block"
+              wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
+          </div>
         </div>
       </div>
     </div>
@@ -43,15 +45,15 @@
     <div class="mt-[25px] hidden grid-cols-7 lg:grid">
       <div class="flex items-center justify-between">
         <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div>
-        <div class="text-[15px]">月</div>
+        <div class="text-[0.9375rem]">月</div>
         <div></div>
       </div>
-      <div class="flex items-center justify-center text-[15px]">火</div>
-      <div class="flex items-center justify-center text-[15px]">水</div>
-      <div class="flex items-center justify-center text-[15px]">木</div>
-      <div class="flex items-center justify-center text-[15px]">金</div>
-      <div class="flex items-center justify-center text-[15px] text-[#48CBFF]">土</div>
-      <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">火</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">水</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">木</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">金</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#48CBFF]">土</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#FF0000]">日</div>
     </div>
     <div class="mt-[15px] hidden grid-cols-7 divide-x divide-y rounded-lg border lg:grid">
       @foreach ($this->calendar as $key => $content)
@@ -64,7 +66,7 @@
 
           <div class="flex items-center justify-between px-[15px]">
             <div @class([
-                'text-[15px] py-[15px]',
+                'text-[0.9375rem] py-[15px]',
                 'font-bold text-[#3289FA]' =>
                     $content['date']->format('Y-m-d') === $selectedDate->format('Y-m-d'),
             ])>{{ $content['date']->isoFormat('D日') }}</div>
@@ -90,7 +92,7 @@
           @if (!empty($content['shifts']))
             <div class="mb-1 mr-1 min-h-[50px] rounded-lg border border-[#39A338] bg-[#F6FFF6] p-[9px] text-[#39A338]"
               x-cloak>
-              <div class="text-[13px] font-bold">出勤</div>
+              <div class="text-[0.8125rem] font-bold">出勤</div>
               @foreach ($content['shifts'] as $shift)
                 <div class="relative pt-[4px] text-xs" x-data="{ openModalShift{{ $shift->id }}: false }"
                   @click="openModalShift{{ $shift->id }}=true"
@@ -120,7 +122,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="mt-[9px] truncate text-[15px] font-bold text-black">出勤</div>
+                    <div class="mt-[9px] truncate text-[0.9375rem] font-bold text-black">出勤</div>
                     <div class="mt-[9px] truncate text-xs text-black">
                       {{ $shift->start_time->isoFormat('H:mm') . '～' . $shift->end_time?->isoFormat('H:mm') }}
                     </div>
@@ -140,7 +142,7 @@
                 @click="openModalSchedule{{ $schedule->id }}=true"
                 @click.away="openModalSchedule{{ $schedule->id }}=false" wire:key="schedule-{{ $schedule->id }}"
                 x-cloak>
-                <div class="break-words text-[13px] font-bold">
+                <div class="break-words text-[0.8125rem] font-bold">
                   {{ $schedule->title }}
                 </div>
                 <div class="pt-[4px] text-xs">
@@ -184,7 +186,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="mt-[9px] truncate text-[15px] font-bold text-black">{{ $schedule->title }}</div>
+                  <div class="mt-[9px] truncate text-[0.9375rem] font-bold text-black">{{ $schedule->title }}</div>
                   <div class="mt-[9px] truncate text-xs text-black">
                     {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                   </div>
@@ -236,8 +238,8 @@
             <div class="flex flex-col space-y-1">
               @if (!empty($content['shifts']))
                 <div
-                  class="my-1 flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#39A338] bg-[#F6FFF6] pb-[15px] pl-5 pr-[13px] pt-3 text-[#39A338]">
-                  <div class="flex items-start text-sm font-bold">勤務時間</div>
+                  class="my-1 flex min-h-[50px] min-w-[255px] items-center justify-between rounded-lg border border-[#39A338] bg-[#F6FFF6] py-3 pl-5 pr-[13px] text-[#39A338]">
+                  <div class="flex items-center text-sm font-bold">勤務時間</div>
                   @foreach ($content['shifts'] as $shift)
                     <div class="relative text-xs" x-data="{ openModalShift{{ $shift->id }}: false }"
                       @click="openModalShift{{ $shift->id }}=true"
@@ -267,7 +269,7 @@
                             </div>
                           </div>
                         </div>
-                        <div class="mt-[9px] truncate text-[15px] font-bold text-black">出勤</div>
+                        <div class="mt-[9px] truncate text-[0.9375rem] font-bold text-black">出勤</div>
                         <div class="mt-[9px] truncate text-xs text-black">
                           {{ $shift->start_time->isoFormat('H:mm') . '～' . $shift->end_time?->isoFormat('H:mm') }}
                         </div>
@@ -285,10 +287,10 @@
                     @click="openModalSchedule{{ $schedule->id }}=true"
                     @click.away="openModalSchedule{{ $schedule->id }}=false"
                     wire:key="schedule-{{ $schedule->id }}">
-                    <div class="flex items-center text-[13px] font-bold">
+                    <div class="flex items-center text-[0.8125rem] font-bold leading-none">
                       {{ $schedule->title }}
                     </div>
-                    <div class="flex items-center text-xs">
+                    <div class="flex items-center text-xs leading-none">
                       {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                     </div>
                     <div
@@ -332,7 +334,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="mt-[9px] truncate text-[15px] font-bold text-black">{{ $schedule->title }}</div>
+                      <div class="mt-[9px] truncate text-[0.9375rem] font-bold text-black">{{ $schedule->title }}</div>
                       <div class="mt-[9px] truncate text-xs text-black">
                         {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time?->isoFormat('H:mm') }}
                       </div>

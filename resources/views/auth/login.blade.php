@@ -26,19 +26,19 @@
 
         <div class="flex w-full flex-col px-[20px] lg:grid lg:grid-cols-[22%,78%] lg:items-center lg:px-[30px]">
           <x-input-label class="mb-[4px] text-left lg:mb-0" for="login_id" :value="__('login_id')" />
-          <x-text-input class="mt-1 block w-full placeholder:text-[14px]" id="login_id" name="login_id" type="text"
+          <x-text-input class="mt-1 block w-full placeholder:text-[0.875rem]" id="login_id" name="login_id" type="text"
             :value="old('login_id')" placeholder="IDを入力してください" required autocomplete="username" />
           <x-input-error class="mt-2 lg:col-span-2" :messages="$errors->get('login_id')" />
         </div>
         <div class="mt-5 flex w-full flex-col px-[20px] lg:grid lg:grid-cols-[22%,78%] lg:items-center lg:px-[30px]">
           <x-input-label class="mb-[4px] text-left lg:mb-0" for="password" :value="__('Password')" />
 
-          <x-text-input class="mt-1 block w-full placeholder:text-[14px]" id="password" name="password" type="password"
+          <x-text-input class="mt-1 block w-full placeholder:text-[0.875rem]" id="password" name="password" type="password"
             required autocomplete="current-password" placeholder="パスワードを入力してください" />
 
           <x-input-error class="mt-2 lg:col-span-2" :messages="$errors->get('password')" />
         </div>
-        <button class="my-10 h-[45px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+        <button class="my-10 h-[45px] w-[230px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
           type="submit">ログイン</button>
       </form>
     </div>

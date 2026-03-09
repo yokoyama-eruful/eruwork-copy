@@ -2,13 +2,13 @@
   <x-main.top>
     <div class="hidden flex-row items-center space-x-5 lg:flex">
       <div class="flex flex-row">
-        <a class="rounded-l border border-[#3289FA] bg-[#3289FA] px-[22px] text-[15px] text-white"
+        <a class="rounded-l border border-[#3289FA] bg-[#3289FA] px-[22px] text-[0.9375rem] text-white"
           href="{{ route('shift.schedule', ['category' => 'week']) }}">週</a>
-        <a class="rounded-r border border-[#3289FA] bg-white px-[22px] text-[15px] text-[#3289FA]"
+        <a class="rounded-r border border-[#3289FA] bg-white px-[22px] text-[0.9375rem] text-[#3289FA]"
           href="{{ route('shift.schedule', ['category' => 'day']) }}">日</a>
       </div>
       <div class="flex items-center md:ml-0">
-        <button class="hidden items-center space-x-1 rounded-l text-[15px] xl:px-2 tablet:flex"
+        <button class="hidden items-center space-x-1 rounded-l text-[0.9375rem] xl:px-2 tablet:flex"
           wire:click="setPreviousWeek">
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
           <p class="hidden lg:block">先週</p>
@@ -30,7 +30,7 @@
             @endforeach
           </select>
         </div>
-        <button class="hidden items-center space-x-1 rounded-r text-[15px] xl:px-2 tablet:flex"
+        <button class="hidden items-center space-x-1 rounded-r text-[0.9375rem] xl:px-2 tablet:flex"
           wire:click="setNextWeek">
           <p class="hidden lg:block">翌週</p>
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
@@ -42,18 +42,18 @@
       </div>
     </div>
 
-    <div class="flex w-full flex-col lg:hidden">
+    <div class="flex w-full flex-col px-[10px] lg:hidden">
       <div class="flex items-center justify-between">
         <div class="text-xl font-bold">シフト表</div>
       </div>
       @if ($manager)
         <div class="mt-[30px]">
-          <div class="text-[11px] font-bold">シフト提出依頼</div>
+          <div class="text-[0.6875rem] font-bold">シフト提出依頼</div>
           <div class="mt-2 grid grid-cols-[80%,20%] bg-[#F7F7F7] px-5 py-2">
             <div class="grid grid-rows-2">
               <div class="flex items-center">
                 <div @class([
-                    'truncate px-[10px] w-fit font-bold text-xs text-white rounded-full py-[3px]',
+                    'truncate w-fit font-bold text-[0.625rem] lg:text-xs text-white rounded-full px-[8px] lg:px-[10px] py-[2px] lg:py-[3px]',
                     'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                     'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                     'bg-[#7F8E94]' => $manager->ReceptionStatus === '準備中',
@@ -63,10 +63,10 @@
                 <div class="ml-[8px] text-sm text-[#FF4A62]">
                   {{ $manager->submission_end_date->isoFormat('MM/DD（ddd）まで') }}</div>
               </div>
-              <div class="mt-1 text-[16px] font-bold">{{ $manager->start_date->isoFormat('YYYY/MM/DD') }}～
+              <div class="mt-1 text-[1rem] font-bold">{{ $manager->start_date->isoFormat('YYYY/MM/DD') }}～
                 {{ $manager->end_date->isoFormat('MM/DD') }}</div>
             </div>
-            <a class="flex items-center justify-end text-sm text-[#3289FA] hover:opacity-40"
+            <a class="flex items-center justify-end text-[0.75rem] text-[#3289FA] hover:opacity-40"
               href="{{ route('shift.submission.show', ['manager' => $manager->id]) }}">入力する</a>
           </div>
         </div>
@@ -119,7 +119,7 @@
     <div class="mb-[12px] mt-[20px] flex items-center justify-between px-5 lg:mb-[14px] lg:mt-[17px] lg:px-0">
       <div class="flex items-center">
         <p class="text-xs text-[#AAB0B6]">期間：</p>
-        <div class="pl-1 text-[0.9375rem] font-semibold lg:text-xl">
+        <div class="pl-1 text-[1rem] font-semibold lg:text-xl">
           {{ $startDate->isoFormat('M/D（ddd）') }} ～ {{ $endDate->isoFormat('M/D（ddd）') }}</div>
       </div>
       <div class="hidden items-center space-x-5 lg:flex">
@@ -137,13 +137,13 @@
     <hr class="border-t">
 
     <div class="mt-5 flex w-full items-center justify-between px-5 lg:hidden">
-      <button class="flex items-center space-x-1 rounded-l text-[15px] text-[#5E5E5E] xl:px-2"
+      <button class="flex items-center space-x-1 rounded-l text-[0.9375rem] text-[#5E5E5E] xl:px-2"
         wire:click="setPreviousWeek">
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
         <p>先週</p>
       </button>
       <div class="text-xl font-bold">{{ $startDate->isoFormat('M月') }}</div>
-      <button class="flex items-center space-x-1 rounded-r text-[15px] text-[#5E5E5E] xl:px-2" wire:click="setNextWeek">
+      <button class="flex items-center space-x-1 rounded-r text-[0.9375rem] text-[#5E5E5E] xl:px-2" wire:click="setNextWeek">
         <p>翌週</p>
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
       </button>
@@ -158,7 +158,7 @@
           <tr>
             <th class="w-[100px] min-w-[100px] text-xs font-normal text-[#3289FA] lg:w-32"></th>
             @foreach ($this->calendar as $content)
-              <th class="w-[100px] min-w-[100px] text-[15px] lg:w-32">
+              <th class="w-[100px] min-w-[100px] text-[0.9375rem] lg:w-32">
                 <div
                   class="{{ $content['date']->format('Ymd') === now()->format('Ymd')
                       ? 'my-[6px] py-[6px] rounded-lg bg-[#3289FA] bg-opacity-10 font-bold text-[#3289FA]'
@@ -184,7 +184,7 @@
           @foreach ($this->shiftSchedules as $user)
             <tr class="h-[100px] lg:h-[137px]">
               <td
-                class="w-[100px] min-w-[100px] break-words border-b border-r border-gray-300 px-[15px] text-[15px] font-bold lg:w-32 lg:min-w-32">
+                class="w-[100px] min-w-[100px] break-words border-b border-r border-gray-300 px-[15px] text-[0.9375rem] font-bold lg:w-32 lg:min-w-32">
                 {{ $user['name'] }}
               </td>
 
@@ -198,7 +198,7 @@
                       <div class="hidden text-sm lg:block">
                         {{ $schedule->start_time->isoFormat('H:mm') . '～' . $schedule->end_time->isoFormat('H:mm') }}
                       </div>
-                      <div class="block text-sm lg:hidden">
+                      <div class="block text-[12px] lg:hidden">
                         {{ $schedule->start_time->isoFormat('H:mm') }}<br>
                         {{ '～' . $schedule->end_time->isoFormat('H:mm') }}
                       </div>

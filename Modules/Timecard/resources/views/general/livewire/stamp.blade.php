@@ -1,8 +1,8 @@
 <div>
   @vite(['Modules/Timecard/resources/css/general/stamp.css', 'Modules/Timecard/resources/js/timecard-clock.js'])
-  <div class="flex items-center justify-between px-3">
+  <div class="flex items-center justify-between px-[1.25rem] lg:px-3">
     <h5 class="font-bold timecard-title">タイムカード</h5>
-    <a class="flex items-center text-xs text-[#3289FA] hover:opacity-40" href="{{ route('timecard.index') }}">
+    <a class="flex items-center space-x-[4px] text-xs text-[#3289FA] hover:opacity-40" href="{{ route('timecard.index') }}">
       <p>勤怠記録へ</p>
       <img class="h-4 w-4" src="img/icon/transition-link.png" />
     </a>
@@ -15,7 +15,7 @@
   @if ($rule === 'public')
     <div
       class="mx-[15px] flex flex-row items-center justify-between rounded-[10px] bg-[#F7F7F7] px-[15px] py-2 lg:flex-col lg:justify-center lg:py-0">
-      <div class="flex flex-col text-[15px] font-bold lg:flex-row lg:py-2 lg:text-xs">
+      <div class="flex flex-col text-[0.9375rem] font-bold lg:flex-row lg:py-2 lg:text-xs">
         <div>共通端末で</div>
         <div>打刻をしてください</div>
       </div>

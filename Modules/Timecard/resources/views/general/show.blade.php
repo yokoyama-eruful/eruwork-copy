@@ -14,7 +14,7 @@
           <div class="flex flex-col items-start">
             <div class="flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('Y年度') }}
             </div>
-            <div class="flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
+            <div class="flex items-start justify-start ps-4 text-[0.6875rem]">勤怠時間合計</div>
           </div>
           <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
             {{ $totalYearWorkingTime }}
@@ -23,7 +23,7 @@
 
         <div class="mt-5 text-sm font-bold">税金の壁と現在の収入の比較</div>
         <div class="mt-[10px]">
-          <div class="-mx-[15px] grid grid-cols-8 text-[10px] text-[#777777]">
+          <div class="-mx-[15px] grid grid-cols-8 text-[0.625rem] text-[#777777]">
             <div class="text-center">0</div>
             <div class="text-center">25</div>
             <div class="text-center">50</div>

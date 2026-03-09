@@ -2,7 +2,7 @@
   <x-dashboard.top>
     <h5 class="block text-xl font-bold lg:hidden">タイムカード管理</h5>
     <div class="hidden items-center space-x-[10px] lg:flex">
-      <div class="text-[15px] text-[#5E5E5E]">出勤日表示：</div>
+      <div class="text-[0.9375rem] text-[#5E5E5E]">出勤日表示：</div>
       <div class="flex items-center space-x-[5px]">
         <select class="h-10 w-[115px] rounded border-[#DDDDDD]" wire:model.live="year" wire:change="changeDate">
           @foreach (range(2000, 2050) as $year)
@@ -51,8 +51,7 @@
       <div class="block px-5 font-bold lg:hidden">{{ $selectDate?->format('Y/m/d') }}出勤者</div>
       <div
         class="mb-[9px] mt-4 grid grid-cols-[15%,44%,36%,5%] lg:mb-0 lg:mt-[30px] lg:grid-cols-[20%,25%,19%,19%,17%] tablet:grid-cols-[15%,35%,18%,18%,14%]">
-        <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
-        <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
+        <div class="col-span-2 pl-[50px] text-left text-xs font-normal text-[#AAB0B6] lg:pl-[85px]">名前</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">勤務時間</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block">休憩時間</div>
         <div class="hidden text-left text-xs font-normal text-[#AAB0B6] lg:block"></div>
@@ -60,7 +59,7 @@
       <div class="rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid hidden tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-4 lg:py-2 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid hidden lg:relative tablet:grid-cols-[15%,35%,18%,18%,14%] lg:grid-cols-[20%,25%,19%,19%,17%] grid-cols-[15%,45%,35%,5%] lg:py-4 lg:py-2 py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'lg:bg-[#F9FAFF] border lg:border-[#3289FA]' =>
                   $this->user->id === $user->id,
@@ -68,20 +67,22 @@
               'lg:rounded-b-lg' => $loop->last,
           ]) wire:click="selectUser('{{ $user->id }}')">
 
-            <div
-              class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
-              @if ($user->icon)
-                <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
-              @else
-                <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image scale-50"></i>
-                </div>
-              @endif
+            <div class="col-span-2 flex items-center gap-[20px]">
+              <div
+                class="flex h-[25px] w-[25px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[40px] lg:w-[40px]">
+                @if ($user->icon)
+                  <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
+                @else
+                  <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
+                      class="fa-solid fa-image text-[1.125rem]"></i>
+                  </div>
+                @endif
+              </div>
+
+              <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
             </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
-
-            <div class="truncate text-[15px]">
+            <div class="truncate text-[0.9375rem]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
                 <div>
                   {{ $attendance->in_time?->isoFormat('H:mm') }} - {{ $attendance->out_time?->isoFormat('H:mm') }}
@@ -89,7 +90,7 @@
               @endforeach
             </div>
 
-            <div class="hidden truncate text-[15px] lg:block">
+            <div class="hidden truncate text-[0.9375rem] lg:block">
               @foreach ($this->getBreakTimeList($user) as $attendance)
                 <div>
                   {{ $attendance->in_time?->isoFormat('H:mm') }} - {{ $attendance->out_time?->isoFormat('H:mm') }}
@@ -99,7 +100,7 @@
 
             @if ($this->user->id === $user->id)
               <div
-                class="hidden w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-[12px] font-bold text-[#3289FA] lg:block">
+                class="hidden w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-[0.75rem] font-bold text-[#3289FA] lg:absolute lg:right-[30px] lg:top-1/2 lg:block lg:-translate-y-1/2">
                 表示中
               </div>
             @endif
@@ -109,7 +110,7 @@
           <!-- タイムカード管理アイコン・名前出勤時間調整 -->
             <a href="{{ route('timecardManager.show', ['id' => $user->id, 'date' => $selectDate?->format('Y-m-d')]) }}"
             @class([
-                'grid lg:grid-cols-[10%,40%,20%,20%,10%] grid-cols-[12%,48%,minmax(0,1fr),28px] lg:py-[18px] lg:py-3 py-[15px] text-[15px] lg:px-0 px-5 cursor-pointer items-center lg:hidden',
+                'grid lg:grid-cols-[10%,40%,20%,20%,10%] grid-cols-[12%,48%,minmax(0,1fr),28px] lg:py-[18px] lg:py-3 py-[15px] text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center lg:hidden',
                 'border-b' => !$loop->last,
                 'lg:bg-[#F9FAFF] border lg:border-[#3289FA]' =>
                     $this->user->id === $user->id,
@@ -117,20 +118,22 @@
                 'lg:rounded-b-lg' => $loop->last,
             ]) wire:click="selectUser('{{ $user->id }}')">
 
-            <div
-              class="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:mr-[20px] lg:h-[40px] lg:w-[40px]">
-              @if ($user->icon)
-                <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
-              @else
-                <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white lg:h-full lg:w-full"><i
-                    class="fa-solid fa-image text-[30px]"></i>
-                </div>
-              @endif
+            <div class="col-span-2 flex items-center gap-[20px]">
+              <div
+                class="flex h-[30px] w-[30px] items-center justify-center overflow-hidden rounded-full bg-gray-200 text-3xl text-gray-800 lg:ml-[25px] lg:h-[40px] lg:w-[40px]">
+                @if ($user->icon)
+                  <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
+                @else
+                  <div class="flex h-[30px] w-[30px] items-center justify-center rounded-full border bg-white lg:h-full lg:w-full"><i
+                      class="fa-solid fa-image text-[1.875rem]"></i>
+                  </div>
+                @endif
+              </div>
+
+              <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
             </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
-
-            <div class="truncate text-[12px] lg:text-[15px]">
+            <div class="truncate text-[0.75rem] lg:text-[0.9375rem]">
               @foreach ($this->getWorkTimeList($user) as $attendance)
                 <div>
                   {{ $attendance->in_time?->isoFormat('H:mm') }} - {{ $attendance->out_time?->isoFormat('H:mm') }}
@@ -162,7 +165,7 @@
             <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $this->user->id]) }}">
           @else
             <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                class="fa-solid fa-image scale-50"></i>
+                class="fa-solid fa-image text-[1.125rem]"></i>
             </div>
           @endif
         </div>
@@ -171,7 +174,7 @@
       <div class="mt-[30px] flex items-center justify-between bg-[#F7F7F7] px-5 py-[18px]">
         <div class="flex flex-col items-start">
           <div class="font-bold">{{ $this->month }}月度</div>
-          <div class="text-[11px]">勤怠時間合計</div>
+          <div class="text-[0.6875rem]">勤怠時間合計</div>
         </div>
         <div class="text-2xl font-bold">{{ $this->totalWorkTime() }}</div>
       </div>
@@ -179,7 +182,7 @@
         {{ $selectDate?->isoFormat('YYYY/MM/DD（ddd曜）') }}
       </div>
       <div class="mt-6">
-        <div class="text-[11px] font-bold">本日の勤務時間</div>
+        <div class="text-[0.6875rem] font-bold">本日の勤務時間</div>
       </div>
       <div class="mt-[9px] flex flex-col justify-center space-y-[10px]">
         @foreach ($this->getWorkTimeList($this->user) as $workTime)
@@ -201,7 +204,7 @@
       </div>
 
       <div class="mt-5">
-        <div class="text-[11px] font-bold">本日の休憩時間</div>
+        <div class="text-[0.6875rem] font-bold">本日の休憩時間</div>
       </div>
       <div class="mt-[9px] flex flex-col justify-center space-y-[10px]">
         @foreach ($this->getBreakTimeList($this->user) as $breakTime)

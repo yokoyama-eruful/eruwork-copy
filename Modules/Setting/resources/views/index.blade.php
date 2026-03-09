@@ -10,21 +10,21 @@
           @csrf
           <div class="font-bold">打刻設定</div>
           <div class="border-b pb-[32px] pt-[26px]">
-            <div class="grid grid-cols-[20%,80%] lg:items-center">
-              <div class="text-[11px] font-bold">打刻方法</div>
-              <div class="flex flex-col items-center space-y-[15px] lg:flex-row lg:space-x-[72px] lg:space-y-0">
-                <label class="flex cursor-pointer space-x-2 lg:items-center">
-                  <input class="mt-1 lg:mt-0" name="rule" type="radio" value="personal"
+            <div class="grid grid-cols-[20%,80%] lg:grid-cols-[180px_minmax(0,1fr)] lg:items-start">
+              <div class="text-[0.6875rem] font-bold">打刻方法</div>
+              <div class="flex flex-col items-center space-y-[15px] lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-6 lg:gap-y-2 lg:space-y-0">
+                <label class="flex cursor-pointer space-x-2 lg:items-start">
+                  <input class="mt-[2px]" name="rule" type="radio" value="personal"
                     @if ($rule->rule === 'personal') checked @endif />
-                  <div class="flex flex-col text-sm lg:flex-row lg:text-base">
+                  <div class="flex flex-col text-sm">
                     <div class="text-sm">パーソナル打刻</div>
                     <div class="text-xs">（自分のスマホ・PCなどの端末から打刻）</div>
                   </div>
                 </label>
-                <label class="flex cursor-pointer space-x-2 text-sm lg:items-center lg:text-base">
-                  <input class="mt-1 lg:mt-0" name="rule" type="radio" value="public"
+                <label class="flex cursor-pointer space-x-2 text-sm lg:items-start xl:text-base">
+                  <input class="mt-[2px]" name="rule" type="radio" value="public"
                     @if ($rule->rule === 'public') checked @endif />
-                  <div class="flex flex-col lg:flex-row">
+                  <div class="flex flex-col">
                     <div class="text-sm">パブリック打刻</div>
                     <div class="text-xs">（1台の端末を全スタッフで共有して打刻）</div>
                   </div>
@@ -33,16 +33,16 @@
             </div>
             <div>
               @if ($rule->rule === 'public')
-                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
+                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:grid-cols-[180px_minmax(0,1fr)] lg:items-center">
                   <div></div>
-                  <div class="flex min-w-0 items-center gap-1 bg-[#F4F4F4] px-[10px] py-[4px] text-[12px] lg:px-[20px]">
+                  <div class="flex h-[35px] min-w-0 items-center gap-1 rounded bg-[#F4F4F4] px-[8px] py-[1px] text-[12px] lg:px-[16px]">
                     <span class="shrink-0 whitespace-nowrap">専用URL:</span><a class="ml-[4px] min-w-0 break-all text-blue-500"
-                      href="{{ route('public-timecard.login') }}">{{ 'https://' . request()->getHost() . '/public-timecard/login' }}</a>
+                      href="{{ route('public-timecard.login') }}" target="_blank" rel="noopener noreferrer">{{ 'https://' . request()->getHost() . '/public-timecard/login' }}</a>
                   </div>
                 </div>
-                <div class="mt-5 grid-cols-[20%,80%] lg:grid lg:items-center">
+                <div class="mt-2 grid-cols-[20%,80%] lg:grid lg:grid-cols-[180px_minmax(0,1fr)] lg:items-center">
                   <div></div>
-                  <div class="flex min-w-0 items-center gap-1 bg-[#F4F4F4] px-[10px] py-[4px] text-[12px] lg:px-[20px]">
+                  <div class="flex h-[35px] min-w-0 items-center gap-1 rounded bg-[#F4F4F4] px-[8px] py-[1px] text-[12px] lg:px-[16px]">
                     <span class="shrink-0 whitespace-nowrap">PIN CODE：</span><span>{{ $pin }}</span>
                   </div>
                 </div>
@@ -50,7 +50,7 @@
             </div>
 
             <div class="mt-[30px] flex w-full justify-center lg:mt-5">
-              <button class="mb-5 h-[45px] w-[150px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
+              <button class="mb-5 h-[45px] w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
 
@@ -89,7 +89,7 @@
           <div class="py-[30px]">
             <div class="font-bold">給与算出設定</div>
             <div class="mt-[30px] grid grid-cols-[35%,65%] items-center lg:grid-cols-[20%,80%]">
-              <div class="text-[11px] font-bold">時給発生タイミング</div>
+              <div class="text-[0.6875rem] font-bold">時給発生タイミング</div>
 
               <div class="flex flex-wrap items-center gap-x-6 gap-y-2 lg:justify-start">
                 <label class="flex cursor-pointer items-center space-x-2">
@@ -114,7 +114,7 @@
 
             <div class="mt-[30px] items-center space-y-2 lg:grid lg:grid-cols-[50%,50%] lg:space-y-0">
               <div class="grid grid-cols-[40%,60%] items-center">
-                <div class="text-[11px] font-bold">深夜割増設定</div>
+                <div class="text-[0.6875rem] font-bold">深夜割増設定</div>
                 <label class="flex cursor-pointer items-center space-x-2">
                   <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="nightRate" type="text"
                     value="{{ old('nightRate', $wagePremium?->night_rate) }}" />
@@ -122,7 +122,7 @@
                 </label>
               </div>
               <div class="grid grid-cols-[40%,60%] items-center">
-                <div class="text-[11px] font-bold">残業割増設定</div>
+                <div class="text-[0.6875rem] font-bold">残業割増設定</div>
                 <label class="flex cursor-pointer items-center space-x-2">
                   <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="overtimeRate" type="text"
                     value="{{ old('overtimeRate', $wagePremium?->overtime_rate) }}" />
@@ -131,7 +131,7 @@
               </div>
             </div>
             <div class="mt-[30px] flex w-full justify-center lg:mt-5">
-              <button class="mb-5 h-[45px] w-[150px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
+              <button class="mb-5 h-[45px] w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
                 type="submit">更新する</button>
             </div>
           </div>
@@ -141,17 +141,17 @@
           <div class="border-t pt-[30px]">
             <div class="font-bold">プラン設定</div>
             <div class="grid grid-cols-[20%,80%] items-center">
-              <div class="text-[11px] font-bold">ご利用中のプラン</div>
+              <div class="text-[0.6875rem] font-bold">ご利用中のプラン</div>
               <label class="flex cursor-pointer items-center space-x-2">
                 <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="overtimeRate" type="text" />
               </label>
             </div>
 
             <div class="mt-[30px] grid grid-cols-[20%,80%] items-center">
-              <div class="text-[11px] font-bold">プランの解約</div>
+              <div class="text-[0.6875rem] font-bold">プランの解約</div>
               <div class="">
                 <button
-                  class="h-[45px] w-[150px] rounded bg-[#FF4A62] text-sm font-bold text-white hover:opacity-40">解約する</button>
+                  class="h-[45px] w-[150px] whitespace-nowrap rounded bg-[#FF4A62] text-sm font-bold text-white hover:opacity-40">解約する</button>
                 <div class="mt-[11px] text-sm">※解約をご希望の場合は、解約希望日の1ヶ月前までに申請をお願いいたします。</div>
               </div>
             </div>

@@ -12,7 +12,7 @@
       <div class="flex flex-col items-start">
         <div class="mt-2 flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('M月度') }}
         </div>
-        <div class="mb-2 flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
+        <div class="mb-2 flex items-start justify-start ps-4 text-[0.6875rem]">勤怠時間合計</div>
       </div>
       <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
         {{ $totalMonthWorkingTime }}</div>
@@ -20,7 +20,7 @@
 
     <div class="mb-[50px] mt-5">
       <div class="font-bold">{{ $selectedDate->isoFormat('YYYY/MM/DD（ddd曜）') }}</div>
-      <div class="mt-5 text-[11px] font-bold">本日の勤務時間</div>
+      <div class="mt-5 text-[0.6875rem] font-bold">本日の勤務時間</div>
       @if ($workTimeList->isEmpty())
         <div
           class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-2 focus:border-[#DDDDDD] focus:ring-0">
@@ -34,7 +34,7 @@
           </div>
         @endforeach
       @endif
-      <div class="mt-5 text-[11px] font-bold">本日の休憩時間</div>
+      <div class="mt-5 text-[0.6875rem] font-bold">本日の休憩時間</div>
       @if ($breakTimeList->isEmpty())
         <div
           class="mt-2 cursor-default rounded border border-[#DDDDDD] px-[15px] py-2 focus:border-[#DDDDDD] focus:ring-0">
@@ -63,14 +63,14 @@
         <div class="flex flex-col items-start">
           <div class="mt-2 flex items-end justify-start ps-4 text-base font-bold">{{ $selectedDate->isoFormat('Y年度') }}
           </div>
-          <div class="mb-2 flex items-start justify-start ps-4 text-[11px]">勤怠時間合計</div>
+          <div class="mb-2 flex items-start justify-start ps-4 text-[0.6875rem]">勤怠時間合計</div>
         </div>
         <div class="row-span-2 flex items-center justify-end pe-[15px] text-2xl font-bold">
           {{ $totalYearWorkingTime }}</div>
       </div>
       <div class="mt-5 text-sm font-bold">税金の壁と現在の収入の比較</div>
       <div class="mt-[10px]">
-        <div class="-mx-[15px] grid grid-cols-8 text-[10px] text-[#777777]">
+        <div class="-mx-[15px] grid grid-cols-8 text-[0.625rem] text-[#777777]">
           <div class="text-center">0</div>
           <div class="text-center">25</div>
           <div class="text-center">50</div>
@@ -156,7 +156,7 @@
     <x-main.top>
       <div class="flex w-full items-center justify-center lg:justify-start">
         <button
-          class="mr-[10px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-l pl-[10px] pr-[5px] text-[15px] leading-none lg:mr-[5px]"
+          class="mr-[10px] flex shrink-0 items-center space-x-0.5 whitespace-nowrap rounded-l pl-[10px] pr-[5px] text-[0.875rem] leading-none tracking-[-0.02em] lg:mr-[5px] lg:space-x-1 lg:text-[0.9375rem]"
           wire:click="selectedMonth('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
           <img class="block h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
           <p class="leading-none">前月</p>
@@ -174,13 +174,13 @@
           </select>
         </div>
         <button
-          class="ml-[10px] flex shrink-0 items-center space-x-1 whitespace-nowrap rounded-r pl-[5px] pr-[10px] text-[15px] leading-none lg:ml-[5px]"
+          class="ml-[10px] flex shrink-0 items-center space-x-0.5 whitespace-nowrap rounded-r pl-[5px] pr-[10px] text-[0.875rem] leading-none tracking-[-0.02em] lg:ml-[5px] lg:space-x-1 lg:text-[0.9375rem]"
           wire:click="selectedMonth('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
           <p class="leading-none">翌月</p>
           <img class="block h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
         </button>
         <div class="hidden lg:block">
-          <button class="mx-[15px] h-[30px] rounded border bg-[#77829C] px-3 text-[14px] text-white"
+          <button class="mx-[15px] h-[30px] rounded border bg-[#77829C] px-3 text-[0.875rem] text-white"
             wire:click="selectedMonth('{{ now()->format('Y-m-d') }}')">今月</button>
         </div>
       </div>
@@ -189,15 +189,15 @@
       <div class="grid grid-cols-7">
         <div class="flex items-center justify-between">
           <div class="ml-5 text-xl font-bold lg:ml-0">{{ $selectedDate->isoFormat('M月') }}</div>
-          <div class="hidden text-[15px] lg:block">月</div>
+          <div class="hidden text-[0.9375rem] lg:block">月</div>
           <div></div>
         </div>
-        <div class="hidden items-center justify-center text-[15px] lg:flex">火</div>
-        <div class="hidden items-center justify-center text-[15px] lg:flex">水</div>
-        <div class="hidden items-center justify-center text-[15px] lg:flex">木</div>
-        <div class="hidden items-center justify-center text-[15px] lg:flex">金</div>
-        <div class="hidden items-center justify-center text-[15px] text-[#48CBFF] lg:flex">土</div>
-        <div class="hidden items-center justify-center text-[15px] text-[#FF0000] lg:flex">日</div>
+        <div class="hidden items-center justify-center text-[0.9375rem] lg:flex">火</div>
+        <div class="hidden items-center justify-center text-[0.9375rem] lg:flex">水</div>
+        <div class="hidden items-center justify-center text-[0.9375rem] lg:flex">木</div>
+        <div class="hidden items-center justify-center text-[0.9375rem] lg:flex">金</div>
+        <div class="hidden items-center justify-center text-[0.9375rem] text-[#48CBFF] lg:flex">土</div>
+        <div class="hidden items-center justify-center text-[0.9375rem] text-[#FF0000] lg:flex">日</div>
       </div>
       <div class="mt-[15px] divide-y border lg:grid lg:grid-cols-7 lg:divide-x lg:rounded-lg">
         @foreach ($this->calendar as $content)
@@ -210,7 +210,7 @@
           ]) wire:click="clickDate('{{ $content['date']->toDateString() }}')"
             wire:key="calendar-box-{{ $content['date']->toDateString() }}">
             <div @class([
-                'px-[15px] py-[15px] text-[15px] flex items-center',
+                'px-[15px] py-[15px] text-[0.9375rem] flex items-center',
                 'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
                 'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                 'font-bold text-[#3289FA]' =>
@@ -218,7 +218,7 @@
                     !in_array($content['date']->isoFormat('ddd'), ['土', '日']),
             ])>
               <p class="hidden lg:block">{{ $content['date']->isoFormat('D日') }}</p>
-              <div class="text-center text-[12px] font-normal leading-tight lg:hidden">
+              <div class="text-center text-[0.75rem] font-normal leading-tight lg:hidden">
                 <div>{{ $content['date']->isoFormat('D日') }}</div>
                 <div>{{ $content['date']->isoFormat('（ddd）') }}</div>
               </div>
@@ -228,10 +228,10 @@
               <div
                 class="my-[12px] mr-[20px] min-w-0 flex-1 rounded-lg border border-[#00A1FF] bg-[#F2FBFF] p-[9px] text-[#00A1FF] lg:my-0 lg:mb-[19px] lg:min-h-[108px] lg:min-w-full">
                 <div class="flex items-center space-x-[37px] lg:block lg:space-x-0">
-                  <div class="text-[12px] font-bold leading-tight">勤務時間</div>
+                  <div class="text-[0.75rem] font-bold leading-tight">勤務時間</div>
                   <div class="flex flex-col lg:block">
                     @foreach ($content['workTimes'] as $key => $time)
-                      <div class="text-[12px] font-bold leading-tight lg:pt-[4px] lg:font-normal">
+                      <div class="text-[0.75rem] font-bold leading-tight lg:pt-[4px] lg:font-normal">
                         {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                       </div>
                     @endforeach
@@ -239,13 +239,13 @@
                 </div>
                 <div class="my-[10px] border-t-[0.5px] border-[#88D3FF]"></div>
                 <div class="flex items-center space-x-[37px] lg:block lg:space-x-0">
-                  <div class="text-[12px] font-bold leading-tight">休憩時間</div>
+                  <div class="text-[0.75rem] font-bold leading-tight">休憩時間</div>
                   @if ($content['breakTimes']->isEmpty())
-                    <div class="text-[12px] leading-tight lg:pt-[4px]">休憩なし</div>
+                    <div class="text-[0.75rem] leading-tight lg:pt-[4px]">休憩なし</div>
                   @else
                     <div class="flex flex-col lg:block">
                       @foreach ($content['breakTimes'] as $key => $time)
-                        <div class="text-[12px] font-bold leading-tight lg:pt-[4px] lg:font-normal">
+                        <div class="text-[0.75rem] font-bold leading-tight lg:pt-[4px] lg:font-normal">
                           {{ (is_null($time->in_time) ? ' -- : -- ' : $time->in_time->isoFormat('H:mm')) . ' ～ ' . (is_null($time->out_time) ? ' -- : -- ' : $time->out_time->isoFormat('H:mm')) }}
                         </div>
                       @endforeach

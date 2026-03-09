@@ -42,11 +42,11 @@
           <div class="flex items-center space-x-10">
             <div class="hidden items-center space-x-1 lg:flex">
               <div class="text-xs text-[#AAB0B6]">最終ログイン日：</div>
-              <div class="text-[15px]">{{ $user->last_login_at?->format('Y/m/d') }}</div>
+              <div class="text-[0.9375rem]">{{ $user->last_login_at?->format('Y/m/d') }}</div>
             </div>
             <div class="hidden items-center space-x-1 lg:flex">
               <div class="text-xs text-[#AAB0B6]">最終更新日：</div>
-              <div class="text-[15px]">{{ $user->updated_at?->format('Y/m/d') }}</div>
+              <div class="text-[0.9375rem]">{{ $user->updated_at?->format('Y/m/d') }}</div>
             </div>
             <div class="relative block cursor-pointer" x-data="{ openDialog{{ $user->id }}: false }">
               <div onclick="event.stopPropagation();"
@@ -94,13 +94,13 @@
                     @method('delete')
                     <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
                       <p class="text-xs">以下のユーザーを削除いたします</p>
-                      <div class="pt-[13px] text-[15px] font-bold">{{ $user->name }}</div>
+                      <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $user->name }}</div>
                     </div>
                     <div class="my-5 flex items-center justify-center space-x-[10px]">
-                      <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+                      <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
                         @click="$dispatch('close-modal', 'delete-modal-{{ $user->id }}')">キャンセル</div>
                       <button
-                        class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+                        class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
                         type="submit">削除する</button>
                     </div>
                   </form>
@@ -112,42 +112,42 @@
 
         <div class="mt-10 hidden flex-col gap-[50px] border-b pb-[50px] lg:flex">
           <div class="grid grid-cols-[10%,40%,10%,40%]">
-            <div class="flex items-center text-[11px] font-bold">名前</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">名前</div>
             <div class="flex items-center">{{ $user->name }}</div>
-            <div class="flex items-center text-[11px] font-bold">フリガナ</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">フリガナ</div>
             <div class="flex items-center">{{ $user->profile->name_kana ?? '-' }}</div>
           </div>
 
           <div class="grid grid-cols-[10%,90%]">
-            <div class="flex items-center text-[11px] font-bold">ログインID</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">ログインID</div>
             <div class="flex items-center">{{ $user->login_id }}</div>
           </div>
 
           <!-- 4行目: 1列 -->
           <div class="grid grid-cols-[10%,90%]">
-            <div class="flex items-center text-[11px] font-bold">契約区分</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">契約区分</div>
             <div class="flex items-center">{{ $user->profile->contract_type }}</div>
           </div>
 
           <div class="grid grid-cols-[10%,90%]">
-            <div class="flex items-center text-[11px] font-bold">管理者権限</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">管理者権限</div>
             <div class="flex items-center">{{ $user->roles->first()->name == 'admin' ? '管理者' : '一般' }}</div>
           </div>
         </div>
 
         <div class="mt-10 hidden flex-col gap-[50px] pb-[50px] lg:flex">
           <div class="grid grid-cols-[10%,90%]">
-            <div class="flex items-center text-[11px] font-bold">住所</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">住所</div>
             <div class="flex items-center">{{ $user->profile->address ?? '-' }}</div>
           </div>
 
           <div class="grid grid-cols-[10%,90%]">
-            <div class="flex items-center text-[11px] font-bold">電話番号</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">電話番号</div>
             <div class="flex items-center">{{ $user->profile->phone_number ?? '-' }}</div>
           </div>
 
           <div class="grid grid-cols-[10%,90%]">
-            <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">緊急連絡先</div>
             <div class="flex items-center">{{ $user->profile->emergency_phone_number ?? '-' }}</div>
           </div>
         </div>
@@ -155,42 +155,42 @@
         {{-- モバイル --}}
         <div class="mt-10 flex flex-col gap-[40px] pb-[100px] lg:hidden">
           <div class="grid grid-cols-[30%,70%]">
-            <div class="flex items-center text-[11px] font-bold">名前</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">名前</div>
             <div class="flex items-center">{{ $user->name }}</div>
           </div>
           <div class="grid grid-cols-[30%,70%]">
-            <div class="flex items-center text-[11px] font-bold">フリガナ</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">フリガナ</div>
             <div class="flex items-center">{{ $user->profile->name_kana ?? '-' }}</div>
           </div>
           <div class="grid grid-cols-[30%,70%]">
-            <div class="flex items-center text-[11px] font-bold">ログインID</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">ログインID</div>
             <div class="flex items-center">{{ $user->login_id }}</div>
           </div>
 
           <div class="block grid grid-cols-[30%,70%] lg:hidden">
-            <div class="flex items-center text-[11px] font-bold">最終更新日</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">最終更新日</div>
             <div class="flex items-center">{{ $user->updated_at?->format('Y/m/d') }}</div>
           </div>
 
           <div class="grid grid-cols-[30%,70%]">
-            <div class="flex items-center text-[11px] font-bold">契約区分</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">契約区分</div>
             <div class="flex items-center">{{ $user->profile->contract_type }}</div>
           </div>
           <div class="grid grid-cols-[30%,70%] border-b pb-[40px]">
-            <div class="flex items-center text-[11px] font-bold">管理者権限</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">管理者権限</div>
             <div class="flex items-center">{{ $user->roles->first()->name == 'admin' ? '管理者' : '一般' }}</div>
           </div>
 
           <div class="grid grid-cols-[30%,70%]">
-            <div class="flex items-center text-[11px] font-bold">住所</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">住所</div>
             <div class="flex items-center">{{ $user->profile->address ?? '-' }}</div>
           </div>
           <div class="grid grid-cols-[30%,70%]">
-            <div class="flex items-center text-[11px] font-bold">電話番号</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">電話番号</div>
             <div class="flex items-center">{{ $user->profile->phone_number ?? '-' }}</div>
           </div>
           <div class="grid grid-cols-[30%,70%]">
-            <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
+            <div class="flex items-center text-[0.6875rem] font-bold">緊急連絡先</div>
             <div class="flex items-center">{{ $user->profile->emergency_phone_number ?? '-' }}</div>
           </div>
         </div>

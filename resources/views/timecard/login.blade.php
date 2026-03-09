@@ -40,7 +40,7 @@
         </div>
 
         <div class="flex items-center justify-center">
-          <button class="h-[50px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40" type="submit">
+          <button class="h-[50px] w-[230px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40" type="submit">
             打刻画面へ
           </button>
         </div>

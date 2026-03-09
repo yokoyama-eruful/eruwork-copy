@@ -20,7 +20,7 @@
       <div class="flex w-full items-center justify-between lg:hidden">
         <h5 class="text-xl font-bold lg:hidden">{{ $folder->title }}</h5>
         <div class="lg:hidden">
-          <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-5 py-2 text-sm font-bold text-[#fff] hover:bg-[#3289fa4d]'
+          <a class='flex h-[35px] w-fit items-center rounded-[5px] bg-[#3289fa] px-[8px] py-[4px] text-sm font-bold text-[#fff] hover:bg-[#3289fa4d] lg:px-5 lg:py-2'
             href="{{ route('manualFileManager.create', ['folder_id' => $folder->id]) }}">
             <img class="mr-[5px] h-[15px] w-[15px]" src="{{ asset('img/icon/add-schedule.png') }}" />
             新規作成
@@ -31,17 +31,18 @@
     <x-dashboard.container>
       <h5 class="hidden text-xl font-bold lg:block">{{ $folder->title }}</h5>
       @if ($files->isNotEmpty())
-        <div class="mt-[30px] hidden grid-cols-[1fr_0.3fr_8fr_2fr_0.7fr] px-5 lg:grid">
+        <div class="mt-[30px] hidden grid-cols-[145px_24px_minmax(0,640px)_110px_1fr_36px] pl-5 pr-[28px] lg:grid">
           <div class="text-xs text-[#AAB0B6]">サムネイル</div>
           <div class="text-xs text-[#AAB0B6]"></div>
           <div class="text-xs text-[#AAB0B6]">表題</div>
           <div class="text-xs text-[#AAB0B6]">更新日</div>
           <div class="text-xs text-[#AAB0B6]"></div>
+          <div class="text-xs text-[#AAB0B6]"></div>
         </div>
         <div class="mt-[30px] border-b lg:mt-[10px] lg:rounded-xl lg:border">
           @foreach ($files as $file)
             <div @class([
-                'hidden lg:grid grid-cols-[1fr_0.3fr_8fr_2fr_0.7fr]  py-[20px] text-[15px] items-center min-h-[121px] px-5 relative',
+                'hidden lg:grid grid-cols-[145px_24px_minmax(0,640px)_110px_1fr_36px] py-[20px] text-[0.9375rem] items-center min-h-[121px] pl-5 pr-[28px] relative',
                 'border-b' => !$loop->last,
             ])>
               @if ($file->status == '下書き')
@@ -77,9 +78,10 @@
                 @endif
               </div>
 
-              <div class="font-bold">{{ $file->title }}</div>
+              <div class="min-w-0 truncate font-bold">{{ $file->title }}</div>
 
               <div>{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
+              <div></div>
 
               <div class="flex items-center justify-end">
                 <div class="relative" x-data="{ openDialog{{ $folder->id }}: false }">
@@ -129,7 +131,7 @@
                         stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   @endif
-                  <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
+                  <div class="break-words text-[0.9375rem] font-bold">{{ $file->title }}</div>
                 </div>
                 <div class="text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>

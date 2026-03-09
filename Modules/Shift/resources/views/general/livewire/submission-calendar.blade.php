@@ -1,6 +1,6 @@
 <x-main.index>
 
-  <x-main.top>
+  <x-main.top contentClass="flex w-full items-center justify-between px-[20px] lg:w-auto lg:justify-normal lg:px-0">
     <div class="flex w-full items-center justify-between lg:justify-normal lg:space-x-[30px]">
       <a class="hidden items-center hover:opacity-40 lg:flex" href="{{ route('shift.submission.index') }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +17,7 @@
       @endif
     </div>
   </x-main.top>
-  <x-main.container>
+  <x-main.container mobileTopMarginClass="mt-[30px]" mobileBottomMarginClass="mb-0">
     <div class="hidden items-center justify-between lg:flex">
       <h5 class="text-xl font-bold">シフト表提出</h5>
       <div class="flex items-center space-x-[10px]">
@@ -30,14 +30,14 @@
           <x-modal-alert name="submission-confirm-alert">
             <div>
               <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-                <div class="pt-[13px] text-[15px] font-bold">提出しますか？</div>
+                <div class="pt-[13px] text-[0.9375rem] font-bold">提出しますか？</div>
               </div>
               <div class="my-5 flex items-center justify-center space-x-[10px]">
                 <div
-                  class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                  class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                   @click="$dispatch('close-modal', 'submission-confirm-alert')">キャンセル</div>
                 <button
-                  class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
+                  class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
                   type="button" wire:click="submission({{ $manager->id }})">提出する</button>
               </div>
             </div>
@@ -48,11 +48,11 @@
           <x-modal-alert name="already-submission-alert">
             <div>
               <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-                <div class="pt-[13px] text-[15px] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
+                <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
               </div>
               <div class="my-5 flex items-center justify-center space-x-[10px]">
                 <div
-                  class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                  class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                   @click="$dispatch('close-modal', 'already-submission-alert')">閉じる</div>
               </div>
             </div>
@@ -63,13 +63,13 @@
 
     <div class="flex w-full items-center justify-center bg-[#F7F7F7] py-1 lg:hidden">
       <div class="text-xs text-[#6F6C6C]">提出期限：</div>
-      <div class="font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd曜）まで') }}</div>
+      <div class="text-[0.75rem] font-bold text-[#FF4A62]">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD（ddd曜）まで') }}</div>
     </div>
 
     <div class="mt-[19px] flex items-center space-x-[5px] px-5 lg:space-x-2 lg:px-0">
-      <div class="block text-[10px] text-[#AAB0B6] lg:hidden">募集期限：</div>
+      <div class="block text-[0.625rem] text-[#AAB0B6] lg:hidden">募集期限：</div>
       <div @class([
-          'text-[12px] text-white w-[60px] py-1 mr-[10px] text-center rounded-full lg:block hidden',
+          'text-[0.75rem] text-white w-[60px] py-1 mr-[10px] text-center rounded-full lg:block hidden',
           'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
           'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
           'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',
@@ -83,30 +83,30 @@
       <div class="flex items-center justify-between">
         {{-- <div class="text-xl font-bold">{{ $content['date']->isoFormat('M月') }}</div> --}}
         <div class="text-xl font-bold"></div>
-        <div class="text-[15px]">月</div>
+        <div class="text-[0.9375rem]">月</div>
         <div></div>
       </div>
-      <div class="flex items-center justify-center text-[15px]">火</div>
-      <div class="flex items-center justify-center text-[15px]">水</div>
-      <div class="flex items-center justify-center text-[15px]">木</div>
-      <div class="flex items-center justify-center text-[15px]">金</div>
-      <div class="flex items-center justify-center text-[15px] text-[#48CBFF]">土</div>
-      <div class="flex items-center justify-center text-[15px] text-[#FF0000]">日</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">火</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">水</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">木</div>
+      <div class="flex items-center justify-center text-[0.9375rem]">金</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#48CBFF]">土</div>
+      <div class="flex items-center justify-center text-[0.9375rem] text-[#FF0000]">日</div>
       {{-- <div class="text-xl font-bold">{{ $selectedDate->isoFormat('M月') }}</div> --}}
     </div>
-    <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] rounded-lg border lg:grid">
+    <div class="mt-[15px] grid-cols-7 divide-x divide-y divide-[#DDDDDD] border-y lg:grid">
       @foreach ($this->calendar as $key => $content)
         <div @class([
-            'lg:min-h-[170px] min-h-[90px] lg:block grid grid-cols-[72px,minmax(0,1fr),48px] items-center',
+            'lg:min-h-[170px] min-h-[72px] lg:block grid grid-cols-[72px,minmax(0,1fr),48px] items-center',
             'bg-[#E6E6E6] hidden lg:block' => $content['type'] === '期間外',
         ]) wire:key="calendar-box-desktop-{{ $content['date']->format('Y-m-d') }}">
 
           <div class="flex items-center justify-between pl-[15px] pr-[10px]">
             @if ($content['date']->isoFormat('D') === '1' || $loop->first)
               <div class="flex flex-col items-start">
-                <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('M/D日') }}</div>
+                <div @class(['text-[0.9375rem] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('M/D日') }}</div>
                 <div @class([
-                    'text-center text-[12px] font-normal leading-tight lg:hidden',
+                    'text-center text-[0.75rem] font-normal leading-tight lg:hidden',
                     'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                     'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
                     'text-[#222222]' =>
@@ -119,9 +119,9 @@
               </div>
             @else
               <div class="flex flex-col items-start">
-                <div @class(['text-[15px] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('D日') }}</div>
+                <div @class(['text-[0.9375rem] lg:py-[15px] hidden lg:block'])>{{ $content['date']->isoFormat('D日') }}</div>
                 <div @class([
-                    'text-center text-[12px] font-normal leading-tight lg:hidden',
+                    'text-center text-[0.75rem] font-normal leading-tight lg:hidden',
                     'text-[#48CBFF]' => $content['date']->isoFormat('ddd') === '土',
                     'text-[#FF0000]' => $content['date']->isoFormat('ddd') === '日',
                     'text-[#222222]' =>
@@ -190,11 +190,11 @@
               <x-modal-alert name="already-schedule-modal-{{ $schedule->id }}">
                 <div>
                   <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-                    <div class="pt-[13px] text-[15px] font-bold">すでに提出済みの為変更できません。<br>提出の取り下げは管理者に問い合わせてください。</div>
+                    <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みの為変更できません。<br>提出の取り下げは管理者に問い合わせてください。</div>
                   </div>
                   <div class="my-5 flex items-center justify-center space-x-[10px]">
                     <div
-                      class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                      class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                       @click="$dispatch('close-modal', 'already-schedule-modal-{{ $schedule->id }}')">閉じる</div>
                   </div>
                 </div>
@@ -227,14 +227,14 @@
         <x-modal-alert name="submission-confirm-alert">
           <div>
             <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-              <div class="pt-[13px] text-[15px] font-bold">提出しますか？</div>
+              <div class="pt-[13px] text-[0.9375rem] font-bold">提出しますか？</div>
             </div>
             <div class="my-5 flex items-center justify-center space-x-[10px]">
               <div
-                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                 @click="$dispatch('close-modal', 'submission-confirm-alert')">キャンセル</div>
               <button
-                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
+                class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white hover:opacity-40"
                 type="button" wire:click="submission({{ $manager->id }})">提出する</button>
             </div>
           </div>
@@ -245,11 +245,11 @@
         <x-modal-alert name="already-submission-alert">
           <div>
             <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
-              <div class="pt-[13px] text-[15px] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
+              <div class="pt-[13px] text-[0.9375rem] font-bold">すでに提出済みです。<br>提出の取り下げは管理者に問い合わせてください。</div>
             </div>
             <div class="my-5 flex items-center justify-center space-x-[10px]">
               <div
-                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
+                class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2 hover:opacity-40"
                 @click="$dispatch('close-modal', 'already-submission-alert')">閉じる</div>
             </div>
           </div>

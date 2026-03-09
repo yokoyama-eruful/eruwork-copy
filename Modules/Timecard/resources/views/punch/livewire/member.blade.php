@@ -1,6 +1,6 @@
 <a href="{{ route('punch.index', ['user' => $user->id]) }}" @class([
     'grid grid-cols-[70%,30%] rounded-s-[20px] p-[10px]',
-    'bg-white' => $user->id === $selectUser?->id,
+    'bg-[#f7f7f7]' => $user->id === $selectUser?->id,
 ])>
   <div class="flex items-center space-x-[10px]">
     <div @class([
@@ -23,10 +23,10 @@
     ])>{{ $user->name }}</div>
   </div>
   @if (in_array('in', $buttonStatus, true) === false)
-    <div class="flex items-center justify-center text-[15px] font-bold text-[#48CBFF]">出勤</div>
+    <div class="flex items-center justify-center text-[0.9375rem] font-bold text-[#48CBFF]">出勤</div>
   @elseif(in_array('out', $buttonStatus, true) === false)
-    <div class="flex items-center justify-center text-[15px] font-bold text-[#B7B7B7]">未出勤</div>
+    <div class="flex items-center justify-center text-[0.9375rem] font-bold text-[#B7B7B7]">未出勤</div>
   @else
-    <div class="flex items-center justify-center text-[15px] text-[#B7B7B7]">未出勤</div>
+    <div class="flex items-center justify-center text-[0.9375rem] text-[#B7B7B7]">未出勤</div>
   @endif
 </a>

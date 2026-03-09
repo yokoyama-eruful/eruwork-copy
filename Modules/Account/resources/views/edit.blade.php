@@ -38,11 +38,11 @@
             <div class="flex items-center space-x-10">
               <div class="hidden items-center space-x-1 lg:flex">
                 <div class="text-xs text-[#AAB0B6]">最終ログイン日：</div>
-                <div class="text-[15px]">{{ $user->last_login_at?->format('Y/m/d') }}</div>
+                <div class="text-[0.9375rem]">{{ $user->last_login_at?->format('Y/m/d') }}</div>
               </div>
               <div class="hidden items-center space-x-1 lg:flex">
                 <div class="text-xs text-[#AAB0B6]">最終更新日：</div>
-                <div class="text-[15px]">{{ $user->updated_at?->format('Y/m/d') }}</div>
+                <div class="text-[0.9375rem]">{{ $user->updated_at?->format('Y/m/d') }}</div>
               </div>
               <div class="relative block cursor-pointer" x-data="">
                 <div>
@@ -82,23 +82,23 @@
 
           <div class="mt-10 flex flex-col gap-[30px] border-b pb-[50px] lg:gap-[50px]">
             <div class="grid grid-cols-[30%,70%] sm:grid-cols-[10%,40%,10%,40%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>名前</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name" type="text"
                   value="{{ old('name', $user->profile?->name) }}" required></div>
-              <div class="mt-[30px] flex items-center text-[11px] font-bold lg:mt-0">フリガナ</div>
+              <div class="mt-[30px] flex items-center text-[0.6875rem] font-bold lg:mt-0">フリガナ</div>
               <div class="mt-[30px] flex items-center lg:mr-10 lg:mt-0"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name_kana"
                   type="text" value="{{ old('name_kana', $user->profile?->name_kana) }}"></div>
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>ログインID</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="login_id" type="text"
@@ -107,9 +107,9 @@
 
             <!-- 4行目: 1列 -->
             <div class="grid grid-cols-[30%,70%] items-start lg:grid-cols-[10%,90%] lg:items-center">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 契約区分
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center">
                 <div class="flex flex-col lg:ms-4 lg:mt-1 lg:flex-row lg:items-center lg:space-x-[50px]">
@@ -142,9 +142,9 @@
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>管理者権限</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center">
                 <div class="flex items-center space-x-[50px] lg:ms-4 lg:mt-1">
@@ -168,21 +168,21 @@
 
           <div class="mt-10 flex flex-col gap-[50px] pb-[50px]">
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex items-center text-[11px] font-bold">住所</div>
+              <div class="flex items-center text-[0.6875rem] font-bold">住所</div>
               <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="address"
                   type="text" value="{{ old('address', $user->profile?->address) }}"></div>
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex items-center text-[11px] font-bold">電話番号</div>
+              <div class="flex items-center text-[0.6875rem] font-bold">電話番号</div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="phone_number"
                   type="text" value="{{ old('phone_number', $user->profile?->phone_number) }}"></div>
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
+              <div class="flex items-center text-[0.6875rem] font-bold">緊急連絡先</div>
               <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal"
                   name="emergency_phone_number" type="text"
@@ -193,10 +193,10 @@
         </div>
 
         <div class="mb-[60px] flex items-center justify-center space-x-[10px] lg:mt-10">
-          <a class="h-[45px] w-[150px] flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
+          <a class="h-[45px] w-[150px] whitespace-nowrap flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
             href="{{ route('account.index') }}">キャンセル</a>
           <button
-            class="flex h-[45px] w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+            class="flex h-[45px] w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
             type="submit">更新する</button>
         </div>
 
@@ -208,13 +208,13 @@
           @method('delete')
           <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
             <p class="text-xs">以下のユーザーを削除いたします</p>
-            <div class="pt-[13px] text-[15px] font-bold">{{ $user->name }}</div>
+            <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $user->name }}</div>
           </div>
           <div class="my-5 flex items-center justify-center space-x-[10px]">
-            <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+            <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
               @click="$dispatch('close-modal', 'delete-modal-{{ $user->id }}')">キャンセル</div>
             <button
-              class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+              class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
               type="submit">削除する</button>
           </div>
         </form>

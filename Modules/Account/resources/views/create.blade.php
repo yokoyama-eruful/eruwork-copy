@@ -31,23 +31,23 @@
 
           <div class="mt-10 flex flex-col gap-[30px] border-b pb-[50px] lg:gap-[50px]">
             <div class="grid grid-cols-[30%,70%] sm:grid-cols-[10%,40%,10%,40%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>名前</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name" type="text"
                   value="{{ old('name') }}" required></div>
-              <div class="mt-[30px] flex items-center text-[11px] font-bold lg:mt-0">フリガナ</div>
+              <div class="mt-[30px] flex items-center text-[0.6875rem] font-bold lg:mt-0">フリガナ</div>
               <div class="mt-[30px] flex items-center lg:mr-10 lg:mt-0"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="name_kana"
                   type="text" value="{{ old('name_kana') }}"></div>
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>ログインID</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="login_id" type="text"
@@ -55,9 +55,9 @@
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>パスワード</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="password"
@@ -65,9 +65,9 @@
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>パスワード確認</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="password_confirmation"
@@ -76,9 +76,9 @@
 
             <!-- 4行目: 1列 -->
             <div class="grid grid-cols-[30%,70%] items-start lg:grid-cols-[10%,90%] lg:items-center">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>契約区分</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center">
                 <div class="flex flex-col lg:ms-4 lg:mt-1 lg:flex-row lg:items-center lg:space-x-[50px]">
@@ -111,9 +111,9 @@
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex flex-col justify-center text-[11px] font-bold">
+              <div class="flex flex-col justify-center text-[0.6875rem] font-bold">
                 <div>管理者権限</div>
-                <div class="text-[10px] text-[#FF4A62]">※必須</div>
+                <div class="text-[0.625rem] text-[#FF4A62]">※必須</div>
               </div>
               <div class="flex items-center">
                 <div class="flex items-center space-x-[50px] lg:ms-4 lg:mt-1">
@@ -137,21 +137,21 @@
 
           <div class="mt-10 flex flex-col gap-[50px] pb-[50px]">
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex items-center text-[11px] font-bold">住所</div>
+              <div class="flex items-center text-[0.6875rem] font-bold">住所</div>
               <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="address"
                   type="text" value="{{ old('address') }}"></div>
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex items-center text-[11px] font-bold">電話番号</div>
+              <div class="flex items-center text-[0.6875rem] font-bold">電話番号</div>
               <div class="flex items-center lg:mr-10"><input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" name="phone_number"
                   type="text" value="{{ old('phone_number') }}"></div>
             </div>
 
             <div class="grid grid-cols-[30%,70%] lg:grid-cols-[10%,90%]">
-              <div class="flex items-center text-[11px] font-bold">緊急連絡先</div>
+              <div class="flex items-center text-[0.6875rem] font-bold">緊急連絡先</div>
               <div class="flex items-center lg:mr-10"> <input
                   class="w-full rounded-lg border border-slate-300 px-3 py-2 font-normal"
                   name="emergency_phone_number" type="text" value="{{ old('emergency_phone_number') }}">
@@ -161,10 +161,10 @@
         </div>
 
         <div class="mb-[60px] flex items-center justify-center space-x-[10px] lg:mb-0 lg:mt-10">
-          <a class="h-[45px] w-[150px] flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
+          <a class="h-[45px] w-[150px] whitespace-nowrap flex items-center justify-center outline outline-1 outline-[#5E5E5E] rounded text-sm font-bold hover:opacity-40"
             href="{{ route('account.index') }}">キャンセル</a>
           <button
-            class="flex h-[45px] w-[150px] items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
+            class="flex h-[45px] w-[150px] whitespace-nowrap items-center justify-center rounded bg-[#3289FA] font-bold text-white hover:opacity-40"
             type="submit">登録する</button>
         </div>
 

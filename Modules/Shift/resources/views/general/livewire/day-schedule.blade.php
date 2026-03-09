@@ -2,13 +2,13 @@
   <x-main.top>
     <div class="flex flex-row items-center space-x-5">
       <div class="hidden flex-row lg:flex">
-        <a class="rounded-l border border-[#3289FA] bg-white px-[22px] text-[15px] text-[#3289FA]"
+        <a class="rounded-l border border-[#3289FA] bg-white px-[22px] text-[0.9375rem] text-[#3289FA]"
           href="{{ route('shift.schedule', ['category' => 'week']) }}">週</a>
-        <a class="rounded-r border border-[#3289FA] bg-[#3289FA] px-[22px] text-[15px] text-white"
+        <a class="rounded-r border border-[#3289FA] bg-[#3289FA] px-[22px] text-[0.9375rem] text-white"
           href="{{ route('shift.schedule', ['category' => 'day']) }}">日</a>
       </div>
       <div class="flex items-center md:ml-0">
-        <button class="hidden items-center space-x-1 rounded-l text-[15px] xl:px-2 tablet:flex"
+        <button class="hidden items-center space-x-1 rounded-l text-[0.9375rem] xl:px-2 tablet:flex"
           wire:click="setPreviousDay">
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="先週">
           <p class="hidden lg:block">前日</p>
@@ -30,7 +30,7 @@
             @endforeach
           </select>
         </div>
-        <button class="hidden items-center space-x-1 rounded-r text-[15px] xl:px-2 tablet:flex" wire:click="setNextDay">
+        <button class="hidden items-center space-x-1 rounded-r text-[0.9375rem] xl:px-2 tablet:flex" wire:click="setNextDay">
           <p class="hidden lg:block">翌日</p>
           <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌週">
         </button>
@@ -128,7 +128,7 @@
       @foreach ($userShiftSchedules as $userId => $shiftSchedules)
         <div class="flex w-full flex-row">
           <div @class([
-              'flex w-32 items-center justify-start border px-[25px] text-[15px] font-bold',
+              'flex w-32 items-center justify-start border px-[25px] text-[0.9375rem] font-bold',
               'rounded-tl-lg' => $loop->first,
               'rounded-bl-lg' => $loop->last,
           ])>{{ $shiftSchedules['name'] }}</div>

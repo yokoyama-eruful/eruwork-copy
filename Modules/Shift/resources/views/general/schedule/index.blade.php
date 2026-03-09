@@ -13,7 +13,7 @@
       </div>
 
       {{-- <div class="flex items-center md:ml-0">
-      <button class="flex items-center space-x-1 rounded-l text-[15px] xl:px-4"
+      <button class="flex items-center space-x-1 rounded-l text-[0.9375rem] xl:px-4"
         wire:click="clickDate('{{ $selectedDate->subMonthNoOverflow()->format('Y-m-d') }}')">
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-l.png') }}" alt="前月">
         <p class="hidden lg:block">前月</p>
@@ -30,13 +30,13 @@
           @endforeach
         </select>
       </div>
-      <button class="flex items-center space-x-1 rounded-r text-[15px] xl:px-4"
+      <button class="flex items-center space-x-1 rounded-r text-[0.9375rem] xl:px-4"
         wire:click="clickDate('{{ $selectedDate->addMonthNoOverflow()->format('Y-m-d') }}')">
         <p class="hidden lg:block">翌月</p>
         <img class="h-[18px] w-[18px]" src="{{ asset('img/icon/arrow-r.png') }}" alt="翌月">
       </button>
       <div class="">
-        <button class="mx-2 h-[35px] rounded border bg-[#77829C] px-2 text-[14px] text-white"
+        <button class="mx-2 h-[35px] rounded border bg-[#77829C] px-2 text-[0.875rem] text-white"
           wire:click="clickDate('{{ now()->format('Y-m-d') }}')">今月</button>
       </div>
     </div> --}}

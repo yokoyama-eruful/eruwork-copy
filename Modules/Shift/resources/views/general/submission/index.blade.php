@@ -1,6 +1,6 @@
 <x-app-layout :url="route('shift.schedule', ['category' => 'week'])">
   <x-main.index>
-    <x-main.top>
+    <x-main.top contentClass="flex w-full items-center justify-between px-[20px] lg:w-auto lg:justify-normal lg:px-0">
       <a class="hidden items-center hover:opacity-40 lg:flex"
         href="{{ route('shift.schedule', ['category' => 'week']) }}">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -34,7 +34,7 @@
                 fill="black" />
             </g>
           </svg>
-          <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
+          <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">シフト表がありません</div>
         </div>
       @else
         <div class="mt-[30px] hidden grid-cols-[20%,54%,14%,12%] lg:grid tablet:grid-cols-[10%,64%,14%,12%]">
@@ -46,7 +46,7 @@
         <div class="mt-[24px] hidden rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:block lg:border">
           @foreach ($managers as $manager)
             <div @class([
-                'grid-cols-[20%,54%,14%,12%] lg:grid tablet:grid-cols-[10%,64%,14%,12%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',
+                'grid-cols-[20%,54%,14%,12%] lg:grid tablet:grid-cols-[10%,64%,14%,12%] lg:py-[30px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer',
                 'border-b' => !$loop->last,
             ])>
               <div @class([
@@ -58,11 +58,11 @@
                 {{ $manager->ReceptionStatus }}
               </div>
 
-              <div class="text-[15px] font-bold">
+              <div class="text-[0.9375rem] font-bold">
                 {{ $manager->start_date->isoFormat('YYYY/MM/DD（ddd）') }}～{{ $manager->end_date->isoFormat('MM/DD（ddd）') }}
               </div>
 
-              <div class="hidden text-[15px] lg:block">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}
+              <div class="hidden text-[0.9375rem] lg:block">{{ $manager->submission_end_date->isoFormat('YYYY/MM/DD') }}
               </div>
 
               <a class="hidden text-center text-[#3289FA] hover:opacity-40 lg:block"
@@ -80,7 +80,7 @@
               onclick="window.location='{{ route('shift.submission.show', ['manager' => $manager]) }}'">
               <div class="flex items-center justify-between">
                 <div @class([
-                    'px-[15px] py-1 flex items-center justify-center rounded-full text-[10px] font-bold text-white',
+                    'px-[8px] py-[2px] flex items-center justify-center rounded-full text-[0.625rem] font-bold text-white',
                     'bg-[#F76E80]' => $manager->ReceptionStatus === '終了',
                     'bg-[#48CBFF]' => $manager->ReceptionStatus === '受付中',
                     'bg-[#39A338]' => $manager->ReceptionStatus === '準備中',

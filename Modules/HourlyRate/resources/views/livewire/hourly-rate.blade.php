@@ -8,16 +8,17 @@
       <div class="flex items-center justify-between">
         <h5 class="hidden text-xl font-bold lg:block">時給管理</h5>
       </div>
-      <div class="mt-[30px] hidden grid-cols-[20%,45%,16%,19%] lg:grid tablet:grid-cols-[15%,58%,13%,14%]">
+      <div
+        class="mt-[30px] hidden grid-cols-[20%,45%,16%,19%] lg:grid lg:grid-cols-[85px_190px_minmax(140px,_1fr)_150px] lg:pr-[25px]">
         <div class="pl-[25px] pr-[20px] text-left text-xs font-normal text-[#AAB0B6]"></div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">名前</div>
-        <div class="text-left text-xs font-normal text-[#AAB0B6]">時給</div>
+        <div class="text-left text-xs font-normal text-[#AAB0B6] lg:w-[120px] lg:justify-self-end lg:translate-x-[96px]">時給</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]"></div>
       </div>
       <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <div @class([
-              'lg:grid tablet:grid-cols-[15%,58%,13%,14%] grid-cols-[20%,45%,16%,19%] lg:py-4 py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'lg:grid lg:grid-cols-[85px_190px_minmax(140px,_1fr)_150px] grid-cols-[20%,45%,16%,19%] lg:py-4 py-3 text-[0.9375rem] lg:px-0 lg:pr-[25px] px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'bg-[#F9FAFF] border border-[#3289FA]' => $selectedUser->id === $user->id,
               'rounded-t-lg' => $loop->first,
@@ -30,16 +31,16 @@
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white"><i
-                    class="fa-solid fa-image scale-50"></i>
+                    class="fa-solid fa-image text-[1.125rem]"></i>
                 </div>
               @endif
             </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
+            <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
 
-            <div class="text-[15px]">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
+            <div class="text-[0.9375rem] lg:w-[120px] lg:justify-self-end lg:translate-x-[96px] text-left">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
 
-            <div>
+            <div class="lg:justify-self-end">
               @if ($selectedUser->id === $user->id)
                 <div
                   class="w-fit rounded bg-[#3289FA1A] bg-opacity-10 px-[12px] py-[5px] text-xs font-bold text-[#3289FA]">
@@ -79,7 +80,7 @@
       <div class="mt-2 border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($this->users as $user)
           <a href="{{ route('hourlyRate.show', $user->id) }}" @class([
-              'grid grid-cols-[15%,55%,25%,5%] lg:py-[18px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer items-center',
+              'grid grid-cols-[15%,55%,25%,5%] lg:py-[18px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer items-center',
               'border-b' => !$loop->last,
               'border-t' => $loop->first,
           ])
@@ -91,13 +92,13 @@
                 <img class="h-full w-full object-cover" src="{{ route('profile.icon', ['id' => $user->id]) }}">
               @else
                 <div class="flex h-full w-full items-center justify-center rounded-full border bg-white">
-                  <i class="fa-solid fa-image"></i>
+                  <i class="fa-solid fa-image text-[1.125rem]"></i>
                 </div>
               @endif
             </div>
 
-            <div class="truncate text-[15px] font-bold">{{ $user->profile?->name }}</div>
-            <div class="text-[15px]">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
+            <div class="truncate text-[0.9375rem] font-bold">{{ $user->profile?->name }}</div>
+            <div class="text-[0.9375rem]">{{ $user->latestHourlyRate ? $user->latestHourlyRate . '円' : '----' }}</div>
 
             <div>
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -6,12 +6,13 @@
   <x-main.container>
     <div class="flex items-center justify-between">
       <h5 class="hidden text-xl font-bold lg:block">下書き一覧</h5>
-      <a class="flex items-center px-5 text-sm text-[#3289FA] hover:text-[#3289fa4d] lg:px-0"
+      <a class="group flex items-center px-5 text-sm text-[#3289FA] hover:text-[#3289fa4d] lg:px-0"
         href="{{ route('board.index') }}">
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="text-[#3289FA] group-hover:text-[#3289fa4d]" width="20" height="20" viewBox="0 0 20 20"
+          fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M15.625 5.21403C15.6249 4.5925 15.1746 4.08272 14.5882 4.01449C14.3048 3.98167 14.0206 3.9517 13.7354 3.92497C13.6976 4.1917 13.5765 4.44108 13.3838 4.63379C13.1494 4.86821 12.8315 5 12.5 5H7.5C7.16848 5 6.85063 4.86821 6.61621 4.63379C6.42348 4.44106 6.30159 4.19175 6.26383 3.92497C5.97927 3.95168 5.6949 3.98161 5.41097 4.01449C4.82425 4.08291 4.37507 4.5924 4.375 5.21403V16.25C4.375 16.5815 4.50679 16.8994 4.74121 17.1338C4.97563 17.3682 5.29348 17.5 5.625 17.5H14.375C14.7065 17.5 15.0244 17.3682 15.2588 17.1338C15.4932 16.8994 15.625 16.5815 15.625 16.25V5.21403ZM8.75 2.5C8.17938 2.5 7.6949 2.88319 7.54639 3.40658L7.5472 3.40739C7.51677 3.51672 7.5 3.63225 7.5 3.75H12.5C12.5 3.63031 12.4835 3.51612 12.4536 3.41064V3.40983C12.3795 3.14784 12.2216 2.91732 12.0044 2.75309C11.7872 2.58889 11.5223 2.4999 11.25 2.5H8.75ZM16.875 16.25C16.875 16.913 16.6114 17.5487 16.1426 18.0176C15.6737 18.4864 15.038 18.75 14.375 18.75H5.625C4.96196 18.75 4.32626 18.4864 3.85742 18.0176C3.38858 17.5487 3.125 16.913 3.125 16.25V5.21403C3.12507 3.98928 4.01898 2.91775 5.26693 2.77262C5.67899 2.72491 6.09223 2.68486 6.50553 2.64974C6.91251 1.82107 7.7644 1.25 8.75 1.25H11.25L11.4535 1.25814C11.9256 1.29655 12.3788 1.46879 12.7588 1.75618C13.0725 1.99344 13.3231 2.30035 13.4945 2.64974C13.6362 2.6618 13.7779 2.67288 13.9193 2.68636L14.7331 2.77262L14.9626 2.81006C16.0883 3.05176 16.8749 4.06554 16.875 5.21403V16.25Z"
-            fill="#3289FA" />
+            fill="currentColor" />
         </svg>
         <p class="ml-[4px]">掲示板一覧</p>
       </a>
@@ -24,10 +25,10 @@
             d="M43.75 12.5C42.0927 12.5011 40.5037 13.1599 39.3318 14.3318C38.1599 15.5037 37.5011 17.0927 37.5 18.75H62.5C62.5 17.0924 61.8415 15.5027 60.6694 14.3306C59.4973 13.1585 57.9076 12.5 56.25 12.5H43.75ZM32.5292 13.2417C33.559 11.1439 35.1562 9.3768 37.1396 8.14096C39.123 6.90511 41.4131 6.25001 43.75 6.25H56.25C58.5876 6.24923 60.8786 6.90397 62.8628 8.13986C64.847 9.37574 66.4449 11.1433 67.475 13.2417C69.5458 13.4167 71.6083 13.625 73.6667 13.8667C79.9042 14.5875 84.375 19.95 84.375 26.0708V81.25C84.375 84.5652 83.058 87.7446 80.7138 90.0888C78.3696 92.433 75.1902 93.75 71.875 93.75H28.125C24.8098 93.75 21.6304 92.433 19.2862 90.0888C16.942 87.7446 15.625 84.5652 15.625 81.25V26.0708C15.625 19.9458 20.0958 14.5875 26.3333 13.8625C28.3875 13.625 30.4542 13.4208 32.5292 13.2417Z"
             fill="black" />
         </svg>
-        <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">下書きがありません</div>
+        <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">下書きがありません</div>
       </div>
     @else
-      <div class="mt-[30px] hidden grid-cols-[65%,10%,10%,10%,5%] lg:grid">
+      <div class="mt-[30px] hidden grid-cols-[64%,12%,10%,10%,4%] lg:grid">
         <div class="px-[30px] text-left text-xs font-normal text-[#AAB0B6]">表題</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">作成者</div>
         <div class="text-left text-xs font-normal text-[#AAB0B6]">更新日時</div>
@@ -38,7 +39,7 @@
       <div class="mt-[24px] rounded-lg border-b lg:-mx-0 lg:mt-[8px] lg:border">
         @foreach ($posts as $post)
           <div onclick="window.location='{{ route('board.show', ['id' => $post->id]) }}'" @class([
-              'lg:grid lg:grid-cols-[66%,10%,10%,10%,4%] lg:py-[30px] py-3 text-[15px] lg:px-0 px-5 cursor-pointer',
+              'lg:grid lg:grid-cols-[64%,12%,10%,10%,4%] lg:py-[30px] py-3 text-[0.9375rem] lg:px-0 px-5 cursor-pointer',
               'border-b' => !$loop->last,
           ])>
             <div class="hidden truncate px-[30px] font-bold lg:block">{!! nl2br(e($post->title)) !!}</div>
@@ -160,13 +161,13 @@
           <x-modal-alert name="delete-modal-{{ $post->id }}" title="削除" maxWidth="sm">
             <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
               <p class="text-xs">以下のタイトルを削除いたします</p>
-              <div class="pt-[13px] text-[15px] font-bold">{{ $post->title }}</div>
+              <div class="pt-[13px] text-[0.9375rem] font-bold">{{ $post->title }}</div>
             </div>
             <div class="my-5 flex items-center justify-center space-x-[10px]">
-              <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+              <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
                 @click="$dispatch('close-modal', 'delete-modal-{{ $post->id }}')">キャンセル</div>
               <div
-                class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+                class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
                 wire:click="deletePost({{ $post->id }})">削除する</div>
             </div>
           </x-modal-alert>

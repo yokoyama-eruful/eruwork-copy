@@ -34,13 +34,13 @@
         <div class="mt-[30px] border-b lg:mt-[10px] lg:rounded-xl lg:border">
           @foreach ($files as $file)
             <div @class([
-                'hidden lg:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[10px] text-[15px] items-center min-h-[100px] px-5 relative',
+                'hidden lg:grid grid-cols-[10%,5%,41%,21%,21%,2%] py-[10px] text-[0.9375rem] items-center min-h-[100px] px-5 relative',
                 'border-b' => !$loop->last,
             ])>
               @if ($file->status == '下書き')
                 <div class="absolute left-0 top-0 h-11 w-11 overflow-hidden">
                   <div
-                    class="flex h-full w-full items-start justify-center bg-[#00A1FF] pr-3 pt-2 text-[9px] font-bold text-white"
+                    class="flex h-full w-full items-start justify-center bg-[#00A1FF] pr-3 pt-2 text-[0.5625rem] font-bold text-white"
                     style="clip-path: polygon(0% 0%, 0% 100%, 100% 0%); border-top-left-radius: 4px;">
                     <span style="display:inline-block; transform: rotate(-45deg);">
                       下書き
@@ -117,7 +117,7 @@
                         stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   @endif
-                  <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
+                  <div class="break-words text-[0.9375rem] font-bold">{{ $file->title }}</div>
                 </div>
                 <div class="text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>
@@ -164,7 +164,7 @@
                 fill="#070707" />
             </g>
           </svg>
-          <div class="mt-5 text-[20px] font-bold text-[#222222] text-opacity-10">下書きがありません</div>
+          <div class="mt-5 text-[1.25rem] font-bold text-[#222222] text-opacity-10">下書きがありません</div>
         </div>
       @endif
     </x-dashboard.container>

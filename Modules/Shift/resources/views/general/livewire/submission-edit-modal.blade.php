@@ -88,12 +88,12 @@
             </div>
           </div>
 
-          <div class="-mx-4 -mb-[30px] mt-5 lg:mt-[30px] flex items-center justify-center rounded-b bg-white py-4">
+          <div class="-mx-4 -mb-[30px] mt-5 flex items-center justify-center space-x-[10px] rounded-b bg-white py-4 lg:mt-[30px]">
             <x-secondary-button x-on:click="$dispatch('close')">
               {{ __('Cancel') }}
             </x-secondary-button>
 
-            <x-primary-button class="ms-3">
+            <x-primary-button class="w-[150px]">
               更新
             </x-primary-button>
           </div>
@@ -106,14 +106,14 @@
     <form wire:submit="delete">
       <div class="flex flex-col items-center bg-[#F7F7F7] px-5 pb-8 pt-4 text-left">
         <p class="text-xs">以下のシフトを削除いたします</p>
-        <div class="pt-[13px] text-[15px] font-bold">
+        <div class="pt-[13px] text-[0.9375rem] font-bold">
           {{ $schedule->date->format('Y/m/d') }}<br>{{ $schedule->start_time->format('H:i') . ' ～ ' . $schedule->end_time->format('H:i') }}
         </div>
       </div>
       <div class="my-5 flex items-center justify-center space-x-[10px]">
-        <div class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded border-2"
+        <div class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded border-2"
           @click="$dispatch('close-modal', 'delete-alert-{{ $schedule->id }}')">キャンセル</div>
-        <button class="flex h-11 w-[150px] cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
+        <button class="flex h-11 w-[150px] whitespace-nowrap cursor-pointer items-center justify-center rounded bg-[#FF4A62] text-white"
           type="submit">削除する</button>
       </div>
     </form>

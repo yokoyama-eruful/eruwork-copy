@@ -142,7 +142,7 @@
             </svg>
 
             <p class="mt-[10px] hidden text-xs font-bold text-[#AAB0B6] lg:block">ファイルをエリア内にドラッグ＆ドロップしてください</p>
-            <button class="mt-5 font-bold text-[#3289FA] hover:opacity-40" type="button"
+            <button class="mt-[10px] font-bold text-[#3289FA] hover:opacity-40 lg:mt-5" type="button"
               x-on:click="$refs.fileInput.click()">
               ファイルを選択する
             </button>
@@ -315,19 +315,19 @@
       <hr class="mt-[60px] border-t border-[#DDDDDD] lg:-mx-5 lg:mt-[100px]">
 
       <div class="mb-[80px] mt-5 hidden items-center justify-center space-x-5 lg:flex">
-        <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
+        <a class="h-[50px] w-[230px] whitespace-nowrap rounded hover:opacity-40" type="button"
           href="{{ route('manualFileManager.index', ['folder_id' => $file->folder->id]) }}">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#5E5E5E] text-[#5E5E5E]">
             キャンセル
           </p>
         </a>
-        <button class="h-[50px] w-[230px] rounded hover:opacity-40" id="draftButton" type="button"
+        <button class="h-[50px] w-[230px] whitespace-nowrap rounded hover:opacity-40" id="draftButton" type="button"
           wire:click="edit('下書き')" wire:loading.attr="disabled" wire:target="edit">
           <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
-            下書きとして保存
+            下書き保存
           </p>
         </button>
-        <button class="h-[50px] w-[230px] rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
+        <button class="h-[50px] w-[230px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
           type="button" wire:click="edit('掲載')" wire:loading.attr="disabled" wire:target="edit">投稿する</button>
       </div>
 
@@ -335,16 +335,16 @@
         <button class="h-[50px] w-full rounded bg-[#3289FA] font-bold text-white hover:opacity-40" id="postButton"
           type="button" wire:click="edit('掲載')" wire:loading.attr="disabled" wire:target="edit">投稿する</button>
         <div class="mt-[30px] flex items-center space-x-5">
-          <a class="h-[50px] w-[230px] rounded hover:opacity-40" type="button"
+          <a class="h-[50px] w-[230px] whitespace-nowrap rounded hover:opacity-40" type="button"
             href="{{ route('manualFileManager.index', ['folder_id' => $file->folder->id]) }}">
             <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#5E5E5E] text-[#5E5E5E]">
               キャンセル
             </p>
           </a>
-          <button class="h-[50px] w-[230px] rounded hover:opacity-40" id="draftButton" type="button"
+          <button class="h-[50px] w-[230px] whitespace-nowrap rounded hover:opacity-40" id="draftButton" type="button"
             wire:click="edit('下書き')" wire:loading.attr="disabled" wire:target="edit">
             <p class="flex h-full w-full items-center justify-center rounded border-2 border-[#3289FA] text-[#3289FA]">
-              下書きとして保存
+              下書き保存
             </p>
           </button>
         </div>

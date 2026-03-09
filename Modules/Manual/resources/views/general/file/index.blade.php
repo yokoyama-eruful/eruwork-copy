@@ -26,7 +26,7 @@
           @foreach ($files as $file)
             <a href="{{ route('manualFile.show', ['folder_id' => $folder->id, 'file_id' => $file->id]) }}"
               @class([
-                  'hidden lg:grid grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr] py-[20px] text-[15px] items-center min-h-[121px] px-5',
+                  'hidden lg:grid grid-cols-[1fr_0.3fr_6.5fr_2fr_0.2fr] py-[20px] text-[0.9375rem] items-center min-h-[121px] px-5',
                   'border-b' => !$loop->last,
               ])>
 
@@ -57,7 +57,7 @@
               <div>{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
 
               <div class="flex items-center justify-end hover:opacity-40">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
@@ -70,10 +70,16 @@
                   'grid grid-cols-[30%,60%,10%] items-center px-[20px] py-[15px] lg:hidden',
                   'border-b' => !$loop->last,
               ])>
-              <div class="flex h-[55px] w-[100px] justify-center rounded bg-black">
-                <img class="max-h-[55px] max-w-[100px] rounded"
-                  src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
-              </div>
+              @if ($file->type)
+                <div class="flex h-[55px] w-[100px] justify-center rounded-md bg-black">
+                  <img class="max-h-[55px] max-w-[100px] rounded-md"
+                    src="{{ route('manualFile.thumbnail', ['id' => $file->id]) }}" />
+                </div>
+              @else
+                <div class="flex h-[55px] w-[100px] justify-center rounded-md bg-black">
+                  <img class="max-h-[55px] max-w-[100px] rounded-md" src="{{ asset('img/icon/NoImage.png') }}" />
+                </div>
+              @endif
 
               <div>
                 <div class="flex items-center space-x-1 pl-[12px]">
@@ -85,12 +91,12 @@
                         stroke="#3289FA" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                   @endif
-                  <div class="break-words text-[15px] font-bold">{{ $file->title }}</div>
+                  <div class="break-words text-[0.9375rem] font-bold">{{ $file->title }}</div>
                 </div>
                 <div class="pl-[12px] text-xs">更新日：{{ $file->updated_at->format('Y/m/d') ?? '' }}</div>
               </div>
               <div class="flex items-center justify-end hover:opacity-40">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                <svg class="h-[18px] w-[18px]" width="18" height="18" viewBox="0 0 24 24" fill="none"
                   xmlns="http://www.w3.org/2000/svg">
                   <path d="M8.25 4.5L15.75 12L8.25 19.5" stroke="#AAB0B6" stroke-width="1.5" stroke-linecap="round"
                     stroke-linejoin="round" />
