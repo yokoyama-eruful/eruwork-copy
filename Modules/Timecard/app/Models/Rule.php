@@ -17,5 +17,16 @@ class Rule extends Model
 
     protected $fillable = [
         'rule',
+        'workday_start_time',
+        'statutory_holiday_weekday',
+        'holiday_weekdays',
+        'holiday_dates',
+        'annual_holiday_dates',
+    ];
+
+    protected $casts = [
+        'holiday_weekdays' => 'array',
+        'holiday_dates' => 'array',
+        'annual_holiday_dates' => 'array',
     ];
 }

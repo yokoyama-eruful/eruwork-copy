@@ -13,6 +13,11 @@ class RuleSeeder extends Seeder
     {
         Rule::create([
             'rule' => 'personal',
+            'workday_start_time' => '00:00:00',
+            'statutory_holiday_weekday' => 0,
+            'holiday_weekdays' => [0],
+            'holiday_dates' => [],
+            'annual_holiday_dates' => [],
         ]);
     }
 }

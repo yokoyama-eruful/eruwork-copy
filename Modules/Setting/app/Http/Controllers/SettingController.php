@@ -25,6 +25,11 @@ class SettingController extends Controller
         if (! $rule) {
             $rule = new Rule;
             $rule->rule = 'personal';
+            $rule->workday_start_time = '00:00:00';
+            $rule->statutory_holiday_weekday = 0;
+            $rule->holiday_weekdays = [];
+            $rule->holiday_dates = [];
+            $rule->annual_holiday_dates = [];
         }
 
         $wagePremium = WagePremium::first();
@@ -83,7 +88,9 @@ class SettingController extends Controller
         DB::transaction(function () use ($request) {
             Rule::updateOrCreate(
                 [],
-                ['rule' => $request->rule],
+                [
+                    'rule' => $request->rule,
+                ],
             );
         });
 
@@ -99,20 +106,89 @@ class SettingController extends Controller
             ->with('success', '打刻設定を更新しました');
     }
 
+    public function updateWorkdaySetting(Request $request)
+    {
+        $request->validate([
+            'workday_start_time' => ['required', 'date_format:H:i'],
+            'holiday_weekdays' => ['nullable', 'array'],
+            'holiday_weekdays.*' => ['integer', 'between:0,6'],
+            'holiday_dates' => ['nullable', 'string'],
+            'annual_holiday_dates' => ['nullable', 'string'],
+        ], [], [
+            'workday_start_time' => '1日の起算時刻',
+            'holiday_weekdays' => '休日曜日',
+            'holiday_dates' => '単発休日',
+            'annual_holiday_dates' => '毎年休日',
+        ]);
+
+        $holidayWeekdays = array_values(array_unique(array_map('intval', $request->input('holiday_weekdays', []))));
+        $holidayDates = collect(preg_split('/[\r\n,]+/', (string) $request->input('holiday_dates', '')))
+            ->map(fn ($date) => trim((string) $date))
+            ->filter()
+            ->values()
+            ->all();
+        $annualHolidayDates = collect(preg_split('/[\r\n,]+/', (string) $request->input('annual_holiday_dates', '')))
+            ->map(fn ($date) => trim((string) $date))
+            ->filter()
+            ->values()
+            ->all();
+
+        foreach ($holidayDates as $date) {
+            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) !== 1) {
+                return back()
+                    ->withErrors(['holiday_dates' => '単発休日は YYYY-MM-DD 形式で入力してください。'])
+                    ->withInput();
+            }
+        }
+
+        foreach ($annualHolidayDates as $date) {
+            if (preg_match('/^\d{2}-\d{2}$/', $date) !== 1) {
+                return back()
+                    ->withErrors(['annual_holiday_dates' => '毎年休日は MM-DD 形式で入力してください。'])
+                    ->withInput();
+            }
+        }
+
+        $primaryHolidayWeekday = $holidayWeekdays[0] ?? 0;
+
+        DB::transaction(function () use ($request, $holidayWeekdays, $holidayDates, $annualHolidayDates, $primaryHolidayWeekday) {
+            Rule::updateOrCreate(
+                [],
+                [
+                    'workday_start_time' => $request->workday_start_time . ':00',
+                    'statutory_holiday_weekday' => $primaryHolidayWeekday,
+                    'holiday_weekdays' => $holidayWeekdays,
+                    'holiday_dates' => $holidayDates,
+                    'annual_holiday_dates' => $annualHolidayDates,
+                ],
+            );
+        });
+
+        return redirect()
+            ->route('setting.index')
+            ->with('success', '勤務日設定を更新しました');
+    }
+
     public function updatePayUnitSetting(Request $request)
     {
         $request->validate(
             [
                 'overtimeRate' => ['nullable', 'integer', 'min:0'],
+                'overtimeOver60Rate' => ['nullable', 'integer', 'min:0'],
                 'nightRate' => ['nullable', 'integer', 'min:0'],
+                'holidayRate' => ['nullable', 'integer', 'min:0'],
             ],
             [
                 'overtimeRate.integer' => ':attributeは整数で入力してください',
+                'overtimeOver60Rate.integer' => ':attributeは整数で入力してください',
                 'nightRate.integer' => ':attributeは整数で入力してください',
+                'holidayRate.integer' => ':attributeは整数で入力してください',
             ],
             [
                 'overtimeRate' => '残業割増率',
+                'overtimeOver60Rate' => '60h超残業割増率',
                 'nightRate' => '深夜割増率',
+                'holidayRate' => '法定休日割増率',
             ]
         );
 
@@ -122,7 +198,9 @@ class SettingController extends Controller
                 [
                     'pay_unit' => $request->pay_unit,
                     'overtime_rate' => $request->overtimeRate ?? 0,
+                    'overtime_over_60_rate' => $request->overtimeOver60Rate ?? 50,
                     'night_rate' => $request->nightRate ?? 0,
+                    'holiday_rate' => $request->holidayRate ?? 35,
                 ],
             );
         });

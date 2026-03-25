@@ -16,7 +16,11 @@ class CalculateSalary extends Component
 
     public $overtimeRate;
 
+    public $overtimeOver60Rate;
+
     public $nightRate;
+
+    public $holidayRate;
 
     public $startDate;
 
@@ -28,7 +32,9 @@ class CalculateSalary extends Component
     {
         $wagePremium = WagePremium::first();
         $this->overtimeRate = $wagePremium?->overtime_rate;
+        $this->overtimeOver60Rate = $wagePremium?->overtime_over_60_rate ?? 50;
         $this->nightRate = $wagePremium?->night_rate;
+        $this->holidayRate = $wagePremium?->holiday_rate ?? 35;
         // $this->fraction = $wagePremium?->fraction;
         $this->payUnit = $wagePremium?->pay_unit;
         $this->form->setValues($wagePremium);

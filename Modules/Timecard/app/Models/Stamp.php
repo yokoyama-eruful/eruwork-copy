@@ -140,7 +140,7 @@ class Stamp
         }
 
         $breakTime->update([
-            'out_time' => $datetime->format('H:i'),
+            'out_time' => $datetime->format('Y-m-d H:i'),
         ]);
 
     }

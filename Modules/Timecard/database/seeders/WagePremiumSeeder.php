@@ -13,7 +13,9 @@ class WagePremiumSeeder extends Seeder
     {
         WagePremium::create([
             'overtime_rate' => 35,
+            'overtime_over_60_rate' => 50,
             'night_rate' => 25,
+            'holiday_rate' => 35,
             'pay_unit' => 1,
         ]);
     }

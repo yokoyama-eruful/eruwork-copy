@@ -14,8 +14,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Modules\Shift\Models\Schedule;
 use Modules\Timecard\Livewire\General\Dto\totalWorkingTimeDto;
-use Modules\Timecard\Models\BreakTime;
-use Modules\Timecard\Models\WorkTime;
+use Modules\Timecard\Services\WageCalculationService;
+use Modules\Timecard\Services\TimecardServices;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -62,26 +62,10 @@ class AttendanceRecoardShow extends Component
             $this->validate([
                 'selectUsers' => 'required|array|min:1',
             ]);
+            $service = app(TimecardServices::class);
 
             $selectedUsers = User::whereIn('id', $this->selectUsers)
                 ->orderBy('id')
-                ->get();
-
-            $start = CarbonImmutable::parse($this->startDate)->startOfDay();
-            $end = CarbonImmutable::parse($this->endDate)->endOfDay();
-
-            $workTimes = WorkTime::query()
-                ->whereBetween('in_time', [$start, $end])
-                ->whereNotNull('in_time')
-                ->whereNotNull('out_time')
-                ->orderBy('in_time', 'asc')
-                ->get();
-
-            $breakTimes = BreakTime::query()
-                ->whereBetween('in_time', [$start, $end])
-                ->whereNotNull('in_time')
-                ->whereNotNull('out_time')
-                ->orderBy('in_time', 'asc')
                 ->get();
 
             $spreadsheet = new Spreadsheet;
@@ -92,56 +76,84 @@ class AttendanceRecoardShow extends Component
                     : $spreadsheet->createSheet();
 
                 $worksheet->setTitle($user->name);
+                $includeHolidayColumns = $user->profile?->contract_type !== 'アルバイト';
+                $worksheet->fromArray([$this->excelHeaders($includeHolidayColumns)], null, 'A1');
 
-                // ヘッダー
-                $worksheet->fromArray([['勤務日', '出勤', '退勤', '休憩開始', '休憩終了']], null, 'A1');
-
-                $userWorkTimes = [];
-
-                foreach ($workTimes->where('user_id', $user->id) as $workTime) {
-                    $start = $workTime->in_time->copy();
-                    $end = $workTime->out_time->copy();
-
-                    // 勤務を日ごとに分割
-                    while ($start->lt($end)) {
-                        $currentDayEnd = $start->copy()->endOfDay();
-                        $rowEnd = $end->lt($currentDayEnd) ? $end : $currentDayEnd;
-
-                        // 当日の休憩を取得
-                        $dailyBreaks = $breakTimes->where('user_id', $user->id)->filter(function ($b) use ($start, $rowEnd) {
-                            return $b->in_time->lt($rowEnd) && $b->out_time->gt($start);
-                        });
-
-                        if ($dailyBreaks->isEmpty()) {
-                            // 休憩なし
-                            $userWorkTimes[] = [
-                                $start->format('Y-m-d'),
-                                $start->format('H:i'),
-                                $rowEnd->format('H:i'),
-                                '',
-                                '',
-                            ];
-                        } else {
-                            // 休憩がある場合は複数行に分ける
-                            foreach ($dailyBreaks as $b) {
-                                $breakStart = $b->in_time->lt($start) ? $start : $b->in_time;
-                                $breakEnd = $b->out_time->gt($rowEnd) ? $rowEnd : $b->out_time;
-
-                                $userWorkTimes[] = [
-                                    $start->format('Y-m-d'),
-                                    $start->format('H:i'),
-                                    $rowEnd->format('H:i'),
-                                    $breakStart->format('H:i'),
-                                    $breakEnd->format('H:i'),
-                                ];
-                            }
-                        }
-
-                        $start = $rowEnd->copy()->addSecond();
-                    }
+                $userRows = $service->getTimecardDataList($this->startDate, $this->endDate, $user->id);
+                $excelRows = array_map(function (array $row): array {
+                    return [
+                        $row['attendanceStartDate'],
+                        $row['attendanceEndDate'],
+                        $row['attendanceStartTime'],
+                        $row['attendanceEndTime'],
+                        $row['defaultWorkTime'],
+                        $row['overTime'],
+                        $row['overTimeOver60'],
+                        $row['lateNightTime'],
+                        $row['lateNightOverTime'],
+                        $row['lateNightOverTimeOver60'],
+                        $row['defaultBreakTime'],
+                        $row['lateNightBreakTime'],
+                    ];
+                }, $userRows);
+                if ($includeHolidayColumns) {
+                    $excelRows = array_map(function (array $row): array {
+                        return [
+                            $row['attendanceStartDate'],
+                            $row['attendanceEndDate'],
+                            $row['attendanceStartTime'],
+                            $row['attendanceEndTime'],
+                            $row['defaultWorkTime'],
+                            $row['overTime'],
+                            $row['overTimeOver60'],
+                            $row['lateNightTime'],
+                            $row['lateNightOverTime'],
+                            $row['lateNightOverTimeOver60'],
+                            $row['holidayWorkTime'],
+                            $row['holidayLateNightWorkTime'],
+                            $row['defaultBreakTime'],
+                            $row['lateNightBreakTime'],
+                        ];
+                    }, $userRows);
                 }
 
-                $worksheet->fromArray($userWorkTimes, null, 'A2');
+                $worksheet->fromArray($excelRows, null, 'A2');
+
+                $summaryRow = [
+                    '合計',
+                    '',
+                    '',
+                    '',
+                    $this->sumFormattedTime($userRows, 'defaultWorkTime'),
+                    $this->sumFormattedTime($userRows, 'overTime'),
+                    $this->sumFormattedTime($userRows, 'overTimeOver60'),
+                    $this->sumFormattedTime($userRows, 'lateNightTime'),
+                    $this->sumFormattedTime($userRows, 'lateNightOverTime'),
+                    $this->sumFormattedTime($userRows, 'lateNightOverTimeOver60'),
+                    $this->sumFormattedTime($userRows, 'defaultBreakTime'),
+                    $this->sumFormattedTime($userRows, 'lateNightBreakTime'),
+                ];
+                if ($includeHolidayColumns) {
+                    $summaryRow = [
+                        '合計',
+                        '',
+                        '',
+                        '',
+                        $this->sumFormattedTime($userRows, 'defaultWorkTime'),
+                        $this->sumFormattedTime($userRows, 'overTime'),
+                        $this->sumFormattedTime($userRows, 'overTimeOver60'),
+                        $this->sumFormattedTime($userRows, 'lateNightTime'),
+                        $this->sumFormattedTime($userRows, 'lateNightOverTime'),
+                        $this->sumFormattedTime($userRows, 'lateNightOverTimeOver60'),
+                        $this->sumFormattedTime($userRows, 'holidayWorkTime'),
+                        $this->sumFormattedTime($userRows, 'holidayLateNightWorkTime'),
+                        $this->sumFormattedTime($userRows, 'defaultBreakTime'),
+                        $this->sumFormattedTime($userRows, 'lateNightBreakTime'),
+                    ];
+                }
+
+                $summaryRowNumber = count($excelRows) + 2;
+                $worksheet->fromArray([$summaryRow], null, 'A' . $summaryRowNumber);
             }
 
             $fileName = '勤怠記録_' . $this->startDate . '~' . $this->endDate . '.xlsx';
@@ -153,6 +165,50 @@ class AttendanceRecoardShow extends Component
         } catch (Exception $e) {
             session()->flash('error', $e->getMessage());
         }
+    }
+
+    private function excelHeaders(bool $includeHolidayColumns): array
+    {
+        $headers = [
+            '勤務日',
+            '退勤日',
+            '出勤',
+            '退勤',
+            '通常勤務',
+            '残業(60hまで)',
+            '残業(60h超)',
+            '深夜',
+            '残業+深夜(60hまで)',
+            '残業+深夜(60h超)',
+        ];
+
+        if ($includeHolidayColumns) {
+            $headers[] = '休日';
+            $headers[] = '休日+深夜';
+        }
+
+        $headers[] = '通常休憩';
+        $headers[] = '深夜休憩';
+
+        return $headers;
+    }
+
+    private function sumFormattedTime(array $rows, string $key): string
+    {
+        $totalMinutes = 0;
+
+        foreach ($rows as $row) {
+            $totalMinutes += $this->formattedTimeToMinutes((string) ($row[$key] ?? '0:00'));
+        }
+
+        return sprintf('%d:%02d', intdiv($totalMinutes, 60), $totalMinutes % 60);
+    }
+
+    private function formattedTimeToMinutes(string $value): int
+    {
+        [$hours, $minutes] = array_pad(explode(':', $value), 2, '0');
+
+        return ((int) $hours * 60) + (int) $minutes;
     }
 
     #[Computed]
@@ -183,29 +239,11 @@ class AttendanceRecoardShow extends Component
 
     private function calcTotalMinutes(User $user, CarbonPeriodImmutable $period)
     {
-        // 既存のまま、休憩を引いた通常勤務分を返す
-        $workTimes = WorkTime::query()
-            ->where('user_id', $user->id)
-            ->whereBetween('in_time', [$period->first()->startOfDay(), $period->last()->endOfDay()])
-            ->whereNotNull('in_time')
-            ->whereNotNull('out_time')
-            ->with('breakTimes')
-            ->get();
+        /** @var WageCalculationService $service */
+        $service = app(WageCalculationService::class);
+        $summary = $service->summarize($user, $period->first(), $period->last());
 
-        $totalMinutes = 0;
-
-        foreach ($workTimes as $workTime) {
-            $in = $workTime->in_time;
-            $out = $workTime->out_time;
-
-            $workMinutes = $in->diffInMinutes($out);
-
-            $breakMinutes = $workTime->breakTimes->sum(fn ($break) => $break->in_time->diffInMinutes($break->out_time));
-
-            $totalMinutes += max($workMinutes - $breakMinutes, 0);
-        }
-
-        return $totalMinutes;
+        return array_sum($summary['minutes']);
     }
 
     #[Computed]

@@ -16,6 +16,7 @@ Route::middleware([
         ->group(function () {
             Route::get('', 'index')->name('index');
             Route::post('punch', 'updatePunchSetting')->name('punch.update');
+            Route::post('workday', 'updateWorkdaySetting')->name('workday.update');
             Route::post('pay_unit', 'updatePayUnitSetting')->name('pay_unit.update');
         });
 });

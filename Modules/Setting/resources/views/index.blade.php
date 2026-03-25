@@ -57,6 +57,68 @@
           </div>
         </form>
 
+        <form method="POST" action="{{ route('setting.workday.update') }}">
+          @csrf
+          <div class="border-b py-[30px]">
+            <div class="font-bold">勤務日設定</div>
+            <div class="mt-[30px] grid grid-cols-[35%,65%] items-center lg:grid-cols-[180px_minmax(0,1fr)]">
+              <div class="text-[0.6875rem] font-bold">1日の起算時刻</div>
+              <div>
+                <input class="h-10 w-full max-w-[220px] rounded border-[#DDDDDD]" name="workday_start_time" type="time"
+                  value="{{ old('workday_start_time', \Illuminate\Support\Str::of($rule->workday_start_time ?? '00:00:00')->substr(0, 5)) }}" />
+                <div class="mt-2 text-xs text-[#7A7A7A]">この時刻をまたぐと別日の勤務として集計します。朝5:00開始などの就業規則に合わせて設定できます。</div>
+                @error('workday_start_time')
+                  <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+            <div class="mt-[20px] grid grid-cols-[35%,65%] items-start lg:grid-cols-[180px_minmax(0,1fr)]">
+              <div class="text-[0.6875rem] font-bold">休日曜日</div>
+              <div>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-2 lg:grid-cols-4">
+                  @foreach ([0 => '日曜', 1 => '月曜', 2 => '火曜', 3 => '水曜', 4 => '木曜', 5 => '金曜', 6 => '土曜'] as $value => $label)
+                    <label class="flex items-center space-x-2 text-sm">
+                      <input name="holiday_weekdays[]" type="checkbox" value="{{ $value }}"
+                        @checked(in_array($value, old('holiday_weekdays', $rule->holiday_weekdays ?? [$rule->statutory_holiday_weekday ?? 0]), true))>
+                      <span>{{ $label }}</span>
+                    </label>
+                  @endforeach
+                </div>
+                <div class="mt-2 text-xs text-[#7A7A7A]">固定の休日曜日を複数選べます。未選択なら曜日での休日扱いはしません。</div>
+                @error('holiday_weekdays')
+                  <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+            <div class="mt-[20px] grid grid-cols-[35%,65%] items-start lg:grid-cols-[180px_minmax(0,1fr)]">
+              <div class="text-[0.6875rem] font-bold">単発休日</div>
+              <div>
+                <textarea class="min-h-[96px] w-full max-w-[320px] rounded border-[#DDDDDD]" name="holiday_dates"
+                  placeholder="2026-01-01&#10;2026-05-03">{{ old('holiday_dates', implode("\n", $rule->holiday_dates ?? [])) }}</textarea>
+                <div class="mt-2 text-xs text-[#7A7A7A]">祝日など、その年だけの休日を `YYYY-MM-DD` 形式で1行ずつ入力できます。</div>
+                @error('holiday_dates')
+                  <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+            <div class="mt-[20px] grid grid-cols-[35%,65%] items-start lg:grid-cols-[180px_minmax(0,1fr)]">
+              <div class="text-[0.6875rem] font-bold">毎年休日</div>
+              <div>
+                <textarea class="min-h-[96px] w-full max-w-[320px] rounded border-[#DDDDDD]" name="annual_holiday_dates"
+                  placeholder="04-01&#10;10-15">{{ old('annual_holiday_dates', implode("\n", $rule->annual_holiday_dates ?? [])) }}</textarea>
+                <div class="mt-2 text-xs text-[#7A7A7A]">創設記念日など毎年くる休日を `MM-DD` 形式で1行ずつ入力できます。</div>
+                @error('annual_holiday_dates')
+                  <div class="mt-2 text-xs text-red-500">{{ $message }}</div>
+                @enderror
+              </div>
+            </div>
+            <div class="mt-[30px] flex w-full justify-center lg:mt-5">
+              <button class="mb-5 h-[45px] w-[150px] whitespace-nowrap rounded bg-[#3289FA] font-bold text-white hover:opacity-40 lg:mb-0"
+                type="submit">更新する</button>
+            </div>
+          </div>
+        </form>
+
         <form method="POST" action="{{ route('setting.pay_unit.update') }}">
           @csrf
 
@@ -74,6 +136,32 @@
           @enderror
 
           @error('nightRate')
+            <div class="mt-2 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2">
+              <svg class="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-9-4a1 1 0 112 0v4a1 1 0 11-2 0V6zm1 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                  clip-rule="evenodd" />
+              </svg>
+              <p class="text-sm text-red-600">
+                {{ $message }}
+              </p>
+            </div>
+          @enderror
+
+          @error('overtimeOver60Rate')
+            <div class="mt-2 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2">
+              <svg class="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd"
+                  d="M18 10A8 8 0 11 2 10a8 8 0 0116 0zm-9-4a1 1 0 112 0v4a1 1 0 11-2 0V6zm1 8a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+                  clip-rule="evenodd" />
+              </svg>
+              <p class="text-sm text-red-600">
+                {{ $message }}
+              </p>
+            </div>
+          @enderror
+
+          @error('holidayRate')
             <div class="mt-2 flex items-start gap-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2">
               <svg class="mt-0.5 h-4 w-4 flex-shrink-0 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd"
@@ -126,6 +214,24 @@
                 <label class="flex cursor-pointer items-center space-x-2">
                   <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="overtimeRate" type="text"
                     value="{{ old('overtimeRate', $wagePremium?->overtime_rate) }}" />
+                  <div>%</div>
+                </label>
+              </div>
+            </div>
+            <div class="mt-[20px] items-center space-y-2 lg:grid lg:grid-cols-[50%,50%] lg:space-y-0">
+              <div class="grid grid-cols-[40%,60%] items-center">
+                <div class="text-[0.6875rem] font-bold">60h超残業設定</div>
+                <label class="flex cursor-pointer items-center space-x-2">
+                  <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="overtimeOver60Rate" type="text"
+                    value="{{ old('overtimeOver60Rate', $wagePremium?->overtime_over_60_rate ?? 50) }}" />
+                  <div>%</div>
+                </label>
+              </div>
+              <div class="grid grid-cols-[40%,60%] items-center">
+                <div class="text-[0.6875rem] font-bold">法定休日設定</div>
+                <label class="flex cursor-pointer items-center space-x-2">
+                  <input class="w-[80px] rounded border-[#DDDDDD] lg:w-[100px]" name="holidayRate" type="text"
+                    value="{{ old('holidayRate', $wagePremium?->holiday_rate ?? 35) }}" />
                   <div>%</div>
                 </label>
               </div>

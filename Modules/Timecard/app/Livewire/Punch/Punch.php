@@ -12,6 +12,7 @@ use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\Rule;
 use Modules\Timecard\Models\Stamp;
 use Modules\Timecard\Models\WorkTime;
+use Modules\Timecard\Support\WorkdayBoundary;
 
 class Punch extends Component
 {
@@ -31,11 +32,13 @@ class Punch extends Component
 
     public function mount($user)
     {
+        $businessDate = WorkdayBoundary::businessDate(CarbonImmutable::now());
+
         $this->buttonStatus = $this->buttonStatus();
 
         $this->workTimes = $this->getTodayWorkTimes();
         $this->breakTime = $this->getTodayBreakTime();
-        $this->currentDate = Carbon::now()->isoFormat('Y/M/D (ddd)');
+        $this->currentDate = $businessDate->isoFormat('Y/M/D (ddd)');
         $this->currentTime = Carbon::now()->format('H:i');
         $this->rule = Rule::first()?->rule ?? 'remote';
         $this->user = $user;
@@ -77,17 +80,14 @@ class Punch extends Component
 
     public function getTodayWorkTimes()
     {
-        $todayStart = Carbon::today()->startOfDay();
-        $todayEnd = Carbon::today()->endOfDay();
+        $today = WorkdayBoundary::businessDate(CarbonImmutable::now());
+        $todayStart = WorkdayBoundary::startOfDate($today);
+        $todayEnd = WorkdayBoundary::endOfDate($today);
 
         return WorkTime::where('user_id', $this->user->id)
             ->where(function ($query) use ($todayStart, $todayEnd) {
-                $query->whereBetween('in_time', [$todayStart, $todayEnd])
-                    ->orWhereBetween('out_time', [$todayStart, $todayEnd])
-                    ->orWhere(function ($q) use ($todayStart, $todayEnd) {
-                        $q->where('in_time', '<', $todayStart)
-                            ->where('out_time', '>', $todayEnd);
-                    });
+                $query->where('in_time', '<', $todayEnd)
+                    ->where('out_time', '>', $todayStart);
             })
             ->orderBy('in_time', 'asc')
             ->get();

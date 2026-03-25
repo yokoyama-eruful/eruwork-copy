@@ -18,6 +18,7 @@ use Modules\Timecard\Livewire\General\Forms\WorkTimeData;
 use Modules\Timecard\Livewire\General\Forms\WorkTimeForm;
 use Modules\Timecard\Models\BreakTime;
 use Modules\Timecard\Models\WorkTime;
+use Modules\Timecard\Support\WorkdayBoundary;
 
 class Calendar extends Component
 {
@@ -63,7 +64,7 @@ class Calendar extends Component
         $this->selectUserId = (int) Auth::id();
 
         // 1. まず現在の時刻を取得
-        $now = CarbonImmutable::now();
+        $now = WorkdayBoundary::businessDate(CarbonImmutable::now());
 
         // 2. URLパラメータ等で値がセットされていない（未初期化）場合に備え、
         // isset() や property_exists() ではなく、初期値を代入して確実に初期化する
@@ -180,8 +181,12 @@ class Calendar extends Component
 
     public function setWorkTimeList(CarbonImmutable $date): void
     {
+        $start = WorkdayBoundary::startOfDate($date);
+        $end = WorkdayBoundary::endOfDate($date);
+
         $this->workTimeList = WorkTime::where('user_id', $this->selectUserId)
-            ->whereDate('in_time', $date)
+            ->where('in_time', '<', $end)
+            ->where('out_time', '>', $start)
             ->orderBy('in_time', 'asc')
             ->get();
 
@@ -190,10 +195,12 @@ class Calendar extends Component
 
     public function setBreakTimeList(CarbonImmutable $date): void
     {
-        $workTimeIds = $this->workTimeList->pluck('id');
+        $start = WorkdayBoundary::startOfDate($date);
+        $end = WorkdayBoundary::endOfDate($date);
 
         $this->breakTimeList = BreakTime::where('user_id', $this->selectUserId)
-            ->whereIn('timecard__work_time_id', $workTimeIds)
+            ->where('in_time', '<', $end)
+            ->where('out_time', '>', $start)
             ->orderBy('in_time', 'asc')
             ->get();
 
@@ -210,14 +217,16 @@ class Calendar extends Component
         // 勤務データを一度だけ取得してグループ化
         $allWorkTimes = WorkTime::where('user_id', $this->selectUserId)
             ->where(function ($q) use ($periodStart, $periodEnd) {
-                $q->whereBetween('in_time', [$periodStart, $periodEnd])
-                    ->orWhereBetween('out_time', [$periodStart, $periodEnd]);
+                $q->where('in_time', '<', WorkdayBoundary::endOfDate($periodEnd))
+                    ->where('out_time', '>', WorkdayBoundary::startOfDate($periodStart));
             })
             ->with('breakTimes') // リレーション読み込みで N+1 回避
             ->orderBy('in_time', 'asc')
             ->get();
 
-        $workTimesGrouped = $allWorkTimes->groupBy(fn ($work) => $work->in_time->toDateString());
+        $workTimesGrouped = $allWorkTimes->groupBy(
+            fn ($work) => WorkdayBoundary::businessDate($work->in_time)->toDateString()
+        );
         $workTimeIds = $allWorkTimes->pluck('id')->toArray();
 
         // ブレークタイムを一度だけ取得

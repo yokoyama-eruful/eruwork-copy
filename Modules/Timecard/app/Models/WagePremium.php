@@ -18,7 +18,9 @@ class WagePremium extends Model
         // 'fraction',
         'pay_unit',
         'overtime_rate',
+        'overtime_over_60_rate',
         'night_rate',
+        'holiday_rate',
     ];
 
     protected static function newFactory(): BreakTimeFactory
