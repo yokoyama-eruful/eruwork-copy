@@ -42,6 +42,9 @@ class WageCalculationService
         $minutesByWeek = [];
         $monthlyOvertimeMinutes = [];
         $totals = $this->emptyBuckets();
+        $payBuckets = $this->emptyPayBuckets();
+        $thresholds = $this->emptyThresholds();
+        $rowThresholds = [];
         $rows = [];
         $totalPay = '0';
         $overtimeRate = $this->normalizeRate($wagePremium?->overtime_rate);
@@ -67,8 +70,7 @@ class WageCalculationService
             if ($useStatutoryHolidayBucket && $segment['isHoliday']) {
                 $bucket = $segment['isNight'] ? 'holidayNight' : 'holiday';
                 $this->addMinutes($totals, $rows, $segment['workTimeId'], $bucket, $segment['minutes'], $isVisible);
-                $totalPay = $this->addPay(
-                    $totalPay,
+                $amount = $this->calculatePayAmount(
                     $hourlyRates,
                     $startedAt,
                     $segment['minutes'],
@@ -79,22 +81,37 @@ class WageCalculationService
                     $holidayRate,
                     $isVisible
                 );
+                $this->addPay($payBuckets, $bucket, $amount, $isVisible);
+                $totalPay = bcadd($totalPay, $amount, 10);
 
                 continue;
             }
 
-            $regularCapacity = min(
-                max(self::DAILY_LIMIT_MINUTES - ($minutesByDay[$dateKey] ?? 0), 0),
-                max(self::WEEKLY_LIMIT_MINUTES - ($minutesByWeek[$weekKey] ?? 0), 0)
-            );
+            $dailyRemaining = max(self::DAILY_LIMIT_MINUTES - ($minutesByDay[$dateKey] ?? 0), 0);
+            $weeklyRemaining = max(self::WEEKLY_LIMIT_MINUTES - ($minutesByWeek[$weekKey] ?? 0), 0);
+            $regularCapacity = min($dailyRemaining, $weeklyRemaining);
             $regularMinutes = (int) min($segment['minutes'], $regularCapacity);
             $overtimeMinutes = (int) ($segment['minutes'] - $regularMinutes);
+            $weeklyExceededMinutes = (int) min(
+                $overtimeMinutes,
+                max($segment['minutes'] - $weeklyRemaining, 0)
+            );
+
+            if ($weeklyExceededMinutes > 0) {
+                $this->addThresholdMinutes(
+                    $thresholds,
+                    $rowThresholds,
+                    $segment['workTimeId'],
+                    'weeklyOver40',
+                    $weeklyExceededMinutes,
+                    $isVisible
+                );
+            }
 
             if ($regularMinutes > 0) {
                 $bucket = $segment['isNight'] ? 'night' : 'regular';
                 $this->addMinutes($totals, $rows, $segment['workTimeId'], $bucket, $regularMinutes, $isVisible);
-                $totalPay = $this->addPay(
-                    $totalPay,
+                $amount = $this->calculatePayAmount(
                     $hourlyRates,
                     $startedAt,
                     $regularMinutes,
@@ -105,6 +122,8 @@ class WageCalculationService
                     $holidayRate,
                     $isVisible
                 );
+                $this->addPay($payBuckets, $bucket, $amount, $isVisible);
+                $totalPay = bcadd($totalPay, $amount, 10);
             }
 
             if ($overtimeMinutes > 0) {
@@ -118,8 +137,7 @@ class WageCalculationService
                 if ($overtimeUnder60Minutes > 0) {
                     $bucket = $segment['isNight'] ? 'overtimeNight' : 'overtime';
                     $this->addMinutes($totals, $rows, $segment['workTimeId'], $bucket, $overtimeUnder60Minutes, $isVisible);
-                    $totalPay = $this->addPay(
-                        $totalPay,
+                    $amount = $this->calculatePayAmount(
                         $hourlyRates,
                         $startedAt,
                         $overtimeUnder60Minutes,
@@ -130,13 +148,14 @@ class WageCalculationService
                         $holidayRate,
                         $isVisible
                     );
+                    $this->addPay($payBuckets, $bucket, $amount, $isVisible);
+                    $totalPay = bcadd($totalPay, $amount, 10);
                 }
 
                 if ($overtimeOver60Minutes > 0) {
                     $bucket = $segment['isNight'] ? 'overtimeOver60Night' : 'overtimeOver60';
                     $this->addMinutes($totals, $rows, $segment['workTimeId'], $bucket, $overtimeOver60Minutes, $isVisible);
-                    $totalPay = $this->addPay(
-                        $totalPay,
+                    $amount = $this->calculatePayAmount(
                         $hourlyRates,
                         $startedAt,
                         $overtimeOver60Minutes,
@@ -145,6 +164,16 @@ class WageCalculationService
                         $overtimeRate,
                         $overtimeOver60Rate,
                         $holidayRate,
+                        $isVisible
+                    );
+                    $this->addPay($payBuckets, $bucket, $amount, $isVisible);
+                    $totalPay = bcadd($totalPay, $amount, 10);
+                    $this->addThresholdMinutes(
+                        $thresholds,
+                        $rowThresholds,
+                        $segment['workTimeId'],
+                        'monthlyOver60',
+                        $overtimeOver60Minutes,
                         $isVisible
                     );
                 }
@@ -158,6 +187,9 @@ class WageCalculationService
 
         return [
             'minutes' => $totals,
+            'payBuckets' => $payBuckets,
+            'thresholds' => $thresholds,
+            'rowThresholds' => $rowThresholds,
             'rows' => $rows,
             'totalPay' => $this->bcceil($totalPay),
         ];
@@ -290,6 +322,28 @@ class WageCalculationService
         ];
     }
 
+    private function emptyPayBuckets(): array
+    {
+        return [
+            'regular' => '0',
+            'overtime' => '0',
+            'overtimeOver60' => '0',
+            'night' => '0',
+            'overtimeNight' => '0',
+            'overtimeOver60Night' => '0',
+            'holiday' => '0',
+            'holidayNight' => '0',
+        ];
+    }
+
+    private function emptyThresholds(): array
+    {
+        return [
+            'weeklyOver40' => 0,
+            'monthlyOver60' => 0,
+        ];
+    }
+
     private function addMinutes(array &$totals, array &$rows, int $workTimeId, string $bucket, int $minutes, bool $isVisible): void
     {
         if (! $isVisible) {
@@ -301,8 +355,24 @@ class WageCalculationService
         $rows[$workTimeId][$bucket] += $minutes;
     }
 
-    private function addPay(
-        string $currentTotal,
+    private function addThresholdMinutes(
+        array &$thresholds,
+        array &$rowThresholds,
+        int $workTimeId,
+        string $key,
+        int $minutes,
+        bool $isVisible
+    ): void {
+        if (! $isVisible || $minutes <= 0) {
+            return;
+        }
+
+        $thresholds[$key] += $minutes;
+        $rowThresholds[$workTimeId] ??= $this->emptyThresholds();
+        $rowThresholds[$workTimeId][$key] += $minutes;
+    }
+
+    private function calculatePayAmount(
         Collection $hourlyRates,
         CarbonImmutable $date,
         int $minutes,
@@ -314,7 +384,7 @@ class WageCalculationService
         bool $isVisible
     ): string {
         if (! $isVisible || $minutes <= 0) {
-            return $currentTotal;
+            return '0';
         }
 
         $applicableRate = $hourlyRates->first(
@@ -322,7 +392,7 @@ class WageCalculationService
         );
 
         if (! $applicableRate) {
-            return $currentTotal;
+            return '0';
         }
 
         $multiplier = match ($bucket) {
@@ -338,9 +408,17 @@ class WageCalculationService
 
         $minuteWage = bcdiv((string) $applicableRate->rate, '60', 10);
         $amount = bcmul($minuteWage, (string) $minutes, 10);
-        $amount = bcmul($amount, $multiplier, 10);
 
-        return bcadd($currentTotal, $amount, 10);
+        return bcmul($amount, $multiplier, 10);
+    }
+
+    private function addPay(array &$payBuckets, string $bucket, string $amount, bool $isVisible): void
+    {
+        if (! $isVisible || $amount === '0') {
+            return;
+        }
+
+        $payBuckets[$bucket] = bcadd($payBuckets[$bucket], $amount, 10);
     }
 
     private function normalizeRate(null|int|string|float $rate): string

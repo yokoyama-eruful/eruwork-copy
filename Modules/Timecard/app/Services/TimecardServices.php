@@ -37,13 +37,18 @@ class TimecardServices
 
         $rows = [];
         foreach ($workTimeList as $workTime) {
-            $rows[] = $this->buildRow($userId, $workTime, $summary['rows'][$workTime->id] ?? []);
+            $rows[] = $this->buildRow(
+                $userId,
+                $workTime,
+                $summary['rows'][$workTime->id] ?? [],
+                $summary['rowThresholds'][$workTime->id] ?? []
+            );
         }
 
         return $rows;
     }
 
-    private function buildRow(int $userId, WorkTime $workTime, array $classifiedMinutes): array
+    private function buildRow(int $userId, WorkTime $workTime, array $classifiedMinutes, array $thresholds): array
     {
         $workStart = CarbonImmutable::parse($workTime->in_time);
         $workEnd = CarbonImmutable::parse($workTime->out_time);
@@ -61,6 +66,7 @@ class TimecardServices
         $holidayNightMinutes = $classifiedMinutes['holidayNight'] ?? 0;
 
         return [
+            'workTimeId' => $workTime->id,
             'userId' => $userId,
             'attendanceStartDate' => $workStart->format('Y-m-d'),
             'attendanceEndDate' => $workEnd->format('Y-m-d'),
@@ -76,6 +82,8 @@ class TimecardServices
             'holidayLateNightWorkTime' => $this->formatMinutes($holidayNightMinutes),
             'defaultBreakTime' => $this->formatMinutes($breakSummary['default']),
             'lateNightBreakTime' => $this->formatMinutes($breakSummary['lateNight']),
+            'weeklyOver40' => $this->formatThresholdMinutes((int) ($thresholds['weeklyOver40'] ?? 0)),
+            'monthlyOver60' => $this->formatThresholdMinutes((int) ($thresholds['monthlyOver60'] ?? 0)),
         ];
     }
 
@@ -151,5 +159,10 @@ class TimecardServices
         $wholeMinutes = (int) floor($minutes);
 
         return sprintf('%d:%02d', intdiv($wholeMinutes, 60), $wholeMinutes % 60);
+    }
+
+    private function formatThresholdMinutes(int $minutes): string
+    {
+        return $minutes > 0 ? $this->formatMinutes($minutes) : '';
     }
 }
